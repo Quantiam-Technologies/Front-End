@@ -1,0 +1,102 @@
+
+
+/*!
+ * FullCalendar v3.8.1
+ * Docs & License: https://fullcalendar.io/
+ * (c) 2017 Adam Shaw
+ */
+/*!
+ * FullCalendar v3.8.1 Print Stylesheet
+ * Docs & License: https://fullcalendar.io/
+ * (c) 2017 Adam Shaw
+ */
+
+ @media print{
+
+    :host {
+        visibility: visible;
+        
+    }
+
+    .donotprint {
+        display:none !important;
+    }
+
+    ::ng-deep .fc-day-sun {
+        display:none !important;
+    }
+    
+    ::ng-deep .fc-day-sat {
+        display:none !important;
+    }
+
+    * {
+        transition: none !important;
+    }
+
+
+  /*   ::ng-deep @page {
+        size:landscape; margin: 10px 20px;
+    
+    }
+ */
+
+    ::ng-deep #calendar {
+        background-color: white;
+    }
+
+    ::ng-deep .fc-center h2
+    {
+
+        font-size: 40px;
+    }
+
+    ::ng-deep .fc-button-group{
+        display:none;
+    }
+    
+    ::ng-deep .fc-title{
+
+        font-size: 11px;
+        color:black;
+    }
+
+
+    ::ng-deep .fc-daygrid-body
+    {
+        width: 100% !important;
+    }
+
+    ::ng-deep .fc-col-header
+    {
+        width:100% !important;
+    }  
+    
+    ::ng-deep .fc-scrollgrid-sync-table
+    {
+        width:100% !important;
+    }
+    .print {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index:9999999;
+        margin-left: 40px;
+          margin-right: 40px;
+      }
+
+
+      ::ng-deep .fc-day-grid-event{
+          text-decoration: none !important;
+      }
+
+    
+
+      
+
+
+
+   
+   }

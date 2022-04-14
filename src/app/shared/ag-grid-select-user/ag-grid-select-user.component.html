@@ -1,0 +1,9 @@
+<div class="background" (keydown)="onKeyDown($event)">
+    <app-select-user
+        #userEditor 
+        (change)="selectValue($event)"
+        [placeholder]="previousValue?.name"
+        appendTo=""
+    ></app-select-user>
+  
+  </div>

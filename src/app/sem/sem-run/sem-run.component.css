@@ -1,0 +1,22 @@
+.image_label {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: relative;
+    top: -40px;
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+
+.active-image{
+
+    border: 2px solid #dadada;
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 5px #9ecaed;
+}
+
+small{
+
+    font-size: 100%;
+}

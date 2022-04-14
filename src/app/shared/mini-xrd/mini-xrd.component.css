@@ -1,0 +1,7 @@
+::ng-deep .highcharts-grid-line{
+    stroke: #e6e6e600 !important;
+}
+::ng-deep .highcharts-background{
+
+    fill: transparent !important;
+}

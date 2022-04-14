@@ -1,0 +1,72 @@
+<ng-select style="min-width: 120px;" [items]="itemsBuffer" 
+[loading]="loading" 
+[multiple]="multiple"
+[placeholder]="placeholder" 
+[hideSelected]="true" 
+[virtualScroll]="true" 
+appendTo="body" (change)="onChange($event)" 
+(add)="onAdd($event)" (remove)="onRemove($event)" 
+(scrollToEnd)="onScrollToEnd()"
+ (clear)="onClear($event)" (open)="onOpen()" [(ngModel)]="selectedValue" [typeahead]="input$">
+    <!-- scroll-host & scrollable-content  [searchFn]="customSearchFn" 
+(scroll)="onScroll($event)" -->
+
+    <ng-template ng-label-tmp let-item="item">
+        <small> {{item.id}} </small> <b>{{item.name}}</b> {{item.grade}} {{item.supplier.supplier_name}}
+    </ng-template>
+
+    <ng-template ng-header-tmp>
+        <small class="form-text text-muted">Loaded {{itemsBuffer.length}} of {{totalResults}}</small>
+    </ng-template>
+
+
+    <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm" >
+        <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" style="height:50px;">
+            <div fxLayout="row" class="dropdown-options" fxLayoutAlign="start center" fxFlex style="margin:2px;">
+
+
+                <div style="width:35px; font-size: 10px;">{{item.id}}</div>
+
+                <div style="width:300px; font-size: 13px; margin-right:5px;" [ngOptionHighlight]="search" fxLayout="column">
+                    <b>{{ (item.name.length>30)? (item.name | slice:0:30)+'...':(item.name)}}</b>
+                    <div>
+                      <small style="font-size: 11px;">{{item.grade}}</small>
+                      <small *ngIf="item.purity" style="font-size: 11px; margin-right:5px; margin-left:5px;">{{item.purity}}%,</small>
+                      <small style="font-size: 11px; margin-right:10px; margin-left:5px;">{{item.particle_size}}</small>
+                  </div>
+                </div>
+                
+                <div style="width:120px; font-size: 11px; font-weight:500; margin-right:5px;">
+                  {{item.supplier.supplier_name}}
+                </div>
+                <div  style="width:200px;">
+                    <div *ngIf="item.active_containers[0]" fxLayout="row" fxLayoutAlign="start start">
+                        <span *ngFor="let container of item.active_containers; let i = index" fxLayout="row" fxLayoutAlign="start center">
+                            <small *ngIf="container.qcid && i <= 4">
+                                <span *ngIf="i === 0"> QCID -</span>
+                                {{container.qcid}}
+                                <span *ngIf="item.active_containers.length-1 > i">,</span>
+                            </small>
+                        </span>
+                    </div>
+                </div>
+                <!--   <div style="width:80px; font-size: 10px">
+      {{item.cas}}
+    </div</div>>
+ -->
+
+
+            </div>
+            <!-- <div>
+    <a *ngIf="item.active" mat-button  color="primary"   > Active </a>
+    <a *ngIf="!item.active" mat-button  color="warn"   > Inactive </a>
+  </div> -->
+        </div>
+
+
+
+
+    </ng-template>
+
+
+</ng-select>

@@ -1,0 +1,13 @@
+<div class="background" fxLayout="row" (keydown)="onKeyDown($event)" fxLayoutAlign="center center" fxLayoutGap="10px">
+  
+  <mat-form-field style="width:100px;">
+    <input matInput  name="duration_hours" placeholder="Hours" [(ngModel)]="hours"  type="number" max='23' min=0>
+  </mat-form-field>
+
+  <mat-form-field  style="width:100px;">
+    <input  matInput #durationMinutes name="duration_minutes" placeholder="Minutes" [(ngModel)]="minutes"  type="number" max='59' min=0   >
+  </mat-form-field>
+ 
+
+</div>
+

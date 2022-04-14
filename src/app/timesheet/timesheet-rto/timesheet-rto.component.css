@@ -1,0 +1,35 @@
+::ng-deep .rtoDatabaseTable thead tr th
+{
+    border-bottom: 1px solid rgba(189, 193, 193, 0.2);
+    padding: 0px 5px 0px 5px;
+    color: rgb(136, 136, 136);
+}
+
+::ng-deep .rtoDatabaseTable tbody tr {
+
+    text-align: center;
+    line-height: 20px;
+}
+
+::ng-deep .ag-theme-balham .ag-cell {
+    line-height: 22px;
+    /* padding:10px; */
+}
+
+::ng-deep .btn-warning
+{
+    color:white;
+
+}
+
+::ng-deep .btn
+{
+    margin-top:7px;
+
+}
+
+::ng-deep .padding
+{
+    margin-top:5px;
+
+}

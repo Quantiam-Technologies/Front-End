@@ -1,0 +1,41 @@
+
+
+        <!-- <app-select-user 
+        
+            width="200px"
+            
+        
+        ></app-select-user>  -->
+
+        <nav mat-tab-nav-bar>
+        
+            <a mat-tab-link  
+             [routerLink]="['/timesheet', this.currentTimesheet.userId, 'year',this.currentTimesheet.year, 'payperiod', this.currentTimesheet.payperiod]"
+             routerLinkActive="mat-tab-link-active"> Timesheet </a>
+             <a mat-tab-link  [routerLink]="['/timesheet', this.currentTimesheet.userId, 'bank-history', 'vacation']"
+            routerLinkActive="mat-tab-link-active"> Bank History </a>
+         
+            <a mat-tab-link  routerLink="calendar" routerLinkActive="mat-tab-link-active"> Calendar </a>
+            <a mat-tab-link  routerLink="rto/database" routerLinkActive="mat-tab-link-active"> RTO </a>
+           <!--   <a mat-tab-link *ngIf="currentTimesheet.requestId.length > 0" [routerLink]="['/timesheet/rto', this.currentTimesheet.requestId]"
+                 routerLinkActive="mat-tab-link-active"> RTO - {{this.currentTimesheet.requestId}} </a> -->
+            <a mat-tab-link  routerLink="insights" routerLinkActive="mat-tab-link-active"> Insights </a>
+            <a mat-tab-link  [routerLink]="['/timesheet', this.currentTimesheet.userId, 'log']"
+            routerLinkActive="mat-tab-link-active"> Log  </a>
+            
+            <a mat-tab-link *ngIf="userService.hasPermission([24,25,37])" routerLink="settings" routerLinkActive="mat-tab-link-active">   Settings </a>
+            <!-- <a mat-tab-link *ngIf="userService.hasPermission(24)" routerLink="project" routerLinkActive="mat-tab-link-active"> Project </a>
+            <a mat-tab-link *ngIf="userService.hasPermission(25)" routerLink="holiday" routerLinkActive="mat-tab-link-active"> Holidays </a>
+            <a mat-tab-link *ngIf="userService.hasPermission(37)" routerLink="rto/allocation" routerLinkActive="mat-tab-link-active"> RTO Allocation </a> -->
+            <a mat-tab-link *ngIf="userService.hasPermission(35)" routerLink="report" routerLinkActive="mat-tab-link-active"> Reports </a>
+           
+            
+            
+            
+        
+        </nav>
+            
+        <div class="tab-content">
+            <router-outlet ></router-outlet>
+        </div>
+            

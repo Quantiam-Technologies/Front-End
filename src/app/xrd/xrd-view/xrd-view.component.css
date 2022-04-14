@@ -1,0 +1,16 @@
+::ng-deep .highcharts-grid-line{
+    stroke: #e6e6e600 !important;
+}
+::ng-deep .highcharts-background{
+
+    fill: transparent !important;
+}
+
+::ng-deep .mat-card{
+
+    padding-bottom: 0px !important;
+    margin-top: 1px;
+    margin-left: 1px;
+    margin-right: 1px;
+    margin-bottom: 10px;
+}

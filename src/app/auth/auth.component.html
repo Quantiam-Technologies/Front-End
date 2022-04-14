@@ -1,0 +1,33 @@
+
+
+
+<div class="docs-example-viewer-wrapper" id="auth_screen">
+  <div class="docs-example-viewer-title">
+    <div class="docs-example-viewer-title-spacer">Authentication</div>
+	
+  </div>
+
+
+	<form (submit)="login(username.value,password.value,{})"  class="auth-form-content">
+	  <mat-form-field >
+		<input [disabled]="loginHappening" matInput placeholder="Quantiam Username" #username>
+	  </mat-form-field>
+
+	  <mat-form-field>
+		  <input [disabled]="loginHappening" matInput placeholder="Quantiam Password" [type]="hidePassword ? 'password' : 'text'" #password>
+		  <mat-icon style="cursor:pointer;" matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+	  </mat-form-field>
+		<input  type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+		<div fxLayout="row" fxLayoutAlign="end center">
+
+			<button mat-button> Login </button>
+		</div>
+	</form>
+
+
+ <!--  <mat-form-field>
+    <mat-select placeholder="Select">
+      <mat-option value="option">Option</mat-option>
+    </mat-select>
+  </mat-form-field> -->
+</div>

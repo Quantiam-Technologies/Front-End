@@ -1,0 +1,110 @@
+::ng-deep #auth_screen .mat-form-field-infix{
+
+  font-size:1.1rem;
+}
+
+::ng-deep #auth_screen .mat-form-field-label-wrapper{
+
+  font-size: 1.0rem;
+
+}
+
+
+:host{
+	height:98vh;
+  width:100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  	background: #ffffff;
+    background-image: url(/assets/img/content-background.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+	background-position: center;
+	background-size: 50%;
+}
+
+.auth-container{
+ 
+  display: flex;
+  flex-direction: column;
+  
+  width:300px;
+	
+}
+
+.auth-container > * {
+  width: 100%;
+}
+
+/* :host {
+  display: block;
+  padding: 20px 0;
+} */
+
+
+.auth-form-content
+{
+	margin-top:10px;
+	margin-bottom: 10px;
+	padding:8px 20px;
+	width: 100%;
+	
+}
+
+.auth-form-content mat-form-field
+{
+	width:100%;
+}
+
+.docs-example-viewer-wrapper {
+	top: 50px;
+	position: fixed;
+	flex-direction: column;  
+	width:500px;
+    box-shadow: 0 2px 2px rgba(0,0,0,.24), 0 0 2px rgba(0,0,0,.12);
+   
+}
+
+.docs-example-viewer-wrapper > * {
+  width: auto;
+}
+
+
+.docs-example-viewer-title {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 8px 4px;
+  font-size: 20px;
+  color: whitesmoke;
+  background: #39597a;
+  
+}
+
+.docs-example-viewer-title-spacer {
+  flex: 1 1 auto;
+  margin-left:10px;
+}
+
+.docs-example-source-copy {
+  position: absolute;
+  top: 8px;
+  display: none;
+}
+
+.docs-example-source-wrapper:hover {
+  
+    display: inline-block;
+ 
+}
+
+.docs-example-source {
+  padding: 0 30px 10px 30px;
+  min-height: 150px;
+}
+
+.docs-example-viewer-body {
+  padding: 30px;
+}

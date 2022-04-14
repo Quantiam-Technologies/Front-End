@@ -1,0 +1,42 @@
+<div fxLayoutGap="12px">
+    <button *ngIf="params.data.lot.material.sds" mat-raised-button class="mat-small" matTooltip="SDS Document" (click)="fetchSDS(params.data.lot.material.id)">
+        <fa-icon [icon]="faFilePdf"> </fa-icon>
+    </button>
+
+    <button *ngIf="!params.data.lot.material.sds" mat-raised-button class="mat-small" matTooltip="Missing SDS" style="background-color: red; color:white;" >
+        <fa-icon [icon]="faFilePdf"> </fa-icon>
+    </button>
+
+    <button *ngIf="params.data.sem_runs[0]"   [matBadge]="params.data.sem_runs.length" [matMenuTriggerFor]="semMenu" mat-raised-button class="mat-small" matTooltip="Related SEM Analysis">
+        <fa-icon [icon]="faMicroscope"></fa-icon>
+    </button>
+
+    <button *ngIf="params.data.xrd_runs[0]"   [matBadge]="params.data.xrd_runs.length"  [matMenuTriggerFor]="xrdMenu" mat-raised-button class="mat-small" matTooltip="Related XRD Analysis">
+        <fa-icon [icon]="faXRay"></fa-icon>
+    </button>
+
+    <button *ngIf="params.data.particle_size[0]"   [matBadge]="params.data.particle_size.length"  mat-raised-button [matMenuTriggerFor]="particleMenu" class="mat-small" matTooltip="Related Particle Size Analysis">
+        <fa-icon [icon]="faBraille"></fa-icon>
+    </button>
+
+
+
+    <!--- Menus -->
+    <mat-menu #semMenu="matMenu">
+        <button *ngFor="let semrun of params.data.sem_runs" mat-menu-item (click)="goToSem(semrun.semrun_id)"> <b> {{semrun.semrun_id}} </b> - {{semrun.samplename}} </button> 
+    </mat-menu>	
+
+    <mat-menu #xrdMenu="matMenu">
+        <div *ngFor="let xrdrun of params.data.xrd_runs" >
+            <button *ngFor="let analysis of xrdrun.xrd_analysis"  mat-menu-item  (click)="goToXrd(analysis.id)" >  <b>{{xrdrun.name}} </b> - {{analysis.name}} </button> 
+        </div>
+        
+    </mat-menu>	
+
+    <mat-menu #particleMenu="matMenu">
+        <button *ngFor="let particlerun of params.data.particle_size" mat-menu-item (click)="goToParticleSizer(particlerun.id)" > <b> {{particlerun.id}} </b> </button> 
+    
+    </mat-menu>
+
+</div>
+

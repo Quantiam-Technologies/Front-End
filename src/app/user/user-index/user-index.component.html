@@ -1,0 +1,16 @@
+<nav mat-tab-nav-bar>
+			<!-- <a mat-tab-link routerLink="database" routerLinkActive="mat-tab-link-active"> Materials </a>-->
+			
+			<a mat-tab-link  routerLink="database" routerLinkActive="mat-tab-link-active"> User Database </a>	
+			
+			<a mat-tab-link *ngIf="selectedUser" [routerLink]="['/user',selectedUser.id]" routerLinkActive="mat-tab-link-active"> 
+				{{selectedUser.name}}
+			</a> 
+			
+			
+		</nav>
+			
+<div class="tab-content">
+		<router-outlet ></router-outlet>
+</div>
+		   

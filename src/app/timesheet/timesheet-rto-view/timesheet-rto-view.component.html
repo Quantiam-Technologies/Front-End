@@ -1,0 +1,343 @@
+<div *ngIf="!rto?.user.id" fxLayout="row" fxLayoutAlign="center center">
+
+    <h3> This RTO does not exist. </h3>
+
+</div>
+
+<div fxLayout="column" fxLayoutGap="10px" *ngIf="rto?.user.id">
+    <div fxLayout="row" fxFlex>
+
+        <div class="status-bar-pending" *ngIf="rto?.status === 'pending'" fxFlex>PENDING</div>
+        <div class="status-bar-approved" *ngIf="rto?.status === 'approved'" fxFlex>APPROVED</div>
+        <div class="status-bar-denied" *ngIf="rto?.status === 'denied'" fxFlex>DENIED</div>
+
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="20px" fxFlex style="font-size: 1.25em;" *ngIf="rto?.user">
+
+        <div fxLayout="column" fxFlex.gt-md=50 fxLayoutGap="20px">
+
+
+
+            <!-- <div fxLayout="row" (mouseenter)="showSelectBox = true;" (mouseleave)="showSelectBox = false;">
+
+
+              
+
+                <app-select-user [placeholder]="rto?.user.name" [hidden]="!showSelectBox" (change)="selectedUserChanged($event)" [selectedValue]="rto?.user.id"></app-select-user>
+            </div> -->
+
+            <mat-card id="requested_time_card">
+                <mat-card-header>
+
+                    <mat-card-title>
+
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <div >{{rto?.user.name}} </div>
+                            <div fxFlex fxLayoutAlign="center center" style="height:35px;"> <small>RTO {{rto.requestID}}</small> </div>
+                            <div fxLayout="row">
+                                <button [disabled]="rto?.status === 'approved'" mat-icon-button color="primary" class="clickable" (click)="showTimeOffRequestForm = !showTimeOffRequestForm">
+                                    <mat-icon  matTooltip="Create time off requests">create</mat-icon>
+                                </button>
+                                <button [disabled]="rto?.status === 'approved'" mat-icon-button color="warn" class="clickable" (click)="deleteRTO()">
+                                    <mat-icon   matTooltip="Delete this entire RTO.">delete</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </mat-card-title>
+                    <mat-card-subtitle> Is asking for the following time off. </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+
+                    <table class="table table-striped table-hover dataTable" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Date of Absence</th>
+                                <th>Duration</th>
+                                <th>Type</th>
+                                <th>Updated</th>
+                                <th>Conflicts</th>
+                                <th aria-hidden="false"  *ngIf="rto?.status === 'pending'"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr class="ng-scope" *ngFor="let timeRequest of rto?.requested_time">
+                                <td>{{timeRequest.date | date:'fullDate'}}</td>
+
+                                <td><p>{{timeRequest.hours}} Hours </p>
+                                    <small *ngIf="timeRequest.start_hour" fxLayout="row" fxLayoutGap="5px">
+                                        <div>{{timeRequest.start_hour}}</div>
+                                        <div *ngIf="timeRequest.start_hour && timeRequest.end_hour">
+
+                                          to {{timeRequest.end_hour}}
+
+                                        </div>
+
+                                    </small>
+
+                                </td>
+                                <td>{{timeRequest.type | titlecase}}</td>
+                                <td>{{timeRequest.updated}}</td>
+                                <td>
+                                    
+                                
+                                <ng-template #popContent>
+                                    <table class="table">
+                                        <tbody>
+                                            <tr *ngFor="let absence of existingAbsences[timeRequest.date]">
+                                                <td>{{absence.firstname}} {{absence.lastname.charAt(0)}}</td>
+                                                <td>{{absence.hours}} Hours</td>
+                                                <td *ngIf="absence.start_hour"> {{absence.start_hour}} <span ngif="absence.end_hour">to {{absence.end_hour}}</span> </td>
+                                                <td *ngIf="!absence.start_hour">  </td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </ng-template>    
+                                <button 
+                                [hidden]="!timeRequest?.conflicts"
+                                type="button"
+                                mat-raised-button 
+                                class="mat-small"
+                                color="accent"
+                                placement="right" 
+                                [ngbPopover]="popContent" 
+                                popoverTitle="Conflicts Identified">
+                                        {{timeRequest.conflicts}} Conflict(s)
+                                      </button>
+
+                                      <button mat-button color="success" [hidden]="timeRequest?.conflicts"> None </button>
+                                </td>
+                                <td style="text-align: center;"  *ngIf="rto?.status === 'pending'">
+                                    <button mat-icon-button color="warn" class="clickable" (click)="deleteTimeRequest(timeRequest)">
+                                        <mat-icon aria-label="Delete this.">delete</mat-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr *ngIf="!rto.requested_time[0]">
+                                <td colspan="6" style="text-align: center" class="clickable" (click)="showTimeOffRequestForm = true"> Click to request time off. </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </mat-card-content>
+
+            </mat-card>
+            <div *ngIf="showTimeOffRequestForm">
+
+                <mat-card id="requested_time_card">
+                    <mat-card-header>
+
+                        <mat-card-title fxLayout="row" fxFlex>
+
+                                <div fxFlex>  Create Time Request </div>
+                            
+                               
+
+                                <div fxFlex fxLayoutAlign="end start" font-size="11px;">
+
+                                        <mat-icon  class="clickable" (click)="showTimeOffRequestForm = false">close</mat-icon>
+
+                                </div>
+                               
+                        </mat-card-title>
+                        <!-- <mat-card-subtitle> Add all of your unique requests here. </mat-card-subtitle> -->
+                    </mat-card-header>
+                    <mat-card-content style="margin-bottom:0px;">
+                        <form fxLayout="row" fxLayoutGap="10px">
+
+                            <mat-form-field fxFlex=20>
+                                <input (blur)="resetStartHourAndEndHour()" matInput [(ngModel)]="requestTime.date" name="date" [matDatepicker]="datePicker" placeholder="Date" >
+                                <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #datePicker></mat-datepicker>
+                            </mat-form-field>
+                            <mat-form-field fxFlex=15>
+                                <input (blur)="resetStartHourAndEndHour()" [(ngModel)]="requestTime.hours" name="hours" matInput placeholder="Hours" type="number" step="0.5" min="-8" max="8">
+                            </mat-form-field>
+                            <mat-form-field fxFlex=15>
+                                <mat-select (selectionChange)="resetStartHourAndEndHour()" [(ngModel)]="requestTime.type" name="type" placeholder="Type" matNativeControl>
+
+                                    <mat-option value="pto"> PTO </mat-option>
+                                    <mat-option value="vacation"> Vacation </mat-option>
+                                    <mat-option value="unpaid"> Unpaid </mat-option>
+                                    <mat-option value="cto"> CTO </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <div *ngIf="requestTime.hours < 8 && requestTime.type" fxLayoutGap="10px" fxLayout="row" fxFlex=50>
+
+                                <mat-form-field>
+                                    <input type="text" matInput name="start_hour" [(ngModel)]="requestTime.start_hour" [matAutocomplete]="auto" placeholder="Start Hour">
+                                </mat-form-field>
+
+                                <mat-autocomplete #auto="matAutocomplete">
+                                    <mat-option *ngFor="let option of timeOptions" [value]="option">{{option}}</mat-option>
+                                </mat-autocomplete>
+
+                                <mat-form-field>
+                                    <input type="text" matInput name="end_hour" [(ngModel)]="requestTime.end_hour" [matAutocomplete]="auto" placeholder="End Hour">
+                                </mat-form-field>
+
+
+                            </div>
+
+                        </form>
+
+                    </mat-card-content>
+                    <mat-card-actions fxLayout="row" >
+
+                            <ngb-alert type="info" [dismissible]="false" style="margin-top:7px; margin-bottom:0px;">
+                                    <b> RTO Policy Location: </b>
+                                    <a style="margin-left:10px;" target="_blank" href="Q:\Administration - All Staff\HR and EH&S INFORMATION\POLICIES AND PROCEDURES\HR POLICIES\HRD-0003 Paid Leave BV and PTO">
+                                        {{ (policyFolderPath.length>6)? (policyFolderPath | slice:0:50)+'...':(policyFolderPath)}}
+                                    </a>
+                                </ngb-alert>
+        
+
+                        <div fxLayout="row" fxLayoutAlign="end center" fxFlex>
+                            <button [disabled]="!requestTime.hours || !requestTime.date || !requestTime.type"
+                             mat-raised-button color="primary" (click)="createTimeRequest()"> Add Request </button>
+                        </div>
+
+
+                    </mat-card-actions>
+                </mat-card>
+
+            </div>
+
+        </div>
+
+        <div fxLayout="column" id="right-column" fxFlex fxFlex.gt-md=50 fxGrow="0" fxLayoutGap="20px">
+
+            <div fxLayout="row" fxLayoutAlign="end start">
+                <mat-card id="approval_card" fxFlex=60>
+                    <mat-card-header>
+
+                   
+                        <mat-card-title>
+                            <div fxLayout="row" fxFlex fxLayoutGap="10px">
+                                <span *ngIf="rto?.approvals[0]" >Approvals</span>
+                                <span *ngIf="!rto?.approvals[0]" >Notification</span>
+
+                                <div fxLayout="row" fxLayoutAlign="end start"  fxFlex fxLayoutGap="10px" *ngIf="canApprove && rto?.status === 'pending'">
+                                    <button mat-button color="success" class="mat-small"(click)="checkApproval()"> Approve </button>    
+                                    <button mat-button color="warn" class="mat-small" (click)="denyApproval()"> Deny </button>    
+                                </div>
+                            </div>
+                            </mat-card-title>
+                      
+                        <mat-card-subtitle *ngIf="!rto?.approvals[0]">
+                        Notify reviewers to approve this request.  </mat-card-subtitle> 
+                    </mat-card-header>
+                    <mat-card-content>
+
+                      
+                        <div fxLayout="row" *ngIf="!rto?.approvals[0]" fxLayoutGap="10px" fxLayoutAlign="center center">
+
+                            <mat-form-field >
+                                <mat-select name="type" placeholder="Supervisor" matNativeControl [(ngModel)]="selectedSupervisorToNotifyId" style="min-width: 200px;">
+                                    <mat-option></mat-option>
+                                    <mat-option value="pto" *ngFor="let supervisor of rto?.user.rtoadmin" [value]="supervisor.employeeid"> {{supervisor.firstname}} {{supervisor.lastname}} </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <div>
+                            <button [disabled]="!selectedSupervisorToNotifyId" mat-raised-button color="primary" (click)="notifySupervisor()"> Notify </button>
+                          </div>
+
+                        </div>
+
+
+                        <table class="table" cellspacing="0" width="100%" *ngIf="rto?.approvals[0]">
+                            <thead>
+                                <tr>
+                                    <th>Supervisor</th>
+                                    <th>Approval</th>
+                                    <th>Date</th>
+                                    <th aria-hidden="false">Remove</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr class="ng-scope" *ngFor="let approval of rto?.approvals">
+                                    <td>{{approval.name}}</td>
+                                    <td *ngIf="approval.approval === 'approved'"><button mat-raised-button class="mat-small" color="success">{{approval.approval | titlecase}}</button></td>
+                                    <td *ngIf="approval.approval !== 'approved'"><button mat-raised-button class="mat-small" color="warn">{{approval.approval | titlecase}}</button></td>
+                                    <td>{{approval.created}}</td>
+                                    <td style="text-align: center;">
+                                        <button mat-icon-button color="warn" class="clickable" [disabled]="approval.employeeID !== userService.get('id')"  (click)="deleteApproval(approval)">
+                                            <mat-icon aria-label="Example icon-button with a heart icon" >delete</mat-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                               
+
+                            </tbody>
+                        </table>
+                    </mat-card-content>
+
+                </mat-card>
+
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="end start" *ngIf="rtoBank">
+                    <mat-card id="approval_card"  >
+                        <mat-card-header>
+                                <mat-card-title fxLayout="row" fxFlex> Rto Bank Impact</mat-card-title>
+                            
+                         
+                        </mat-card-header>
+                        <mat-card-content>
+
+                                <table class="table table-striped table-hover dataTable" cellspacing="0" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Type</th>
+                                                <th>Current</th>
+                                                <th>Impact</th>
+                                                <th>Result</th>
+                                              
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><b>PTO</b></td>
+                                                <td>{{rtoBank.remaining.pto }}</td>
+                                                <td><span *ngIf="typeTotals.pto != 0" [style.color]="typeTotals.pto < 0 ? 'red' : 'green'">{{typeTotals.pto}}</span></td>
+                                                <td><span *ngIf="typeTotals.pto != 0" [style.color]="(rtoBank.remaining.pto + typeTotals.pto) < 0 ? 'red' : ''">{{(rtoBank.remaining.pto + typeTotals.pto).toFixed(2) }}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>Vacation</b></td>
+                                                <td>{{rtoBank.remaining.vacation }}</td>
+                                                <td><span *ngIf="typeTotals.vacation != 0" [style.color]="typeTotals.vacation < 0 ? 'red' : 'green'">{{typeTotals.vacation}}</span></td>
+                                                <td><span *ngIf="typeTotals.vacation != 0" [style.color]="(rtoBank.remaining.vacation + typeTotals.vacation) < 0 ? 'red' : ''">{{(rtoBank.remaining.vacation + typeTotals.vacation).toFixed(2) }}</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td><b>CTO</b></td>
+                                                <td>{{rtoBank.remaining.cto }}</td>
+                                                <td> <span *ngIf="typeTotals.cto != 0" [style.color]="typeTotals.cto < 0 ? 'red' : 'green'">{{typeTotals.cto}}</span></td>
+                                                <td><span *ngIf="typeTotals.cto != 0" [style.color]="(rtoBank.remaining.cto + typeTotals.cto) < 0 ? 'red' : ''">{{(rtoBank.remaining.cto + typeTotals.cto).toFixed(2) }}</span></td>
+                                            </tr>
+                                        </tbody>
+                                </table>
+    
+                          
+                       
+                        </mat-card-content>
+    
+                    </mat-card>
+    
+                </div>
+        </div>
+
+
+
+       
+
+    </div>
+
+
+    <app-comments [commentArray]="rto.comments" [identifier]="rto.identifier"></app-comments>
+</div>
+<!--   [allOptions]="userService.hasPermission([43,1])" -->

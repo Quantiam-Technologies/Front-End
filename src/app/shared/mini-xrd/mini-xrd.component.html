@@ -1,0 +1,11 @@
+
+<div fxFlex>
+    <highcharts-chart fxFlex
+    *ngIf="xrdAnalyses"        
+    [Highcharts]="Highcharts"
+    [options]="HighchartOptions"
+    [(update)]="updateFlag" 
+    [oneToOne]="oneToOneFlag"
+    style="height:300px; width:100%;"
+    ></highcharts-chart>
+</div>

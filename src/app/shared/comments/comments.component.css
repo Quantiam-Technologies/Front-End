@@ -1,0 +1,17 @@
+::ng-deep h6{
+    margin-bottom: 0px;
+    margin-left: 5px;
+
+
+}
+
+.person-icon{
+    font-size: 2.5rem;
+    height: 3.00rem;
+     width: 3.00rem;
+     
+}
+
+.comment-wrapper{
+    margin-bottom:5px;
+}

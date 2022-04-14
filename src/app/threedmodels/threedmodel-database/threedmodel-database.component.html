@@ -1,0 +1,68 @@
+
+<div fxLayout="row" fxLayoutAlign="center center">
+
+
+<div fxLayout="column" fxFlex=60>
+    <div fxLayoutGap="10px" fxFlex> 
+
+        <div fxLayoutAlign="start center">
+            <mat-checkbox style="margin-left:15px" (change)="toggleQuantiamDrawings()" [checked]="quantiamDrawingsToggle">Quantiam</mat-checkbox>
+
+        </div>
+       
+        <div fxFlex fxLayoutAlign="end start">
+            <mat-form-field style="width:300px">
+                <!--   <span matPrefix>+1 &nbsp;</span> -->
+                <input id="3dmodelSearchbar" type="text" matInput (keyup)="searchContentsOfAllProjects($event)"  [(ngModel)]="filteredTextFilterName"  placeholder="Search">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>  
+
+        </div>
+
+        
+
+           
+               
+           
+
+
+    </div>
+    <div fxLayout="column" fxLayoutGap=10px fxFlex>
+
+
+        <ag-grid-angular
+
+                 style="height:calc(60vh); margin-top:10px;" 
+                 class="ag-theme-balham"
+                [rowData]="searchResults$ | async"
+                [columnDefs]="columnDefs"                
+                [modules]="modules"
+                [animateRows]="true"
+                [masterDetail]="true"
+                [defaultColDef]="defaultColDef"                
+                [detailCellRendererParams]="detailCellRendererParams"
+                (rowClicked)="onRowClicked($event)"
+                (gridReady)="onGridReady($event)"
+                >
+        </ag-grid-angular>
+       <!--  <table class='table'>
+            <thead>
+                <tr>
+                    <th>Name </th>
+                    <th>User </th>
+                    <th>Version </th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr (click)="fetch(result.relationships.refs.links.related.href)" class="search-result" *ngFor="let result of (searchResults$ | async)">
+
+                    <td> {{result.attributes.displayName}} </td>
+                    <td> {{result.attributes.createUserName}} </td>
+                    <td> {{result.attributes.extension.version}} </td>
+
+                </tr>
+            </tbody>
+         </table> -->
+    </div>
+</div>
+</div>

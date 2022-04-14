@@ -1,0 +1,808 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("app/themes/angular-material-quantiam.css");
+
+/*  */
+
+/* Style Overwrites  */
+
+
+.mat-form-field-infix {
+	width: 100% !important;
+	min-width: 100px !important;
+}
+
+.mat-select-panel {
+    min-width: 112px;
+    max-width: 280px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 0;
+    padding-bottom: 0;
+    max-height: 256px;
+    min-width: 100%;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #dcdcdc4d;
+}
+
+body {
+
+	font-size: 0.8rem;
+}
+small{
+
+	font-size: 60%;
+    font-weight: 400;
+    color: #909090;
+}
+
+.padding{
+	padding: 10px;
+}
+
+/* Ag Grid Overwrites */
+
+.ag-theme-material .ag-header-cell, .ag-theme-material .ag-header-group-cell{
+
+padding-left:12px !important;
+padding-right:12px !important;
+
+}
+
+.ag-header-icon{
+	color:white !important;
+	cursor: pointer;
+}
+
+.ag-theme-material .ag-cell {
+
+	padding-left:12px !important;
+	padding-right:12px !important;
+
+}
+
+.ag-theme-material .ag-row {
+
+	border-color: #ffffff;
+}
+
+
+.ag-theme-material .ag-ltr .ag-row-group-leaf-indent{
+
+    margin-left: 0px !important;
+}
+
+.ag-theme-material .ag-ltr .ag-row-group-indent-1{
+
+    padding-left: 0px !important;
+}
+
+
+/* ag-grid Balham overwrites */
+
+.ag-theme-balham .ag-header{
+background-color: #3c658a;
+}
+
+.ag-theme-balham .ag-header-cell-text{
+
+	color: rgb(255, 255, 255);
+}
+
+.ag-theme-balham .ag-root {
+    border: 1px solid #BDC3C7;
+    border-radius: 10px;
+}
+
+.ag-theme-balham .ag-root-wrapper {
+     border: solid 0px #bdc3c7; 
+    border-radius: 2px;
+}
+
+.ag-theme-balham .ag-side-bar {
+    background-color: #f5f7f7;
+	 border-right: 0px solid #BDC3C7;
+     border-top: 0px solid #BDC3C7; 
+    position: relative;
+}
+
+.ag-theme-balham .ag-status-bar {
+    
+     border: 0px solid #BDC3C7; 
+   
+}
+
+.ag-theme-balham .ag-paging-panel {
+    align-items: center;
+	border-top: 0px solid #BDC3C7;
+}
+
+/* Hands on table overwrite */
+
+.handsontable th {
+    background-color: #325c80;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Angular Fixes */
+
+[hidden] {
+	display: none !important;
+  }
+
+  .mat-expansion-panel{
+
+		box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+	}
+
+	.mat-select-panel
+	{
+		background-color: white;
+
+	}
+
+
+	.mat-menu-panel{
+
+		max-width: 500px !important;
+	}
+
+	
+
+/**  STYLE 4 */
+
+.tab-content::-webkit-scrollbar {
+	width: 5px;
+    background: rgb(52, 89, 122);
+    border-radius: 20px; 
+	 cursor:pointer !important;
+} 
+
+.tab-content::-webkit-scrollbar-thumb {
+	background-color: rgb(52, 89, 122);
+    border: 2px solid #555555;
+    border-radius: 20px;
+	cursor:pointer !important;
+
+}
+
+.tab-content::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+    border-radius: 20px;
+	cursor:pointer !important;
+
+}
+
+.tab-content
+{
+	position: relative;
+    z-index: 1;
+    height: calc(100% - 50px);
+    padding: 0px 25px 0px 20px;
+	margin-top: 10px;
+	display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+.mat-input-element:disabled {
+	color: rgb(70 103 134) !important;
+}
+
+textarea.mat-input-element {
+    /* padding: 10px 0px 5px 0px !important; */
+    margin: -2px 0;
+}
+
+.mat-form-field {
+    margin-top: 5px;
+}
+
+.mat-tab-label{
+
+	min-width: 100px !important;
+}
+
+.mat-tab-link
+{
+	height: 35px !important;
+    padding: 0 12px !important;
+    min-width: 100px !important;
+	font-size: 13px !important;
+	margin-right: 5px !important;
+	/* border-top-left-radius: 10px;	 
+	border-top-right-radius: 10px;	 */
+}
+
+.mat-tab-body{
+
+	padding:10px;
+}
+
+
+.mat-tab-link:hover
+{
+	background-color: #d0cfcf60;
+}
+
+.mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus, .mat-tab-group.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus, .mat-tab-nav-bar.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus, .mat-tab-nav-bar.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus {
+	background-color: rgba(197, 202, 233, 0);
+	
+}
+
+
+
+.rounded-nav-borders a{
+
+	border-radius: 25px;
+
+}
+
+.mat-tab-link-active
+{
+/* 	color: #104e7b;
+    font-weight: bold;
+	font-size: 14px !important;
+	opacity: 1 !important;
+	border-bottom: 2px solid #005da0; */
+	/* background-color: #d0cfcf60; */
+
+
+	color: #3f51b5;
+    font-weight: bold;
+    font-size: 14px !important;
+    opacity: 1 !important;
+    border-bottom: 2px solid #ff4081;
+}
+
+.mat-list-item-button-active
+{
+	color: #005da0 !important;
+    font-weight: bold !important;
+    background-color: #e0e0e0 !important;
+}
+
+
+.mat-toolbar-multiple-rows {
+	min-height: 40px !important;
+	z-index:2;
+
+}
+
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content
+{
+	line-height: 34px !important;
+
+}
+
+.mat-button-toggle-checked {
+    background-color: #34597a;
+    color: rgb(255, 255, 255);
+}
+
+/* .mat-drawer-container
+{
+	
+} */
+
+
+/* mat -card */
+
+.mat-card
+{
+	box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+}
+
+.mat-card-header .mat-card-title {
+
+	font-size: 20px;
+}
+
+.mat-card-actions {
+     margin-left: 0px !important;
+     margin-right: 0px !important;
+    padding: 8px !important;
+}
+
+.mat-card-header-text
+{
+	margin: 0px !important;
+	width: 100%;
+}
+
+
+.mat-raised-button {
+	box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+	line-height: 34px;
+}
+
+.mat-fab.mat-success, .mat-flat-button.mat-success, .mat-mini-fab.mat-success, .mat-raised-button.mat-success{
+	background-color: #328847;
+	color: #fff;
+}
+
+.mat-chip.mat-success{
+	background-color: #328847;
+	color: #fff;
+}
+
+.mat-button.mat-success{
+	color: #328847;
+}
+
+.mat-small{
+	min-width: 30px !important; 
+    line-height: 20px !important;
+    padding: 2 8px !important;
+}
+/*  mat-button PDF color */
+
+.mat-pdf{
+	background-color: #ff4040;
+	color: #fff;
+}
+
+
+/* notification overrieds */
+
+.simple-notification.info {
+    background: #2f7798 !important;
+}
+
+.simple-notification-wrapper.bottom
+{
+	
+	bottom: 60px !important;
+}
+
+.simple-notification.error
+{
+	background: #9c372f !important;
+}
+.simple-notification
+{
+	
+	padding: 5px 0px 5px 20px !important;
+	min-height: inherit !important;
+	z-index:9000;
+}
+.simple-notification .icon {
+	
+	top: -9px !important;
+	right: -10px !important;
+	height: 65px !important;
+}
+
+.simple-notification .sn-title {
+    line-height: inherit !important;
+    font-size: inherit !important;
+	font-weight: bold;
+}
+
+.simple-notification .sn-progress-loader
+{
+		margin-left:28px;
+		margin-right: 28px;
+		width: 80% !important;
+		top: 3px !important;
+		height: 3px !important;
+	
+}
+
+/** Because I can **/
+
+
+
+/** Datatable Tweaks **/
+
+.dataTables_length 
+{
+	margin-bottom:20px !important;
+}
+
+.dataTables_filter input[type=search] {
+    border: 1px solid #E4E4E4;
+    border-radius: 3px;
+}
+
+.dataTables_wrapper {
+	font-size: 13px;
+}
+
+
+/** Table "Stats" **/
+
+.table-stats {
+    border: 1px solid #C2C2C2;
+    border-collapse: separate;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0 !important;
+    font-family: verdana,helvetica,arial,sans-serif;
+    font-size: 12px;
+    color: #333;
+	width: 100%;
+    margin-bottom: 1rem;
+}
+
+.table-clickable tbody tr{
+	
+	cursor: pointer;
+}
+
+.table-stats thead tr:nth-child(1) th {
+    /* font-size: 13px; */
+    font-size: 0.9em;
+    font-weight: bold;
+    font-family: helvetica,arial,sans-serif;
+    background: rgb(45, 89, 122);
+    color: #FFF;
+    border-bottom: 1px solid #FFF;
+    border-radius: 0 !important;
+	    text-align: start;
+}
+
+.table-striped > tbody > tr:nth-of-type(even) {
+    background-color: rgba(242, 243, 243, 0.40);
+}
+
+.table-stats.table-condensed th {
+    padding: 4px;
+}
+
+.table-stats.table-condensed td {
+	padding: 2px 2px;
+	font-size: 0.8em;
+}
+
+
+.table-condensed > tbody > tr > td {
+    vertical-align: middle;
+}
+
+/* tables.scss */
+
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: hsla(0, 0%, 0%, 0.01);
+}
+
+/
+
+.bigdrop{
+	width: 800px !important;
+}
+
+
+
+
+/** General Use Case **/
+
+.borderless {
+	
+	border: 0px;
+}
+
+
+.clickable {
+	
+	cursor: pointer;
+}
+
+.hidden {
+	
+	display: none !important;
+}
+
+
+
+.top-mat-form-buffer mat-form-field {
+	
+	margin-top:15px !important;
+}
+
+/** Custom mat-card**/
+
+.quantiam-mat-card {
+	
+	padding: 0px !important;
+	box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+
+}
+
+.quantiam-mat-card mat-card-actions {
+	
+	padding-top: 0px !important; 
+	margin-top:0px !important; 
+	padding-bottom: 0px !important; 
+	margin-bottom:0px !important;
+}
+
+.quantiam-mat-card mat-card-content{
+	
+	padding: 5px 15px 15px 15px !important;
+	margin: 0px;
+}
+
+.quantiam-mat-card mat-card-actions {
+	 margin: 5px !important;
+	 padding: 0px;
+}
+
+.quantiam-mat-card mat-card-title{
+	
+	background-color: #2d597a;
+    color: white;
+    padding: 6px;
+    font-size: 12px;
+	margin-bottom: 5px;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+}
+
+.quantiam-mat-card mat-card-title action-bar {
+
+	float: right;
+	display: inline-block;
+
+}
+
+.quantiam-mat-card mat-card-title action-bar button {
+
+	width: 24px;
+    height: 24px;
+    line-height: inherit;
+    top: -2px;
+
+}
+
+
+.quantiam-mat-card mat-card-title action-bar .raised {
+
+	background-color: #fff !important;
+	color: #e91e63;
+
+}
+
+.quantiam-mat-card mat-card-title action-bar button span {
+
+	width: inherit;
+    height: inherit;
+
+}
+.quantiam-mat-card mat-card-title action-bar button span mat-icon {
+
+	font-size: 18px;
+
+}
+
+.quantiam-mat-card mat-card-title action-bar span {
+
+	line-height: inherit;
+
+}
+
+.quantiam-mat-card table {
+	
+	margin-top:10px;
+	margin-bottom:10px;
+	
+	
+}
+
+.quantiam-mat-card table thead tr {
+	
+	height: 30px;
+}
+
+.quantiam-mat-card table thead tr th {
+	
+	padding: 5px;
+}
+
+.quantiam-mat-card table tbody tr {
+	
+	height:30px;
+}
+
+.quantiam-mat-card table tbody tr td {
+	
+	font-size: 12px;
+	border: 0px;
+	padding: 5px;
+}
+
+
+.mat-step-header .mat-step-label.mat-step-label-active {
+    color: rgba(7, 64, 169, 0.87);
+    font-weight: 600;
+}
+
+
+/* .highcharts-background{
+	 fill:inherit !important; 
+	
+} */
+
+
+/********** Breadcrumbs *******/
+
+.breadcrumbs {
+	
+	margin-left:-10px;
+	font-size:12px;
+	
+}
+.breadcrumbs a{
+	text-align: center;
+    margin: 0px;
+    height: 24px;
+    line-height: 24px;
+    cursor: pointer;
+	color: rgb(120, 120, 120) !important;
+	text-decoration: none;
+}
+
+.breadcrumbs p{
+	text-align: center;
+    margin: 0px;
+    height: 24px;
+    line-height: 24px;
+    cursor: default;
+	color: rgb(90, 90, 90) !important;
+	    font-weight: bold;
+}
+
+.breadcrumbs mat-icon{
+	 cursor: default;
+	color: rgb(190, 190, 190) !important;
+	
+}
+.breadcrumbs a:hover{
+	color: rgb(120, 120, 120) !important;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+
+/**** ng-select **/
+
+.ng-dropdown-panel {
+	/* width: auto !important; */
+	/* min-width: 100% !important; */
+	width: inherit !important;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option
+{
+	padding: inherit !important;
+	padding-left: 20px !important; 
+	white-space: normal !important;
+}
+
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder {
+    top: inherit !important; 
+	padding-bottom: 5px;
+	padding-left: inherit !important; 
+	
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
+	white-space: normal !important;
+
+}
+
+.ng-dropdown-panel .scrollable-content{
+	width: inherit !important;
+}
+
+.ng-dropdown-panel .scroll-host {
+	width: inherit !important;
+}
+
+.ng-select .ng-clear-wrapper
+{
+    margin-left: 10px;
+
+
+}
+
+
+
+/** Bootstrap fixes ***/
+
+button:focus {
+    outline: inherit;
+}
+
+a:hover {
+    /* color: #0056b3; */
+    /* text-decoration: underline; */
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6
+{
+	/* font-size: inherit; */
+}
+
+h1{
+
+	font-size: 2.0em;
+}
+
+h2{
+	font-size: 1.5em
+}
+
+h3{
+	font-size: 1.25em;
+}
+
+h4{
+	font-size: 1.00em;
+}
+
+p {
+	margin-top: 0px;
+    margin-bottom: 0px; 
+}
+
+.alert{
+	padding: .50rem 0.75rem;
+    font-size: 0.8rem;
+}
+
+.table td, .table th
+{
+
+	vertical-align: middle;
+}
+
+.table tbody tr:hover{
+
+	background-color: #f1f1f1;
+}
+
+
+
+.page-header {
+    padding-bottom: 11px;
+    margin: 20px 0 10px;
+	border-bottom: 1px solid #e5e6e6;
+	border-bottom-color: rgba(0, 0, 0, 0.3);
+}
+
+.page-header small {
+
+	font-size: 70%;
+	font-weight: lighter;
+	margin-left: 10px;
+}
+
+.popover{
+	max-width: 600px;
+}
+
+.btn-group-sm>.btn, .btn-xs {
+	padding: .25rem .5rem;
+    font-size: .675rem;
+    line-height: 1.0;
+    border-radius: .2rem;
+
+}
+
+/*** Drop Files ***/
+
+file-drop .btn{
+	margin-left: 20px;
+}

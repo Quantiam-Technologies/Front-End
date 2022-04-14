@@ -1,0 +1,23 @@
+
+  <div fxLayout="row"  fxLayoutGap="10px" fxLayoutAlign="center center">
+
+      <div fxLayout="column" fxLayoutGap="10px" fxFlex.gt-lg=66 fxFlex.gt-md=74 fxFlex>
+          <div fxLayout="row" fxFlex fxLayoutAlign="start start">
+              <button mat-raised-button color="primary" (click)="addTableRow()" *ngIf="userService.hasPermission(9)" > Create Project </button>
+          </div>
+          <hot-table 
+          height="75vh"
+          class="hot"
+          [hotId]="id"
+        [settings]="hotTableSettings"
+        [licenseKey]="'non-commercial-and-evaluation'"  
+        
+      >
+
+
+      </hot-table>
+
+    </div>
+
+  </div>
+    

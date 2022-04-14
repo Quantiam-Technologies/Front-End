@@ -1,0 +1,8 @@
+.pop-up{
+
+    position:fixed;
+    z-index: 9000;
+    width: 300px;
+  
+    transition-duration: 0.5s;
+}

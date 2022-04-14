@@ -1,0 +1,51 @@
+
+
+<div fxLayout="row">
+	
+	<button (click)="openAddSampleDialog()" mat-raised-button>Add Sample </button>
+	
+	<!-- <app-select-project fxFlex=20 
+	selectedValue="7330"
+	(change)="testChange($event)"
+	multiple="true"
+	></app-select-project>-->
+		
+			
+	<!-- <app-select-material-container fxFlex=20 
+				(change)="testChange($event)"
+	></app-select-material-container> -->
+		
+
+</div>
+
+<div fxLayout="row" fxLayoutAlign="center center">
+
+
+
+<ag-grid-angular 
+	
+	#agGrid	
+
+	
+	style="width: calc(100%); height:calc(70vh); margin-top:25px;" 
+	class="ag-theme-material"
+	[animateRows]="true"
+	
+    [rowData]="rowData" 
+
+	[modules]="modules"
+    [columnDefs]="columnDefs"
+	[defaultColDef]="defaultColDef"
+	
+    (gridReady)="onGridReady($event)"
+	(cellDoubleClicked)="onCellDoubleClicked($event)"
+	(cellEditingStopped)="onCellEditingStopped($event)"
+	(cellEditingStarted)="onCellEditingStarted($event)"
+	
+	[enableRangeSelection]="true"
+	[pagination]="false"
+	
+    
+    >
+</ag-grid-angular>
+</div>  

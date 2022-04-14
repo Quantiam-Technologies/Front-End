@@ -1,0 +1,68 @@
+<div fxLayout="column">
+
+<div fxLayout="row">
+
+  <div fxLayout="row" fxLayoutAlign="start center"  fxFlex fxLayoutGap="5px">
+    
+    <h3> {{title}}</h3>
+  </div>
+    <div  fxLayoutAlign="end center" fxFlex fxLayoutGap="20px">
+    <mat-form-field style="max-width: 100px;">
+        <mat-select matNativeControl    placeholder="Page Size" name="pageSize"  ngDefaultControl [(ngModel)]="gridOptions.cacheBlockSize" (selectionChange)="onPageSizeChanged()">
+          <mat-option *ngFor="let pageSize of pageSizes" [value]="pageSize" [attr.selected]="pageSize === gridOptions.cacheBlockSize ? 'selected': null">
+            {{pageSize}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+   <!--  <mat-form-field style="width:300px">
+      
+        <input  matInput   id="semDatabaseSearchBar" type="text" name="search"  (keyup)="onTextFilterChanged()"  [(ngModel)]="filteredTextFilterName"  placeholder="Search">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>   -->
+
+
+    <!--   Dates -->
+
+    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center" *ngIf="showDates">  
+        <mat-form-field>
+          <input matInput [(ngModel)]="startDate" [matDatepicker]="startDatePicker" placeholder="Start Date" >
+          <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #startDatePicker></mat-datepicker>
+        </mat-form-field>
+      <mat-form-field>
+          <input matInput [(ngModel)]="endDate" [matDatepicker]="endDatePicker" placeholder="End Date" >
+          <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+          <mat-datepicker #endDatePicker></mat-datepicker>
+        </mat-form-field>
+     </div>
+     
+      <button mat-raised-button color="primary"  (click)="refreshDatabase()"> Apply </button>
+    </div>
+</div>
+
+  <div>
+
+      <ag-grid-angular
+      #agGrid
+      
+      style="width: calc(100%);  margin-top:10px;" 
+      id="tableID"
+      class="ag-theme-balham"
+      domLayout='autoHeight'
+      [columnDefs]="columnDefs"
+      [gridOptions]="gridOptions"
+      [defaultColDef]="defaultColDef"
+      [rowData]="rowData"
+      
+      [modules]="modules"
+      
+      [animateRows]="true"
+      
+      (gridReady)="onGridReady($event)"
+      >
+      </ag-grid-angular>
+      
+
+  </div>
+</div>

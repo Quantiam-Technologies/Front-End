@@ -1,0 +1,16 @@
+
+ <div fxFlex *ngIf="someData[0]">
+    <table>
+        <thead>
+            <tr>
+                <th *ngFor="let item of someData[0] | keyvalue">{{item.key}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of someData">
+                <td *ngFor="let thing of item | keyvalue">{{thing.value}}</td>
+            </tr>
+        </tbody>
+
+    </table>
+<div >

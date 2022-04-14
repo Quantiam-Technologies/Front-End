@@ -1,0 +1,148 @@
+
+  
+  <div fxLayout="column" fxLayoutGap="20px">
+  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+
+   
+      <mat-card>
+  
+          <mat-card-header>
+             
+              <mat-card-title>Filters</mat-card-title>
+              <mat-card-subtitle>Timesheet summary activity for the specified time range. </mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+
+              <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+
+               
+              
+              
+                  <mat-form-field>
+                      <mat-label>Payperiod</mat-label>
+                  
+                      <mat-select [(ngModel)]="selectedPayperiod" matNativeControl   (selectionChange)="calculatePayperoid()">
+                         
+                          <mat-option *ngFor="let item of timesheetPayperoids" [value]="item">
+                              {{item}}
+                            </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  <mat-form-field>
+                      <mat-label>Year</mat-label>
+                  
+                      <mat-select [(ngModel)]="selectedYear" matNativeControl (selectionChange)="calculatePayperoid()">
+                         
+                          <mat-option *ngFor="let year of yearList" [value]="year">
+                              {{year}}
+                            </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center center">  
+                  <h5> Or </h5>
+              </div>
+              <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">  
+                <mat-form-field>
+                  <input matInput [(ngModel)]="startDate" [matDatepicker]="startDatePicker" placeholder="Start Date" (dateChange)="changeDates()">
+                  <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #startDatePicker></mat-datepicker>
+                </mat-form-field>
+              <mat-form-field>
+                  <input matInput [(ngModel)]="endDate" [matDatepicker]="endDatePicker" placeholder="End Date" (dateChange)="changeDates()">
+                  <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                  <mat-datepicker #endDatePicker></mat-datepicker>
+                </mat-form-field>
+              </div>
+             
+        
+          
+          <mat-card-actions fxLayout="row"  >
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" fxFlex>
+               <mat-checkbox [(ngModel)]="hourly"> Hourly </mat-checkbox>
+              <mat-checkbox [(ngModel)]="salary"> Salary </mat-checkbox>
+              <mat-checkbox [(ngModel)]="active"> Active </mat-checkbox>
+            </div>
+           
+              <div fxLayout="row"  fxLayoutAlign="end center" (click)="fetchData()" fxFlex> <button mat-raised-button color="primary" [disabled]="!endDate && !startDate"> Fetch Report </button> </div>
+           
+           
+          </mat-card-actions>
+          </mat-card-content>
+        </mat-card>
+
+</div>
+
+<div fxLayout="row" fxLayoutAlign="center center"> 
+
+    <div id="alerts" *ngIf="fetchedReportLoaded">
+
+
+        <ngb-alert [dismissible]="false" type="success" *ngIf="fetchedReport?.ending_payperiod?.locked">
+          <strong> Closed </strong> The ending period for this time range has been closed. This data is unlikley to change.  
+        </ngb-alert>
+    
+       <ngb-alert [dismissible]="false" type="warning" *ngIf="!fetchedReport?.ending_payperiod?.locked">
+          <strong> Notice </strong> The ending period for this time range is still open. This data is likley to change.  
+        </ngb-alert>
+        
+    
+      </div>
+
+</div>
+
+  <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+
+
+    
+
+      <hot-table  
+      
+      *ngIf="fetchedReportLoaded"
+      class="hot"
+
+      [hotId]="id"
+      [settings]="hotTableSettings"
+      [licenseKey]="'non-commercial-and-evaluation'"  
+    
+  >
+
+
+          <hot-column data="employeeid" title="ID" read-only></hot-column>
+          <hot-column data="fullname" title="Name" read-only></hot-column>
+          <hot-column data="compensation" title="Compensation" read-only></hot-column>
+          <hot-column data="cto_bank_rate" title="CTO Bank Rate" read-only></hot-column>
+          <hot-column data="regular" title="Hours Worked" read-only ></hot-column> 	
+          <hot-column data="stat" title="Stat" read-only ></hot-column>
+
+
+          <hot-column data="vacation_bank_start" title="Vacation Start" read-only ></hot-column>
+          <hot-column data="vacation" title="Vacation Used" read-only ></hot-column>
+          <hot-column data="vacation_payout" title="Vacation Change" read-only ></hot-column>
+          <hot-column data="vacation_bank_end" title="Vacation End" read-only ></hot-column>
+
+
+          <hot-column data="pto_bank_start" title="PTO Start" read-only ></hot-column>
+          <hot-column data="pto" title="PTO Used" read-only ></hot-column>
+          <hot-column data="pto_payout" title="PTO Change" read-only ></hot-column>
+          <hot-column data="pto_bank_end" title="PTO End" read-only ></hot-column>
+
+
+          <hot-column data="cto_bank_start" title="CTO Start" read-only ></hot-column> 	
+          <hot-column data="cto" title="CTO Used" read-only ></hot-column> 	
+          <hot-column data="bank" title="CTO Earned" read-only ></hot-column> 	
+          <hot-column data="cto_payout" title="CTO Change" read-only ></hot-column> 	
+          <hot-column data="cto_bank_end" title="CTO End" read-only ></hot-column> 	
+
+
+          <hot-column data="unpaid" title="Unpaid" read-only ></hot-column> 	
+
+      
+      </hot-table>  
+
+
+
+  </div>
+</div>

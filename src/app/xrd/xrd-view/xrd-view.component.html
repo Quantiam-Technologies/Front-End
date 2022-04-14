@@ -1,0 +1,214 @@
+<div fxLayout="column" *ngIf="xrdAnalyses[0]" fxLayoutGap="10px" >
+
+    <div fxLayout="row" fxFlex>
+
+       
+
+        <div fxLayoutAlign="start start" fxFlex>
+          <ngb-alert type="info" [dismissible]="false" style="margin-top:7px; margin-bottom:0px;">
+              <b> Data Storage Location: </b>
+              <a style="margin-left:10px;" target="_blank" [href]="xrdAnalyses[0]?.path"> {{xrdAnalyses[0]?.path}} </a>
+          </ngb-alert>
+      </div>
+        <div fxFlex fxLayout="row" fxLayoutAlign="end start" fxLayoutGap="10px">
+            <button mat-raised-button (click)="buildChartObj()"> Refresh Chart</button>
+            <button mat-raised-button (click)="generateXrdCSV()" color='primary'> CSV </button>
+        </div>
+
+
+    </div>
+
+    <div fxLayout="row" fxFlexFill>
+
+        <highcharts-chart
+        
+        [Highcharts]="Highcharts"
+        [options]="HighchartOptions"
+        [(update)]="updateFlag" 
+        [oneToOne]="oneToOneFlag"
+        style="height:450px; width:100%;"
+        [callbackFunction]="chartCallback"
+          ></highcharts-chart>
+    </div>
+
+    <div fxLayout="row" > 
+
+
+        <mat-tab-group fxFlex>
+          <mat-tab label="Images"  >
+            <ng-template matTabContent>
+              <div  fxLayoutGap="10px" fxLayout="row wrap" *ngIf="images[0]">
+
+
+                  <a [href]="img.url" *ngFor="let img of images" target="_blank" class="clickable">
+                        <img    class="clickable" [src]="img.url" alt="" width="300px">
+                    </a>
+                </div> 
+
+                <div  fxLayoutGap="10px" fxLayout="row wrap" *ngIf="!images[0]">
+                      
+                </div>
+            </ng-template>
+          </mat-tab>
+            <mat-tab label="Patterns" >
+               
+              <ng-template matTabContent >
+               
+                <div >
+
+                  <div *ngFor="let analysis of xrdAnalyses">
+
+                      <div   *ngFor="let spectra of analysis.spectra"  fxLayout="row wrap" fxLayoutGap="10px"   >
+
+
+                          <mat-card   *ngFor="let pattern of spectra.patterns" fxFlex="20" style="margin-top:5px !important;">
+                              <mat-card-content fxLayout="column" >
+                                <div fxLayout="row"  fxLayoutAlign="start start">
+          
+                                  <h4 fxFlex fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start end"> 
+                                    <span> {{pattern.formula}}  </span>
+                                   <small> {{pattern.name}} </small>
+                                  
+                                  </h4>
+                                 
+          
+                                  <div fxLayoutAlign="end start" fxFlex=20>
+                                    <mat-checkbox matInput matTooltip="Show this pattern?" 
+                                    [(ngModel)]="pattern.display" (change)="buildChartObj()" ></mat-checkbox>
+                                  </div>
+                                </div>
+                              
+                                  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                                     
+                                     <mat-form-field fxFlex="calc(25%)"  >
+                                        <input matInput  
+                                        name="pattern_yScale"
+                                        placeholder="Y Scale" type="number"
+                                         step=0.05 min=0 [(ngModel)]="pattern.y_scale"
+                                         (change)="yScaleChange(pattern)"
+                                          [disabled]="!pattern.display"
+                                         >
+                                      </mat-form-field>
+                                     <mat-form-field fxFlex="calc(25%)"  >
+                                        <input matInput  
+                                        name="pattern.pointWidth"
+                                        placeholder="Column Width" type="number"
+                                         step=1 min=1 [(ngModel)]="pattern.pointWidth" value = 1
+                                         (change)="buildChartObj()" 
+                                         [disabled]="!pattern.display"
+                                         >
+                                      </mat-form-field>
+                                      <div>
+                                        
+                                      </div>
+
+                                    
+                                
+                                   
+                                 
+                                  </div>
+                              </mat-card-content>
+                            </mat-card>
+
+                      </div>
+                  </div>
+                
+                  
+                </div>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="Chart Controls">
+              <ng-template matTabContent>
+                <mat-card   style="margin:5px !important;">
+                  <mat-card-content fxLayout="column" >
+                  <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="10px">
+                                     
+                      <mat-form-field fxFlex=10  >
+                         <input matInput  
+                         name="yAxisMax"
+                         placeholder="Y Axis Max" type="number"
+                         step=100
+                         [(ngModel)]="HighchartOptions.yAxis[0].max"
+                         (change)="updateFlag = true;"
+                         
+                          >
+                       </mat-form-field>
+                                     
+                      <mat-form-field fxFlex=10 >
+                         <input matInput  
+                         name="yAxisMin"
+                         step=100
+                         placeholder="Y Axis Min" type="number"                     
+                         [(ngModel)]="HighchartOptions.yAxis[0].min"
+                         (change)="updateFlag = true;"
+                         
+                          >
+                       </mat-form-field>
+
+                      <mat-form-field fxFlex=10  >
+                         <input matInput  
+                         name="xAxisMax"
+                         step=2
+                         placeholder="X Axis Max" type="number"                     
+                         [(ngModel)]="HighchartOptions.xAxis[0].max"
+                         (change)="updateFlag = true;"
+                         
+                          >
+                       </mat-form-field>
+                      <mat-form-field fxFlex=10  >
+                         <input matInput  
+                         name="xAxisMin"
+                         placeholder="X Axis Min" type="number"   
+                         step=2
+                         [(ngModel)]="HighchartOptions.xAxis[0].min"
+                         (change)="updateFlag = true;"
+                         
+                          >
+                       </mat-form-field>
+
+                       </div>
+                      </mat-card-content>
+                    </mat-card>
+
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="Spectra" >
+              <ng-template matTabContent >
+                
+
+                    <table  class="table" >
+                      <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Filename</th>
+                          <th>Scan Type</th>
+                          <th> Patterns </th>
+                        </tr>
+                      </thead>
+                    
+                       
+                    
+                    <tbody *ngFor="let analysis of xrdAnalyses">
+  
+                        <tr   *ngFor="let spectra of analysis.spectra" >
+                          
+                            <td>{{spectra.sample_name}}</td>
+                            <td>{{spectra.file_name}}</td>
+                            <td>{{spectra.scan_type}}</td>
+                            <td>{{spectra.patterns.length}}</td>
+                        
+                        </tr>
+                        </tbody>
+                      </table>
+                            
+                       
+                    
+              </ng-template>
+            </mat-tab>
+           
+          </mat-tab-group>
+
+    </div>
+    
+
+</div>

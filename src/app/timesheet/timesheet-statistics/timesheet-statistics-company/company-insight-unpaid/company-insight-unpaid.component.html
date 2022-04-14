@@ -1,0 +1,47 @@
+<div fxLayout.gt-md="row" fxLayout="column"  fxFlex>
+
+<div fxLayout="column"  fxLayoutAlign="center center"  fxLayoutGap="10px" fxFlex >
+
+    <highcharts-chart 
+    *ngIf="renderUnpaidChart" 
+    [Highcharts]="Highcharts"
+    [options]="unpaidOptions"
+    [(update)]="updateUnpaidFlag"
+    style="height:400px;"
+    ></highcharts-chart>
+   
+        <ag-grid-angular
+        *ngIf="renderUnpaidChart" 
+        style="width: 500px; height: 150px;"
+        class="ag-theme-balham"
+        [rowData]="unpaidRowData"    
+        [modules]="modules"
+        (gridReady)="onunpaidGridReady($event)"
+        [columnDefs]="unpaidColumnDefs">
+        </ag-grid-angular>
+  
+</div>
+
+
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" fxFlex>
+
+    <highcharts-chart 
+    *ngIf="renderCTOCreditedChart" 
+    [Highcharts]="Highcharts"
+    [options]="CTOCreditedOptions"
+    [(update)]="updateCTOCreditedFlag"
+    style="height:400px;"
+    ></highcharts-chart>
+    <ag-grid-angular
+    *ngIf="renderCTOCreditedChart" 
+    style="width: 500px; height: 150px;"
+    class="ag-theme-balham"    
+    (gridReady)="onctoGridReady($event)"
+    [modules]="modules"
+    [rowData]="CTOCreditedRowData"
+    [columnDefs]="CTOCreditedColumnDefs">
+    </ag-grid-angular>
+
+</div>
+
+</div>

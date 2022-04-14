@@ -1,0 +1,12 @@
+
+<mat-list>
+    <h2 style="font-size: medium;" mat-subheader>Which Analysis would you like to view?</h2>
+    <mat-list-item matRipple style="position:relative;" class="clickable" *ngFor="let analysis of data" (click)="selectFile(analysis)">
+        <mat-icon style="font-size:35px;
+        width: 35px;
+        height: 35px;" mat-list-icon>file_copy</mat-icon>
+        <h4 mat-line>{{analysis.name}}</h4>
+        <small mat-line> {{analysis.analyzed_at | date}} </small>
+    </mat-list-item>
+
+  </mat-list>

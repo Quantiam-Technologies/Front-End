@@ -1,0 +1,99 @@
+
+<h2> Non Conformance Report Database </h2>
+
+<div fxLayout="column">
+    <div id="top_row" fxLayout="row" fxLayoutGap=10px>
+        <div fxFlex fxLayoutGap=10px fxFlex>
+
+            <ng-select
+            fxFlex=10
+            [items]="statusTypes"
+           bindLabel="value"
+           bindValue="id"
+           placeholder="Status"
+           appendTo="body"
+           
+          (change)="filterStatus($event)"
+          (clear)="clearFilterStatus()"
+           
+           >
+            </ng-select>
+            
+            <ng-select
+            fxFlex=10
+            [items]="typeTypes"
+           bindLabel="value"
+           bindValue="id"
+           placeholder="Type"
+           appendTo="body"
+           (change)="filterTypes($event)"
+           (clear)="clearFilterTypes()"
+
+           ></ng-select> 
+            
+            <ng-select
+            fxFlex=10
+            [items]="buissnessUnits"
+           bindLabel="name"
+           bindValue="id"
+           placeholder="Buisness Unit"
+           appendTo="body"
+           (change)="filterBuisnessUnits($event)"
+           (clear)="clearFilterBuisnessUnits()"
+           >
+            </ng-select>
+            
+        </div>
+        <div fxLayoutAlign="center center">
+        <mat-form-field style="width:300px">
+            <!--   <span matPrefix>+1 &nbsp;</span> -->
+            <input id="semDatabaseSearchBar" type="text" matInput (keyup)="onTextFilterChanged()"  [(ngModel)]="filteredTextFilterName"  placeholder="Search">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>  
+        </div>
+
+        <div fxLayoutAlign="end center" fxLayoutGap="5px">
+            <button (click)="refreshDatabase()" mat-raised-button> 
+                Refresh
+                <mat-icon  >refresh</mat-icon>
+            </button>
+            <div fxFlex fxLayout="row" fxLayoutAlign="end center">
+                <button mat-raised-button color="primary" (click)="createNCR()"> Create </button>
+            </div>
+
+        </div>
+       
+    </div>
+
+    <div id="database" fxLayout="row">
+
+        <ag-grid-angular 
+        #agGrid
+           
+              
+        style="width: calc(100%); height:calc(60vh); margin-top:10px;" 
+        class="ag-theme-balham"
+        [animateRows]="true"
+        
+       
+        [rowData]="rowData" 
+       
+        [columnDefs]="columnDefs"
+      
+        [defaultColDef]="defaultColDef"
+        [gridOptions]="gridOptions"              
+        [modules]="modules"
+        (gridReady)="onGridReady($event)"
+        (rowDoubleClicked)="onRowDoubleClicked($event)"
+       
+        [enableRangeSelection]="true"
+        [pagination]="true"
+       
+    
+        
+        >
+    </ag-grid-angular>
+    </div>
+
+
+</div>

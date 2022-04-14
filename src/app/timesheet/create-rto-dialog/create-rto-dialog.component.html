@@ -1,0 +1,25 @@
+<mat-dialog-content  fxLayout="column" fxLayoutGap="20px" >
+
+<h5> Who should this RTO be for? </h5>
+
+<div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+
+    <button *ngIf="!selectedUser" mat-raised-button (click)="createRto(currentUser.id)" color='primary'> Create RTO for Myself </button>
+
+    <b *ngIf="!selectedUser"> or </b>
+
+    <div fxLayout="row" fxLayoutGap="30px">
+
+        <app-select-user 
+        placeholder="For Someone else"
+        (change)="selectUser($event)"
+        [showSubordinatesOnly]="(userService.hasPermission(3) ? false: true)"
+        appendTo="body"
+        ></app-select-user>
+        <button mat-raised-button *ngIf="selectedUser" [disabled]="!selectedUser"  (click)="createRto(selectedUser.id)" color='primary'> Create for {{selectedUser.firstname}} </button>
+    </div>
+   
+
+</div>
+
+</mat-dialog-content>

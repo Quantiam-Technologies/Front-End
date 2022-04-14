@@ -1,0 +1,65 @@
+<div fxLayout="column" fxLayoutGap="15px">
+
+  <div fxLayout="row" class="donotprint"  >
+
+    <div  fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start start" fxFlex> 
+        <mat-form-field>
+        <select  matNativeControl placeholder="Minimum Hours" [(ngModel)]="minimumHours" (change)="updateCalendar()" >
+            <option value=0>0</option>
+            <option value=1>1</option>
+            <option value=2>2</option>
+            <option value=3>3</option>
+            <option value=4>4</option>
+            <option value=5>5</option>
+            <option value=6>6</option>
+            <option value=7>7</option>
+            <option value=8>8</option>
+
+        </select>
+   
+      
+    </mat-form-field>
+
+   <app-select-user placeholder="Select Employee" (change)="updateSelectedUser($event)" appendTo=''></app-select-user>
+
+    
+  <!--  <app-select-user 
+                [placeholder]="timeSheetObj?.fullname"
+                [hidden]="!showSelectBox" 
+                (change)="selectedUserChanged($event)" 
+                [selectedValue]="timeSheetObj?.userID" 
+                [authorizedSubordinatesOrMachines]=true
+                [allOptions]="userService.hasPermission([43,1])"
+                [clearable]="false"
+                appendTo=''
+          ></app-select-user>
+ -->
+  
+   <mat-checkbox [(ngModel)]="subordinatesOnly" (change)="updateCalendar()">Subordinates</mat-checkbox>
+</div>
+
+     <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="end start" fxFlex>
+      <!--   <button mat-raised-button color="primary" (click)="printPage()">Print</button> -->
+     </div>
+
+
+     
+
+  </div>
+  <div class="print">
+<!--    <full-calendar  fxFlex
+  defaultView="dayGridMonth"
+  aspectRatio="10"
+  [height]=700
+  [header]="calendarHeader"
+  [plugins]="calendarPlugins"
+  [weekends]="false"
+  schedulerLicenseKey="GPL-My-Project-Is-Open-Source"
+  [events]="calendarEvents"
+></full-calendar>  -->
+<full-calendar  #calendar [options]="calendarOptions"></full-calendar>
+   <!--    <div id="calendar"></div>   -->
+    
+</div>
+</div>
+ 

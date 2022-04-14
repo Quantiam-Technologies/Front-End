@@ -1,0 +1,81 @@
+
+<ng-select 
+
+  
+
+[items]="itemsBuffer"
+[loading]="loading"
+
+[multiple]="multiple"
+[placeholder]="placeholder"
+[hideSelected]="true"
+[virtualScroll]="true"
+
+(change)="onChange($event)"
+(add)="onAdd($event)"
+(remove)="onRemove($event)"
+(scrollToEnd)="onScrollToEnd()"
+(clear)="onClear($event)"
+(open)="onOpen()"
+
+
+[(ngModel)]="selectedValue"
+[searchFn]="customSearchFn" 
+[closeOnSelect]="false"	
+
+
+>
+<!-- scroll-host & scrollable-content  [searchFn]="customSearchFn" 
+(scroll)="onScroll($event)" -->
+
+  <ng-template ng-label-tmp let-item="item" let-clear="clear">
+    <span class="ng-value-label">  {{item.name}} </span>
+    <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+  </ng-template>
+
+  <!-- <ng-template ng-header-tmp>
+    <small class="form-text text-muted">Loaded {{itemsBuffer.length}} of {{totalResults}}</small> 
+  </ng-template>-->
+
+
+  <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm" >
+  <div fxLayout="row" fxLayoutAlign="center center"  fxLayoutGap="10px" style="margin-top:10px;">
+    <div fxLayout="row" class="dropdown-options"  fxLayoutAlign="start center" fxFlex >
+    
+
+      <div style="margin-right:10px; width:100px;" [ngOptionHighlight]="search" >
+        
+        <b>{{item.name}}</b>
+      
+      </div>
+
+      <div style="width: 550px; margin-right:10px; font-size:12px;"   [ngOptionHighlight]="search">
+        {{item.comments}}       
+      
+      </div>
+
+      
+
+      <div style="width: 60px; margin-right:10px; font-size:12px;">
+
+        {{item.tga}}
+      </div>
+
+      <div style="width: 60px; margin-right:10px; font-size:12px;">
+
+          {{item.operator}}
+        </div>
+
+      <div style="width: 100px; font-size:12px;">
+
+        {{item.occured_at}}
+      </div>      
+    
+      
+    </div>
+    
+  </div> 
+  </ng-template>
+
+
+</ng-select>

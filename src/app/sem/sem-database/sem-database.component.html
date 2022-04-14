@@ -1,0 +1,128 @@
+
+<div fxLayout="row" >
+
+  
+
+    
+    <ngb-alert   type="info"  [dismissible]="false" style="margin-top:7px; margin-bottom:0px;">
+        <b> Data Storage Location: </b>
+         <a style="margin-left:10px;" target="_blank" href="file:///Q:/Equipment/Analytical/SEM" > Q:/Equipment/Analytical/SEM </a>
+    </ngb-alert>
+
+    <div fxLayoutAlign="end start" fxFlex fxLayoutGap="10px">
+
+      <button mat-raised-button color="primary" (click)="updateTimesheet()">Update Timesheet</button>
+        <mat-slide-toggle [checked]="componentSettings?.autoRefreshTable" (toggleChange)="toggleAutoUpdate()">Auto Refresh</mat-slide-toggle>
+        <button class="mat-elevation-z1" mat-raised-button (click)="refreshDatabase()"> Refresh </button>
+        
+      
+    </div>
+</div>
+<div fxLayout="row"  >
+  
+
+  <div id="filterTypes" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxFlex>
+
+
+      <app-select-project
+        style="min-width:125px;"
+        (change)="filterProject($event)"
+        (clear)="clearFilterProject($event)"
+      ></app-select-project>
+
+      <app-select-semrun-type
+        style="min-width:125px;" 
+        
+        (change)="filterSemrun($event)"
+        (clear)="clearFilterSemrun($event)"
+        placeholder="Run Type"
+      ></app-select-semrun-type>
+
+      <app-select-user
+         style="min-width:125px;"
+        (change)="filterOperator($event)"
+        (clear)="clearFilterOperator($event)"
+        placeholder="Operator"
+      ></app-select-user>  
+
+
+      <app-select-user
+        style="min-width:125px;" 
+        
+        (change)="filterRequestor($event)"
+        (clear)="clearFilterRequestor($event)"
+        placeholder="Requested by"
+      ></app-select-user>
+
+      <app-select-steel
+        style="min-width:125px;" 
+        
+        (change)="filterSteel($event)"
+        (clear)="clearFilterSteel($event)"
+        placeholder="Steel "
+      ></app-select-steel>
+
+      <app-select-material-container
+        style="min-width:125px;" 
+        
+        (change)="filterContainer($event)"
+        (clear)="clearFilterContainer($event)"
+        placeholder="Container "
+      ></app-select-material-container>
+
+<!-- 
+      <app-select-material-container
+      style="min-width:125px;" 
+      ></app-select-material-container> -->
+
+      
+
+  
+
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="end center" fxFlex fxLayoutGap="20px">
+
+    
+      <mat-form-field style="max-width: 100px;">
+          <mat-select  placeholder="Page Size"  [(ngModel)]="gridOptions.cacheBlockSize" (selectionChange)="onPageSizeChanged()">
+            <mat-option *ngFor="let pageSize of pageSizes" [value]="pageSize" [attr.selected]="pageSize === gridOptions.cacheBlockSize ? 'selected': null">
+              {{pageSize}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      <mat-form-field style="width:300px">
+          <!--   <span matPrefix>+1 &nbsp;</span> -->
+          <input id="semDatabaseSearchBar" type="text" matInput (keyup)="onTextFilterChanged()"  [(ngModel)]="filteredTextFilterName"  placeholder="Search">
+          <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>  
+
+    </div>
+
+</div>
+
+
+
+<ag-grid-angular
+#agGrid
+
+style="width: calc(100%);  margin-top:10px;" 
+id="semDatabase"
+class="ag-theme-balham"
+domLayout='autoHeight'
+[columnDefs]="columnDefs"
+[gridOptions]="gridOptions"
+[defaultColDef]="defaultColDef"
+[rowData]="rowData"
+[modules]="modules"
+[frameworkComponents] = "frameworkComponents"
+
+(cellEditingStopped)="onCellEditingStopped($event)"
+(cellEditingStarted)="onCellEditingStarted($event)"
+
+[animateRows]="true"
+
+(gridReady)="onGridReady($event)"
+>
+</ag-grid-angular>

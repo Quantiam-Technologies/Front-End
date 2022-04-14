@@ -1,0 +1,128 @@
+<div fxFlex fxLayout="row" fxLayoutGap="10px">
+   
+    <div>
+        <mat-card >
+            <mat-card-header> <mat-card-title>Slipcast Profile #1</mat-card-title></mat-card-header>
+        
+        
+            <mat-card-content>
+            <div  fxFlex fxLayout="column">
+                <mat-form-field  appearance="fill">
+                <mat-label>Name</mat-label>
+                <input name="slipcast_name" matInput>
+                </mat-form-field>
+                <br>
+                <app-select-campaign></app-select-campaign>
+                <br>
+                <mat-form-field appearance="fill">
+                <mat-label>Level Time</mat-label>
+                  <input  name="slipcast_critical_speed" matInput>
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill">
+                <mat-label>Critical Speed</mat-label>
+                  <input  name="slipcast_critical_speed" matInput>
+                </mat-form-field> 
+                <br>
+                <mat-form-field appearance="fill">
+                <mat-label>End Caps Off Time</mat-label>
+                 <input  name="slipcast_ends_caps_off_time" matInput>  
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill">
+                <mat-label>Containers Per Steel</mat-label>
+                    <mat-select>
+                        <mat-option value="1">1</mat-option>
+                        <mat-option value="2">2</mat-option>
+                        <mat-option value="3">3</mat-option>
+                        <mat-option value="4">4</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill">
+                    <mat-label>Weight Per Container (g)</mat-label>
+                    <input  name="weight_per_container" matInput>  
+                </mat-form-field>
+            </div>
+            </mat-card-content>
+        
+        </mat-card>
+    </div>
+    <div fxLayout="column" fxLayoutGap="5px">
+
+        <mat-card >
+            <mat-card-header>
+                <mat-card-title  >
+                    <div fxLayout="row" fxFlex>
+                    <div fxFlex>Fan</div>
+                    <div fxLayoutAlign="end center" fxFlex> <mat-checkbox>Enable</mat-checkbox> </div>
+                    </div>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+            <div class="example-container" fxLayout="column" fxLayoutGap="5px" fxFlex>
+
+                <div fxLayout="row" fxLayoutGap="5px">
+                    <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Fan Flow</mat-label>
+                    <input matInput>
+                    </mat-form-field>
+                
+                    <mat-form-field appearance="fill" fxFlex>
+                        <mat-label>Fan Start Time</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+               </div>
+               <div fxLayout="row" fxLayoutGap="5px">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Fan Cycle Interval</mat-label>
+                    <input matInput>
+                </mat-form-field>
+                <mat-checkbox>Fan Pulse</mat-checkbox>
+                 </div>
+            </div>
+            </mat-card-content>
+        
+        
+        </mat-card>
+        <mat-card >
+            <mat-card-header>
+                <mat-card-title  >
+                    <div fxLayout="row" fxFlex>
+                    <div fxFlex>Syringe</div>
+                    <div fxLayoutAlign="end center" fxFlex> <mat-checkbox>Enable</mat-checkbox> </div>
+                    </div>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+            <div class="example-container" fxLayout="row" fxLayoutGap="5px" fxFlex>
+                <mat-form-field appearance="fill" fxFlex>
+                <mat-label>Length</mat-label>
+                <input matInput>
+                </mat-form-field>
+                <br>
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Inner Diamater</mat-label>
+                    <input matInput>
+                </mat-form-field>
+                <br>
+            </div>
+            </mat-card-content>
+        
+        
+        </mat-card>
+    </div>
+    <div>
+        <mat-card >
+            <mat-card-header><mat-card-title>Slipcast Steps</mat-card-title></mat-card-header>
+        
+            <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+                <div class="example-box" *ngFor="let movie of movies" cdkDrag>{{movie}}</div>
+            </div>
+        
+        </mat-card>
+    </div>
+
+</div>
+
+

@@ -1,0 +1,99 @@
+
+<div style="margin:5px;" fxLayoutGap="5px">
+
+    <div fxLayout="row" fxLayoutGap="5px">
+
+        <div fxLayout="row"  fxLayoutAlign="start center" fxFlex>
+            <h3>{{title}}</h3>
+        </div>
+        <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="end center" fxFlex>
+
+            <mat-form-field>
+                <mat-label>Filter</mat-label>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium">
+              </mat-form-field>
+    
+    
+            <button mat-icon-button  
+            (click)="showDocumentUpload = !showDocumentUpload" 
+                 color="primary" matTooltip="Upload New Documents" > <mat-icon >cloud_upload</mat-icon> </button> 
+
+        </div>
+
+
+    </div>
+
+
+    <ngx-file-drop [hidden]="!showDocumentUpload" browseBtnLabel="Upload Related Documents" 
+    (onFileDrop)="droppedfile($event)" 
+    (onFileOver)="fileOver($event)" 
+    (onFileLeave)="fileLeave($event)"  [showBrowseBtn]="true"></ngx-file-drop>
+
+   
+
+    <div class="mat-elevation-z1" style="max-height:400px; overflow:auto;"  >
+        <table style="width: 100% !important;" mat-table [dataSource]="dataSource" >
+    
+        <!-- Name Column -->
+        <ng-container matColumnDef="id" sticky>
+            <th mat-header-cell style="width:30px" *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element; "> {{element.id}} </td>
+        </ng-container>
+    
+        <!-- Position Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container> 
+        
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Description </th>
+            <td mat-cell *matCellDef="let element"> 
+
+               
+                <input  matInput name="file_description"   placeholder="Describe the file." [(ngModel)]="element.description" (blur)="updateFileDescription(element)">
+             
+                
+            </td>
+        </ng-container>  
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell  style="width:50px" *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let element; let i = index">  
+                <div fxLayout="row">
+                <button mat-icon-button                                  
+                color="red" matTooltip="Delete Document"  (click)="deleteFile(element,i)"> <mat-icon >delete</mat-icon> </button>
+                <button mat-icon-button  
+                color="primary" matTooltip="Download" (click)="downloadFile(element)" > <mat-icon >cloud_download</mat-icon> </button> </div>  
+            </td>
+            
+        </ng-container>
+
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </div>
+</div>
+<!-- <div class="upload-table">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody class="upload-name-style">
+            <tr *ngFor="let item of object.media; let i=index">
+                <td>{{item.id}}</td>
+                <td><strong>{{ item.name }}</strong></td>
+                <td>{{ item.mime_type }}</td>
+                <td>
+                  
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div> -->

@@ -1,0 +1,132 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "QuantiamAngular13Plus": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/QuantiamAngular13Plus",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "assets": [
+              "src/assets",
+              "src/favicon.ico",
+              "src/web.config",
+              "src/manifest.json",
+              "src/CHANGELOG.md"
+            ],
+            "styles": [   
+              "node_modules/highcharts/css/highcharts.css",
+              "node_modules/@ag-grid-community/all-modules/dist/styles/ag-grid.css",
+              "node_modules/@ag-grid-community/all-modules/dist/styles/ag-theme-balham.css",
+              "node_modules/@ag-grid-community/all-modules//dist/styles/ag-theme-material.css",
+              "node_modules/@ng-select/ng-select/themes/default.theme.css",
+              "src/assets/css/tablecloth.css",
+              "node_modules/handsontable/dist/handsontable.full.min.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/jqwidgets-ng/jqwidgets/styles/jqx.base.css",          
+              "src/styles.css"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/moment/min/moment.min.js",
+              "node_modules/marked/lib/marked.js",              
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ],            
+            "allowedCommonJsDependencies": [
+              "highcharts",
+              "core-js",
+              "lodash"
+           ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "4mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "QuantiamAngular13Plus:build:production"
+            },
+            "development": {
+              "browserTarget": "QuantiamAngular13Plus:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "QuantiamAngular13Plus:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "QuantiamAngular13Plus"
+}

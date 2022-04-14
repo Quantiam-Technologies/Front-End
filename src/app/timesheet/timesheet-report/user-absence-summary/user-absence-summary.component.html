@@ -1,0 +1,101 @@
+
+  
+  <div fxLayout="column" fxLayoutGap="20px">
+      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+    
+       
+          <mat-card>
+      
+              <mat-card-header>
+                 
+                  <mat-card-title>Filters</mat-card-title>
+                  <mat-card-subtitle>Absence data for user broken down by month.</mat-card-subtitle>
+                </mat-card-header>
+    
+                <mat-card-content>
+    
+                  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+    
+                    <div fxFlex  fxGrow="2">
+                      <app-select-user ngDefaultControl [(ngModel)]="selectedUser" (change)="updateSelectedUserList($event)" ></app-select-user>
+                    </div>
+                      <mat-form-field fxFlex="grow" >
+                          <mat-label>Year</mat-label>
+                      
+                          <mat-select [(ngModel)]="selectedYear" matNativeControl (selectionChange)="updateYear()">
+                             
+                              <mat-option *ngFor="let year of yearList" [value]="year">
+                                  {{year}}
+                                </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+    
+                  </div>
+                 
+               <!-- <mat-card-actions>
+  
+                <div fxLayout="row"  fxLayoutAlign="end center" (click)="fetchReport()" fxFlex> 
+                    <button mat-button mat-raised-button color="primary" class="mat-elevation-z1" [disabled]="!selectedUser && !selectedYear"> Fetch Report </button>
+                   </div> 
+               
+               
+              </mat-card-actions> -->
+              </mat-card-content>
+            </mat-card>
+    
+    </div>
+    
+    <div fxLayout="row" fxLayoutAlign="center center"> 
+    
+        <div id="alerts" *ngIf="fetchedReportLoaded">
+    
+    
+            <ngb-alert [dismissible]="false" type="success" *ngIf="selectedYear < currentYear">
+              <strong> Closed </strong> The ending period for this time range has been closed. This data is unlikley to change.  
+            </ngb-alert>
+        
+           <ngb-alert [dismissible]="false" type="warning" *ngIf="selectedYear >= currentYear">
+              <strong> Notice </strong> The ending period for this time range is still open. This data is likley to change.  
+            </ngb-alert>
+            
+          </div>
+        
+    </div>
+    
+    <div fxLayout="column" fxLayoutAlign="center center" fxFlex   *ngIf="fetchedReportLoaded">
+    
+       
+        <div fxLayout="row" fxLayoutGap="10px">
+            <h4> Total hours:</h4>
+            <p style="margin-bottom: .5rem;"> {{totalHours}}</p>
+          </div>
+
+          <hot-table  
+          
+        
+          class="hot"
+    
+          [hotId]="id"
+          [settings]="hotTableSettings"
+          [licenseKey]="'non-commercial-and-evaluation'"  
+        
+      >
+    
+    
+      
+          <hot-column data="month" title="Month" read-only></hot-column>
+          <hot-column data="vacation" title="Vacation" read-only></hot-column> 
+          <hot-column data="pto" title="PTO" read-only></hot-column> 
+           <hot-column data="cto" title="CTO" read-only></hot-column>
+          <hot-column data="unpaid" title="Unpaid" read-only></hot-column> 
+        
+         
+    
+          
+          </hot-table>  
+          
+    
+    
+    
+      </div>
+    </div>

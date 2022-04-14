@@ -1,0 +1,67 @@
+<h2 mat-dialog-title >Create Payout</h2>
+
+<div mat-dialog-content style="padding:20px;" fxLayout="column" fxLayoutGap="10px">
+
+<div fxLayout="row wrap" fxLayoutGap="10px"  >
+        
+    <mat-form-field fxFlex>
+
+        <mat-select placeholder="Bank Type"  [(ngModel)]="selectedType">
+            <mat-option value="vacation">Vacation Payout</mat-option>
+            <mat-option value="pto">PTO Payout</mat-option>
+            <mat-option value="cto">CTO Payout</mat-option>
+        </mat-select>
+
+    </mat-form-field>
+
+
+    <mat-form-field  >
+            <input name="create_payout_date" matInput [matDatepicker]="myDatepicker2" placeholder="Payout Date" [(ngModel)] ='payoutDate'   >
+            <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker2></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+                <input matInput name="create_payout_hours" placeholder="Hours" type="number" [(ngModel)]="hours" min="-8" max="8" >
+        
+               
+            </mat-form-field>
+    </div>
+        <div fxLayout="row wrap" fxLayoutGap="10px"  >
+
+
+    <mat-form-field fxFlex>
+        <textarea matInput  placeholder="Comments about this payout." [(ngModel)]="comment" rows=3></textarea>
+    </mat-form-field>
+
+</div>
+
+
+<div id="alerts" >
+
+
+        <ngb-alert [dismissible]="false" type="info" *ngIf="hours > 0">
+          <strong> Removing </strong> You will remove {{hours}} hours from this person's account. 
+        </ngb-alert>
+
+        <ngb-alert [dismissible]="false" type="info" *ngIf="hours < 0">
+          <strong> Adding  </strong> You are adding {{(hours*-1)}} hours to this person's account. 
+        </ngb-alert>
+    
+        
+    
+</div>
+
+
+<div fxLayout="row" fxLayoutAlign="end start" fxFlex>
+
+        <button mat-button color="primary" [disabled]="!payoutDate || !hours || !selectedType"(click)="createPayout()"> Create Entry </button>
+
+
+</div>
+
+
+
+
+
+</div>

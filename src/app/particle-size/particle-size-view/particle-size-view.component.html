@@ -1,0 +1,30 @@
+<div fxLayout="column" fxFlex fxLayoutGap="10px">
+
+        <div fxFlex  fxLayout="row" fxLayoutGap="20px">
+                <h3>{{runID}} </h3> 
+                <p> {{particleSizeRun?.name}} </p>
+                <button mat-raised-button class="mat-small"  
+                routerLink="/material/container/{{particleSizeRun.container_id}}" 
+      *ngIf="particleSizeRun?.container_id" color="accent"> {{ particleSizeRun?.qcid || particleSizeRun?.container_id  }} </button>
+        </div>
+
+        <div fxFlex  fxLayout="row" fxLayoutGap="10px">
+
+      
+                <div xLayout="column" fxFlex>
+                        <!-- Interactive Graph -->
+
+                        <p> INteractive graph here, button for PDF</p>
+                        <!-- data -->
+
+                        <svg id="linechart"></svg>
+                </div>
+
+                <div fxLayout="column" fxFlex>
+
+                        <!-- column of related containers? from same material (haha).  -->
+                        Related containers
+                </div>
+
+        </div>
+</div>

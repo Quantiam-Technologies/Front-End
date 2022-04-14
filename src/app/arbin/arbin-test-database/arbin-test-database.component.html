@@ -1,0 +1,28 @@
+<div  fxLayout="column" fxLayoutAlign="start center" fxFlex>
+
+
+    <div fxFlex fxLayout="row">
+
+        Search Bar here
+
+    </div>
+            <ag-grid-angular  
+            #agGrid   
+            style="width:550px; height:calc(78vh); margin-top:10px;" 
+            class="ag-theme-balham"
+            [animateRows]="true"
+            [rowData]="rowData" 
+            [columnDefs]="columnDefs"         
+            [modules]="modules"
+            [defaultColDef]="defaultColDef"                
+            (gridReady)="onGridReady($event)"
+            (rowClicked)="onRowClicked($event)"        
+            [enableRangeSelection]="true"
+            [pagination]="false"
+        
+        
+            
+            >
+        </ag-grid-angular>
+    
+</div>

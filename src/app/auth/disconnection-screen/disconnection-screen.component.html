@@ -1,0 +1,33 @@
+
+<div fxFlex fxLayout="column" fxLayoutAlign="center center" fxLayoutGap=10px>
+
+        <br><br><br>
+        <p> You're online, but unable to reach api.edm.quantiam.com. Please try the following solutions.  </p>
+        <br>
+        <h3> Solution 1: The server is offline </h3>
+     
+        <p>Make sure the web server computer in Heli's office is turned on.</p>
+        <br>
+        <h3> Solution 2: Renewing your local IP (DNS Failure) </h3>
+       
+
+        <ol>
+            <li> Open a command prompt. </li>
+            <li> Write <code> ipconfig /release </code>, press enter. </li>
+            <li> Write <code>ipconfig /renew </code>, press enter. </li>
+            <li routerLink="/auth"> <a href=""> Try logging in again </a> </li>
+
+        </ol>
+        <table>
+        <tbody>
+            <tr>
+                <td> <img src="assets\img\disconnect_ipconfig\search_cmd.png" width=70% style="margin-right:10px"></td>
+                <td> <img src="assets\img\disconnect_ipconfig\blank_cmd.png"></td>
+            </tr>
+
+        </tbody>
+    </table>
+     <!--   
+        <img src="assets\img\disconnect_ipconfig\release.png">
+        <img src="assets\img\disconnect_ipconfig\renew.png"> -->
+</div>

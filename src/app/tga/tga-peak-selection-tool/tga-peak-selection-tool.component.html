@@ -1,0 +1,199 @@
+<div fxLayout="column" fxLayoutGap="50px" >
+
+
+    <div fxLayout="row" fxFlex >
+
+      <app-select-tgarun
+
+      placeholder="Please select one or more TGA Runs"
+      multiple="true"
+      style="min-width:400px;"
+      [selectedValue]="selectedTgaRuns"
+      (change)="changeTgaRun($event)"
+      (remove)="removeTgaRun($event)"
+      (clear)="clearAllSelectedFiles($event)"
+
+      ></app-select-tgarun>
+
+      <button mat-button (click)="loadSelectedTgaRuns()"> Load </button>
+
+      <button mat-button > {{storedTgaRuns.length}} Files </button>
+
+      <div *ngIf="selectedTgaRuns.length == 1 && TgaRun?.filename">
+          <button mat-button  *ngIf="TgaRun.filename !== tgaRunBuffer[0].name" (click)="previousRun()">Previous</button> 
+         <button mat-button (click)="nextRun()">Next</button>
+
+       
+     
+    </div>
+
+    
+    
+  </div>
+
+  <div *ngIf="TgaRun?.filename && selectedTgaRuns.length == 1" fxLayout="column" fxLayoutGap="10px">
+
+
+    <div fxLayout="row" fxLayoutGap="10px">
+<!-- 
+        <mat-form-field>
+            <mat-select placeholder="TGA File" [(ngModel)]="selectedFile" (selectionChange)="changeSelectedFile($event)" >
+              <mat-option *ngFor="let file of TgaFileList" [value]="file">
+                {{file.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+      
+
+    </div>
+
+      <highcharts-chart *ngIf="renderChart"
+        [Highcharts]="Highcharts"
+        [options]="chartOptions"
+        [(update)]="updateFlag"
+
+        style="width: 100%; height: 500px; display: block;"
+      ></highcharts-chart>
+      <h2 *ngIf="!correctStepNameCheck" >The expected stepname is missing.</h2>
+
+    
+
+      <div *ngIf="TgaRun.peaks[0]">
+          <h3> Peaks </h3> 
+          <div  fxLayout="row" fxLayoutGap="10px">
+            <button *ngFor="let peak of TgaRun.peaks" mat-raised-button (click)="deleteTgaRunPeak(peak)">{{peak.temperature}}</button>
+          </div>
+    </div>
+    <div *ngIf="renderChart && selectedTgaRuns.length == 1">
+      <h3> Deriviative Controls </h3> 
+  
+      <div fxLayout="row" fxLayoutGap="10px">
+        <mat-form-field>
+          <input matInput placeholder="Window Size" type="number"  step="5" value="value" [(ngModel)]="sgOptions.windowSize">
+        </mat-form-field>
+        
+        <mat-form-field>
+          <input matInput placeholder="Polynomial" type="number" value="value" [(ngModel)]="sgOptions.polynomial">
+        </mat-form-field>
+        <button mat-button (click)="recalculateDerivative()"> Plot </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="selectedTgaRuns.length > 1" fxLayout="row">
+   
+
+
+         
+
+          <div fxLayout="column" fxFlex=100>
+ 
+            <highcharts-chart 
+              *ngIf="renderMultiChart"
+              [Highcharts]="Highcharts"
+              [options]="multiChartOptions"
+              [(update)]="multiUpdateFlag"
+            
+      
+              style="width: 100%; height: 500px; display: block;"
+            ></highcharts-chart>
+
+         
+
+            <!-- {{multiUpdateFlag}} -->
+           
+            <mat-tab-group *ngIf="storedTgaRuns[1]?.filename">
+               
+             
+
+                <mat-tab label="Controls">  
+                    <div class="example-form" fxLayout="row" fxLayoutGap="10px" style="margin-top:20px; height:200px; margin-left:20px;">
+                        <mat-form-field class="example-full-width">
+                          <input matInput   type="number" step="0.005" placeholder="Y Axis Min" [(ngModel)]="multiYaxisMin" (change)="changeMultiYaxis()" >
+                        </mat-form-field>
+                      
+                        <mat-form-field  class="example-full-width">
+                          <input matInput   type="number" step="0.005" placeholder="Y Axis Max"  [(ngModel)]="multiYaxisMax" (change)="changeMultiYaxis()">
+                        </mat-form-field>
+        
+                        <mat-form-field   class="example-full-width">
+                            <input matInput type="number" step="10" placeholder="X Axis Min"  [(ngModel)]="multiXaxisMin" (change)="changeMultiXaxis()">
+                          </mat-form-field>
+        
+                          <mat-form-field   class="example-full-width">
+                              <input matInput type="number" step="10" placeholder="X Axis Max"  [(ngModel)]="multiXaxisMax" (change)="changeMultiXaxis()">
+                            </mat-form-field>
+                          <mat-form-field   class="example-full-width">
+                              <input matInput type="number"  placeholder="Displayed Internval"  [(ngModel)]="pointIntervalDisplayed" (blur)="updateMultiHighchartObj()">
+                              <mat-hint>Interval between displayed points and raw data.</mat-hint>
+                            </mat-form-field>
+                      </div>
+
+
+                </mat-tab>
+                <mat-tab label="Selected Runs" fxLayout="row" >
+                  <div style="padding: 0px 20px 0px 20px;">
+                    <table mat-table  [dataSource]='tableDataSource'  style="width:100%;"> 
+                      <!-- Position Column -->
+                        <ng-container matColumnDef="filename">
+                            <th mat-header-cell *matHeaderCellDef> Run </th>
+                            <td mat-cell *matCellDef="let element"> {{element.filename}} </td>
+                          </ng-container>
+                      <!-- Position Column -->
+                        <ng-container matColumnDef="sample">
+                            <th mat-header-cell *matHeaderCellDef> Sample </th>
+                            <td mat-cell *matCellDef="let element"> {{element.sample}} </td>
+                          </ng-container>
+                        <ng-container matColumnDef="comments">
+                            <th mat-header-cell *matHeaderCellDef> Comments </th>
+                            <td mat-cell *matCellDef="let element"> {{element.Procedure.comments}} </td>
+                          </ng-container>
+  
+                          <!-- Position Column -->
+                          <ng-container matColumnDef="steps">
+                              <th mat-header-cell *matHeaderCellDef> Steps </th>
+                              <td mat-cell *matCellDef="let element"> {{element.steps.length}} </td>
+                            </ng-container>
+  
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="peaks">
+                            <th mat-header-cell *matHeaderCellDef> Peaks Identified </th>
+                            <td mat-cell *matCellDef="let element"> {{element.peaks.length}} </td>
+                          </ng-container>
+  
+                        <!-- Position Column -->
+                        <ng-container matColumnDef="rundate">
+                            <th mat-header-cell *matHeaderCellDef> Run Date </th>
+                            <td mat-cell *matCellDef="let element"> {{element.rundate}} </td>
+                          </ng-container>
+  
+                          <ng-container matColumnDef="file_download">
+                              <th mat-header-cell *matHeaderCellDef> Export </th>
+                              <td mat-cell *matCellDef="let element"> 
+                                
+                                <button  (click)="downloadTgaJsonFile(element.url,element.filename)" mat-button>
+                                   Export 
+                                </button>
+                                
+  
+  
+                              </td>
+                            </ng-container>
+  
+  
+                      <tr mat-header-row *matHeaderRowDef="['filename','sample','comments','steps','peaks','rundate','file_download']"></tr>
+                      <tr mat-row *matRowDef="let row; columns: ['filename','sample','comments','steps','peaks','rundate','file_download'];"></tr>
+                    </table>
+                    </div>
+                  </mat-tab>
+              </mat-tab-group>
+           
+
+         
+
+          
+        </div>
+  </div>
+
+  
+</div>

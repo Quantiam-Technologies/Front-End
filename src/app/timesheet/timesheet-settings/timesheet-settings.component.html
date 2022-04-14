@@ -1,0 +1,16 @@
+<nav mat-tab-nav-bar>
+    
+    <a mat-tab-link *ngIf="userService.hasPermission(24)" routerLink="project" routerLinkActive="mat-tab-link-active"> Projects </a>
+    <a mat-tab-link *ngIf="userService.hasPermission(18)" routerLink="machines" routerLinkActive="mat-tab-link-active"> Machines </a>
+    <a mat-tab-link *ngIf="userService.hasPermission(25)" routerLink="holiday" routerLinkActive="mat-tab-link-active"> Holidays </a>
+    <a mat-tab-link *ngIf="userService.hasPermission(37)" routerLink="rto-allocation" routerLinkActive="mat-tab-link-active"> RTO Allocation </a>
+    
+    
+    
+    
+
+</nav>
+    
+<div class="padding">
+    <router-outlet ></router-outlet>
+</div>

@@ -1,0 +1,83 @@
+
+
+<div fxLayout="row"  fxLayoutAlign="center center" fxFlexFill>
+
+
+  <div fxLayout="column" fxFlex.gt-md=80 fxFlex >
+
+      <div fxLayout="row" >
+
+         <!--  <ngb-alert   type="info"  [dismissible]="false" style="margin-top:7px; margin-bottom:0px;">
+              <b> Data Storage Location: </b>
+               <a style="margin-left:10px;" target="_blank" href="file:///Q:/Equipment/Analytical/XRD" > Q:/Equipment/Analytical/XRD </a>
+          </ngb-alert> -->
+
+      <!--     <button   (click)="openDialog()" mat-raised-button color="primary"> 
+            Create Container
+           </button> -->
+          <div fxLayout="row" fxLayoutGap="5px">
+              <app-select-campaign></app-select-campaign>
+              <app-select-steel></app-select-steel> <!-- steeltype -->
+          </div>
+
+          
+          <div fxLayoutAlign="end center" fxFlex fxLayoutGap="10px">
+             <button mat-raised-button (click)="createSteel()" color="primary"> Create </button>
+              <button mat-raised-button (click)="refreshDatabase()"> Refresh </button>
+          </div>
+
+       
+      
+      
+      </div>
+
+      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" fxFlex >
+
+    <!--   <app-select-project
+        style="min-width:125px;"
+        (change)="filterProject($event)"
+        (clear)="clearFilterProject($event)"
+      ></app-select-project> -->
+
+        <div  fxLayoutAlign="end center" fxFlex fxLayoutGap="20px">
+
+          <mat-form-field style="max-width: 100px;">
+              <mat-select  placeholder="Page Size"  [(ngModel)]="gridOptions.cacheBlockSize" (selectionChange)="onPageSizeChanged()">
+                <mat-option *ngFor="let pageSize of pageSizes" [value]="pageSize" [attr.selected]="pageSize === gridOptions.cacheBlockSize ? 'selected': null">
+                  {{pageSize}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field style="width:200px">
+                <!--   <span matPrefix>+1 &nbsp;</span> -->
+                <input id="SearchBar" type="text" matInput (keyup)="onTextFilterChanged()"  [(ngModel)]="filteredTextFilterName"  placeholder="Search">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field> 
+          </div> 
+
+      </div>
+
+
+        <ag-grid-angular
+        #agGrid
+        
+        id="xrdDatabase"
+        class="ag-theme-balham"
+        [columnDefs]="columnDefs"
+        [gridOptions]="gridOptions"
+        [defaultColDef]="defaultColDef"
+             
+        [modules]="modules"
+        domLayout='autoHeight'
+        [animateRows]="true"
+        [frameworkComponents] = "frameworkComponents"
+        
+        (rowDoubleClicked)="onRowDoubleClicked($event)"
+        (gridReady)="onGridReady($event)"
+        >
+        </ag-grid-angular>
+    </div>
+
+
+</div>

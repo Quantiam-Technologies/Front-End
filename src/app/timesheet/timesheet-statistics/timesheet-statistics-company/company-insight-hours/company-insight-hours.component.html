@@ -1,0 +1,132 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px"  >
+
+    <div fxLayout="row wrap" *ngIf="yearlyResponseObj?.data" fxLayoutAlign="center start" fxLayoutGap="10px" style="height:500px;">
+
+        <div fxFlex=40 fxLayoutAlign="center start">
+            <highcharts-chart 
+            *ngIf="renderYearlyChart" 
+            [Highcharts]="Highcharts"
+            [options]="yearlyChartOptions"
+            [(update)]="updateFlag"
+            style="height:400px;"
+            ></highcharts-chart>
+        </div>
+
+        <div fxFlex=30 fxLayout="column" fxLayoutGap="10px">
+
+            <div fxLayout="row" fxFlex>
+
+                <ngb-alert [dismissible]="false" fxFlex type="danger" *ngIf="!yearlyResponseObj.closed">
+                    <strong> Notice </strong> This was generated for a period subject to change. 
+                </ngb-alert>
+
+                <ngb-alert [dismissible]="false" fxFlex type="success" *ngIf="yearlyResponseObj.closed">
+                    <strong> Closed </strong> This was generated for a closed time period. 
+                </ngb-alert>
+            
+            
+
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start start" fxFlex>
+                <div>
+                    <h5> {{yearlyResponseObj.total_hours | number}} Hours </h5> 
+                </div>
+                <div fxLayout="row" fxFlex fxLayoutAlign="end start" > 
+                <p> {{yearlyResponseObj.startDate}} to {{yearlyResponseObj.endDate}}</p>
+                </div>
+
+            </div>
+
+            <div fxLayout="row" fxFlex  fxLayoutGap="10px">
+            
+                    <mat-form-field fxFlex="33" >
+                        <mat-label>Year</mat-label>
+                    
+                        <mat-select name="selectedYear" [(value)]="selectedYear"  matNativeControl (selectionChange)="getYearlyChartData()" >
+                        
+                            <mat-option *ngFor="let year of yearList" [value]="year">
+                                {{year}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    
+                <mat-form-field fxFlex="33"  >
+                    <mat-label>Quarter</mat-label>
+                    <mat-select  name="Quarter" [(ngModel)]="yearlyDataParams.quarter" (selectionChange)="getYearlyChartData()">
+                        <mat-option>--</mat-option>
+                        <mat-option  value="1">Quarter 1 </mat-option>
+                        <mat-option  value="2">Quarter 2 </mat-option>
+                        <mat-option  value="3">Quarter 3 </mat-option>
+                        <mat-option  value="4">Quarter 4 </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field fxFlex="33" >
+                    <mat-label>Absences</mat-label>
+                    <select matNativeControl name="Absence" [(ngModel)]="yearlyDataParams.absence" (change)="getYearlyChartData()">
+                    
+                        <option value="true" selected> Show Absences</option>
+                        <option value="false"> Hide Absences </option>
+                    </select>
+                    
+                    </mat-form-field>
+                
+                
+            </div>
+        
+            <div fxLayout="row" fxFlex>
+
+                
+                    <hot-table  
+                    
+                    class="hot"
+                    [hotId]="id"
+                    [settings]="hotTableSettings"
+                    [licenseKey]="'non-commercial-and-evaluation'">         
+
+                        <hot-column data="category_id" title="ID" read-only></hot-column>
+                        <hot-column data="name" title="Name" read-only></hot-column>
+                        <hot-column data="hours" title="Hours" read-only></hot-column>
+                        <hot-column data="percent" title="Percent" read-only></hot-column>
+                </hot-table>
+
+
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" fxFlexFill >
+
+      
+            <highcharts-chart  
+       
+            *ngIf="renderStackedMontlyChart" 
+            [Highcharts]="Highcharts"
+            [options]="allMonthlyStackedChartOptions"
+                
+                [(update)]="updateFlag2" 
+                style="height:500px; width:100%;"
+                ></highcharts-chart>
+
+     
+
+        
+      <div fxFlexFill>
+            <jqxDataTable  
+            [source]="dataAdapter" [columns]="columns"
+        [pageable]="true" [columnsResize]="true" [pagerButtonsCount]="10">
+            </jqxDataTable>
+        </div> 
+            
+
+            
+
+
+        
+    </div>
+
+</div>

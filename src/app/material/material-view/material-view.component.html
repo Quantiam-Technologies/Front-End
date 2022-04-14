@@ -1,0 +1,152 @@
+<div *ngIf="material.hasOwnProperty('id')">
+	<form  style='margin-top:10px'  #materialForm="ngForm">
+		
+		
+		<div fxLayoutGap="20px" fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="start stretch">
+			
+			<div fxLayout="column" fxFlex="1 2 calc(15em + 20px)">
+				<div fxLayoutGap="20px" fxLayout="row" fxLayout.xs="column"  fxFlex="1 2 100px">
+				
+					
+						  
+						<mat-form-field class="full-width">
+							<input #materialName matInput placeholder="name" [(ngModel)] ='material.name' name="name" (change)="updateMaterial(materialName)">
+						  </mat-form-field> 
+						 
+						  
+				
+
+						  <mat-form-field class="full-width">
+							<input #materialGrade type="text" matInput placeholder="Grade" [(ngModel)] ='material.grade' name="grade" (change)="updateMaterial(materialGrade)">
+						  </mat-form-field> 
+						  
+						  
+					<mat-form-field class="full-width">
+							<input #Nomenclature matInput placeholder="Nomenclature"  [(ngModel)] ='material.formula' name="formula" (change)="updateMaterial(Nomenclature)">
+						  </mat-form-field>
+				
+				</div>
+				
+				<div fxLayoutGap="20px" fxLayout="row" fxLayout.xs="column"  fxFlex="1 2 100px">
+				
+						<mat-form-field class="full-width">
+						
+							<app-select-material-supplier placeholder="Supplier" [(ngModel)] ='material.supplier.supplier_id' name="supplier_name"></app-select-material-supplier>
+						  </mat-form-field>
+
+						  <mat-form-field class="full-width">
+							<input #materialCatalog matInput placeholder="Catalog #" [(ngModel)] ='material.catalog' name="catalog"  (change)="updateMaterial(materialCatalog)">
+						  </mat-form-field>
+
+						  <mat-form-field class="full-width">
+							<input #materialCAS matInput placeholder="CAS #" [(ngModel)] ='material.cas' name="cas" >
+						  </mat-form-field>
+						  
+						<mat-form-field class="full-width">
+							<input #materialMolarmass matInput type="number" step="0.1" [(ngModel)] ='material.molar_mass' name="molar_mass" placeholder="Molar Mass" (change)="updateMaterial(materialMolarmass)">
+						  </mat-form-field>
+
+						  <mat-form-field class="full-width">
+							<input #materialDensity matInput type="number" step="0.1"   placeholder="Density"  [(ngModel)] ='material.density' name="density"  (change)="updateMaterial(materialDensity)">
+						  </mat-form-field> 
+						 
+						  
+				
+		
+				
+				
+				</div>	
+				
+				<div fxLayoutGap="20px" fxLayout="row" fxLayout.xs="column"  fxFlex="1 2 100px">
+				
+					
+						  
+					<!-- 	<mat-form-field class="full-width">
+							<input matInput placeholder="Favorite food" value="Sushi">
+						  </mat-form-field> 
+						  -->
+				
+				
+				
+				
+				</div>
+			</div>
+			 
+			<div fxFlex="20" fxLayout="column"  fxLayoutAlign="center center">
+				<img  src="./assets/img/mock_chemical.jpg" >
+				<button style="font-size:12px;" mat-button >Upload Picture</button>
+			</div>
+		</div>
+		
+		
+		
+		 
+	 
+	</form>
+
+
+	<div fxLayoutGap="20px" fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="start stretch">
+		
+		
+	<mat-card id="" fxFlex="20">
+	  <mat-card-header>
+		<div mat-card-avatar class="example-header-image"></div>
+		<mat-card-title>Shiba Inu</mat-card-title>
+		<mat-card-subtitle>Dog Breed</mat-card-subtitle>
+	  </mat-card-header>
+	  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+	  <mat-card-content>
+		<p>
+		  The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+		  A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+		  bred for hunting.
+		</p>
+	  </mat-card-content>
+	  <mat-card-actions>
+		<button mat-button>LIKE</button>
+		<button mat-button>SHARE</button>
+	  </mat-card-actions>
+	</mat-card>
+		<mat-card class="example-card" fxFlex="20">
+	  <mat-card-header>
+		<div mat-card-avatar class="example-header-image"></div>
+		<mat-card-title>Shiba Inu</mat-card-title>
+		<mat-card-subtitle>Dog Breed</mat-card-subtitle>
+	  </mat-card-header>
+	  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+	  <mat-card-content>
+		<p>
+		  The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+		  A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+		  bred for hunting.
+		</p>
+	  </mat-card-content>
+	  <mat-card-actions>
+		<button mat-button>LIKE</button>
+		<button mat-button>SHARE</button>
+	  </mat-card-actions>
+	</mat-card>
+		<mat-card class="example-card" fxFlex="20">
+	  <mat-card-header>
+		<div mat-card-avatar class="example-header-image"></div>
+		<mat-card-title>Shiba Inu</mat-card-title>
+		<mat-card-subtitle>Dog Breed</mat-card-subtitle>
+	  </mat-card-header>
+	  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+	  <mat-card-content>
+		<p>
+		  The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+		  A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+		  bred for hunting.
+		</p>
+	  </mat-card-content>
+	  <mat-card-actions>
+		<button mat-button>LIKE</button>
+		<button mat-button>SHARE</button>
+	  </mat-card-actions>
+	</mat-card>
+		
+	</div>
+
+
+</div>

@@ -1,0 +1,21 @@
+<ng-select 
+	#ngSelect
+	[items]="items"
+
+	[(ngModel)]="selectedValue"
+	placeholder="Material Supplier"
+	[multiple]="multiple"
+  [addTag]="addTag"
+
+	(change)="onChange($event)"
+	(clear)="onClear($event)"
+	appendTo="body"
+	(open)="onOpen()"
+
+  bindLabel="supplier_name"
+  bindValue="supplier_id"
+  [virtualScroll]="true"
+  
+>
+	
+</ng-select>

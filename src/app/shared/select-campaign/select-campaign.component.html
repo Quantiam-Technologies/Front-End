@@ -1,0 +1,34 @@
+
+
+<ng-select 	
+[items]="allItems"
+[style]="style"
+[(ngModel)]="selectedValue"
+[placeholder]="placeholder"
+[multiple]="multiple"
+(change)="onChange($event)"
+(clear)="onClear($event)"
+bindLabel="campaign_name"
+bindValue="campaign_id"
+>
+
+<ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm" >
+			
+					
+        <div fxFlex fxLayout="row" fxLayoutAlign="start center">
+            <div  fxFlex=10><i>{{item.campaign_id}}</i></div>
+            <div  fxFlex [ngOptionHighlight]="search">{{item.campaign_name}}</div>
+            <div fxFlex=20 fxLayoutAlign="end center">
+                <div  *ngIf="item.campaign_active"><button mat-button color="primary">Active</button> </div>
+               <div   *ngIf="!item.campaign_active"><button mat-button color="accent">Inactive</button></div>
+           </div>
+        </div>
+       
+            
+      
+    
+
+
+</ng-template>
+
+</ng-select>

@@ -1,0 +1,109 @@
+<div fxLayout="column" fxLayoutGap="20px">
+    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+  
+     
+        <mat-card>
+    
+            <mat-card-header>
+               
+                <mat-card-title>Filters</mat-card-title>
+                <mat-card-subtitle>Project hours summary  for the specified time range. </mat-card-subtitle>
+              </mat-card-header>
+  
+              <mat-card-content style="padding-left:16px; padding-right:16px;">
+              <div fxLayout="row" fxLayoutGap="20px">
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+                      <mat-form-field>
+                          <mat-label>Payperiod</mat-label>
+                      
+                          <mat-select [(ngModel)]="selectedPayperiod" matNativeControl   (selectionChange)="calculatePayperoid()">
+                            
+                              <mat-option *ngFor="let item of timesheetPayperoids" [value]="item">
+                                  {{item}}
+                                </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+                      <mat-form-field>
+                          <mat-label>Year</mat-label>
+                      
+                          <mat-select [(ngModel)]="selectedYear" matNativeControl (selectionChange)="calculatePayperoid()">
+                            
+                              <mat-option *ngFor="let year of yearList" [value]="year">
+                                  {{year}}
+                                </mat-option>
+                          </mat-select>
+                        </mat-form-field>
+    
+                  </div>
+                  <div fxLayout="row" fxLayoutAlign="center center">  
+                      <h5> Or </h5>
+                  </div>
+                  <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">  
+                      <mat-form-field>
+                        <input matInput [(ngModel)]="startDate" [matDatepicker]="startDatePicker" placeholder="Start Date" (dateChange)="changeDates()">
+                        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #startDatePicker></mat-datepicker>
+                      </mat-form-field>
+                    
+                    <mat-form-field>
+                        <input matInput [(ngModel)]="endDate" [matDatepicker]="endDatePicker" placeholder="End Date" (dateChange)="changeDates()">
+                        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                        <mat-datepicker #endDatePicker></mat-datepicker>
+                      </mat-form-field>
+                     
+                      
+                </div>
+              </div>
+              <div  fxLayout="column" fxLayoutGap="20px">
+                  <app-select-user ngDefaultControl [multiple]="true" [allOptions]="true" [(ngModel)]="selectedUserList" (change)="updateSelectedUserList($event)"></app-select-user>
+                  <app-select-project  ngDefaultControl [multiple]="true" [(ngModel)]="selectedProjectList" (change)="updateSelectedProjectList($event)"></app-select-project>
+              </div>
+            
+              <mat-card-actions fxLayout="row" style="margin-top:10px;"   >
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" fxFlex>
+                  <mat-checkbox [(ngModel)]="absences"> Absences </mat-checkbox>
+                  <mat-checkbox [(ngModel)]="employees"> Employees </mat-checkbox>
+                  <mat-checkbox [(ngModel)]="machines"> Machines </mat-checkbox>
+                  
+                 
+                
+                </div>
+              
+                <div fxLayout="row"  fxLayoutAlign="end center" (click)="fetchData()" fxFlex>
+                   <button [disabled]="!startDate && !endDate" mat-raised-button color="primary"  > Fetch Report </button> 
+                  </div>
+              
+              
+              </mat-card-actions>
+            </mat-card-content>
+          </mat-card>
+  
+  
+  
+  
+        
+  </div>
+
+    <div fxLayout="row" >
+
+
+      <hot-table  
+      
+      *ngIf="fetchedReportLoaded"
+      class="hot"
+
+      [hotId]="id"
+      [settings]="hotTableSettings"
+      [licenseKey]="'non-commercial-and-evaluation'">
+    
+
+          <hot-column data="user_id" title="ID" read-only></hot-column>
+          <hot-column data="user_name" title="Name" read-only></hot-column>
+          <hot-column data="denomination" title="Denomination" read-only></hot-column>
+          <hot-column *ngFor="let project of fetchedReport.projects" data="{{project}}" title="{{project}}" read-only>{{project}}</hot-column>
+    </hot-table>
+
+
+  </div>
+</div>
+  

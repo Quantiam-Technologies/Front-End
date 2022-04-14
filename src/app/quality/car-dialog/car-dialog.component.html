@@ -1,0 +1,14 @@
+<app-car *ngIf="carObject.id" [carObject]="carObject" (removed)="onRemove()"></app-car>
+<div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="end center">
+    <!--   {{carObject.index}} {{carObject.arrayLength}} -->
+      <div fxLayoutAlign="start center" fxFlex>
+          <button mat-button  (click)="previousCar()" *ngIf="carObject.index !== 0 && carObject.index < (carObject.arrayLength)"> Prev </button>   
+      </div>
+      
+      <div fxLayoutAlign="center center" fxFlex>
+          <button mat-button [mat-dialog-close]="data"> Close </button>   
+       </div>
+       <div fxLayoutAlign="end center" fxFlex>
+          <button mat-button (click)="nextCar()" *ngIf="carObject.index !== (carObject.arrayLength - 1)"> Next </button>   
+       </div>
+  </div>

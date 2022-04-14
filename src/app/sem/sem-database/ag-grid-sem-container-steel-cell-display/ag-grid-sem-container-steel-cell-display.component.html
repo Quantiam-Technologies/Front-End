@@ -1,0 +1,35 @@
+
+
+
+
+<div fxLayout="row" fxLayoutGap="5px" fxFlex (mouseenter)="showTrash = true;"
+(mouseleave)="showTrash = false;">
+  
+  <div
+
+    *ngIf="params.data?.steel_id" 
+    matTooltip="Info about the action"
+    
+  >    
+    <button mat-raised-button class="mat-small"       
+          color="primary"
+          (click)="goToSteel(params)"
+          (mouseenter)="steelPopUp.show(params.data.steel)"
+          (mouseleave)="steelPopUp.hide()"
+          matTooltip="Info about the action"
+            aria-label="Button that displays a tooltip when focused or hovered over">
+          
+          {{params.data.steel.heat_id}} </button>
+  </div>
+
+
+  <div>   
+    <button mat-raised-button class="mat-small"  
+      (click)="goToContainer(params)" 
+      *ngIf="params.data?.container_id" color="accent"> {{ params.data.container?.qcid || params.data.container?.container_id  }} </button>
+  </div>
+    <div>
+      <mat-icon [hidden]="!showTrash"
+       (click)="deleteThis(params)" class="clickable" style="color:red; cursor:pointer;">delete </mat-icon>
+  </div>
+</div>

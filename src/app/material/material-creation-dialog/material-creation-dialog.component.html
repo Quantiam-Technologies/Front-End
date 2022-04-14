@@ -1,0 +1,497 @@
+
+<div mat-dialog-content>
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+	<mat-step [stepControl]="materialFormGroup">
+		
+	<div *ngIf="materialCreationStep" fxFlex>
+		<form [formGroup]="materialFormGroup" id="materialForm" >
+		<ng-template matStepLabel>Material </ng-template>
+
+			
+
+			<!-- <h4 style="margin-top:0px !important;">Material  </h4>	 -->
+			<div *ngIf="!newMaterial" fxLayout="column" style="margin-bottom:30px;" fxLayoutGap="20px" fxLayoutAlign="start center" >
+				
+			
+					
+					<app-select-material
+						style="width: 100% !important;"
+						[hidden]="lookedForMaterial"
+						(change)="selectMaterial($event)"
+					></app-select-material>
+
+					<mat-checkbox
+					[hidden]="selectedMaterial?.id || lookedForMaterial"
+					(change)="lookedForMaterial = !lookedForMaterial; createMaterialAttrs();"
+					>
+					<p 	*ngIf="!lookedForMaterial">I didn't find the material i'm entering!</p>
+					
+
+					</mat-checkbox>
+					
+					
+				 <!-- <button mat-raised-button  (click)="createMaterialAttrs()" *ngIf="lookedForMaterial"> Create Material </button>
+			 -->
+			</div>
+			<div fxLayoutGap="5px" style="margin-bottom:10px;" fxLayout="row" fxLayoutAlign="center center">
+				<button mat-raised-button  (click)="selectingMaterialAttrs(); lookedForMaterial = !lookedForMaterial;" *ngIf="creatingMaterial" fxFlex="20"> Select Material Instead </button>
+			</div>
+
+			<div *ngIf="newMaterial || selectedMaterial?.id  || lookedForMaterial" fxLayout="column"  fxLayoutGap="10px" >
+
+					<h3>Required Attributes</h3> 
+
+					<div>
+						<app-select-material-supplier 
+						style="min-width: 200px;"
+						name="supplier_name"
+						[addTag]="true"
+						placeholder="Supplier (Required)"
+						*ngIf="creatingMaterial"
+						[selectedValue]="material.supplier_id"
+						(change)="selectSupplier($event)"
+						(clear)="clearSupplier()"
+						>
+						</app-select-material-supplier>
+						 
+					</div>	
+		
+
+					<div fxLayoutGap="10px" fxLayout="row" fxLayout.sm="column"  fxLayoutAlign="start stretch"  >	
+						  <mat-form-field class="full-width"  fxFlex>
+							  <input #MaterialName   type="text" matInput placeholder="Name" (change)="validateNewMaterial()"   (blur)="resetMaterialCheck()" [(ngModel)] ='material.name' formControlName="firstCtrl" name="name" required [disabled]="!creatingMaterial">
+						 </mat-form-field>  
+						  <mat-form-field class="full-width" fxFlex>
+							  <input  #MaterialGrade  type="text" matInput placeholder="Grade" 
+							  (blur)="resetMaterialCheck()"
+							  [(ngModel)] ='material.grade' name="grade"   [ngModelOptions]="{standalone: true}" [disabled]="!creatingMaterial">
+							  	<mat-hint> Can be left blank, "MN-101", "VC-8729", "TOTAL Mn/SI" </mat-hint>
+						 </mat-form-field>
+
+						 <mat-form-field class="full-width" *ngIf="!creatingMaterial">
+							<input  type="text" matInput placeholder="Supplier" [value] ='material.supplier_name || material.supplier.supplier_name' name="supplier" disabled>
+						</mat-form-field>  
+						<app-select-material-supplier 
+						style="min-width: 200px;"
+						name="supplier_name"
+						[addTag]="true"
+						placeholder="Supplier (Required)"
+						*ngIf="creatingMaterial"
+						[selectedValue]="material.supplier_id"
+						(change)="selectSupplier($event)"
+						(clear)="clearSupplier()"
+						>
+						</app-select-material-supplier>
+						 
+						 
+					</div>		
+					
+					<h3>Optional Attributes</h3> 
+
+					<div fxLayoutGap="10px"  fxLayout="row" fxLayout.sm="column"  >	
+						
+						
+							
+							<mat-form-field class="full-width" fxFlex>
+								<input #ParticleSize type="text" matInput placeholder="Particle Size" [(ngModel)] ='material.particle_size'  [ngModelOptions]="{standalone: true}" name="particle_size"   [disabled]="!creatingMaterial">
+								<mat-hint> Optional: eg 1-5um, -325 mesh </mat-hint>
+						   </mat-form-field> 
+						   <mat-form-field class="full-width" fxFlex>
+							<input #Purity type="text" matInput placeholder="Purity (%)" [(ngModel)] ='material.purity'  [ngModelOptions]="{standalone: true}" name="purity"   [disabled]="!creatingMaterial">
+							<mat-hint> Optional: "99.9","99.5","99.0" </mat-hint>
+					 	  </mat-form-field> 
+						   
+						 
+						
+						  <mat-form-field class="full-width" fxFlex>
+							  <input   #Cas type="text" matInput placeholder="CAS #" [(ngModel)] ='material.cas'  [ngModelOptions]="{standalone: true}" name="cas"  [disabled]="!creatingMaterial" >
+							  <mat-hint> Optional |  Eg: 78954-4546-45,4775-45-54,456-5876-45 - Do not use words </mat-hint>
+						 </mat-form-field>
+						 
+					</div>
+					<div fxLayoutGap="10px"  fxLayout="row" fxLayout.sm="column" fxLayoutAlign="center center" >
+					
+					
+				 
+						<mat-form-field class="full-width" fxFlex>
+							<input #Nomenclature  type="text" matInput placeholder="Molecular Formula" [(ngModel)] ='material.formula' [ngModelOptions]="{standalone: true}" name="formula" [disabled]="!creatingMaterial" >
+							  <mat-hint> Optional | Eg: Mo2C, TaO3, H2O  </mat-hint>
+					  </mat-form-field>  
+					
+
+						 <mat-form-field class="full-width" fxFlex>
+							  <input #Density type="text" matInput placeholder="Density (g/ml)" [(ngModel)] ='material.density' [ngModelOptions]="{standalone: true}" name="density"   [disabled]="!creatingMaterial">
+							  <mat-hint> Optional | Eg:  2.95 kg/m3 </mat-hint>
+						 </mat-form-field> 
+
+						 
+						 <mat-form-field class="full-width" fxFlex>
+							  <input #FormulaWeight type="text" matInput placeholder="Formula Weight" [(ngModel)] ='material.formula_weight' [ngModelOptions]="{standalone: true}" name="formula_weight"   [disabled]="!creatingMaterial">
+							  <mat-hint> Optional | Eg:  192.8 g/mol</mat-hint>
+						 </mat-form-field> 
+					</div>
+			</div>
+			<div *ngIf="material.name && material.supplier_id" fxLayout="row" fxLayoutAlign="end center" style="margin-top:10px;" fxLayoutGap="10px">
+				<!--[hidden]="materialChecked"-->
+
+				<!-- 	<button mat-raised-button   [hidden]="hideMaterialCheckBox" (click)="checkMaterialExistence(stepper)" color="accent">Check Material</button>
+			
+					<div [hidden]="!materialChecked" fxLayout="row" fxLayoutGap="5px" >
+						<ngb-alert   type="success" [hidden]="!materialCheckedOkay" [dismissible]="false" style="margin-top:7px; margin-bottom:0px;">
+							<b> Checked </b> Material doesn't exist!
+						</ngb-alert>
+					 	<ngb-alert   type="danger" [hidden]="(materialCheckedOkay)" [dismissible]="false" style="margin-top:7px; margin-bottom:0px;">
+							<b> Checked </b> Material seems to already exists!
+						</ngb-alert> 
+					</div> -->
+					<button mat-raised-button *ngIf="material.name && material.supplier_id" [disabled]="materialFormGroup.status === 'INVALID'" matStepperNext color="primary">Next</button>
+					
+			</div>
+	 	 </form>
+	  </div>
+	</mat-step>
+	<mat-step [stepControl]="lotFormGroup">
+	  <form [formGroup]="lotFormGroup">        
+		<ng-template matStepLabel>Lot </ng-template>
+	
+	
+			
+			
+			<div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" style="margin-top:20px;">
+					
+							<app-select-material-lot 
+							*ngIf="((materialStepComplete && !lot.isNew ) 
+							|| (materialStepComplete && !newLot.lot_name && !lot.isNew))
+							 && stepper.selectedIndex === 1"								
+							[materialID]="material.id"
+							(change)="selectLot($event)"		
+							style="width:200px;"  >
+						
+							</app-select-material-lot >
+								<div [hidden]="hideNewLot || newLot.lot_name || lot.isNew " *ngIf="(materialStepComplete && !lot.isNew ) || (!newLot.lot_name && !lot.isNew) || (!hideNewLot)"> or </div>
+								
+								<mat-form-field  class="full-width" [hidden]="hideNewLot" *ngIf="lot.isNew || (materialStepComplete && !selectedLot.text)"  fxFlex="30">
+									<input formControlName="secondCtrl"  [ngModelOptions]="{standalone: true}" #LotName 
+									type="text" matInput placeholder="New Lot Name" [(ngModel)] ='newLot.lot_name' name="name" 
+									(change)="newLotname($event)" >
+									<mat-hint>"16-SD-284","11563972","AB-3341"</mat-hint>
+								</mat-form-field>
+				</div>
+	
+
+		<div *ngIf="material.name" fxLayout="row" fxLayoutAlign="center center" style="margin-top:10px;" fxLayoutGap="5px">
+			
+			<button mat-raised-button matStepperPrevious>Back</button>
+			<button mat-raised-button matStepperNext color="primary"  [disabled]="lotFormGroup.status === 'INVALID'">Next</button>
+		  </div>
+	
+	  </form>
+	</mat-step>
+	<mat-step>
+		<ng-template matStepLabel>Container </ng-template>
+		<!-- formControlName="thirdCtrl"  [ngModelOptions]="{standalone: true}" -->
+		<form id="containerForm"  [formGroup]="containerFormGroup" >
+			
+		
+			<div fxLayoutGap="20px" fxLayout="column"  fxLayoutAlign="start stretch" fxFlex>
+
+				<div  fxLayout="row"  fxLayout.sm="column" > 					
+					<mat-form-field  fxFlex>
+						<input  #ContainerName  
+						formControlName="thirdCtrl"  [ngModelOptions]="{standalone: true}"
+						type="text" matInput placeholder="Nickname" [(ngModel)] ='container.container_name' 
+						name="container_name" >
+						<mat-hint>Optional | eg. "Robert's Chinese Tungsten", "Ryan's Homemade Manganese"</mat-hint>
+					</mat-form-field>  
+				</div>
+		
+				<div fxLayoutGap="20px"  fxLayout="row" fxLayout.sm="column"  fxFlex>	
+						
+						<mat-form-field class="full-width" fxFlex>
+						<mat-hint>Where does this chemical live. </mat-hint>
+										<mat-select required
+												#LocationId
+												formControlName="thirdCtrl2" 
+												placeholder="Location"
+												name="location_id"
+												[(ngModel)]="container.location_id"
+												
+												
+										>
+										
+											<mat-option
+												*ngFor="let location of locationList" 
+												[value]="location.id"
+												
+												>{{location.name}}</mat-option>
+										</mat-select>
+								
+								
+						</mat-form-field>   
+								
+						
+					
+						<mat-form-field  fxFlex="15">
+							<input  
+							formControlName="thirdCtrl3" 
+							#Denomination id="container_denomination" type="text" 
+							(blur)="checkIfWeight()"
+							required matInput placeholder="Denomination" 
+							[(ngModel)] ='container.denomination' name="denomination"  >
+								<mat-hint>g,kg,ml,L</mat-hint>
+						</mat-form-field> 
+
+						<mat-form-field  fxFlex>
+							<input #AmountOrdered
+						
+							formControlName="thirdCtrl4" 
+							type="number"  required matInput 
+							placeholder="Amount Ordered {{container.denomination}}"
+							[(ngModel)] ='container.amount_ordered' 
+							
+							name="amount_ordered" >
+							
+							
+							<mat-hint> "500g","500ml", "5L","6kg" </mat-hint>
+						</mat-form-field>
+						
+						<mat-form-field fxFlex>
+							<input  #PurchaseOrder formControlName="thirdCtrl5"  
+							type="text" matInput placeholder="P.O. #" [(ngModel)] ='container.purchase_order' name="purchase_order" >
+							<mat-hint>Optional: eg. 2018-xxxxx</mat-hint>
+						</mat-form-field>  
+						
+						<mat-form-field  fxFlex>
+								<input #ContainerReceived matInput [matDatepicker]="myDatepicker40" placeholder="Date Received"
+								required formControlName="thirdCtrl6" 
+								 name="container_received" [(ngModel)] ='container.container_received' >
+								<mat-datepicker-toggle matSuffix [for]="myDatepicker40"></mat-datepicker-toggle>
+								<mat-datepicker #myDatepicker40></mat-datepicker>
+						</mat-form-field>
+						
+				
+						
+
+											
+				</div>	
+				<div fxLayoutGap="10px"  fxLayoutGap.sm="5px"   fxLayout="row" fxLayout.sm="column" [hidden]="!isWeight" >	
+						
+					<!-- 	<img width=50px height=50px style="margin-right:40px;" [(src)]="container.datamatrix"/> -->
+				
+					<mat-form-field  fxFlex>
+						<input #GrossWeighttype type="number" formControlName="thirdCtrl7"   
+						matInput placeholder="Gross Weight (g)" 
+						(blur)="updateCalculatedTare()"
+						[(ngModel)] ='container.gross_weight' name="gross_weight" >
+						<mat-hint>This is the unopened weight measured on a scale. </mat-hint>						
+					</mat-form-field>		
+					<mat-form-field  fxFlex>
+						<input #CalculatedTare type="number" formControlName="thirdCtrl8"   
+						matInput placeholder="Calculated Tare (g)"  [disabled]="true"
+						[(ngModel)] ='container.calculated_tare' name="calculated_tare" >
+						<mat-hint>Calculated Tare weight (Gross - Amount Ordered). </mat-hint>						
+					</mat-form-field>		
+
+						
+						
+						
+			</div>	
+		  </div>
+		</form>
+
+		<div fxLayout="row" fxFlex>
+			<div fxLayoutGap="5px" fxLayoutAlign="start center" >
+				
+				<button mat-button matStepperPrevious>Back</button>
+
+			</div>
+
+			<div fxLayoutGap="10px" fxLayoutAlign="end center" fxFlex>
+				<!-- <button mat-button matStepperNext>Next</button> -->
+				
+				<mat-form-field>
+					<input #ContainersToCreate type="number"
+					matInput placeholder="Number of Containers"  
+					min=1 step="1"
+					[(ngModel)] ='containersToMake' [value]="containersToMake" name="ContainersToMake" >
+					<mat-hint>Number of Containers to create. </mat-hint>						
+				</mat-form-field>		
+				<button *ngIf="!codeRegistryStep" class="mat-raised-button mat-primary"
+				(click)="createButton(stepper)" [disabled]="containerFormGroup.status === 'INVALID' || containersToMake < 1"> Create </button>
+
+		
+			</div>
+		</div>
+	</mat-step>
+	<mat-step [stepControl]="qcidFormGroup"> 
+		<ng-template matStepLabel>QCID</ng-template>
+		<!-- Check for an SDS before doing the label thing. -->
+
+		<div fxLayout="row">
+			<div fxLayout="column" fxFlex fxLayoutGap="10px;" fxLayoutAlign="center center">
+				<img src="https://imgur.com/QegOMbn.png" width=250px>
+				<p> QCIDs are issued by Administration. </p>
+			</div>
+			<div fxLayout="column" fxFlex fxLayoutAlign="center center" fxLayoutGap="5px">
+
+					<table class="table">
+						<thead>
+							<th>Container No.</th>
+							<th>QCID</th>
+							<td>Save</td>
+							<td>Check Box</td>
+						</thead>
+						<tbody>
+							<tr *ngFor="let container of createdContainers; let i = index;">
+								<td>
+									{{i+1}}
+								</td>
+								<td>
+									<mat-form-field>
+										<input 
+										
+										matInput placeholder="Enter a QCID"  
+										name="container_{{container.id}}"	
+										[name]="'Container '+i" 
+										[(ngModel)]="container.qcid"
+										
+										
+										>			
+										<mat-hint>"1234"</mat-hint>		
+									</mat-form-field>
+									
+								</td>
+								<td>
+									<button [hidden]="!container.qcid" (click)="updateQCID(container)" mat-raised-button color="accent"> Save </button>
+								</td>
+								<td>
+									<mat-checkbox  [hidden]="!container.qcid" class="example-margin"
+									[checked]="container.savedQCID" disabled></mat-checkbox>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+					
+			
+
+			</div>
+		</div>
+		<div fxLayout="row" fxFlex>
+			<div fxLayout="row" fxFlex>
+				<button mat-button matStepperPrevious>Back</button>
+			</div>
+			<div fxLayout="row" fxLayoutAlign="end center" fxFlex>
+				<button mat-raised-button matStepperNext color="primary">Next</button>
+			</div>
+		</div>
+	</mat-step>	
+	<mat-step [stepControl]="sdsFormGroup"> 
+		<form [formGroup]="sdsFormGroup">
+		<ng-template matStepLabel>SDS</ng-template>
+		<!-- Check for an SDS before doing the label thing. -->
+		<div fxFlex fxLayout="column" fxLayoutGap="5px">
+
+			<div fxFlex fxLayout="row" [hidden]="material.sds" fxFlex>
+
+				<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" fxFlex>
+					<p> This material doesn't have an SDS, you should upload one!</p>
+					<ngx-file-drop style="width:100% !important" fxFlex browseBtnLabel="Add SDS Here " 
+					(onFileDrop)="dropped($event)"  [showBrowseBtn]="true" [multiple]="false"
+					(onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
+						
+					</ngx-file-drop>
+
+				</div>
+
+			</div>
+
+
+		<!-- If an SDS was added, show it on the right side and add in WHIMIS Labels to update -->
+
+			<div  fxFlex fxLayout="column" [hidden]="!material.sds" fxLayoutGap="20px" >
+				
+
+				<div  fxFlex fxLayout="row">
+					<div id="WHMIS Symbols" fxLayout="column"  fxLayoutGap="10px" fxLayoutAlign="center center" fxFlex>
+
+						<mat-form-field  fxFlex>
+							<input #SDSRevisionDate matInput [matDatepicker]="myDatepicker41" placeholder="SDS Revision Date"
+							required formControlName="fourthCrtl" 
+							[ngModelOptions]="{standalone: true}"
+							(dateChange)="updateMaterialSDSRevision()"
+							name="sds_revision_date" [(ngModel)] ='material.sds_revision_date' >
+							<mat-datepicker-toggle matSuffix [for]="myDatepicker41"></mat-datepicker-toggle>
+							<mat-datepicker #myDatepicker41></mat-datepicker>
+						</mat-form-field>
+						
+						<div *ngIf="!material?.whmis_hazard_symbols" (click)="openHazardDialog()" fxFlex fxLayoutAlign="end center">
+							<button mat-raised-button color="primary"> Add Hazard Symbols</button>
+						</div>
+
+						
+						<div *ngIf="material?.whmis_hazard_symbols" fxLayout="column" fxLayoutGap="10px" fxFlex=40 fxLayoutAlign="end center">
+
+							<div fxLayout="row" fxFlex>
+								<a  	matTooltip="View Symbol Meanings" mat-button target="_blank" href="https://www.ccohs.ca/oshanswers/chemicals/whmis_ghs/pictograms.html">
+									<img *ngFor="let hazard of material.whmis_hazard_symbols" [src]="hazard.url" width="60px">
+								</a>
+							</div>
+							<div fxLayout="row" fxLayoutAlign="center center" fxFlex> 
+								<button mat-button	
+								color="primary"
+								(click)="openHazardDialog()"
+								>
+								Edit These Symbols
+								</button>
+							</div>	
+						</div>
+
+					</div>
+					<div id="SDS and upload" [hidden]="!showSDS"  fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" fxFlex >
+			
+								<iframe  id="iframe" type="application/pdf"  style="overflow: auto; min-width: 50%; width:100% !important;" fxFlex>
+								</iframe>
+							
+					</div>
+				</div>
+				<div  fxFlex fxLayout="row" fxLayoutAlign="center center">	
+					<ngx-file-drop style="width:100% !important" fxFlex browseBtnLabel="Add new SDS file" 
+					(onFileDrop)="dropped($event)"  [showBrowseBtn]="true" [multiple]="false"
+					(onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">							
+					</ngx-file-drop>
+				</div>
+				
+
+			</div>
+
+			<div fxLayout="row" fxFlex>
+				<div fxFlex>
+					<button mat-button matStepperPrevious>Back</button>
+				</div>
+				<div fxLayout="row" fxLayoutAlign="end center" fxFlex>
+					<button mat-raised-button matStepperNext color="primary" 
+					[disabled]="sdsFormGroup.status === 'INVALID'"
+					(click)="close()"
+					>Finish</button>
+				</div>
+			</div>
+		</div>
+	</form>	
+	</mat-step>	
+	<!-- <mat-step>
+		<ng-template matStepLabel>WHMIS Symbols </ng-template>
+		<div>
+			<button mat-button matStepperNext>Next</button>
+			<button mat-button matStepperPrevious>Back</button>
+		</div>
+	</mat-step> -->
+
+  </mat-horizontal-stepper>
+</div>
+
+  <div mat-dialog-actions style="margin-top:20px;" fxLayoutGap="10px" >
+    <button style="float:right;"class="mat-raised-button"(click)="close()">Close</button>
+    <!-- <button *ngIf="!codeRegistryStep" class="mat-raised-button mat-primary"(click)="createButton()" [disabled]="!validateForm()">Create </button>
+ -->
+  </div>

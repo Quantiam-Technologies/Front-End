@@ -1,0 +1,21 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+	
+
+<ag-grid-angular  fxFlex fxFlex.gt-lg="100"
+    style="width: calc(100%); height:calc(80vh); margin-top:25px;" 
+    class="ag-theme-material"
+    
+    [rowData]="rowData" 
+	
+    [columnDefs]="columnDefs"
+	
+    (gridReady)="onGridReady($event)"
+	(cellDoubleClicked)="onCellDoubleClicked($event)"
+	
+	[enableRangeSelection]="true"
+	[pagination]="false"
+    [paginationPageSize]="paginationPageSize"
+     [enableRangeSelection]="true"
+    >
+</ag-grid-angular>
+</div>

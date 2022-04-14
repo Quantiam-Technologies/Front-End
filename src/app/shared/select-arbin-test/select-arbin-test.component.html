@@ -1,0 +1,28 @@
+<ng-select 
+
+  [items]="items"
+  [loading]="loading"
+	
+    [multiple]="multiple"
+  [placeholder]="placeholder"
+  [clearable]="clearable"
+  
+  (change)="onChange($event)"
+  (add)="onAdd($event)"
+  (remove)="onRemove($event)"
+  (clear)="onClear($event)"
+
+  [(ngModel)]="selectedValue"	
+    bindValue="Test_ID"
+     bindLabel="Test_Name"
+>   
+   <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm" >
+      <div fxLayout="row"  fxLayoutAlign="start center" fxLayoutGap="10px"  >
+
+        <div   [ngOptionHighlight]="search"> {{item.Test_ID}} </div> 
+        <div   [ngOptionHighlight]="search"> {{item.Test_Name}} </div>        
+      </div>
+  </ng-template> 
+   
+</ng-select>
+

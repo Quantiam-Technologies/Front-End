@@ -1,0 +1,59 @@
+<h2> Corrective Action Report Database </h2>
+
+<div fxLayout="column">
+    <div id="top_row" fxLayout="row" fxLayoutGap=10px>
+        <div fxFlex fxLayoutGap=10px fxFlex>
+
+   
+            
+        </div>
+        <div fxLayoutAlign="center center">
+        <mat-form-field style="width:300px">
+            <!--   <span matPrefix>+1 &nbsp;</span> -->
+            <input id="semDatabaseSearchBar" type="text" matInput (keyup)="onTextFilterChanged()"  [(ngModel)]="filteredTextFilterName"  placeholder="Search">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>  
+        </div>
+
+        <div fxLayoutAlign="end center" fxLayoutGap="5px">
+            <button (click)="refreshDatabase()" mat-raised-button> 
+                Refresh
+                <mat-icon  >refresh</mat-icon>
+            </button>         
+
+        </div>
+       
+    </div>
+
+    <div id="database" fxLayout="row">
+
+        <ag-grid-angular 
+        #agGrid
+           
+              
+        style="width: calc(100%); height:calc(60vh); margin-top:10px;" 
+        class="ag-theme-balham"
+        [animateRows]="true"
+        
+       
+        [rowData]="rowData" 
+       
+        [columnDefs]="columnDefs"
+      
+        [defaultColDef]="defaultColDef"
+        [gridOptions]="gridOptions"              
+        [modules]="modules"
+        (gridReady)="onGridReady($event)"
+        (rowDoubleClicked)="onRowDoubleClicked($event)"
+       
+        [enableRangeSelection]="true"
+        [pagination]="true"
+       
+    
+        
+        >
+    </ag-grid-angular>
+    </div>
+
+
+</div>

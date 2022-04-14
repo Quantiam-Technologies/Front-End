@@ -1,0 +1,40 @@
+
+<div *ngIf="!permissionTest" fxLayoutGap="20px" fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="center center">
+
+	<h3> Oops. You do not have permission to use this scale :( </h3>
+		
+</div>
+
+
+<div *ngIf="permissionTest" fxLayoutGap="20px" fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="center center"> 
+
+	
+	
+	<div >
+	
+		<h3 *ngIf="!scaleInfoTest"> Sorry, we couldn't connect to the SGX scale. </h3>
+		<mat-card class="example-card"  *ngIf="scaleInfoTest && scaleInfo">
+			  <mat-card-header>
+				<mat-card-title>{{scaleInfo.machine.name}}</mat-card-title>
+				<mat-card-subtitle>{{scaleInfo.machine.make}} - {{scaleInfo.machine.model}}</mat-card-subtitle>
+			  </mat-card-header>
+			   <mat-card-content>
+				<div  fxLayoutGap="20px" fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="center center">
+					<button *ngIf="!locked" mat-button> {{scaleInfo.data.value}} g </button>
+					<p *ngIf="locked"> This device is locked. </p>
+				</div>
+			   </mat-card-content>
+			    <mat-card-actions>
+					<button mat-button  [disabled]="locked" (click)="lockScale()"> Lock </button>
+					<button mat-button  [disabled]="!locked" (click)="unlockScale()"> Unlock </button>
+				</mat-card-actions>
+		</mat-card>
+		
+	</div>
+	
+	<div id="weight_value">
+	
+			<div></div>
+	</div>
+		
+</div>

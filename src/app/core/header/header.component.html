@@ -1,0 +1,11 @@
+<mat-toolbar class="app-header"
+				[class.app-header-mobile]="mobileQuery.matches"
+
+>
+	
+	
+	
+<button mat-icon-button [style.display]="mobileQuery.matches ? 'block' : 'none'" (click)="sidenav.toggle()" style="color:white;"><mat-icon>menu</mat-icon></button>
+	
+	
+</mat-toolbar>

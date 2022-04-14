@@ -1,0 +1,16 @@
+<div fxFlex fxLayout="column" fxLayoutGap="20px">
+
+    <h2> MYSQL -> TypeScript Model Formatter </h2>
+    
+    <mat-form-field appearance="fill">
+        <textarea   matInput [(ngModel)]="inputString"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <textarea   matInput [(ngModel)]="exportString" rows="10"></textarea>
+    </mat-form-field>
+    <div>
+        <button mat-raised-button color="primary" (click)="convertToModelFormat()">Convert </button>
+    </div>
+
+</div>

@@ -1,0 +1,15 @@
+<div fxLayout="row">
+        
+        <mat-button-toggle-group value="log"
+    
+        class="mat-elevation-z1" 
+
+        >
+            <mat-button-toggle value="container" [routerLink]="['/material/container',container.id]"> Container </mat-button-toggle>
+            <mat-button-toggle value="log" [routerLink]="['/material/container',container.id,'log']"> Log </mat-button-toggle>
+            <mat-button-toggle value="analysis" [routerLink]="['/material/container',container.id,'analysis']"> Analysis </mat-button-toggle>
+        
+            
+            </mat-button-toggle-group>
+ </div>
+<app-logs *ngIf="loadLogs" [selectedRouteParams]="selectedRouteParams"></app-logs>

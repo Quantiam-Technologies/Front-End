@@ -1,0 +1,32 @@
+
+<h3> SGX ID - 006</h3>
+<mat-form-field>
+  <mat-select 
+  required
+  #SampleType
+  placeholder="Sample Type"
+  [(ngModel)]="selected_type"
+  >
+
+    <mat-option *ngFor="let item of sampleTypeList">{{item}}</mat-option>
+  </mat-select>
+</mat-form-field>
+
+<ag-grid-angular  
+					
+						#rto_agrid
+						style="width: calc(100%); height:500px;margin-top:10px;" 
+						class="ag-theme-material"
+					
+						[rowData]="selectedContainers" 
+						[columnDefs]="ColumnDefs"
+						
+						
+						(gridReady)="onGridReady($event)"
+						(cellEditingStopped)="onCellEditingStopped($event)"
+    				(cellEditingStarted)="onCellEditingStarted($event)"
+						[enableRangeSelection]="true"						
+						[defaultColDef]="DefaultColDef"
+						
+						>
+					</ag-grid-angular>

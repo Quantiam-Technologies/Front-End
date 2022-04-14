@@ -1,0 +1,584 @@
+
+ <ng-http-loader 
+ [filteredUrlPatterns]="['.*filterSpinner.*']"
+ 
+ ></ng-http-loader> 
+ 
+	<mat-toolbar class="app-header" color="primary">
+	
+		 <mat-toolbar-row>
+			<button mat-button style="font-size: 14px;padding-left: 10px;text-align:left" routerLink="/dashboard" >Quantiam Technologies Inc.</button>
+
+			<a mat-button 
+			style="font-size: 14px;padding-left: 10px;text-align:left"
+			 target="_blank" href="http://old.edm.quantiam.com"
+			 matTooltip="Go to the old website."
+			  > Old Website</a>
+			<span class="header-spacer"></span>
+			<!-- <mat-icon class="example-icon">favorite</mat-icon>
+			<mat-icon class="example-icon">delete</mat-icon> -->
+	<!-- 		<mat-form-field>
+				<mat-select placeholder="Scanner"  style="width:100px; line-height:5px;" [(value)]="selectedScanner">
+					<mat-option value="1">Scanner 1</mat-option>
+					<mat-option value="2">Scanner 2</mat-option>
+			  </mat-select>
+			</mat-form-field> -->
+
+			<button 
+			(click)="openPatchNotes()" mat-icon-button >
+				<mat-icon  matTooltip="View Patch Notes">menu_book</mat-icon>
+			</button>
+
+			<app-select-user 
+				style="color:black; font-size: 0.8em;" 
+				*ngIf="showUserSwitch"
+				(change)="changeUser($event)"
+      
+				></app-select-user>
+
+
+				
+				<button 
+				*ngIf="userService.hasPermission(43) || hasSwitchedUser || devTokenFound"
+				(click)="showUserSwitch = !showUserSwitch; " mat-icon-button >
+					<mat-icon  matTooltip="Change User">person</mat-icon>
+				</button>
+			
+			<select *ngIf="initializeScanner"									
+					 (valueChanged)="updateScanner($event)"
+					cssImport ="true"
+					style="margin-bottom: 2px;"
+				><option disabled></option>
+					<option
+						*ngFor="let scanner of scannerList" 
+						[value]="scanner.id"
+						[attr.selected]="selectedScanner.id==scanner.id ? true : null"
+						>{{scanner.text}}</option>
+			</select>
+			<button (click)="initializeScanner = !initializeScanner; connectScannerService()" mat-icon-button >
+				<mat-icon  matTooltip="Select a handheld scanner.">track_changes</mat-icon>
+			</button>
+			
+						
+			<button mat-button class='name-title-box' *ngIf="userLoaded" routerLink="/user/{{user.id}}">
+				<p  class='name'> {{user.name}} </p>
+				<p  class='name-title'> {{user.title}} </p>
+			</button>
+			<button style="font-size:14px; font-weight: bold;" mat-button (click)="logout()">Logout</button>
+		
+		</mat-toolbar-row>
+		
+	</mat-toolbar>
+
+	<div class="top-progress-bar-wrapper">	
+			
+			<mat-progress-bar *ngIf="loading" mode="buffer"  ></mat-progress-bar>		
+	
+		
+	</div>
+					
+  <mat-sidenav-container class="app-container" [style.marginTop.px]="options.value.top">
+
+			
+		
+			<mat-sidenav class="print" #sidenav 
+						opened="defaultOpen" 
+						[class]="mobileQuery.matches ? 'app-sidenav-over' : 'app-sidenav'"
+						[mode]="mobileQuery.matches ? 'over' : 'side'" 
+						[fixedInViewport]="mobileQuery.matches" [fixedTopGap]="options.value.top"
+						[fixedBottomGap]="options.value.bottom"
+			>
+<!-- 			
+			<div id="small_navigation" style="margin: 0px 0px 10px 0px;" fxLayout="row" fxLayoutAlign="center center">
+				<button (click)="backClicked()" mat-button style="min-width:60px;"> 
+					<mat-icon>arrow_back</mat-icon> 
+					
+				</button>	
+				<button (click)="forwardClicked()" mat-button style="min-width:60px;"> 
+					<mat-icon>arrow_forward</mat-icon> 
+					
+				</button>
+			</div> -->
+					<mat-accordion class="side-panel" multi="true">
+
+						<!-- <mat-expansion-panel expanded="true" *ngIf="isAdmin">
+						  <mat-expansion-panel-header [expandedHeight]="'32px'" [collapsedHeight]="'32px'">
+								<mat-panel-title>
+								    Admin
+								</mat-panel-title>
+								
+							  </mat-expansion-panel-header>
+								<mat-list>
+							  <mat-list-item  > 
+										<button routerLink="/material" mat-button>Home</button>
+								</mat-list-item> 
+								 <mat-list-item > 
+									 <button routerLink="/user/database"  routerLinkActive="mat-list-item-button-active" mat-button  > Users </button>
+								</mat-list-item>
+								 <mat-list-item style="display:none"> 
+									 <button routerLinkActive="mat-list-item-button-active" mat-button> Groups </button>
+								</mat-list-item >	
+								<mat-list-item style="display:none"> 
+									 <button  routerLinkActive="mat-list-item-button-active" mat-button> Permissions </button>
+								</mat-list-item>	
+							
+								</mat-list>  
+						</mat-expansion-panel> -->
+						<mat-divider style="display:none"></mat-divider >
+						<mat-expansion-panel expanded="false"  style="padding-top:3px; ">
+							
+								
+							<mat-expansion-panel-header [expandedHeight]="'32px'" [collapsedHeight]="'32px'">
+								   <mat-panel-title>
+								   Employees
+								</mat-panel-title>
+								
+							  </mat-expansion-panel-header>
+								<mat-list>
+								<mat-list-item  > 
+										<button routerLink="/user/database"  routerLinkActive="mat-list-item-button-active" mat-button class="not-drop-down-button" >
+										
+											<p>Directory</p> 
+											<fa-icon [icon]="faUserFriends"></fa-icon>
+										</button>
+								</mat-list-item>
+									<mat-list-item  > 
+										<button routerLink="/user/hierarchy"  routerLinkActive="mat-list-item-button-active" mat-button class="not-drop-down-button" >
+										
+											<p>Hierarchy</p> 
+											<fa-icon [icon]="faSitemap"></fa-icon>
+										</button>
+								</mat-list-item>
+
+								</mat-list>
+								
+								
+					
+							
+						</mat-expansion-panel>
+						
+						<mat-divider *ngIf="userService.isActive()"></mat-divider >
+						<mat-expansion-panel expanded="true"   *ngIf="userService.isActive()">
+						 <mat-expansion-panel-header [expandedHeight]="'32px'" [collapsedHeight]="'32px'">
+							<mat-panel-title>
+								    Time Tracking
+								</mat-panel-title>
+								
+							  </mat-expansion-panel-header>
+								<mat-list>
+								<!--  <mat-list-item  > 
+										<button routerLink="/material" mat-button>Home</button>
+								</mat-list-item> -->
+								 <mat-list-item > 
+									 <button  [routerLink]="['/timesheet', this.currentTimesheet.userId, 'year', this.currentTimesheet.year, 'payperiod',  this.currentTimesheet.payperiod]" 
+									 routerLinkActive="mat-list-item-button-active" mat-button> <p>Timesheet</p>
+										<fa-icon [icon]="faClock"></fa-icon>
+									</button>
+								</mat-list-item>	
+								<mat-list-item > 
+										<button   [routerLink]="['/timesheet', this.currentTimesheet.userId, 'bank-history','vacation']" 
+										routerLinkActive="mat-list-item-button-active" mat-button> <p>Bank History</p>
+										   <fa-icon [icon]="faPiggyBank"></fa-icon>
+									   </button>
+								   </mat-list-item>
+								   
+								 <mat-list-item > 
+									 
+									 <button routerLink="/timesheet/calendar" routerLinkActive="mat-list-item-button-active" mat-button  >  
+										<p>	Calendar</p> 
+										<fa-icon [icon]="faCalendar" ></fa-icon>
+									</button>
+									 
+								</mat-list-item>
+								 <mat-list-item > 
+									 
+									 <button routerLink="/timesheet/rto/database" routerLinkActive="mat-list-item-button-active" mat-button   >  
+										<p>	RTO </p> 
+										<fa-icon [icon]="faPlaneDeparture" ></fa-icon>
+									</button>
+									 
+								</mat-list-item>
+								 <mat-list-item > 
+									 
+									 <button routerLink="/timesheet/insights/company" routerLinkActive="mat-list-item-button-active" mat-button   >  
+										<p>	Insights </p> 
+										<fa-icon [icon]="faChartLine" ></fa-icon>
+									</button>
+									 
+								</mat-list-item>
+								<mat-list-item 	 *ngIf="userService.hasPermission([24,25,37])"  > 
+										
+										<button 
+											routerLink="/timesheet/settings"  
+									 
+											routerLinkActive="mat-list-item-button-active" mat-button   >  
+										 <p>	Settings </p> 
+										 <fa-icon [icon]="faCog" ></fa-icon>
+									 </button>
+										
+								 </mat-list-item>
+
+								 <mat-list-item 	 *ngIf="userService.hasPermission(35)"  > 
+										
+									 <button 
+										 routerLink="/timesheet/report"  
+									
+										 routerLinkActive="mat-list-item-button-active" mat-button   >  
+										<p>	Reports </p> 
+										<fa-icon [icon]="faPaste" ></fa-icon>
+									</button>
+									 
+								</mat-list-item>
+								<!-- <mat-list-item > 
+									 <button  routerLinkActive="mat-list-item-button-active" mat-button> RTO </button>
+								</mat-list-item> -->
+								
+							
+								</mat-list>  
+						</mat-expansion-panel>
+						
+						<mat-divider  ></mat-divider>
+						<mat-expansion-panel  expanded="true" >
+							  <mat-expansion-panel-header [expandedHeight]="'32px'" [collapsedHeight]="'32px'">
+								<mat-panel-title>
+								    Manufacturing
+								</mat-panel-title>
+								
+							  </mat-expansion-panel-header>
+								<mat-list>
+
+
+									<!-- 	<mat-list-item  > 
+												<button routerLink="/prefinish/database" routerLinkActive="mat-list-item-button-active" mat-button>Powder Processing</button>
+										</mat-list-item>
+										<mat-list-item  > 
+												<button routerLink="/prefinish/database" routerLinkActive="mat-list-item-button-active" mat-button>Prefinish</button>
+										</mat-list-item>
+										<mat-list-item  > 
+												<button routerLink="/slip/database" routerLinkActive="mat-list-item-button-active" mat-button>Slip Creation</button>
+										</mat-list-item> -->
+										<mat-list-item  > 
+											<button routerLink="/tapecast/database" routerLinkActive="mat-list-item-button-active" mat-button>Tape Casting</button>
+										</mat-list-item>
+										<!-- <mat-list-item  > 
+											<button routerLink="/slipcast/database" routerLinkActive="mat-list-item-button-active" mat-button>Slip Casting</button>
+										</mat-list-item>
+										<mat-list-item  > 
+												<button routerLink="/furnace/run/database" routerLinkActive="mat-list-item-button-active" mat-button>Furnace Runs</button>
+										</mat-list-item>
+										<mat-list-item  > 
+												<button routerLink="/shipment/database" routerLinkActive="mat-list-item-button-active" mat-button>Shipping</button>
+										</mat-list-item> -->
+									
+										   
+								</mat-list>
+						</mat-expansion-panel>
+				
+						<mat-divider></mat-divider>
+						<mat-expansion-panel expanded="true" >
+							  <mat-expansion-panel-header [expandedHeight]="'32px'" [collapsedHeight]="'32px'">
+								<mat-panel-title>
+								    Inventory
+								</mat-panel-title>
+								
+							  </mat-expansion-panel-header>                  
+								<mat-list>
+								<!--  <mat-list-item  > 
+										<button routerLink="/material" mat-button>Home</button>
+								</mat-list-item> -->
+									
+																
+								
+								    <mat-list-item  > 
+										 <button routerLink="/steel/database" routerLinkActive="mat-list-item-button-active" mat-button> 
+											<p>Steel</p>
+											<fa-icon [icon]="faPallet"></fa-icon>
+										
+										</button>
+									</mat-list-item>  
+
+										 <mat-list-item  > 
+										 <button routerLink="/material/container/database" routerLinkActive="mat-list-item-button-active" mat-button> <p>Materials</p>
+											<fa-icon [icon]="faFlask"></fa-icon>
+										</button>
+									</mat-list-item> 
+									
+									<mat-list-item  > 
+										 <button routerLink="/3dmodels/database" routerLinkActive="mat-list-item-button-active" mat-button> <p>3d Models</p>
+											<fa-icon [icon]="faDraftingCompass"></fa-icon>
+										</button>
+									</mat-list-item>  
+
+								
+									<!--  <mat-list-item style="display:none" > 
+										 <button  routerLinkActive="mat-list-item-button-active" mat-button> Racks </button>
+									</mat-list-item> 
+									
+									<mat-list-item style="display:none" > 
+										<button routerLink="/inventory/database" routerLinkActive="mat-list-item-button-active" mat-button> Inventory Jobs </button>
+									</mat-list-item> -->
+								
+								</mat-list>  
+						</mat-expansion-panel>
+					
+						
+					
+
+
+						<mat-divider style="display:none"></mat-divider>
+						<mat-expansion-panel expanded="true" style="display:none">
+								 <mat-expansion-panel-header [expandedHeight]="'32px'" [collapsedHeight]="'32px'">
+								
+								
+								<mat-panel-title>
+									Operations
+								</mat-panel-title>
+								
+							  </mat-expansion-panel-header>
+								<mat-list>
+								 <mat-list-item  > 
+										 <button routerLinkActive="mat-list-item-button-active" mat-button>Receiving</button>
+								</mat-list-item>
+									 <mat-list-item  > 
+										 <button routerLinkActive="mat-list-item-button-active" mat-button>Surface Finishing</button>
+								</mat-list-item>
+								<mat-list-item  > 
+										 <button routerLinkActive="mat-list-item-button-active" mat-button>Powder Processing</button>
+								</mat-list-item>
+								<mat-list-item  > 
+										 <button routerLinkActive="mat-list-item-button-active" mat-button>Slip Making</button>
+								</mat-list-item>
+								<mat-list-item  > 
+										 <button routerLinkActive="mat-list-item-button-active" mat-button>Slip Casting</button>
+								</mat-list-item>
+								 <mat-list-item  > 
+										 <button routerLinkActive="mat-list-item-button-active" mat-button>Furnace Runs</button>
+										<!--  <mat-list>
+												<div>
+													<mat-list-item  > 														
+																<button routerLinkActive="mat-list-item-button-active" mat-button>Runs</button>											
+													</mat-list-item>
+												</div>
+												<div>
+												<mat-list-item > 														
+															<button routerLinkActive="mat-list-item-button-active" mat-button>Profiles</button>											
+												</mat-list-item>
+												</div>
+												<div>
+												<mat-list-item > 														
+															<button routerLinkActive="mat-list-item-button-active" mat-button>Insights</button>											
+												</mat-list-item>
+												</div>
+										 </mat-list> -->
+								</mat-list-item>
+									 <mat-list-item  > 
+										 <button routerLinkActive="mat-list-item-button-active" mat-button>Shipping</button>
+								</mat-list-item>
+								
+								
+								</mat-list>
+						</mat-expansion-panel>
+						
+
+									
+					
+
+						<mat-divider style="display:none"></mat-divider>
+						<mat-expansion-panel expanded="false" style="display:none">
+								 <mat-expansion-panel-header [expandedHeight]="'32px'" [collapsedHeight]="'32px'">
+								
+								
+								<mat-panel-title>
+									QAQC
+								</mat-panel-title>
+								
+							  </mat-expansion-panel-header>
+								<mat-list>
+								 <mat-list-item  > 
+										 <button routerLinkActive="mat-list-item-button-active" mat-button>Inspections</button>
+								</mat-list-item>
+									 <mat-list-item  > 
+										 <button routerLinkActive="mat-list-item-button-active" mat-button>Analytics</button>
+								</mat-list-item>
+					
+								
+								</mat-list>
+						</mat-expansion-panel>
+						
+						
+						<mat-divider ></mat-divider>
+						<mat-expansion-panel expanded="false" >
+							<mat-expansion-panel-header [expandedHeight]="'32px'" [collapsedHeight]="'32px'">
+						   
+						   
+						   <mat-panel-title>
+							   Quality
+						   </mat-panel-title>
+						   
+						 </mat-expansion-panel-header>
+						   <mat-list>
+						   <mat-list-item  > 
+								   <button routerLink="/quality/ncr/database" routerLinkActive="mat-list-item-button-active" mat-button> <p>NCR</p>								   
+									   <fa-icon  [icon]="faExclamationCircle" ></fa-icon>
+								   </button>
+						   </mat-list-item>
+						    <mat-list-item  > 
+								   <button routerLink="/quality/car/database" routerLinkActive="mat-list-item-button-active" mat-button> <p>CAR</p>								   
+									   <fa-icon  [icon]="faWrench" ></fa-icon>
+								   </button>
+						   </mat-list-item>
+						</mat-list>
+						</mat-expansion-panel>
+						<mat-divider ></mat-divider>
+						<mat-expansion-panel expanded="true" >
+								 <mat-expansion-panel-header [expandedHeight]="'32px'" [collapsedHeight]="'32px'">
+								
+								
+								<mat-panel-title>
+									Instruments
+								</mat-panel-title>
+								
+							  </mat-expansion-panel-header>
+								<mat-list>
+								<mat-list-item  > 
+										<button routerLink="/sem/database" routerLinkActive="mat-list-item-button-active" mat-button> <p>SEM </p>
+										
+											<fa-icon  [icon]="faMicroscope" ></fa-icon>
+										</button>
+								</mat-list-item>
+								<mat-list-item  *ngIf="userService.hasPermission([39,44])"> 
+										<button routerLink="/tga/peak-tool" routerLinkActive="mat-list-item-button-active" mat-button> <p>TGA</p>
+											<fa-icon  [icon]="faFireAlt" ></fa-icon>
+										</button>
+								</mat-list-item>
+							<!-- 	<mat-list-item *ngIf="userService.hasPermission(39)" > 
+										 <button routerLink="/xps/database" routerLinkActive="mat-list-item-button-active" mat-button> <p>XPS </p>
+											<fa-icon  [icon]="faBolt" ></fa-icon>
+										</button>
+								</mat-list-item> -->
+						
+									<mat-list-item   > 
+										 <button routerLink="/xrd/database" routerLinkActive="mat-list-item-button-active" mat-button>
+											 
+											<p>XRD</p>
+											<fa-icon  [icon]="faXRay" ></fa-icon>
+
+										 </button>
+								</mat-list-item>
+								<mat-list-item  > 
+									<button routerLink="/particle-size/database" routerLinkActive="mat-list-item-button-active" mat-button> <p>Particle Size</p>
+									
+										<fa-icon  [icon]="faBraille" ></fa-icon>
+									</button>
+							</mat-list-item>
+					
+								<mat-list-item   > 
+									<button routerLink="/arbin/test/database" routerLinkActive="mat-list-item-button-active" mat-button>
+										
+									   <p>Arbin</p>
+									   <fa-icon  [icon]="faSun" ></fa-icon>
+
+									</button>
+						   </mat-list-item>
+								
+								</mat-list>
+						</mat-expansion-panel>
+						
+
+
+						<mat-divider ></mat-divider>
+						<mat-expansion-panel expanded="false" *ngIf="userService.hasPermission([44,39])">
+							  <mat-expansion-panel-header [expandedHeight]="'32px'" [collapsedHeight]="'32px'">
+								<mat-panel-title>
+								    SGX
+								</mat-panel-title>
+								
+							  </mat-expansion-panel-header>
+								<mat-list>
+
+
+										<mat-list-item  > 
+												<button routerLink="/sample/database" routerLinkActive="mat-list-item-button-active" mat-button>Samples</button>
+										   </mat-list-item>
+										   
+								</mat-list>
+						</mat-expansion-panel>
+
+						<mat-divider></mat-divider>
+						<mat-expansion-panel expanded="false">
+								 <mat-expansion-panel-header [expandedHeight]="'32px'" [collapsedHeight]="'32px'">
+								
+								
+								<mat-panel-title>
+									Tools 
+								</mat-panel-title>
+								
+							  </mat-expansion-panel-header>
+								<mat-list>
+								
+								 <mat-list-item *ngIf="userService.hasPermission(38)" > 
+										 <button routerLink="/sample/sgx-scale-auth" routerLinkActive="mat-list-item-button-active" mat-button>Scale Auth</button>
+								</mat-list-item>
+								 <mat-list-item  > 
+										 <button routerLink="/tools/scale-bar" routerLinkActive="mat-list-item-button-active" mat-button>Scale Bar</button>
+								</mat-list-item>
+								<mat-list-item  *ngIf="userService.hasPermission([39])"> 
+									<button routerLink="/tools/typescript-model-formatter" routerLinkActive="mat-list-item-button-active" mat-button> <p> Models </p>
+										<fa-icon  [icon]="faFireAlt" ></fa-icon>
+									</button>
+							</mat-list-item>
+								
+								</mat-list>
+						</mat-expansion-panel>
+						<!-- <mat-divider></mat-divider> -->
+					
+					
+						</mat-accordion>				  
+			  
+			</mat-sidenav>
+				
+			<mat-sidenav-content  class="app-content" >
+
+				
+				<app-pop-up-steel-card></app-pop-up-steel-card>
+				
+				<router-outlet   #c="outlet"></router-outlet>
+			
+
+			</mat-sidenav-content>
+	
+  </mat-sidenav-container>
+
+  <mat-toolbar fxLayout="row" class="app-footer" color="primary">
+			<div style="padding-left:5px" fxFlex fxLayout="row" fxLayoutAlign="start start">
+					<p style="font-size: 12px;"> Version {{version}} </p>
+
+			</div>
+
+
+			<div style="padding-right: 20px; " fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
+
+				<p style="font-size: 12px;">  © {{currentYear}} Quantiam Technologies, Inc.</p>
+
+				<div class="footer-icon-array" fxLayout="row"  fxLayoutGap="10px" >
+					<a style="color:white;" target="_blank" href="https://github.com/Troyd-Destin/quantiam_angular_boiler_plate">
+						<fa-icon  [icon]="faGithub" ></fa-icon>
+					</a>
+					<a style="color:white;" target="_blank" href="https://angular.io/">
+						<fa-icon  [icon]="faAngular" ></fa-icon>
+					</a>
+					<a style="color:white;" target="_blank" href="https://laravel.com/docs/5.7">
+						<fa-icon  [icon]="faLaravel" ></fa-icon>
+					</a>
+					
+					<a style="color:white;" target="_blank" href="https://origin.fontawesome.com/icons">
+						<fa-icon  [icon]="faFontAwesome" ></fa-icon>
+					</a>
+				</div>
+
+				
+			
+			</div>
+
+	</mat-toolbar>
+

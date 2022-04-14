@@ -1,0 +1,14 @@
+<div  fxLayout="column"> 
+  <div  fxLayout="row">
+    <mat-form-field>
+      <mat-label>Select Insight Category</mat-label>
+      <select (change)="onNavigate($any($event.target).value)" [(ngModel)]="selectedInsight" matNativeControl>
+        <option disabled selected></option>
+        <option value="hours" >Project Hours </option>
+        <option value="overtime-unpaid"> Overtime & Unpaid</option>
+        <option value="headcount"> Headcount </option>
+      </select>
+    </mat-form-field>
+    </div>
+  <router-outlet></router-outlet>
+</div>

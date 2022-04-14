@@ -1,0 +1,10 @@
+::ng-deep .highcharts-background{
+
+        fill: transparent !important;
+    }
+
+
+    ngb-alert{
+
+        margin-bottom: 0px !important;
+    }

@@ -1,0 +1,176 @@
+<div fxLayout="row" fxLayoutAlign="center center" *ngIf="!Semrun">
+
+    <h5> This Semrun does not exist, or failed to load. </h5>
+
+
+</div>
+
+
+<div fxLayout="column" fxLayoutGap="20px" *ngIf="Semrun">
+
+    <div fxLayout="column" *ngIf="Semrun?.q_path">
+
+        <div fxLayout="row" fxLayout.lt-md="column"  fxLayoutGap="10px" fxLayoutAlign="start center" fxFlex>
+            <div fxFlex=30>
+                <h3> {{Semrun.samplename}} </h3>
+            </div>
+            <div fxLayoutAlign="start center" fxFlex>
+                <ngb-alert type="info" [dismissible]="false" style="margin-top:7px; margin-bottom:0px;">
+                    <b> Data Storage Location: </b>
+                    <a style="margin-left:10px;" target="_blank" [href]="Semrun?.q_path"> {{Semrun.q_path}} </a>
+                </ngb-alert>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="end start" fxLayoutGap="10px" fxFlex=20>
+                <button mat-raised-button *ngIf="Semrun.previous"  [routerLink]="[ '/sem/run/', Semrun.previous ]"> Previous </button>
+                <button mat-raised-button *ngIf="Semrun.next"  [routerLink]="[ '/sem/run/', Semrun.next ]"> Next </button>
+               
+
+            </div>
+
+
+        </div>
+
+
+
+
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutGap="20px" *ngIf="Semrun?.images">
+           
+    <!-- <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig" style="width:100%;" fxFlex> -->
+            <div   *ngFor="let img of Semrun.images" class="slide" (click)="selectImage(img)">
+                    
+                    <div class="image-wrapper"  style="padding:10px; margin:auto;">
+                        <img  class="clickable" src="http://api.edm.quantiam.com/file?server_path={{encodeUriFixes(img.fullpath)}}" alt="" width="150px">
+                        <span class="image_label" style="width:150px; white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        padding: 5px;
+                      ">
+                        <div   class="clickable" fxLayout="row wrap" fxLayoutAlign="center center">
+                            {{img.filename}}
+                            <mat-chip color="accent" style=" border-radius: 10px;
+                            width: 50px; margin-left:5px" *ngIf="img.assoc_files[0]" selected>More</mat-chip>
+                        </div>
+                        
+
+                              
+                        </span>
+                      
+                    </div>
+                </div>
+     <!--    </ngx-slick-carousel>  -->
+
+    <!--     <div   *ngFor="let img of Semrun.images" class="slide" (click)="selectImage(img)">
+                    
+            <div class="image-wrapper" style="padding:10px; margin:auto;">
+                <img  class="clickable" src="http://api.edm.quantiam.com/file?server_path={{img.fullpath}}" alt="" width="150px">
+                <span class="image_label" style="width:150px;"> {{img.filename}}
+
+                    <mat-chip color="accent" *ngIf="img.assoc_files[0]" selected>More</mat-chip>
+                </span>
+            </div>
+        </div> -->
+
+    <!--     <div *ngFor="let img of Semrun.images" fxFlex=10 (click)="selectImage(img)" class="clickable image-wrapper">
+
+
+            <img [class.active-image]="img?.name === selectedImage?.name" 
+            *ngIf="img.fullpath"
+             width=100%  src="http://api.edm.quantiam.com/file?server_path={{img.fullpath}}" />
+
+            <span class="image_label"> {{img.name}}
+
+                <mat-chip color="accent" *ngIf="img.assoc_files[0]" selected>More</mat-chip>
+            </span>
+
+        </div> -->
+       
+
+    </div>
+
+
+    <div fxLayout="row" fxLayoutGap="10px" *ngIf="selectedImage?.fullpath" fxLayoutAlign="center start" fxFlex>
+
+
+   
+        <div fxLayout="column" fxFlex.gt-md=40 fxLayoutAlign="center center" fxLayoutGap="10px">
+            <div fxLayout="column" fxLayoutAlign="center center">
+                <h4>{{selectedImage.filename}}</h4>
+                <small>{{selectedImage.CM_SIGNAL}} {{selectedImage.CM_MAG}}x {{selectedImage.CM_ACCEL_VOLT}}kV</small>
+            </div>
+
+            <img *ngIf="selectedImage?.fullpath" width=90% src="http://api.edm.quantiam.com/file?server_path={{encodeUriFixes(selectedImage.fullpath)}}" />
+        </div>
+
+        <div fxLayout="column" fxFlex.gt-md=20 fxLayoutAlign="center center" fxLayoutGap="10px" *ngIf="selectedImage.assoc_files[0]">
+            <div fxLayout="column" fxLayoutAlign="center center">
+                <h4>Associated</h4>
+                <small> Points, Maps, etc</small>
+            </div>
+            <div fxLayout="row wrap"  fxLayoutGap="5px" fxLayoutAlign="center center">
+                <div *ngFor="let img of selectedImage.assoc_files" class="clickable image-wrapper"  (click)="selectedSubImage = img">
+                    <div [hidden]="img.type !== 'image'">
+                        <img *ngIf="img.fullpath" width=100px  src="http://api.edm.quantiam.com/file?server_path={{encodeUriFixes(img.fullpath)}}"  />
+                        <span class="image_label" style="width:100px; font-size:9px;"> {{img.filename}}</span>
+                    </div>
+                    <div *ngIf="img.type === 'text'">
+                            <img width=100px  src="https://cdn0.iconfinder.com/data/icons/file-extension-line-icon/100/txtb-512.png">
+                            <span class="image_label" style="width:100px; font-size:9px; top:-60px;"> {{img.filename}}</span>
+                    </div>
+                    <div *ngIf="img.type == 'excel'">
+                        
+                        
+                            <img width=80px style="padding:2px;"  src="https://cdn-icons-png.flaticon.com/512/888/888850.png">
+                            <span class="image_label" style="width:100px; font-size:9px; top:-20px;"> {{img.filename}}</span>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+       
+
+        <div fxLayout="column" fxFlex.gt-md=40 fxLayoutAlign="center center" fxLayoutGap="10px" *ngIf="selectedImage.assoc_files[0]">
+          
+            <div *ngIf="selectedSubImage?.fullpath">
+
+
+                    <div fxLayout="column"  *ngIf="selectedSubImage.type === 'image'"  fxLayoutAlign="center center">
+                            <h4>{{selectedSubImage.filename}}</h4> 
+                            <small> Selected Associated Image </small>
+                            <img   width=90% src="http://api.edm.quantiam.com/file?server_path={{encodeUriFixes(selectedSubImage.fullpath)}}" />
+
+                    </div>
+
+                  
+                    <div  fxLayout="column" fxLayoutAlign="center center"  *ngIf="selectedSubImage.type === 'text'" fxFlex>
+                            <h4>{{selectedSubImage.filename}}</h4> 
+                            <small> Selected Associated Text File </small>
+                            <iframe 
+                            onload='javascript:(function(o){o.style.height=o.contentWindow.document.body.scrollHeight+"px"; o.style.width=o.contentWindow.document.body.scrollWidth+"px";}(this));' 
+                            style="height:400px;width:500px;;border:none;overflow:hidden; margin:auto;"
+                            [src]="'http://api.edm.quantiam.com/file?server_path=' + selectedSubImage.fullpath | safe"></iframe>
+                           
+                    </div>
+
+                    <div *ngIf="selectedSubImage.type == 'excel'" fxLayoutAlign="center center">
+                        
+                        <a  class="clickable" (click)="downloadExcelFile(selectedSubImage)"  fxLayoutAlign="center center"  fxLayout="column">  
+                            <img width=80px  src="https://cdn-icons-png.flaticon.com/512/888/888850.png">
+                            <p> Click to download {{Semrun.semrun_id}} - {{selectedSubImage.filename}} </p>
+                        </a>
+
+                      <!--   <iframe [src]="'http://api.edm.quantiam.com/file?server_path=' + selectedSubImage.fullpath | safe" width='100%' height='565px' frameborder='0'> </iframe>
+ -->
+                    </div>
+            </div>
+            
+        </div>
+
+    </div>
+
+
+</div>

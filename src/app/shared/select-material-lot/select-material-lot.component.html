@@ -1,0 +1,33 @@
+
+<ng-select 
+[items]="list$ | async"
+[material_id]="materialID"
+[style]="style"
+[loading]="Loading"
+[multiple]="multiple"
+[placeholder]="placeholder"
+[appendTo]="appendTo"
+[(ngModel)]="selectedValue"	 
+[typeahead]="Input$" 
+
+
+(change)="onChange($event)"
+
+bindLabel="lot_name"
+bindValue="id"
+>
+
+<ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm" >
+			
+					
+  
+    <div [ngOptionHighlight]="search">{{item.lot_name}}</div>
+    
+
+
+
+
+</ng-template>
+
+
+</ng-select>

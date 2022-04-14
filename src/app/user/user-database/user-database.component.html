@@ -1,0 +1,29 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxFlex fxFlex.gt-lg="100">
+
+   
+
+        <mat-form-field style="width:400px">
+          <!--   <span matPrefix>+1 &nbsp;</span> -->
+            <input type="text" matInput (keyup)="onFilterChanged()"  [(ngModel)]="searchBarValue"  placeholder="Search">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+    
+
+        <ag-grid-angular  
+        style="width: calc(100%); height:calc(78vh); margin-top:10px;" 
+        class="ag-theme-balham"     
+        
+        [rowData]="rowData" 
+        [columnDefs]="columnDefs"  
+        [modules]="modules"
+        (gridReady)="onGridReady($event)"
+        (rowDoubleClicked)="onRowDoubleClicked($event)"
+       
+        [enableRangeSelection]="true"        
+        [defaultColDef]="defaultColDef"
+        
+        >
+    </ag-grid-angular>
+      
+</div>

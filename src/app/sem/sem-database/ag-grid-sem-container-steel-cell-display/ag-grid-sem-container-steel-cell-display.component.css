@@ -1,0 +1,21 @@
+.test {
+   
+  }
+  
+    .tooltiptext {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        top: 10px;
+        /* right: 0%; */
+        position: fixed;
+        z-index: 10000;
+  }
+  
+  .test:hover .tooltiptext {
+    visibility: visible;
+  }

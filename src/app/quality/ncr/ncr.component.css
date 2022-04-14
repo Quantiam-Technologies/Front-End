@@ -1,0 +1,26 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .mat-button-toggle-disabled.mat-button-toggle-checked {
+   background-color: #34597a; 
+}
+
+::ng-deep .mat-form-field-required-marker {
+  color:red !important;
+}
+
+::ng-deep .mat-elevation-z1 {
+
+  border-radius: 5px;
+}
+
+::ng-deep table td
+{
+  border-top: 1px solid #dee2e6;
+}
+
+::ng-deep table th
+{
+  border-top: 0px solid #dee2e6 !important;
+}

@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>{{data.name}} Operator List</h1>
+<div mat-dialog-content fxLayoutGap="10px" fxLayout="column">
+
+    <div fxLayout="row" fxFlex>
+        <app-select-user  fxFlex placeholder="Add operator" (change)="addUser($event)" appendTo="body"></app-select-user>
+    </div>
+
+<div fxFlex fxLayout="row">
+  <p *ngIf="!data.users">Add a new operator!</p>
+
+  <table class="table" *ngIf="data.users">
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Remove</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of data.users; let i = index;"> 
+              <td> {{item.id}}</td>
+              <td> {{item.name}}</td>
+              <td> <button  class="btn btn-xs btn-danger" (click)="removeUser(item,i)" style="margin:2px;">Delete</button></td>
+          </tr>
+      </tbody>
+  </table>
+</div>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onNoClick()">Close</button>
+ <!--  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+</div>

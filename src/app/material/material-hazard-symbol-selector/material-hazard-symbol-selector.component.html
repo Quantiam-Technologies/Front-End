@@ -1,0 +1,25 @@
+<h1 mat-dialog-title>Select Hazard Symbols</h1>
+<div  mat-dialog-content style="min-height: 200px;">
+
+    <div fxFlex fxlexLayout="row">
+        <div id="Symbol selection" fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px" fxFlex>
+
+            <div *ngFor="let hazard of hazardSymbols" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="2px">
+                <img  [src]="hazard.url" width="100px" >
+                <div mat-button fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="5px">
+                  <h4>{{hazard.name}}</h4>
+                  <mat-checkbox (change)="updateMaterialHazard($event,hazard)" [checked]="materialHasHazard(hazard.id)"></mat-checkbox>
+               </div>
+             
+            </div>
+        </div>
+    </div>
+    <!-- <div id="SDS" fxFlex>
+
+        
+    </div> -->
+
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end center">
+    <button mat-raised-button color="primary" [mat-dialog-close]="material">Close</button>
+  </div>

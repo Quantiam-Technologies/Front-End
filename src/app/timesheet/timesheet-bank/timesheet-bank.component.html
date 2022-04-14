@@ -1,0 +1,56 @@
+<div>
+    <div fxLayout="column" fxFlexOffset.gt-md="20vw" height=300px>
+
+        <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
+
+          <div>
+
+            <h5   [hidden]="userService.hasPermission(1) && userService.hasSubordinates()"> {{userService.get('name_abbrev')}}</h5>
+              <app-select-user
+              *ngIf="loadedUserId"
+              [hidden]="!userService.hasPermission(1) || !userService.hasSubordinates()"
+              [selectedValue]="routeParams?.userId"
+              [showSubordinatesOnly]="(userService.hasPermission(1) ? false: showSubordinatesOnly)"
+              [clearable]="false"
+              style="min-width: 200px;"
+
+              
+              (change)="changeUser($event)"
+
+              ></app-select-user>
+          </div>
+
+            <mat-form-field>
+                <mat-select placeholder="Bank Type" (selectionChange)="changeType()" [(ngModel)]="selectedType">
+                    <mat-option value="vacation">Vacation</mat-option>
+                    <mat-option value="pto">PTO</mat-option>
+                    <mat-option value="cto">CTO</mat-option>
+                </mat-select>
+
+               </mat-form-field> 
+
+               <div fxFlex fxLayoutAlign="end start">
+
+                    <button mat-raised-button  (click)="createPayout()"
+                    *ngIf="userService.hasPermission(23)"
+                    color="primary"
+                    > Create Payout </button>
+                  
+                </div>
+
+        </div>
+
+
+        <hot-table
+        
+        height="700px"
+        width="770px"
+        fxFLex=50 class="hot" [hotId]="hotTableId" [settings]="hotTableSettings" [licenseKey]="'non-commercial-and-evaluation'"
+        
+        >
+
+
+        </hot-table>
+    </div>
+
+</div>

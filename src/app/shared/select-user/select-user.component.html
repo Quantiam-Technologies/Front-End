@@ -1,0 +1,55 @@
+
+
+<ng-select 
+	[items]="items"
+	[style]="style"
+	[(ngModel)]="selectedValue"	
+
+	[multiple]="multiple"
+	[placeholder]="placeholder"
+	[restrictedAccessMode]="restrictedAccessMode"
+	[subordinates]="subordinates"
+	[supervisors]="supervisors"
+	[showSubordinatesOnly]="showSubordinatesOnly"
+	[allOptions]="allOptions"
+	[clearable]="clearable"
+
+	(change)="onChange($event)"
+	(remove)="onRemove($event)"
+	(clear)="onClear()"
+
+	[searchFn]="customSearchFn"
+
+	bindValue="id"
+	bindLabel="name"
+
+	[appendTo]="appendTo"
+>
+
+  <ng-template ng-header-tmp>
+    <div fxLayout="row" fxLayoutAlign="start center"  fxLayoutGap="10px" >
+      <mat-checkbox  [(ngModel)]="showActive" (change)="showItems()" [check]="showActive"> Active </mat-checkbox>
+      <mat-checkbox  [(ngModel)]="showInactive" (change)="showItems()"> Inactive </mat-checkbox>
+    </div>
+	</ng-template> 
+	
+  <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm" >
+			<div fxLayout="row" fxLayoutAlign="center center"  fxLayoutGap="10px">
+				<div fxLayout="row"  fxLayoutAlign="start center" fxFlex >
+					<div style="width:40px; font-size:12px;"  [ngOptionHighlight]="search">{{item.id}}</div> 
+					<div style="width:200px;font-size:13px; margin-right:10px; font-weight: 600;"  [ngOptionHighlight]="search" >{{item.name || item.machine_name}}</div>
+					<div style="font-size:11px; width:250px; display: inline; word-wrap: break-word;" ><i>{{item.title || item.machine_purpose}}</i></div>
+					
+				</div>
+				<div>
+					<div>
+						<a *ngIf="item.active" mat-button  color="primary"   > Active </a>
+						<a *ngIf="!item.active" mat-button  color="warn"   > Inactive </a>
+					</div>
+				</div>
+			</div> 
+				
+	 </ng-template>
+
+
+</ng-select>

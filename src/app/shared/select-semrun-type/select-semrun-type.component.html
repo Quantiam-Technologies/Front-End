@@ -1,0 +1,33 @@
+<ng-select 
+
+  [items]="items"
+  
+  [loading]="loading"
+	
+	[multiple]="multiple"
+  [placeholder]="placeholder"
+  
+  (change)="onChange($event)"
+  (add)="onAdd($event)"
+  (remove)="onRemove($event)"
+  (open)="onOpen()"
+  (clear)="onClear()"
+
+  [searchFn]="customSearchFn" 
+  [(ngModel)]="selectedValue"	
+	bindValue="type_id"
+  bindLabel="type"
+
+  
+  style="min-width: 100px;"
+>   
+  <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm" >
+      <div fxLayout="row"  fxLayoutAlign="start center"  >
+
+        <div   [ngOptionHighlight]="search"> <b>{{item.type_id}} </b></div> 
+        <div style="width:250px; font-size:12px; margin-left:10px" [ngOptionHighlight]="search">{{item.type}}</div>        
+      </div>
+  </ng-template>
+  
+</ng-select>
+

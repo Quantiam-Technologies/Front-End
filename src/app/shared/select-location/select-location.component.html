@@ -1,0 +1,27 @@
+
+
+<ng-select 	
+[items]="allItems"
+[style]="style"
+[(ngModel)]="selectedValue"
+[placeholder]="placeholder"
+[multiple]="multiple"
+(change)="onChange($event)"
+(clear)="onClear($event)"
+bindLabel="name"
+bindValue="id"
+>
+
+<ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm" >
+			
+					
+  
+            <div [ngOptionHighlight]="search">{{item.name}}</div>
+            
+      
+    
+
+
+</ng-template>
+
+</ng-select>

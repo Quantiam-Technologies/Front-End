@@ -1,0 +1,98 @@
+
+<ng-select 
+  [items]="itemsBuffer"
+  [loading]="loading"
+  
+	[multiple]="multiple"
+  [placeholder]="placeholder"
+  [hideSelected]="true"
+  [virtualScroll]="true"
+  [appendTo]="appendTo"
+  (change)="onChange($event)"
+  (add)="onAdd($event)"
+  (remove)="onRemove($event)"
+  (scrollToEnd)="onScrollToEnd()"
+  (scroll)="onScroll($event)"
+  (clear)="onClear()"
+  (open)="onOpen()"
+
+ 
+
+  [(ngModel)]="selectedValue"	 
+  [typeahead]="input$" 
+  
+
+>
+<!-- scroll-host & scrollable-content  [searchFn]="customSearchFn" 
+  (scroll)="onScroll($event)" -->
+
+<ng-template ng-label-tmp let-item="item">
+    <small> {{item.qcid || item.identifier}} </small> {{item.lot.material?.name}} {{item.lot.material?.grade}} 
+    <small  [hidden]="!item.container_name"> ({{item.container_name}}) </small>
+ </ng-template>
+
+<ng-template ng-header-tmp>
+    <small class="form-text text-muted">Loaded {{itemsBuffer.length}} of {{totalResults}}</small>
+</ng-template>
+
+
+<ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm" style="width:1000px !important;">
+  <div fxLayout="row" fxLayoutAlign="center center"  fxLayoutGap="10px" style="height:50px;">
+    <div fxLayout="row" class="dropdown-options"  fxLayoutAlign="start center" fxFlex >
+    
+
+      <div style="width:70px; font-size: 10px;" >
+        <div fxLayout="column" fxLayoutGap="2px">
+            <div style="font-size: 9px;">  {{item.id}}</div>
+           <div style="font-size: 8px;"> <span *ngIf="item.qcid">QCID-</span>{{item.qcid}}</div>
+           
+        </div>
+      
+      </div>
+
+       <div style="width:270px; margin-right:5px;" fxLayout="column"  [ngOptionHighlight]="search">
+        <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
+          <b>{{item.lot.material?.name || ''}}</b>     
+          <span style="font-size: 11px;" *ngIf="item.container_name">({{item.container_name}})</span>  
+       </div>
+        <i class="grade_text" >
+            {{item.lot.material.grade}} 
+            <span *ngIf="item.lot.material.purity"> ({{item.lot.material.purity}})% </span>
+            <span *ngIf="item.lot.material.particle_size"> ({{item.lot.material.particle_size}}) </span>
+        </i>
+      </div>
+      <div style="width:100px; font-size: 11px;" [ngOptionHighlight]="search" >
+          {{item.lot.lot_name}}
+        </div>
+      <div style="width:120px; font-size: 11px;" >
+          {{item.lot.material.supplier.supplier_name}}
+        </div>
+
+      <div style="width:70px; font-size: 11px;">
+        {{item.size}}
+      </div>
+
+      <div style="width:100px; font-size: 11px;">
+        {{item.purchase_order}}
+      </div>
+      
+
+      <div style="width:110px; font-size: 11px;">
+          {{item.location?.name}}
+        </div> 
+    
+      
+    </div>
+    <div>
+      <a *ngIf="item.active" mat-button  color="primary"   > Active </a>
+      <a *ngIf="!item.active" mat-button  color="warn"   > Inactive </a>
+    </div>
+  </div> 
+
+
+  
+    
+</ng-template>
+
+
+</ng-select>

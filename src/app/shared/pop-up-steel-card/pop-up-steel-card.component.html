@@ -1,0 +1,47 @@
+
+<div [hidden]="!visible" *ngIf="steelObj?.id"
+(mouseenter)="onMouseEnter($event)"
+(mouseleave)="onMouseLeave($event)"
+>
+<mat-card class="pop-up" fxFlex [ngStyle]="styleObj">
+    <mat-card-header fxLayoutGap="10px">
+      <div mat-card-avatar class="example-header-image" style="width: 40px !important; padding-top: 5px;"> 
+        <img  width="100%" [src]="steelObj.datamatrix">
+       </div>
+      <mat-card-title style="margin-bottom:4px;">{{steelObj.heat_id}}<small> </small></mat-card-title>
+      <mat-card-subtitle style="margin-bottom:0px;"> {{steelObj.identifier}}  </mat-card-subtitle>
+    </mat-card-header>
+   
+    <mat-card-content fxLayout="column" style="margin-top:5px;">
+
+      <div fxLayout="row">
+
+        <div fxLayout="column">
+           <!--  <h5 class="page-header" style="font-size:15px;"> Steel Type </h5> -->
+            <div fxLayout="row wrap" fxLayoutGap="10px" fxFlex>
+                    
+                  
+                  
+              <p> {{steelObj.steel_type.part_name}}</p>
+              <p> {{steelObj.steel_type.manufacturer}}</p>
+              <p>  {{steelObj.steel_type.metallurgy}}</p>
+              <p>    {{steelObj.steel_type.length}} mm</p>
+             
+            </div>
+
+        </div>
+   
+
+      </div>
+    
+      
+    </mat-card-content>
+    <mat-card-actions fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+
+
+     <!--  <button mat-raised-button (click)="goToSteel()" color="primary">View Steel</button>
+     <span *ngIf="!keepPopUpStill"> Hold Crtl to Freeze Pane </span>
+      <span *ngIf="keepPopUpStill"> Let go to release </span>  -->
+    </mat-card-actions>
+  </mat-card>
+</div>

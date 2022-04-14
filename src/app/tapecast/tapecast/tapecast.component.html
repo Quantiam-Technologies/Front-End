@@ -1,0 +1,315 @@
+
+<div fxLayout="column">
+
+    <div fxLayout="row" fxFlex fxLayoutGap="10px" fxLayoutAlign="center center"> 
+
+        <div fxFlex >
+                <div class="alert alert-warning" role="alert" *ngIf="tapecastObject.created_at && !tapecastObject.time_removed_from_table">
+                    This tapecast operation is ongoing.
+                </div>
+
+                
+                <div class="alert alert-success" role="alert" *ngIf="tapecastObject.time_removed_from_table">
+                    This tapecast operation has been completed.
+                </div>
+         </div>
+
+         <div fxLayoutAlign="center center">
+            <button mat-button color="warn" (click)="deleteTapecast()" matTooltip="Delete this Tapecast Run.">
+                <mat-icon>delete</mat-icon>
+            </button>
+         </div>
+       
+
+    </div>
+
+    <div fxFlex fxLayoutGap=10px fxLayout="column" >
+
+    <mat-card>
+        <mat-card-content fxLayout="row" fxLayoutGap=20px id="tapecast_table"> 
+
+
+    <!-- 
+            <div fxLayout="row">
+                <h2> Tapecast Unit Operation - QCTCST-100 </h2>
+                <div>
+                    <button class="btn btn-info btn-xs">Ongoing</button>
+                </div>
+            </div> -->
+        
+            <div   fxLayout="column"  > <!-- attributes -->
+                <h3> Attributes  </h3>
+                <div fxLayout="column wrap" fxLayoutGap=10px> 
+
+                    <app-select-campaign  [selectedValue]="tapecastObject.campaign_id" (change)="updateTapecast($event)"></app-select-campaign>
+
+                    <div fxLayout="row"   fxLayoutAlign="start center" fxLayoutGap=10px>
+                        
+                        <mat-form-field appearance="outline">
+                            <mat-label>Run Name (Optional)</mat-label>
+                            <input matInput placeholder="Search" name="tapecast_run_name" (change)="updateTapecast()"
+                            [(ngModel)]="tapecastObject.name" 
+                            >    
+                        </mat-form-field>
+                      
+
+                        <mat-form-field appearance="outline" floatLabel="auto" >
+                            <mat-label>Date Time</mat-label>
+                            <input type="datetime-local" matInput name="tapecast_run_time" [(ngModel)]="tapecastObject.created_at" (change)="updateTapecast()" >
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="row">
+                        <mat-form-field appearance="outline" class="example-chip-list" >
+                            <mat-label>Tapecast Operators</mat-label>
+                            <mat-chip-list #chipList aria-label="Fruit selection" placeholder="Add or remove as necessary.">
+                                <mat-chip 
+                                (removed)="removeOperator(user,i)" *ngFor="let user of tapecastObject.operators; index as i">{{user.name || user.employee.name}}
+                                    <mat-icon matChipRemove>cancel</mat-icon>
+                                </mat-chip>
+                                <input required 
+                                #responsibleInput
+                                [formControl]="operatorsControl"
+                                [matAutocomplete]="operators" 
+                                [matChipInputFor]="chipList" 
+                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                [matChipInputAddOnBlur]="true" 
+                                >
+                            </mat-chip-list> 
+                            <mat-autocomplete #operators="matAutocomplete" (optionSelected)="selectOperators($event)" [panelWidth]="'auto'">
+                                <mat-option  *ngFor="let user of filteredUsers | async"  [value]="user">
+                                   {{ user.name }} <small >{{user.id}} </small> <small style="margin-left:10px;"> {{user.title}} </small>
+                                </mat-option>
+                            </mat-autocomplete>          
+
+                        </mat-form-field>
+                    </div>
+                </div>
+            
+
+            </div>
+
+            <div fxLayout="column"><!-- Ennviroment -->
+                <h3> Tape Cast Settings   </h3>
+
+                <div class="alert alert-danger" role="alert" *ngIf="!tapecastObject.tapecast_profile_id">
+                    Please select a tapecast Profile.
+                </div>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Tape Cast Profile</mat-label>
+                    <select matNativeControl   [(ngModel)]="tapecastObject.tapecast_profile_id" (change)="updateTapecast()">
+                        <option value="1">TC10 12in Dr Blade </option>
+                        <option value="2">TC5</option>
+                        <option value="3">TC10 10in Dr Blade</option>
+                    </select>
+                <!--  <mat-hint align="end">Tapecast table utilized.</mat-hint> -->
+                </mat-form-field> 
+
+                
+               
+                <div fxFlex fxLayoutGap=20px FxLayout="row wrap"  *ngIf="tapecastObject.tapecast_profile_id">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Tapecast Table</mat-label>
+                        <mat-select    [(ngModel)]="tapecastObject.profile.table_name" [disabled]="true">
+                        <mat-option value="5">Table 5</mat-option>
+                        <mat-option value="10">Table 10</mat-option>
+                        </mat-select>
+                    <!--  <mat-hint align="end">Tapecast table utilized.</mat-hint> -->
+                    </mat-form-field> 
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Airflow (FPM)</mat-label>
+                        <input matInput placeholder="Search" name="air_flow" [disabled]="true"
+                        [(ngModel)]="tapecastObject.profile.air_flow" [ngModelOptions]="{standalone: true}"
+                        >    
+                    </mat-form-field>
+            
+                    <mat-form-field appearance="outline">
+                        <mat-label>Speed (%)</mat-label>
+                        <input matInput placeholder="Search" name="speed_percent" [disabled]="true"
+                        [(ngModel)]="tapecastObject.profile.speed_percent" [ngModelOptions]="{standalone: true}">    
+                    </mat-form-field>
+            
+                    <mat-form-field appearance="outline">
+                        <mat-label>Bed Temperature (C)</mat-label>
+                        <input matInput placeholder="Search" name="bed_temp" [disabled]="true"
+                        [(ngModel)]="tapecastObject.profile.bed_temp" [ngModelOptions]="{standalone: true}">    
+                    </mat-form-field>
+                
+            
+                </div>
+            </div>
+
+
+
+            <div fxLayout="column"  *ngIf="tapecastObject.tapecast_profile_id"><!-- <h3> Doctor Blade </h3> -->
+                <h3> Doctor Blade </h3>
+                <div  fxLayoutGap=20px fxLayout="column wrap">
+                
+                        <!-- <i> Profile Settings </i> -->
+                        <div fxLayout="row" fxLayoutGap=10px style="border-bottom: 2px solid gray;">
+                           
+                            <mat-form-field appearance="outline">
+                                <mat-label>Width (in)</mat-label>
+                                <input matInput placeholder="Search"  [(ngModel)]="tapecastObject.profile.dr_blade_width" [ngModelOptions]="{standalone: true}" [disabled]="true" >
+                            </mat-form-field>  <!--  From Proflile -->
+
+                            <mat-form-field appearance="outline">
+                                <mat-label>Height (mm)</mat-label>
+                                <input matInput placeholder="Search"  [(ngModel)]="tapecastObject.profile.dr_blade_height" [ngModelOptions]="{standalone: true}"
+                                 [disabled]="true">
+                            </mat-form-field> <!--  From Proflile -->
+
+                        </div>  
+                        
+                    <!--   <i> Measured </i> -->
+                        <div fxLayout="row" fxLayoutGap=10px>
+                
+                            <mat-form-field appearance="outline">
+                                <mat-label>Micrometer Left </mat-label>
+                                <input matInput placeholder="Search" name="dr_blade_micrometer_L"  [(ngModel)]="tapecastObject.dr_blade_micrometer_L" (change)="updateTapecast()">
+                                <!-- <mat-hint>Setting used to acheive height & width.</mat-hint> -->
+                            </mat-form-field> 
+                    
+                            <mat-form-field appearance="outline">
+                                <mat-label>Micrometer Right </mat-label>
+                                <input matInput placeholder="Search" name="dr_blade_micrometer_R"  [(ngModel)]="tapecastObject.dr_blade_micrometer_R" (change)="updateTapecast()">
+                                <!-- <mat-hint>Setting used to acheive height & width.</mat-hint> -->
+                            </mat-form-field> 
+                    </div>
+
+                    
+
+                    
+                </div>
+            </div>
+
+          
+        </mat-card-content>
+    </mat-card>
+    
+    <mat-card *ngIf="tapecastObject.tapecast_profile_id">
+        <mat-card-content fxLayout="column" > 
+            <div fxLayout="row" fxFlex>
+                <h3> Slip  </h3>
+              
+            </div>
+        
+        <div  fxLayoutGap=10px fxLayout="row">
+
+            <div fxLayout="column" fxLayoutAlign="start center">
+                <i>Attributes</i>
+                <mat-form-field appearance="outline">
+                    <mat-label>Slip ID</mat-label>
+                    <input matInput placeholder="Search" name="tapecast_slip_id"  [(ngModel)]="tapecastObject.slip_id" (change)="updateTapecast()">
+                </mat-form-field>  
+            
+                <mat-form-field appearance="outline">
+                    <mat-label>Viscosity (cps)</mat-label>
+                    <input matInput placeholder="Viscosity" name="tapecast_viscosity"  [(ngModel)]="tapecastObject.viscosity" (change)="updateTapecast()">
+                </mat-form-field> 
+            </div>
+
+
+            <div *ngIf="tapecastObject.slip_id" fxLayoutAlign="center center" fxLayout="column" fxLayoutGap="5px"  >
+                
+            
+                <img src="{{tapecastObject.slip.datamatrix}}"/>
+
+                <div fxLayoutAlign="center center">
+                    <a class="btn btn-sm btn-primary" target="_blank" href="http://old.edm.quantiam.com/#!/slip/{{tapecastObject.slip_id}}">View Slip {{tapecastObject.slip_id}}</a>
+                </div>
+                
+            
+            </div>
+
+            <div fxLayout="row" fxLayoutGap=10px style="border-left: 2px solid #ff4081;padding-left: 10px;" >
+            <!--  Conditionally disable this section until the viscosity is measured -->
+                <div fxLayout="column" fxFlex fxLayoutAlign="start center">
+                    <i> Beaker Tare (g) </i>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Beaker 1</mat-label>
+                        <input matInput placeholder="Search" name="viscosity">
+                    </mat-form-field> 
+                    <mat-form-field appearance="outline">
+                        <mat-label>Beaker 2</mat-label>
+                        <input matInput placeholder="Search" name="viscosity">
+                    </mat-form-field> 
+                </div>           
+                
+                <div fxLayout="column" fxLayoutAlign="start center">
+                    <i> Tared Beaker & Slip (g) </i>
+                    <mat-form-field appearance="outline" fxLayoutAlign="start center">
+                        <mat-label>Beaker 1 </mat-label>
+                        <input matInput placeholder="Search" name="viscosity">
+                    </mat-form-field> 
+                    <mat-form-field appearance="outline">
+                        <mat-label>Beaker 2</mat-label>
+                        <input matInput placeholder="Search" name="viscosity">
+                    </mat-form-field> 
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center center">
+                        
+                    <button mat-button>I have casted this</button>
+
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="start center">
+                    <i>  Beaker After Cast (g) </i>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Beaker 1</mat-label>
+                        <input matInput placeholder="Search" name="viscosity">
+                    </mat-form-field> 
+                    <mat-form-field appearance="outline">
+                        <mat-label>Beaker 2</mat-label>
+                        <input matInput placeholder="Search" name="viscosity">
+                    </mat-form-field> 
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="center center">
+                
+                    <mat-form-field appearance="outline">
+                        <mat-label>Total Slip Deposited (g)</mat-label>
+                        <input matInput placeholder="Search" name="total_slip_deposited" disabled>
+                    </mat-form-field> 
+                </div>
+
+              
+        </div>
+
+
+
+        </div>
+        </mat-card-content>
+    </mat-card>
+        
+
+    
+        <br>
+        <h3> Tape Casting </h3>
+        <div fxFlex fxLayoutGap=20px fxLayout="row">
+
+            <mat-form-field appearance="outline" floatLabel="auto" >
+                <mat-label>Air Flow Started </mat-label>
+                <input type="datetime-local" matInput name="airflow_start_time" [(ngModel)]="tapecastObject.airflow_start_time" (change)="updateTapecast()" >
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" floatLabel="auto" >
+                <mat-label>Tape Removed from table </mat-label>
+                <input type="datetime-local" matInput name="time_removed_from_table"  [(ngModel)]="tapecastObject.time_removed_from_table" (change)="updateTapecast()">
+                
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>As-Cast Length (in)</mat-label>
+                <input matInput name="cast_length" [(ngModel)]="tapecastObject.cast_length" (change)="updateTapecast()">    
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+                <mat-label>As-Cast Width (in)</mat-label>
+                <input matInput  name="cast_width" [(ngModel)]="tapecastObject.cast_width" (change)="updateTapecast()" >    
+            </mat-form-field>
+        </div>
+
+    </div>
+
+</div>

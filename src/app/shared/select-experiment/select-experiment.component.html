@@ -1,0 +1,30 @@
+<ng-select 
+
+  [items]="itemsBuffer"
+  [virtualScroll]="virtualScroll"
+  [loading]="loading"
+	
+	[multiple]="multiple"
+  [placeholder]="placeholder"
+  
+  (change)="onChange($event)"
+  (add)="onAdd($event)"
+  (remove)="onRemove($event)"
+  (scroll)="onScroll($event)"
+  (scrollToEnd)="onScrollToEnd()"
+
+  [(ngModel)]="selectedValue"	
+	bindValue="id"
+  bindLabel="name"
+  appendTo="body"
+>   
+  <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm" >
+      <div fxLayout="row"  fxLayoutAlign="start center"  >
+
+        <div   [ngOptionHighlight]="search"> <b>{{item.abbrev}} </b></div> 
+        <div style="width:250px; font-size:12px; margin-left:10px" [ngOptionHighlight]="search">{{item.name}}</div>        
+      </div>
+  </ng-template>
+  
+</ng-select>
+

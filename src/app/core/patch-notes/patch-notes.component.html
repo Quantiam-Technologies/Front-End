@@ -1,0 +1,28 @@
+
+
+<!-- loaded from remote url -->
+<div mat-dialog-content style="position: relative; overflow: hidden;"  fxLayout="column" fxLayoutGap="10px"> 
+    <div  fxLayout="row" fxFlex fxLayoutGap="20px" fxLayoutAlign="center start">
+    
+        <div fxLayoutGap="10px" class="left-column" fxLayout="column" style="height:600px;"
+        fxLayoutAlign="start start" fxFlex=15>
+            <h1> Change Log </h1>
+            <div class="hoverscrollbar" 
+            fxLayout="column" fxFlex>
+                <button *ngFor="let version of versionArray; let i = index"
+                style="margin:5px;"
+                [color]="selectedVersionButton === i ?  'accent': null"                
+                mat-raised-button (click)="selectedVersion = versionArray[i]; selectedVersionButton = i;" fxFlex>
+                    {{version.name}} 
+                </button>
+            </div>
+        </div>
+        <div fxFlex style="height: 600px; overflow: auto;" >
+             <markdown *ngIf="selectedVersion"  [data]="selectedVersion.notes" fxFlex=100></markdown>
+        </div>
+    </div>
+ 
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end start" >
+        <button mat-raised-button (click)="close()" color="primary"> Close </button>
+</div>

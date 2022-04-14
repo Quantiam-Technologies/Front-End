@@ -1,0 +1,61 @@
+
+
+<div *ngIf="!identifier"> 
+
+    <ngb-alert [dismissible]="false" type="warning" >
+        <strong> Notice </strong> Object Identifier is missing, comments will not display. 
+      </ngb-alert>
+
+</div>
+
+<div fxFlex *ngIf="identifier">
+
+  <div *ngFor="let comment of commentArray" fxLayout="row" class="comment-wrapper"
+  >
+   <mat-card style="min-width: 500px; padding: 8px 8px 2px 8px;"  (mouseenter)="showCommentOptions[comment.id] = true" (mouseleave)="showCommentOptions[comment.id] = false">
+      <div id="avatar" fxLayoutAlign="center start">
+          <mat-icon class="person-icon">comment</mat-icon>
+      </div>
+
+      <div id="message_content" fxLayout="row" fxFlex > 
+          <div fxLayout="column" fxFlex>
+
+            <div fxFlex fxLayoutAlign="start end" fxLayoutGap="10px" fxLayout="row">
+             <!--    <mat-icon> comment </mat-icon> -->
+                <h6 style="margin-bottom:0px !important;">{{comment.commentor.name_abbrev}} </h6>
+                <small> {{comment.comment_datetime}}</small>
+            </div>
+          
+              <ckeditor fxFlex [editor]="Editor" [data]="comment.comment_text" 
+              (blur)="saveComment($event,comment)"
+              [disabled]="userService.get('id') !== comment.comment_employee_id"
+              [ngStyle]="{cursor:  userService.get('id') !== comment.comment_employee_id? 'default' : ''}"
+              ></ckeditor>
+  
+          </div>
+          <div fxLayout="row" fxFlex.gt-lg=10 fxFlex=30 fxLayoutAlign="end center">    
+            
+
+              <button mat-icon-button color="primary" class="clickable" 
+              [hidden]="!showCommentOptions[comment.id]" matTooltip="Finish Editing"
+              [disabled]="userService.get('id') !== comment.comment_employee_id"
+              > 
+                 <mat-icon   >check</mat-icon>
+             </button>
+                <button mat-icon-button color="warn" class="clickable" (click)="deleteComment(comment)"
+                 [hidden]="!showCommentOptions[comment.id]" matTooltip="Delete this comment."
+                 [disabled]="userService.get('id') !== comment.comment_employee_id"
+                 > 
+                    <mat-icon   >delete</mat-icon>
+                </button>
+               
+           </div>
+       </div>
+      </mat-card>
+    </div>
+  
+
+    <button  mat-raised-button (click)="newComment()">Add Comment</button>
+
+</div>
+

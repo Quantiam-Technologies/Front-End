@@ -1,0 +1,133 @@
+.projectRowClass{
+
+    font-size:8px;
+}
+
+.ag-theme-material .ag-row ::ng-deep{
+
+    border: 0px !important;
+}
+
+::ng-deep .ag-theme-material .footer-row {
+
+    /* border-top: 2px !important; */
+    border-bottom: 0px !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+    border-color: rgba(226, 226, 226,0.8);
+    border-width: 1px !important;
+    border-style: solid;
+    background-color: rgba(163, 7, 7, 0);
+  
+
+}
+
+::ng-deep .ag-theme-material .normal-row .ag-cell {
+
+    line-height: 25px !important;
+  
+}
+
+::ng-deep .timesheet-input{
+
+    width:50px;
+     height:20px;
+      margin-top: 1px;
+}
+
+::ng-deep .ag-theme-material .normal-row {
+
+   
+    height: 25px !important;
+    font-size: 11px;
+    border: 0px;
+    line-height: 25px !important;
+}
+
+::ng-deep #timesheetPage .ag-theme-material .group-row {
+
+    border-color: rgba(226, 226, 226,0.8) !important;
+    /* //cursor: pointer; */
+
+}
+
+::ng-deep #timesheetPage .ag-status-bar 
+{
+
+    display: none;
+}
+
+::ng-deep #timesheetPage .ag-cell-edit-input
+{
+
+    padding-bottom: 0px !important;
+    font-size: 16px !important; 
+    text-align: center !important;
+}
+
+::ng-deep #timesheetPage .ag-theme-material .ag-cell-inline-editing
+{
+    background-color: #ffffff !important;
+
+}
+
+::ng-deep #timesheetPage .ag-theme-material {
+
+     background-color: rgba(232, 242, 255,0.0);
+}
+
+::ng-deep  #timesheetPage .form-control
+{
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    text-align: center !important;
+    font-size: 12px !important;
+
+}
+
+
+.print-button{
+
+    border-radius: 17px;
+    margin-right: 50px;
+    padding: 5px 10px !important;
+    line-height: inherit !important;
+    font-size: 13px;
+    background-color: #52bb56;
+}
+
+.print-button:hover
+{
+    background-color: #3d8d40;
+}
+
+.standards-button{
+
+  
+    padding: 5px 10px !important;
+    line-height: inherit !important;
+    font-size: 11px;
+    margin-top:15px;
+}
+.standards-button:hover
+{
+    color: #4db0ce;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+ font-size: inherit; 
+}
+
+
+.table-hover tr td{
+
+    background: transparent;
+
+}
+
+.table-hover tr:hover{
+
+    background: #f7f7f7;
+    
+}
+

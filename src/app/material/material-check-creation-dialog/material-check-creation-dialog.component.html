@@ -1,0 +1,44 @@
+<div fxLayout="column" fxLayoutGap="10px">
+    <ngb-alert   type="danger" [dismissible]="false" style="margin-top:7px; margin-bottom:0px;">
+        <b> Hmm... </b> Your material looks similar to these ones. 
+    </ngb-alert>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Grade</th>          
+                <th>Purity</th>
+                <th>Size</th>
+                <th>Supplier</th>
+                <th>Select?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let material of data">
+                <td>{{material.name}}</td>
+                <td>{{material.grade}}</td>
+                <td>
+                    <div *ngIf="material.purity"> {{material.purity}}% </div>
+
+                </td>
+                <td>{{material.particle_size}}</td>
+                <td>{{material.supplier.supplier_name}}</td>
+                <td>
+                    <button [mat-dialog-close]="material" cdkFocusInitial mat-button color="primary">
+                        Select
+                    </button> 
+
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+
+    <div fxLayoutAlign="start center" fxLayout="row">
+        <button mat-raised-button (click)="onNoClick()" color="accent"> Not on this list.  </button>
+    </div>
+
+</div>

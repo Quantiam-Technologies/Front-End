@@ -1,0 +1,311 @@
+
+
+<div fxFlex fxLayout="column" fxLayoutGap="5px" style="height:100%" id="timesheetPage" *ngIf="displayTimesheet">
+
+
+  <div id="alerts" >
+
+
+    <ngb-alert [dismissible]="false" type="info" *ngIf="timeSheetObj?.payPeriod?.locked && !userService.hasPermission(10)">
+      <strong> Closed </strong> The period in which you could edit this timesheet has expired. 
+    </ngb-alert>
+
+   <ngb-alert [dismissible]="false" type="success" *ngIf="timeSheetObj?.payPeriod?.locked && userService.hasPermission(10)">
+      <strong> Notice </strong> The period in which you could edit this timesheet has expired. However, you are a Timesheet Administrator and can edit this timesheet.
+    </ngb-alert>
+    
+  </div>
+
+
+
+  <div fxLayout="row" style="font-size: 1.25em;" fxLayoutAlign="start end" >
+
+      <div fxLayout="column" fxFlex=30 fxLayoutAlign="start start" >
+
+        <div style="height:36px;" fxLayout="row"  fxLayoutAlign="start end" (mouseenter)="checkUserForSubordinatesAndMachines();"  (mouseleave) ="hideSelectBox()"  >   
+          
+          <p [hidden]="showSelectBox"  >{{timeSheetObj.userID}} - <b>{{timeSheetObj?.fullname}}</b> </p> 
+
+          <app-select-user 
+                [placeholder]="timeSheetObj?.fullname"
+                [hidden]="!showSelectBox" 
+                (change)="selectedUserChanged($event)" 
+                [selectedValue]="timeSheetObj?.userID" 
+                [authorizedSubordinatesOrMachines]=true
+                [allOptions]="userService.hasPermission([43,1])"
+                [clearable]="false"
+                appendTo=''
+          ></app-select-user>
+
+        </div>
+        
+        <p> Pay Period {{routeParams.payperiod}}, {{routeParams.year}} </p>
+        <p> {{timeSheetObj?.payPeriod.startDateHeader}} - {{timeSheetObj?.payPeriod.endDateHeader}}  </p>
+       
+
+      </div>
+
+      <div fxFlex=40 fxLayout="row" fxLayoutAlign="center start">
+
+        <div fxLayout="column">
+          <table class="" style=" font-size:12px;">
+              <tbody>
+              <tr>
+              <!-- <td style="padding-right:10px">Absence</td>
+              <td style="background-color: #E8FAFF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td> -->
+              <td style="padding-right:10px; padding-left:10px;">Weekend / Holiday </td>
+              <td style="background-color: #E8F2FF;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+              </tr>
+              </tbody>
+          </table>
+
+          <a *ngIf="!timeSheetObj.machine" mat-button class="standards-button" href="https://www.alberta.ca/employment-standards.aspx" target="_blank">Alberta Employment Standards</a>
+        </div>
+
+      </div>
+
+      <div fxFlex=30 fxLayoutAlign="start end" fxLayout="column" >
+
+        
+         
+
+          <div fxLayout="row" fxLayoutGap="7px" fxLayoutAlign="center start">
+              <button mat-raised-button color="primary"
+               class="print-button"
+                (click)="generateTimesheetDownload()">
+                <fa-icon [icon]="faDownload" ></fa-icon>
+                Download
+              </button>
+             
+              <p> Pay Period </p>
+              <select placeholder="Payperiod" (change)="changePayperoid()"  [(ngModel)]="routeParams.payperiod">
+                  <option *ngFor="let item of timesheetPayperoids" [value]="item" [attr.selected]="routeParams.payperiod == item ? 'selected' : null">
+                    {{item}}
+                  </option>
+                </select>
+                <p>  Year </p>
+                <select placeholder="Year"  (change)="changePayperoid()" [(ngModel)]="routeParams.year" >
+                    <option *ngFor="let year of timesheetYears" [value]="year"  [attr.selected]="routeParams.year == year ? 'selected' : null">
+                      {{year}}
+                    </option>
+                  </select>
+                 
+          </div>
+        
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex>
+
+         
+
+
+            <button mat-button (click)="previousPayPeroid()">
+                <mat-icon>arrow_left</mat-icon>Previous</button>
+
+               
+          
+            <button mat-button (click)="nextPayPeroid()">Next
+              <mat-icon>arrow_right</mat-icon>
+            </button>
+        </div>
+         
+      
+
+      </div>
+
+     
+
+  </div>
+  
+  <ag-grid-angular 
+
+  
+    
+  #agGrid	
+
+
+    style="width: calc(100%);  margin-top:10px;" 
+    class="ag-theme-material"
+    [animateRows]="true"
+
+    [rowData]="rowData" 
+    
+    domLayout='autoHeight'
+    
+
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [autoGroupColumnDef]="autoGroupColumnDef"
+    [frameworkComponents]="frameworkComponents"
+   
+
+    [modules]="modules"
+    (gridReady)="onGridReady($event)"
+    (cellDoubleClicked)="onCellDoubleClicked($event)"
+    (cellValueChanged)="cellValueChanged($event)"
+    (cellEditingStarted)="onCellEditingStarted($event)"
+    (rowGroupOpened)="onRowGroupOpened($event)"
+    (rowDataChanged)="rowDataChanged($event)"
+    (rowClicked)="onRowClicked($event)"
+
+    [enableRangeSelection]="false"
+    [suppressCellSelection]="false"
+    [singleClickEdit] = "true"
+    [pagination]="false"
+    [suppressPropertyNamesCheck]="true"
+    [suppressAggFuncInHeader] = "true"
+    [groupIncludeTotalFooter]="true"
+    [suppressChangeDetection]="false"
+    [rowClassRules]="rowClassRules"
+    [getRowHeight]="getRowHeight"
+    
+    [enterMovesDownAfterEdit]="true"
+    
+    
+    [suppressContextMenu] = "true"
+    
+    >
+  </ag-grid-angular>
+
+
+  <div *ngIf="!timeSheetObj.machine" fxLayout="row" fxLayoutGap="20px" id="summary_tables">
+
+
+      <div fxFlex=20>
+          <h3 class="page-header">Hours <small>Current Pay Period</small>
+            <div  style="float:right;" ><b>Total:</b> {{timeSheetObj.time.total}} Hours </div>
+          </h3>
+          <table class="stattable table-stats table-condensed table-striped table-shadow">
+              <thead> 
+                  <tr>
+                    <th> Hours Distribution </th>
+                    <th></th>                    
+                  </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Regular:</b> {{timeSheetObj.time.distribution.Regular  || '0'  | number : '1.2-2'}}</td>
+                  <td> <b>Stat:</b> {{timeSheetObj.time.distribution.Stat  || '0'  | number : '1.2-2'}}</td>
+                </tr>
+                <tr>
+                    <td><b>PTO:</b> {{timeSheetObj.time.distribution.PTO || '0' | number : '1.2-2'}}</td>
+                    <td><b>Vacation:</b> {{timeSheetObj.time.distribution.Vacation  || '0' | number : '1.2-2'}}</td>
+                  </tr>
+                  <tr>
+                      <td><b>CTO:</b> {{timeSheetObj.time.distribution.CTO  || '0'  | number : '1.2-2'}}</td>
+                    <td><b>Unpaid:</b> {{timeSheetObj.time.distribution.Unpaid  || '0' | number : '1.2-2'}}</td>
+                  </tr>
+                </tbody>
+           </table>
+      </div>
+
+      <div fxFlex fxLayout="column">
+          <h3 class="page-header" *ngIf="timeSheetObj?.overhours[0]">Overtime 
+          <small>
+            
+              <a style="float:right" target="_blank" href="https://work.alberta.ca/documents/Overtime-Hours-and-Overtime-Pay.pdf">Overtime Explanation</a>
+          </small> 
+          </h3>
+          <table *ngIf="timeSheetObj?.overhours[0]" class="stattable table-stats table-condensed table-striped table-shadow"> 
+            <thead> 
+                <tr>
+                  <th> Week </th>
+                  <th> Daily Sum </th>
+                  <th> Weekly Sum </th>
+                  <th> Banked <!-- <small *ngIf="timeSheetObj.compensation === 'Hourly'"> 1.5x</small> Tie this to a time period 2017 to 2020 may --> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td><b>{{timeSheetObj?.overhours[0].start_date | date:'MMM dd'}} to {{timeSheetObj?.overhours[0].end_date | date:'MMM dd,yyyy'}}</b></td>
+                  <td>{{timeSheetObj?.overhours[0].daily_sum | number : '1.2-2'}} Hours</td>
+                  <td>{{timeSheetObj?.overhours[0].weekly_sum | number : '1.2-2'}} Hours</td>
+                  <td>{{timeSheetObj?.overhours[0].bank | number : '1.2-2'}} Hours</td>
+                </tr>
+                <tr>
+                    <td><b>{{timeSheetObj?.overhours[1].start_date | date:'MMM dd'}} to {{timeSheetObj?.overhours[1].end_date  | date:'MMM dd,yyyy'}}</b></td>
+                    <td>{{timeSheetObj?.overhours[1].daily_sum | number : '1.2-2'}} Hours</td>
+                    <td>{{timeSheetObj?.overhours[1].weekly_sum | number : '1.2-2'}} Hours</td>
+                    <td>{{timeSheetObj?.overhours[1].bank | number : '1.2-2'}} Hours</td>
+                </tr>
+            </tbody>
+            
+          </table>
+
+          <h3 class="page-header" *ngIf="timeSheetObj.rto"> Time Off Requests 
+          
+          </h3>
+          <table  *ngIf="timeSheetObj.rto" class="stattable table-hover table-stats table-condensed table-shadow"> 
+            <thead> 
+                <tr>
+                  <th> ID </th>
+                  <th> Date </th>
+                  <th> Type </th>
+                  <th> Approved By </th>
+                  <th> Date </th>
+                  <th> Approved By </th>
+                  <th> Date </th>
+                  <th> Status </th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let rto of timeSheetObj?.rto">
+                <tr  *ngFor="let time of rto.requested_time" style="cursor:pointer;" [routerLink]="[ '/timesheet/rto', rto.requestID ]">
+                 
+                  <td > {{rto.requestID}}</td>
+                  <td > {{time.date}}</td>
+                  <td > {{time.type}}</td>
+                  <td > {{rto.approvals[0]?.name || ''}}</td>
+                  <td > {{rto.approvals[0]?.created || ''  | date:'yyyy-MM-dd'}}</td>
+                  <td > {{rto.approvals[1]?.name  || '' }}</td>
+                  <td > {{rto.approvals[1]?.created  || '' | date:'yyyy-MM-dd'}}</td>
+                  <td > {{rto.status}}</td>
+
+                  
+                </tr>
+              
+            </tbody>
+            
+          </table>
+      </div>
+
+      <div fxFlex *ngIf="timeSheetObj?.bank" >
+          <h3 class="page-header">Bank <small> Running total for {{timeSheetObj.payPeriod.year}}</small> </h3>
+          <table class="stattable table-stats table-condensed table-striped table-shadow"> 
+              <thead> 
+                  <tr>
+                    <th> Type </th>
+                    <th> Carry Over </th>
+                    <th> Allotted </th>
+                    <th> Used </th>
+                    <th> Bank </th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="timeSheetObj.compensation == 'Salary' || timeSheetObj.compensation == 'Hourly'">
+                      <td><b>Vacation</b></td>
+                      <td>{{timeSheetObj.bank.carry_over[timeSheetObj.payPeriod.year-1]?.vacation || 0 | number : '1.2-2'}} Hours</td>
+                      <td>{{timeSheetObj.bank.alloted[timeSheetObj.payPeriod.year]?.vacation || 0  | number : '1.2-2'}} Hours</td>
+                      <td>{{timeSheetObj?.bank.used[timeSheetObj.payPeriod.year]?.vacation || 0  | number : '1.2-2'}} Hours</td>
+                      <td>{{timeSheetObj.bank.remaining?.vacation || 0  | number : '1.2-2'}} Hours</td>
+                    </tr>
+                    <tr *ngIf="timeSheetObj.compensation == 'Salary' || timeSheetObj.compensation == 'Hourly'">
+                        <td><b>PTO</b></td>
+                        <td>{{timeSheetObj.bank.carry_over[timeSheetObj.payPeriod.year-1]?.pto || 0  | number : '1.2-2'}} Hours</td>
+                        <td>{{timeSheetObj.bank.alloted[timeSheetObj.payPeriod.year]?.pto || 0  | number : '1.2-2'}} Hours</td>
+                        <td>{{timeSheetObj?.bank.used[timeSheetObj.payPeriod.year]?.pto || 0  | number : '1.2-2'}} Hours</td>
+                        <td>{{timeSheetObj.bank.remaining?.pto || 0  | number : '1.2-2'}} Hours</td>
+                    </tr>  
+                    <tr>
+                        <td><b>CTO</b></td>
+                        <td>{{timeSheetObj.bank.carry_over[timeSheetObj.payPeriod.year-1]?.cto || 0  | number : '1.2-2'}} Hours</td>
+                        <td>{{timeSheetObj.bank.alloted[timeSheetObj.payPeriod.year]?.cto || 0  | number : '1.2-2'}} Hours</td>
+                        <td>{{timeSheetObj?.bank.used[timeSheetObj.payPeriod.year]?.cto || 0  | number : '1.2-2'}} Hours</td>
+                        <td>{{timeSheetObj.bank.remaining?.cto || 0  | number : '1.2-2'}} Hours</td>
+                    </tr>
+                </tbody>
+          </table>
+      </div>
+      
+
+
+  </div>
+
+</div>

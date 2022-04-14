@@ -1,0 +1,24 @@
+ng-select {
+
+width:100% !important;
+}
+
+::ng-deep .mat-tab-body-wrapper{
+
+    padding:15px !important;
+}
+
+::ng-deep .mat-tab-body-content {
+
+    overflow: hidden !important;
+}
+
+::ng-deep .mat-tab-body.mat-tab-body-active {
+
+    overflow: hidden !important;
+}
+
+.width-100{
+
+    width:100% !important;
+}

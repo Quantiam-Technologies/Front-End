@@ -1,0 +1,60 @@
+<div fxFlex fxLayout="column">
+    <div id="database_options" fxFlex fxLayout="row">
+
+            <div id="filterTypes" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxFlex>
+
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="end center" fxFlex fxLayoutGap="20px" fxFlex>
+               
+
+                <button  matTooltip="Note: Is triggered on a daily schedule." mat-raised-button color="primary" (click)="updateTimesheet()">Update Timesheet</button>
+                  
+                <button (click)="refreshDatabase()" mat-raised-button> 
+                    Refresh
+                    <mat-icon  >refresh</mat-icon>
+                </button>
+
+                <mat-form-field style="max-width: 100px;">
+                    <mat-select  placeholder="Page Size"  [(ngModel)]="gridOptions.cacheBlockSize" (selectionChange)="onPageSizeChanged()">
+                    <mat-option *ngFor="let pageSize of pageSizes" [value]="pageSize" [attr.selected]="pageSize === gridOptions.cacheBlockSize ? 'selected': null">
+                        {{pageSize}}
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field style="width:300px">
+                    <!--   <span matPrefix>+1 &nbsp;</span> -->
+                    <input id="semDatabaseSearchBar" type="text" matInput (keyup)="onTextFilterChanged()"  [(ngModel)]="filteredTextFilterName"  placeholder="Search">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>  
+            </div>
+    </div>
+
+    <div fxFlex fxLayout="row">
+        <ag-grid-angular
+        #agGrid
+        
+        style="width: calc(100%);  margin-top:10px;" 
+        id="semDatabase"
+        class="ag-theme-balham"
+        domLayout='autoHeight'
+        [columnDefs]="columnDefs"
+        [gridOptions]="gridOptions"
+        [defaultColDef]="defaultColDef"
+        [rowData]="rowData"
+        [modules]="modules"
+        [frameworkComponents] = "frameworkComponents"
+        
+        (rowDoubleClicked)="onRowDoubleClicked($event)"
+        (cellEditingStopped)="onCellEditingStopped($event)"
+        (cellEditingStarted)="onCellEditingStarted($event)"
+        
+        [animateRows]="true"
+        
+        (gridReady)="onGridReady($event)"
+        >
+        </ag-grid-angular>
+        
+    </div>
+</div>

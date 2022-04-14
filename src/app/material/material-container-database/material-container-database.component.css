@@ -1,0 +1,16 @@
+
+
+.ag-header {
+    box-sizing: border-box;
+    white-space: nowrap;
+    width: 100%;
+    display: flex;
+    font: 700 8px "Roboto", sans-serif !important;
+}
+
+.ag-theme-material {
+    background-color: #fff;
+    color: rgba(0, 0, 0, 0.87);
+    font: 400 10px "Roboto", sans-serif;
+    
+}

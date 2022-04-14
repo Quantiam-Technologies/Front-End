@@ -1,0 +1,61 @@
+<div 
+style="margin-top:10px;"
+fxLayout="column" fxLayoutAlign="center center" 
+fxLayout.gt-md="row"  fxLayoutAlign.gt-md="center start" fxLayoutGap="20px"
+>
+
+
+  <div fxLayout="column" fxFlex>
+      <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center start">
+          
+          <app-select-user [selectedValue]="user.id" 
+          [authorizedSubordinatesOrMachines]="true"
+          [allOptions]="userService.hasPermission(1)" (change)="changeUser($event)" [clearable]="false"></app-select-user>
+
+          <mat-form-field>
+              <input matInput [(ngModel)]="startDate" [matDatepicker]="startDatePicker" placeholder="Start Date">
+              <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #startDatePicker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+              <input matInput [(ngModel)]="endDate" [matDatepicker]="endDatePicker" placeholder="End Date">
+              <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+              <mat-datepicker #endDatePicker></mat-datepicker>
+          </mat-form-field>
+          <div>
+              <button mat-raised-button color="primary" (click)="fetchData()"> Apply </button>
+          </div>
+      </div>
+
+
+      <div fxLayoutAlign="center start" fxFlex>
+
+          <highcharts-chart *ngIf="projectPieChartOptions" [Highcharts]="Highcharts" [options]="projectPieChartOptions" [(update)]="updateFlag" style="height:400px;"></highcharts-chart>
+
+      </div>
+  </div>
+
+    <div id="tables" fxLayout="row" fxFlex fxLayoutGap="20px" fxLayoutAlign="center start" fxFlex>
+        <div>
+            <h3> Raw <small>{{reportObj?.denomination}}</small></h3>
+            <hot-table class="hot" hotId="raw" [settings]="hotTableRawSettings" [licenseKey]="'non-commercial-and-evaluation'">
+                <!-- 
+          <hot-column data="category_id" title="ID" read-only></hot-column> -->
+                <hot-column data="projectid" title="Project" read-only></hot-column>
+                <hot-column data="units" title="Units" read-only></hot-column>
+                <hot-column data="date" title="Date" read-only></hot-column>
+            </hot-table>
+        </div>
+        <div>
+          <h3> Summary  <small>{{reportObj?.denomination}}</small> </h3>
+            <hot-table class="hot" hotId="aggregate" [settings]="hotTableAggregateSettings" [licenseKey]="'non-commercial-and-evaluation'">
+
+                <hot-column data="name" title="Project" width="70px" read-only></hot-column>
+                <hot-column data="description" title="Name" read-only></hot-column>
+                <hot-column data="total" title="Total" read-only></hot-column>
+                <hot-column data="percent" title="Percent" read-only></hot-column>
+            </hot-table>
+        </div>
+    </div>
+
+</div>

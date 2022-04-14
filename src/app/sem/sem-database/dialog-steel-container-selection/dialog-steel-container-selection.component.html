@@ -1,0 +1,54 @@
+<div id="containerSteelEditor" #editor tabindex="-1"  fxFlex fxLayout="column" class="background" 
+fxLayoutAlign="center center" fxLayoutGap="20px">
+
+
+        <div fxFlex  fxLayoutGap="20px" fxLayout="row">
+            
+            <h2 *ngIf="data.run.data.hasOwnProperty('xrd_analysis')">{{data.run.data?.name}} {{data.run.data.sample_name}}</h2>
+            <h2 *ngIf="data.run.data.hasOwnProperty('sem')">{{data.run.data.semrun_id}} {{data.run.data.samplename}}</h2>
+
+        </div>
+
+        <div fxLayout="row" fxLayoutGap="30px">
+
+
+                <div fxLayout="column" fxLayoutGap="10px" [hidden]="selectedSample?.id || selectedSteel?.id">
+                        <h3> Powder? </h3>
+                        <app-select-material-container
+                            #containerEditor
+                            style="min-width:125px;" 
+                            (change)="selectContainer($event)"
+                            (clear)="clearSelectedContainer()"
+                            appendTo="body"
+                            
+                          
+                            ></app-select-material-container> 
+                
+                
+                           
+                    </div>
+                    <div fxLayout="column" fxLayoutGap="10px" [hidden]="selectedContainer?.id || selectedSample?.id">
+                            <h3>  Steel ? </h3>
+                            <app-select-steel
+                            #steelEditor
+                            style="min-width:125px;" 
+                            (change)="selectSteel($event)"
+                            (clear)="clearSelectedSteel()"
+                            appendTo="body"
+                          
+                            ></app-select-steel>
+                        </div>
+                 <!--    <div fxLayout="column" fxLayoutGap="10px"  [hidden]="selectedContainer?.id || selectedSteel?.id">
+                            <h3> Sample? </h3>
+                            <app-select-sample></app-select-sample>
+                        </div> -->
+                
+                     
+
+        </div>
+        <div [hidden]="!selectedContainer?.id && !selectedSample?.id && !selectedSteel?.id" fxlayout="row">
+            <button mat-raised-button color="primary" style="margin-top:15px;" (click)="confirmChoice()" 
+            >Confirm</button>
+         </div>
+
+</div>

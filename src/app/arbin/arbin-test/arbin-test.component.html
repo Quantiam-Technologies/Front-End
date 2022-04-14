@@ -1,0 +1,251 @@
+
+<div fxLayout="column" fxFlex fxLayoutGap="20px">
+
+    <div fxLayout="row" fxFlex fxLayoutGap="10px">
+
+      
+        <app-select-arbin-test [multiple]=true *ngIf="firstLoad"
+        [selectedValue]="selectedTests"
+        [clearable]="true"
+        (add)="testAdded($event)"
+        (remove)="testRemoved($event)"
+       
+        
+        ></app-select-arbin-test>
+
+        <mat-button-toggle-group value="IV" (change)="selectedGraphViewChanged($event)" class="mat-elevation-z1" #selectedGraphView="matButtonToggleGroup"  name="fontStyle" aria-label="Font Style" >
+            <mat-button-toggle value="IV"> Current Voltage </mat-button-toggle>
+            <mat-button-toggle value="EIS"> EIS </mat-button-toggle>
+            <mat-button-toggle value="data_sets"> Data Sets </mat-button-toggle>
+          
+          </mat-button-toggle-group>
+    
+
+        <div fxLayout="row" fxLayoutAlign="end start" fxFlex>
+
+        </div>
+
+    </div>
+
+    <div [hidden]="selectedGraphView.value !== 'IV'" fxLayout="column">
+      <div fxLayout="row" fxFlex fxLayoutGap="10px" fxLayoutAlign="center center">
+        <!-- <mat-accordion>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Personal data
+              </mat-panel-title>
+              <mat-panel-description>
+                Type your name and age
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+          </mat-expansion-panel>
+        </mat-accordion> -->
+          <!-- <h3> Test Screen </h3> -->
+        
+          <mat-form-field>
+                  <mat-label>x Axis</mat-label>
+                  <mat-select [(ngModel)]="currentXField" (selectionChange)="changeFields()">
+                    <mat-option *ngFor="let field of fields" [value]="field">
+                      {{field}}
+                    </mat-option>
+                  </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+                  <mat-label>y Axis</mat-label>
+                  <mat-select [(ngModel)]="currentYField" (selectionChange)="changeFields()">
+                    <mat-option *ngFor="let field of fields" [value]="field">
+                      {{field}}
+                    </mat-option>
+                  </mat-select>
+          </mat-form-field>
+                                      
+          
+                          
+            <mat-form-field  >
+              <input matInput  
+              name="yAxisMin"
+              step=1
+              placeholder="Y Axis Min" type="number"                     
+              [(ngModel)]="HighchartOptions.yAxis[0].min"
+              (change)="updateFlag = true;"
+              
+                >
+            </mat-form-field>
+
+            <mat-form-field   >
+              <input matInput  
+              name="yAxisMax"
+              placeholder="Y Axis Max" type="number"
+              step=1
+              [(ngModel)]="HighchartOptions.yAxis[0].max"
+              (change)="updateFlag = true;"
+              
+              >
+            </mat-form-field>
+
+          
+            <mat-form-field  >
+              <input matInput  
+              name="xAxisMin"
+              placeholder="X Axis Min" type="number"   
+              step=0.5
+              [(ngModel)]="HighchartOptions.xAxis[0].min"
+              (change)="updateFlag = true;"
+              
+                >
+            </mat-form-field>
+
+            <mat-form-field  >
+              <input matInput  
+              name="xAxisMax"
+              step=0.5
+              placeholder="X Axis Max" type="number"                     
+              [(ngModel)]="HighchartOptions.xAxis[0].max"
+              (change)="updateFlag = true;"
+              
+              >
+            </mat-form-field>
+          
+    
+      </div>
+      <div fxLayout="row" fxFlex>
+
+              <highcharts-chart
+              *ngIf="firstLoad"
+              [Highcharts]="Highcharts"
+              [options]="HighchartOptions"
+              [(update)]="updateFlag" 
+              [oneToOne]="oneToOneFlag"
+              style="height:680px; width:100%;"
+              [callbackFunction]="chartCallback"
+                ></highcharts-chart>
+      </div>
+    </div>
+
+    <div [hidden]="selectedGraphView.value !== 'EIS'" fxLayout="column" fxLayoutAlign="center center">
+
+        <div fxLayout="row" fxFlex fxLayoutGap="10px">
+            
+              <mat-form-field>
+                      <mat-label>Graph Type</mat-label>
+                      <mat-select [(ngModel)]="currentEISGraphType" (selectionChange)="changeEISGraphType()">
+                        <mat-option *ngFor="let field of graphType" [value]="field">
+                          {{field | titlecase }}
+                        </mat-option>
+                      </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                      <mat-label>x Axis</mat-label>
+                      <mat-select [(ngModel)]="eisCurrentXField" (selectionChange)="changeEISFields()">
+                        <mat-option *ngFor="let field of eisFields" [value]="field">
+                          {{field}}
+                        </mat-option>
+                      </mat-select>
+              </mat-form-field>
+              <mat-form-field>
+                      <mat-label>y Axis</mat-label>
+                      <mat-select [(ngModel)]="eisCurrentYField" (selectionChange)="changeEISFields()">
+                        <mat-option *ngFor="let field of eisFields" [value]="field">
+                          {{field}}
+                        </mat-option>
+                      </mat-select>
+              </mat-form-field>
+                                          
+              
+                              
+                <mat-form-field  >
+                  <input matInput  
+                  name="yAxisMin"
+                  step=1
+                  placeholder="Y Axis Min" type="number"                     
+                  [(ngModel)]="EISchartOptions.yAxis[0].min"
+                  (change)="updateEISFlag = true;"
+                  
+                    >
+                </mat-form-field>
+    
+                <mat-form-field   >
+                  <input matInput  
+                  name="yAxisMax"
+                  placeholder="Y Axis Max" type="number"
+                  step=1
+                  [(ngModel)]="EISchartOptions.yAxis[0].max"
+                  (change)="updateEISFlag = true;"
+                  
+                  >
+                </mat-form-field>
+    
+              
+                <mat-form-field  >
+                  <input matInput  
+                  name="xAxisMin"
+                  placeholder="X Axis Min" type="number"   
+                  step=0.5
+                  [(ngModel)]="EISchartOptions.xAxis[0].min"
+                  (change)="updateEISFlag = true;"
+                  
+                    >
+                </mat-form-field>
+    
+                <mat-form-field  >
+                  <input matInput  
+                  name="xAxisMax"
+                  step=0.5
+                  placeholder="X Axis Max" type="number"                     
+                  [(ngModel)]="EISchartOptions.xAxis[0].max"
+                  (change)="updateEISFlag = true;"
+                  
+                  >
+                </mat-form-field>
+              
+        
+          </div>
+
+          <div fxLayout="row" fxFlex>
+
+              <highcharts-chart
+              *ngIf="firstEISRender"
+              [Highcharts]="Highcharts"
+              [options]="EISchartOptions"
+              [(update)]="updateEISFlag" 
+              [oneToOne]="oneToOneFlag"
+              style="height:680px; width:100%;"
+              [callbackFunction]="chartCallback"
+                ></highcharts-chart>
+      </div>
+
+    </div>
+    
+
+    <div [hidden]="selectedGraphView.value !== 'data_sets'" fxLayout="column" fxLayoutAlign="start start" fxFlex>
+        
+      <div fxLayout="row" fxFlex=100 fxLayoutAlign="start start">
+
+          <table class='table' >
+              <thead>
+                  <tr>
+                     <!--  <th>Index</th> -->
+                    
+                      <th>Name</th>
+                      <th>Test ID</th>
+                      <th>Type</th>                   
+                      <th>Download</th>
+                     
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let item of dataSets; "  >
+                      <td *ngFor="let thing of item | keyvalue; let i = index;" [hidden]="i === 0">{{thing.value}} </td>
+                      <td>                      
+                         <button mat-raised-button color="primary" class="mat-small" (click)="exportCSV(item)">CSV</button>
+                      </td>
+                  </tr>
+              </tbody>
+      
+          </table>
+      </div>
+        
+
+    </div>
+</div>

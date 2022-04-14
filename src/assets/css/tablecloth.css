@@ -1,0 +1,206 @@
+.table th.center, .table td.center  { text-align:center; }
+.table th.right, .table td.right    { text-align:right; }
+
+.table th.headerSortable:hover {
+  cursor:pointer;
+}
+.table th.headerSortDown {
+  /* background-image: url('../img/asc.gif'); */
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center right;
+  padding-right:16px !important;
+}
+.table th.headerSortUp {
+  /* background-image: url('../img/desc.gif'); */
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center right;
+  padding-right:16px !important;
+}
+
+.table tr.highlight td,         .table tr.highlight:hover td,
+.table td.highlight,            .table td.highlight:hover             { background:#FFF9D7 !important; }
+.table tr.highlight-primary td, .table tr.highlight-primary:hover td,
+.table td.highlight-primary,    .table td.highlight-primary:hover     { background:#0074cc !important; color:#FFF; }
+.table tr.highlight-info td,    .table tr.highlight-info:hover td,
+.table td.highlight-info,       .table td.highlight-info:hover        { background:#49afcd !important; color:#FFF; }
+.table tr.highlight-success td, .table tr.highlight-success:hover td,
+.table td.highlight-success,    .table td.highlight-success:hover     { background:#5bb75b !important; color:#FFF; }
+.table tr.highlight-warning td, .table tr.highlight-warning:hover td,
+.table td.highlight-warning,    .table td.highlight-warning:hover     { background:#faa732 !important; color:#FFF; }
+.table tr.highlight-danger td,  .table tr.highlight-danger:hover td,
+.table td.highlight-danger,     .table td.highlight-danger:hover      { background:#da4f49 !important; color:#FFF; }
+.table tr.highlight-inverse td, .table tr.highlight-inverse:hover td,
+.table td.highlight-inverse,    .table td.highlight-inverse:hover     { background:#414141 !important; color:#FFF; }
+
+/* DEFAULT THEME */
+
+.table caption {
+  text-align:left;
+  padding:10px 0;
+}
+
+/* STATS THEME */
+
+table .table-stats{
+
+  border-spacing: 0px;
+} 
+
+.table-stats {
+  border:1px solid #C2C2C2;
+  border-collapse: separate;
+  *border-collapse: collapsed;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0 !important;
+  font-family:verdana,helvetica,arial,sans-serif;
+  font-size:11px;
+  color:#333;
+  border-spacing: 0px;
+}
+.table-stats caption {
+  border-left:1px solid #C2C2C2;
+  border-right:1px solid #C2C2C2;
+  border-top:1px solid #C2C2C2;
+  background:#F5F5F5;
+  line-height:1.3em;
+  /* background-image: linear-gradient(bottom, #FFF 0%, #E9E9E9 100%);
+  background-image: -o-linear-gradient(bottom, #FFF 0%, #E9E9E9 100%);
+  background-image: -moz-linear-gradient(bottom, #FFF 0%, #E9E9E9 100%);
+  background-image: -webkit-linear-gradient(bottom, #FFF 0%, #E9E9E9 100%);
+  background-image: -ms-linear-gradient(bottom, #FFF 0%, #E9E9E9 100%); */
+
+  background-image: -webkit-gradient(
+  	linear,
+  	left bottom,
+  	left top,
+  	color-stop(0, #FFF),
+  	color-stop(1, #E9E9E9)
+  );
+  padding:10px;
+  font-family:helvetica,arial,sans-serif;
+  font-size:13px;
+  text-shadow:0 1px 0 #FFF;
+}
+.table-stats.table-bordered {
+  border-left: 0;
+}
+.table-stats th,
+.table-stats td {
+  background:#FFF;
+  color:#666;
+  border-top: none;
+  border-radius:0 !important;
+}
+.table-stats thead tr th, .table-stats thead tr.colhead:nth-child(1) th {
+  font-size:13px;
+  font-weight:bold;
+  font-family:helvetica,arial,sans-serif;
+  background:#DDD;
+  /* background-image: linear-gradient(bottom, #E8E8E8 0%, #CECECE 100%);
+  background-image: -o-linear-gradient(bottom, #E8E8E8 0%, #CECECE 100%);
+  background-image: -moz-linear-gradient(bottom, #E8E8E8 0%, #CECECE 100%);
+  background-image: -webkit-linear-gradient(bottom, #E8E8E8 0%, #CECECE 100%);
+  background-image: -ms-linear-gradient(bottom, #E8E8E8 0%, #CECECE 100%); */
+
+  background-image: -webkit-gradient(
+  	linear,
+  	left bottom,
+  	left top,
+  	color-stop(0, #E8E8E8),
+  	color-stop(1, #CECECE)
+  );
+  color:#666;
+  border-radius:2px !important;
+  padding:4px !important;
+  border-bottom:none;
+}
+.table-stats thead tr:nth-child(1) th {
+  /* font-size:13px; */
+  font-size:1.1em;
+  font-weight:bold;
+  font-family:helvetica,arial,sans-serif;
+  /*background:#4B4B4B;*/
+/*   background:#034859; */
+  background:rgb(5, 48, 93);
+/*  background-image: linear-gradient(bottom, #565656 0%, #434343 100%);
+  background-image: -o-linear-gradient(bottom, #565656 0%, #434343 100%);
+  background-image: -moz-linear-gradient(bottom, #565656 0%, #434343 100%);
+  background-image: -webkit-linear-gradient(bottom, #565656 0%, #434343 100%);
+  background-image: -ms-linear-gradient(bottom, #565656 0%, #434343 100%);
+
+  background-image: -webkit-gradient(
+  	linear,
+  	left bottom,
+  	left top,
+  	color-stop(0, #565656),
+  	color-stop(1, #434343)
+  );*/
+  color:#FFF;
+  border-bottom:1px solid #FFF;
+  border-radius:0 !important;
+}
+
+.table-stats tr:hover td,tr.alt:hover
+{
+    /* background: rgba(225, 242, 252, 0.2)!important;  */
+
+}
+
+.table-shadow {
+  box-shadow: 1px 2px 3px 0 rgba(0,0,0,.30);
+}
+
+
+.table-stats th.headerSortable:hover {
+  cursor:pointer;
+}
+.table-stats th.headerSortDown { background-color:#CCC; }
+.table-stats th.headerSortUp { background-color:#CCC; }
+.table-stats thead tr:nth-child(1) th.headerSortDown {
+  background-color:#333;
+  /* background-image: url('../img/asc_light.gif'); */
+  background-repeat: no-repeat;
+  background-position: center right;
+}
+.table-stats thead tr:nth-child(1) th.headerSortUp {
+  background-color:#333;
+  /* background-image: url('../img/desc_light.gif'); */
+  background-repeat: no-repeat;
+  background-position: center right;
+}
+.table-stats.table-bordered th, .table-stats.table-bordered td {
+  border-top: 1px solid #C2C2C2;
+  border-left: 1px solid #C2C2C2;
+}
+.table-stats.table-condensed th, .table-stats.table-condensed td {
+  padding:1px 4px;
+}
+.table-stats.table-striped tbody tr:nth-child(even) td,
+.table-stats.table-striped tbody tr:nth-child(even) th,
+.table-stats.table-striped tbody tr:nth-child(even):hover td,
+.table-stats.table-striped tbody tr:nth-child(even):hover th {
+ 
+  
+  background-color: rgb(255, 255, 255);
+}
+.table-stats.table-striped tbody tr:nth-child(odd) td,
+.table-stats.table-striped tbody tr:nth-child(odd) th,
+.table-stats.table-striped tbody tr:nth-child(odd):hover td,
+.table-stats.table-striped tbody tr:nth-child(odd):hover th {
+  background-color: rgba(251, 251, 251,1);
+}
+.table-stats thead:first-child tr:first-child th,
+.table-stats tbody:first-child tr:first-child th,
+.table-stats tbody:first-child tr:first-child td {
+  border-top: 0;
+}
+
+.table-stats tbody tr td
+{
+
+padding:10px;
+
+}

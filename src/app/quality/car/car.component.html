@@ -1,0 +1,137 @@
+
+<div fxLayout="column" fxLayoutGap="10px" *ngIf="formRender">
+
+<div fxLayout="row" fxLayoutAlign="center center">
+
+    <h2 fxFlex> Corrective Action Report #{{carObject.id}} <small> {{carObject.name}} </small> </h2>
+    <button *ngIf="!isPopUp" matTooltip="Navigate" mat-raised-button routerLink="/quality/ncr/{{carObject.ncr_id}}" color="primary" >NCR {{carObject.ncr_id}} </button>
+    <div fxLayoutAlign="end center" >
+        <button mat-icon-button  color="warn" (click)="deleteCar()" matTooltip="Delete CAR" > <mat-icon >delete</mat-icon> </button>
+    </div>
+</div>
+
+<form [formGroup]="carFormObjectOptions" fxLayout="column" fxLayoutGap="10px">
+
+    <div fxLayout="row wrap" fxFlex fxLayoutGap="10px">
+
+        <div fxLayout="row wrap" fxFill fxLayoutGap="5px"> 
+        <mat-form-field  fxFlex>
+            <mat-label> Name </mat-label>
+            <input  matInput name="car_name"  formControlName="name" placeholder="Hard Hat Issue" required>
+        </mat-form-field>
+
+        
+     
+
+        <mat-form-field fxFlex=20>
+            <mat-label>Completed</mat-label>
+            <input matInput [matDatepicker]="picker" name="car_target_completion" formControlName="target_completion" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+
+        </mat-form-field>
+    
+          </div>
+
+            <mat-form-field class="example-chip-list" fxFlex>
+                <mat-label>Responsible Persons</mat-label>
+                <mat-chip-list #chipList aria-label="Fruit selection" placeholder="Add or remove as necessary.">
+                    <mat-chip 
+                    (removed)="remove(user,i)" *ngFor="let user of selectedResponsible; index as i">{{user.name}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip> 
+                    <input required 
+                    #responsibleInput
+                    formControlName="responsible"
+                    [matAutocomplete]="responsible" 
+                    [matChipInputFor]="chipList" 
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="addOnBlur" 
+                    >
+                </mat-chip-list>
+                <mat-autocomplete #responsible="matAutocomplete" (optionSelected)="selectResponsible($event)">
+                    <mat-option  *ngFor="let user of filteredUsers | async"  [value]="user">
+                    {{ user.name }} <small>{{user.title}}</small>
+                    </mat-option>
+                </mat-autocomplete>
+        
+            </mat-form-field>
+          
+  
+    </div>
+
+
+    <mat-form-field fxFlexFill>
+        <mat-label>Description</mat-label>
+        <mat-hint> Briefly describe corrective actions taken. </mat-hint>
+        <textarea rows=6 maxlength=600 
+         formControlName="description"
+          name="ncr_description" 
+          placeholder="Individuals were found not wearing hardhards in mandatory hardhat designation zones. Upon inspection, it was apparent there were no hardhats available for use. " matInput required></textarea>
+    </mat-form-field>
+
+    <br>
+    <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center" >
+
+        <div fxLayoutAlign="start center" fxFlex>
+        
+            <mat-slide-toggle formControlName="completed"  required>Completed</mat-slide-toggle>
+        
+        </div> 
+        <div fxLayoutAlign="end center" fxFlex [hidden]="!carFormObjectOptions?.get('completed').value">
+            <mat-radio-group aria-label="Select an option" formControlName="effective" fxLayoutGap="5px"   >
+                <mat-radio-button value="1">Effective</mat-radio-button>
+                <mat-radio-button value="0">Ineffective</mat-radio-button>
+                <mat-radio-button value="null">Ongoing</mat-radio-button>
+            </mat-radio-group>
+    
+            
+        </div> 
+    
+    
+    </div>
+
+<div [hidden]="!carFormObjectOptions?.get('completed').value">
+    <mat-form-field  fxFlexFill>
+        <mat-label>Disposition Comments</mat-label>
+        <mat-hint> If you have anything further to add about the disposition of this corrective action, put it here.  </mat-hint>
+        <textarea maxlength=600 rows="4"
+         formControlName="disposition_comment"
+          name="car_disposition_comment" 
+          placeholder="" matInput ></textarea>
+    </mat-form-field>
+
+
+
+</div>
+
+
+
+<div fxLayoutAlign="end center" fxFlex>
+
+    <button mat-raised-button color="primary" [disabled]="!carFormObjectOptions.dirty && !carFormObjectOptions.valid" (click)="updateCar();">Save Changes</button>
+
+</div>
+
+</form>
+
+
+<app-file-associator objectType="car" [object]="carObject" title="CAR Documents"></app-file-associator>
+
+
+<!-- <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="end center" *ngIf="isPopUp">
+  
+    <div fxLayoutAlign="start center" fxFlex>
+        <button mat-button  (click)="previousCar()" *ngIf="carObject.index !== 0 && carObject.index < (carObject.arrayLength)"> Prev </button>   
+    </div>
+    
+    <div fxLayoutAlign="center center" fxFlex>
+        <button mat-button [mat-dialog-close]="data"> Close </button>   
+     </div>
+     <div fxLayoutAlign="end center" fxFlex>
+        <button mat-button (click)="nextCar()" *ngIf="carObject.index !== (carObject.arrayLength - 1)"> Next </button>   
+     </div>
+</div>
+ -->
+
+</div>

@@ -1,0 +1,16 @@
+
+
+<div >
+    <div fxLayout="row">
+            <app-select-user 
+            placeholder="Select another user or machine."
+            (change)="selectedUserChanged($event)" 
+            [selectedValue]="routeParams?.userId" 
+            [authorizedSubordinatesOrMachines]=true
+            [allOptions]="userService.hasPermission([43,1])"
+            [clearable]="false"
+            appendTo=''
+    ></app-select-user>
+    </div>
+    <app-logs  *ngIf="loadLog" [selectedRouteParams]="selectedRouteParams"></app-logs>
+</div>

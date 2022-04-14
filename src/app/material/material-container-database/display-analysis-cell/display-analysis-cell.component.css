@@ -1,0 +1,3 @@
+:host ::ng-deep .mat-badge-content {
+    top: 0px !important;
+}

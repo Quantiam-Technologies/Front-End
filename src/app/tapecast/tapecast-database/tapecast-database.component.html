@@ -1,0 +1,86 @@
+
+<div fxLayout="column" fxLayoutAlign="stretch stretch" fxFlex fxFlex.gt-lg="100">
+
+       
+    <div fxLayout="row"  fxLayoutGap="20px"    >
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">                
+                                <!--   <mat-slide-toggle  (click)="toggleCellsEditable()"> Edit Table </mat-slide-toggle>  -->          
+        </div>
+        <div fxFlex fxLayout="row"  fxLayoutAlign="center center" fxLayoutGap="20px"> 
+
+           
+              
+        </div>
+        <div fxFlex fxLayout="row"  fxLayoutAlign="end start" fxLayoutGap="10px">
+           
+      
+            <button   (click)="createTapecast()" mat-raised-button color="primary">   <!--- how to get campaign assigned? -->
+                Create Tapecast 
+            </button>
+            
+            <button (click)="refreshDatabase()" mat-raised-button> 
+                Refresh
+                <mat-icon  >refresh</mat-icon>
+            </button>
+
+                <!-- <div fxFlex fxLayout="row"  fxLayoutGap="15px"  fxLayoutAlign="center center"> 
+                <b> Filters </b>  
+                    <mat-slide-toggle  > Instock </mat-slide-toggle>
+                    <mat-slide-toggle  > Manufacturing </mat-slide-toggle>
+                    <mat-slide-toggle  > Research </mat-slide-toggle>
+                </div>  -->
+        </div>
+    <!-- <button mat-button > Active </button> -->
+    </div>
+
+    <div fxLayout="row" fxFlexAlign="start center">
+
+            <div fxFlex fxLayout="row" fxLayoutGap="10px">
+              
+                    <!-- <div style="max-width: 350px;"> 
+                       <app-select-material-lot style="width:200px;"  ></app-select-material-lot >
+                    </div> -->
+                   
+
+            </div>
+
+            <div fxFlex fxLayout='row' fxLayoutAlign="end center">
+              <!--   <mat-form-field style="width:300px">
+                    <input type="text" matInput (keyup)="onFilterChanged()"  [(ngModel)]="filteredTextFilterName"  placeholder="Search">
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>  --> 
+            </div>
+    </div>
+
+    <ag-grid-angular 
+        #agGrid
+           
+              
+        style="width: calc(100%); height:calc(70vh); margin-top:10px;" 
+        class="ag-theme-balham"
+        [animateRows]="true"
+        
+       
+        [rowData]="rowData" 
+       
+        [columnDefs]="columnDefs"
+      
+        [defaultColDef]="defaultColDef"
+        [gridOptions]="gridOptions" 
+        [frameworkComponents] = "frameworkComponents"
+
+        [modules]="modules"
+        (gridReady)="onGridReady($event)"
+        (rowDoubleClicked)="onRowDoubleClicked($event)"       
+       
+        [enableRangeSelection]="true"
+        [pagination]="true"
+       
+    
+        
+        >
+    </ag-grid-angular>
+
+
+</div>

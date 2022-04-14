@@ -1,0 +1,9 @@
+:host ::ng-deep th.mat-header-cell
+{
+    background-color: white;
+}
+
+:host ::ng-deep td.mat-cell
+{
+    padding-right:10px;
+}

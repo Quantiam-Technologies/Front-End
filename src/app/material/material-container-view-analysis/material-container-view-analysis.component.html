@@ -1,0 +1,41 @@
+<div  fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center start">
+
+    <div fxLayout="row">
+        
+            <mat-button-toggle-group value="analysis"
+		
+			class="mat-elevation-z1"  
+	
+			>
+				<mat-button-toggle value="container" [routerLink]="['/material/container',container.id]"> Container </mat-button-toggle>
+				<mat-button-toggle value="log" [routerLink]="['/material/container',container.id,'log']"> Log </mat-button-toggle>
+				<mat-button-toggle value="analysis" [routerLink]="['/material/container',container.id,'analysis']"> Analysis </mat-button-toggle>
+			
+				
+				</mat-button-toggle-group>
+     </div> 
+
+            <div fxLayout="row" fxFlex>
+                <section id="XRD" *ngIf="container.xrd_runs[0]" fxLayout="column" fxFlex fxLayoutGap="10px">                        
+                    <div fxLayout="row" >
+                            <mat-button-toggle-group id="selectedXrd" [(ngModel)]="selectedXrdRun.id"  (change)="changeAnalysis()"          
+                            class="mat-elevation-z1" #containerAnalysis="matButtonToggleGroup" >
+                                <mat-button-toggle *ngFor="let xrd_run of container.xrd_runs" [value]="xrd_run.id" > {{xrd_run.name}} </mat-button-toggle>
+                            
+                                
+                                </mat-button-toggle-group>
+                    </div>
+                    <div fxLayout="row">
+                        <!-- fix this looping issue later -->
+                        <app-mini-xrd [xrdAnalysisId]="container.xrd_runs[0].xrd_analysis[0].id"></app-mini-xrd>
+
+                    </div>
+
+                </section>
+                <section id="Particle Size">
+
+                </section>
+                
+            </div>
+</div>
+

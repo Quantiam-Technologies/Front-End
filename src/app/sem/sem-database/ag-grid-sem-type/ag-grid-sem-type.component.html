@@ -1,0 +1,12 @@
+
+<div class="background" (keydown)="onKeyDown($event)">
+  <app-select-semrun-type
+      #semTypeEditor 
+      (change)="selectValue($event)"
+      [placeholder]="previousValue?.type"
+      [selectedValue]="previousValue"
+      style="min-width: 100px;"
+     
+  ></app-select-semrun-type>
+
+</div>

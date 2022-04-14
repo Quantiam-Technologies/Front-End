@@ -1,0 +1,22 @@
+<ng-select 
+
+  [items]="itemsBuffer"
+  [virtualScroll]="virtualScroll"
+  [loading]="loading"
+	
+	[multiple]="multiple"
+  [placeholder]="placeholder"
+  
+  (change)="onChange($event)"
+  (add)="onAdd($event)"
+  (remove)="onRemove($event)"
+  (scroll)="onScroll($event)"
+  (scrollToEnd)="onScrollToEnd()"
+
+  [(ngModel)]="selectedValue"	
+	bindValue="id"
+	bindLabel="name"
+>   
+  
+</ng-select>
+

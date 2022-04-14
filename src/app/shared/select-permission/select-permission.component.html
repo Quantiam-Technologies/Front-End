@@ -1,0 +1,34 @@
+<ng-select 
+
+  [items]="itemsBuffer"
+  [virtualScroll]="virtualScroll"
+  [loading]="loading"
+	
+	[multiple]="multiple"
+  [placeholder]="placeholder"
+  
+  (change)="onChange($event)"
+  (add)="onAdd($event)"
+  (remove)="onRemove($event)"
+  (open)="onOpen()"
+  
+
+  appendTo="body"
+  [(ngModel)]="selectedValue"	
+	bindValue="id"
+  bindLabel="name"
+  groupBy="category"
+>   
+<ng-template ng-optgroup-tmp let-item="item">
+    {{item.category}}
+</ng-template>
+
+  <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm" >
+      <div fxLayout="row"  fxLayoutAlign="start center"  >
+
+        <div  style="width:50px;" [ngOptionHighlight]="search"> <b>{{item.id}} </b></div> 
+        <div style="width:250px; font-size:12px; margin-left:10px" [ngOptionHighlight]="search">{{item.name}}</div>        
+      </div>
+  </ng-template>
+  
+</ng-select>

@@ -1,0 +1,76 @@
+markdown ::ng-deep{
+
+    font-family: Roboto,sans-serif;
+    overflow-y: auto;
+    height: 100% !important;
+    padding-right: 10px;
+    padding-left: 10px;
+    /* height: 92vh; */
+}
+
+markdown ::ng-deep p {
+    margin-left: 30px;
+    box-sizing: border-box;
+    line-height: 1.5;   
+    font-weight: 400;
+    color: rgba(0,0,0,.87);
+    font-size: 11px;
+}
+
+markdown ::ng-deep ul {
+    margin-top: 5px;
+}
+
+markdown ::ng-deep li {
+    font-size: 12px;
+    padding-bottom: 10px;
+}
+
+markdown ::ng-deep h1 {
+
+    border-bottom: 1px solid #eaecef;
+    padding-bottom: .3em;
+
+}
+markdown ::ng-deep h3 {
+    margin-top: 24px;
+    margin-bottom: 16px;
+}
+
+markdown ::ng-deep h4 {
+    margin-left: 5px;
+    
+}
+
+markdown ::ng-deep h2 {
+    margin-top: 24px;
+    margin-bottom: 16px;
+}
+
+
+.patch-notes-wrapper {
+
+    height: 100% !important;
+}
+
+.markdown-menu-wrapper{
+    height: 100% !important;
+}
+
+
+
+ .left-column ::ng-deep {
+
+ max-height: 100% !important;
+}
+
+.hoverscrollbar ::ng-deep{
+    overflow:hidden;
+
+}
+
+  .hoverscrollbar:hover, .hoverscrollbar:active, .hoverscrollbar:focus ::ng-deep{
+    overflow: auto;
+  }
+
+  

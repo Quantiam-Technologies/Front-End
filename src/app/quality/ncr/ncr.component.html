@@ -1,0 +1,277 @@
+<div style="height:100%; overflow:auto;">
+    <div *ngIf="!ncrLoading && !ncrObject.id">
+            This NCR does not exist.
+    </div>
+
+    <div fxLayout='row' fxLayoutGap="10px">
+        <div *ngIf="ncrObject.id && !ncrLoading" fxFlex=50 fxLayoutGap="10px" fxLayout="column" style="padding:5px;">
+            <div id="ncr" fxLayoutGap="10px" fxLayout="column"> 
+                <div fxLayout="row">
+                    
+                        <h2> Non Conformance Report #{{ncrObject.id}}  </h2>
+                       
+                        <span class="example-spacer"></span>
+                        <button mat-button color="warn" (click)="deleteNCR()" *ngIf="ncrObject.status != 'completed'" matTooltip="Delete this NCR.">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        <mat-button-toggle-group *ngIf="ncrObject.status" [(ngModel)]="ncrObject.status" class="enabled"  
+                        class="mat-elevation-z1"  aria-label="Font Style" disabled>
+                            <mat-button-toggle value="draft" >Draft</mat-button-toggle>
+                            <mat-button-toggle value="ongoing">Ongoing</mat-button-toggle>
+                            <mat-button-toggle value="completed">Resolved</mat-button-toggle>
+                        </mat-button-toggle-group>
+                   
+
+                </div>
+
+            <mat-card>
+                <form [formGroup]="ncrOptions" fxLayout="column" fxLayoutGap="10px">
+
+                    <div fxLayout="row wrap" fxFlex fxLayoutGap="10px">
+                        <mat-form-field  fxFlex>
+                            <mat-label> Name </mat-label>
+                            <input  matInput name="ncr_name"  formControlName="name" placeholder="Hard Hat Issue" required>
+                        </mat-form-field>
+                        <mat-form-field  fxFlex>
+                            <mat-label> Project </mat-label>
+                            <input   [matAutocomplete]="projects" matInput name="ncr_project_id"  formControlName="project_id" placeholder="Project ID">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex>
+                            <mat-label>Occurred</mat-label>
+                            <input matInput [matDatepicker]="picker" name="ncr_occurred" formControlName="occurred"  required>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+
+                        </mat-form-field>
+
+                        <mat-autocomplete #projects="matAutocomplete">
+                            <mat-option  *ngFor="let project of filteredProjects | async"  [value]="project.id">
+                            <b>{{ project.id }}</b> - <small>{{project.Description}}</small>
+                            </mat-option>
+                        </mat-autocomplete>
+                        <mat-form-field fxFlex>
+                            <mat-label>Buisness Unit</mat-label>
+                            <select  formControlName="buisness_unit" matNativeControl required>
+                                <option disabled selected></option>
+                                <option value="trial_manufacturing">Trial Manufacturing</option>
+                                <option value="receiving">Receiving</option>
+                                <option value="health_and_safety">Health and Safety</option>
+                                <option value="research_and_developmemnt">R & D</option>
+                                <option value="finance">Finance</option>
+                            </select>
+                        </mat-form-field>
+                    </div>
+                    
+                    <div fxLayout="row" fxFlex fxLayoutGap="5px" fxLayoutAlign="center center">
+                        <mat-form-field  fxFlex>
+                            <mat-label>Nonconformance </mat-label>
+                            <mat-hint>What requirement was violated? Reference the applicable document if possible. </mat-hint>
+                            <input  matInput  name="ncr_rqv"  formControlName="requirement_violated" placeholder="Safety Violation, Hard Hats - Section 4.5 of Quantiam Hard Hat Control" required>
+
+                        </mat-form-field>
+            
+                        <mat-form-field >
+                            <mat-label>Category</mat-label>
+                            <select  formControlName="type" matNativeControl required>
+                                <option disabled selected></option>
+                                <option value="OH&S">Health and Saftey</option>
+                                <option value="procedure">Procedure</option>
+                                <option value="product">Product Specification</option>
+                            </select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Severity</mat-label>
+                            <select formControlName="severity" placeholder="" matNativeControl required>
+                                <option disabled selected></option>
+                                <option value="minor">Minor</option>
+                                <option value="major">Major</option>
+                                <option value="severe">Severe</option>
+                                <option value="critical">Critical</option>
+                            </select>
+                        
+                        </mat-form-field>
+
+                        <mat-icon matSuffix><a href="https://www.saiglobal.com/Assurance/Updated-NCR-Proceess.htm" target="_blank">info</a></mat-icon>
+                    </div>
+
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Description</mat-label>
+                        <mat-hint> Briefly describe the issue in detail. If avaialble, include possible causes for the event. </mat-hint>
+                        <textarea rows=3 maxlength=600  formControlName="description" name="ncr_description" placeholder="Individuals were found not wearing hardhards in mandatory hardhat designation zones. Upon inspection, it was apparent there were no hardhats available for use. " matInput required></textarea>
+                    </mat-form-field>
+                
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Containment Action</mat-label>
+                        <mat-hint> Briefly what has been done to contain the problem, leave blank if nothing was done. </mat-hint>
+                        <textarea rows=3 maxlength=600 name="ncr_containment" formControlName="immediate_containment_action" placeholder="Inviduals were issued spare hard hats from a secured storage facility. " matInput></textarea>
+                    </mat-form-field>
+                    <div>
+
+                    
+                        <mat-form-field class="example-chip-list" fxFlex>
+                            <mat-label>Responsible Persons</mat-label>
+                            <mat-chip-list #chipList aria-label="Fruit selection" placeholder="Add or remove as necessary.">
+                                <mat-chip 
+                                (removed)="remove(user,i)" *ngFor="let user of selectedResponsible; index as i">{{user.name}}
+                                    <mat-icon matChipRemove>cancel</mat-icon>
+                                </mat-chip>
+                                <input required 
+                                #responsibleInput
+                                formControlName="responsible"
+                                [matAutocomplete]="responsible" 
+                                [matChipInputFor]="chipList" 
+                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                [matChipInputAddOnBlur]="addOnBlur" 
+                                >
+                            </mat-chip-list>
+                            <mat-autocomplete #responsible="matAutocomplete" (optionSelected)="selectResponsible($event)">
+                                <mat-option  *ngFor="let user of filteredUsers | async"  [value]="user">
+                                {{ user.name }} <small>{{user.title}}</small>
+                                </mat-option>
+                            </mat-autocomplete>
+                    
+                        </mat-form-field>
+                    <!--  <mat-form-field >
+                            <mat-label> Created By </mat-label>
+                            <input matInput name="ncr_requirement" value="Tyson Boyce" disabled>
+                        </mat-form-field> -->
+
+                </div>
+
+                </form>
+                <div style="margin-bottom:20px;" id="ncr action bar" fxLayout="row">
+                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex>
+                        Created By: {{ncrObject.created_by.name}}
+                    </div>
+                    <div  fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="5px" fxFlex>
+                        <button *ngIf="ncrObject.status !== 'draft' && ncrOptions.enabled && ncrObject.status != 'completed'" mat-raised-button color="primary"  (click)="updateNCR()"> Save Changes </button>
+                        <button *ngIf="ncrObject.status === 'ongoing' && ncrOptions.disabled" mat-raised-button color="accent" (click)="ncrOptions.enable()"> Edit </button>
+                        <button  type="submit" [disabled]="!ncrOptions.valid" *ngIf="ncrObject.status === 'draft'"  mat-raised-button  color="primary" (click)="updateNCR('ongoing')">Submit</button>
+                    
+                    </div>
+
+                </div>
+               
+
+            </mat-card>
+              
+                  <app-file-associator title="NCR Documents" [object]="ncrObject"></app-file-associator>
+                
+               
+
+        
+
+                
+               
+
+            
+            </div>
+        
+        
+        </div>
+
+        <div id="right side" fxLayout="column" fxFlex >  
+            <div id="car" [hidden]="ncrObject.status === 'draft'" fxFlex fxLayout="column" style="padding:5px;">
+
+                <ngb-alert type="danger" *ngIf="ncrObject.cars.length === 0"   [dismissible]="false"> 
+                    <b> Hmmm... </b> Please add some corrective actions.
+                     </ngb-alert>
+                <div fxLayout="row">
+                        
+                    <h2> Corrective Actions </h2>
+                    <span class="example-spacer"></span>
+                    <button mat-raised-button color="primary" *ngIf="ncrObject.status != 'completed'" (click)="createCar(ncrObject)">Create</button>
+
+                    </div>
+                    <!--- table thing with each action taken -->
+                    <table class="table mat-elevation-z1" style="margin-top:10px; width:100%">
+                        <thead>
+                            <tr>
+                                <th width=20px>ID</th>
+                                <th>Name</th>
+                                <th>Responsible</th>
+                                <th width=30px>Status</th>
+                                <th width=30px>Effective</th>
+                            <!--  <th width=20px></th> -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr   class="clickable" *ngFor="let car of ncrObject.cars; let i = index;" (click)="openCarDialog(car,i)">
+                                <td> {{car?.id}} </td>
+                                <td> {{car?.name}} </td>
+                                <td> 
+                                    <div fxLayoutGap="5px" fxLayout="row">
+                                        <p *ngFor="let employeeThing of car.responsible">  {{employeeThing.employee.name_abbrev}} </p>
+                                    </div>    
+                                </td>
+                                <td> 
+                                    <mat-chip *ngIf="car?.completed" color="success" selected>Completed</mat-chip>
+                                    <mat-chip  *ngIf="!car?.completed" color="accent" selected>Pending</mat-chip>
+                                </td>
+                                 <td> 
+                                   
+                                    <mat-chip *ngIf="car?.effective && car?.completed" color="success" selected>Effective</mat-chip>
+                                    <mat-chip  *ngIf="car?.completed && car.effective === 0" color="warn" selected>Ineffective</mat-chip>
+                                    <mat-chip  *ngIf="car?.completed && car.effective === null" color="accent" selected>Assessing</mat-chip>
+                                </td>
+                            <!--    <td> <mat-icon matBadgeSize="medium" matBadge="6" matBadgeColor="warn">description</mat-icon>
+                                    Include text description of the icon's meaning for screen-readers
+                                    </td> -->
+                            </tr>
+                        <!--    <tr (click)="openCarDialog(null)">
+                                <td> Car-1 </td>
+                                <td> Made People wear hardhats </td>
+                                <td> Ryan H </td>
+                                <td> 2020-03-23 </td>
+                                <td> Ongoing </td>
+                                <td> 6 </td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+
+              
+
+            <div>
+                
+            </div>
+             <div id="disposition" fxFlex fxLayout="column"   *ngIf="(ncrObject.status === 'ongoing' && canCompleteNcr()) || ncrObject.status === 'completed'">
+                <div>
+                    <h2> Completion </h2>
+                </div>
+
+                <mat-card fxLayout="column" fxLayoutGap="10px">
+                    <form [formGroup]="ncrOptions" >
+                    <mat-form-field fxFlex>
+                        <mat-label>Completion Comments</mat-label>
+                        <mat-hint> Do you have any additonal information that may be relevant before closing this issue? </mat-hint>
+                      <textarea rows=3 maxlength=600  formControlName="completion_notes" name="ncr_completion_notes" matInput></textarea>
+                     </mat-form-field>
+                    </form>
+                    <div  *ngIf="ncrObject.status === 'completed'" fxLayoutGap="10px" fxFlex> 
+                        <div fxLayoutAlign="start center" fxFlex>
+                            <b>Completed By:</b> {{ncrObject.completed_by.name}}
+                        </div>
+                        <div fxLayoutAlign="end center" fxFlex>
+                            <b>Completed On:</b> {{ncrObject.completed_at}}
+                        </div>
+                    </div>
+                     <div fxLayoutAlign="center center" *ngIf="ncrObject.status === 'ongoing' && canCompleteNcr()"> 
+                        <button mat-raised-button color="success" (click)="markNcrAsComplete()"> Mark as Resolved 
+                            <mat-icon>check_circle_outline</mat-icon>
+                        </button> 
+                    </div>
+                </mat-card>
+        
+            </div>
+
+        </div>
+       
+    </div>
+
+
+   
+
+    
+</div>

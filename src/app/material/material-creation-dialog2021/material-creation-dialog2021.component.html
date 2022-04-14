@@ -1,0 +1,130 @@
+<div mat-dialog-content>
+    <mat-horizontal-stepper [linear]="isLinear" #stepper>
+            
+        <mat-step [stepControl]="materialFormGroup" >
+                <!-- supplier & material selection -->
+                <ng-template matStepLabel>Material </ng-template>
+
+                <div fxFlex fxLayout="column">
+
+                <div fxLayout="row" fxFlex fxLayoutGap="10px">
+                    <h3> Step 1: Select Supplier </h3>
+                    <app-select-material-supplier 
+                    style="min-width: 200px;"
+                    name="supplier_name"
+                    [addTag]="true"
+                    placeholder="Supplier (Required)"
+                    (change)="selectSupplier($event)"
+			    	(clear)="clearSupplier()"
+                    
+                    
+                    >
+                    </app-select-material-supplier>
+                </div>
+                    
+                    
+
+                  
+                <div fxLayout="column" fxFlex fxLayoutGap="10px" *ngIf="materialFormGroup.get('supplier_id').value" id="material_selection">
+
+                    <div fxLayout="row" fxFlex [hidden]="creatingNewMaterial">
+                     <!--    <h3>{{supplierMaterials[0]?.supplier.supplier_name}}</h3> -->
+
+                        <div fxFlex fxLayout='row' fxLayoutAlign="end center">
+                            <mat-form-field style="width:150px">
+                                <!--   <span matPrefix>+1 &nbsp;</span> -->
+                                <input type="text" matInput id="material_creation_search" (keyup)="onFilterChanged()"  [(ngModel)]="filteredTextFilterName"  placeholder="Search">
+                                <mat-icon matSuffix>search</mat-icon>
+                            </mat-form-field>  
+                        </div>
+                    </div>
+                        
+                        <table mat-table [dataSource]="supplierMaterials" fxFill [hidden]="creatingNewMaterial">
+
+                            <!--- Note that these columns can be defined in any order.
+                                The actual rendered columns are set as a property on the row definition" -->
+                        
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef> ID </th>
+                                <td mat-cell *matCellDef="let material"> {{material.id}} </td>
+                            </ng-container>
+
+                            <!-- Position Column -->
+                            <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef> Name </th>
+                            <td mat-cell *matCellDef="let material"> {{material.name}} </td>
+                            </ng-container>
+                        
+                            <!-- Name Column -->
+                            <ng-container matColumnDef="grade">
+                            <th mat-header-cell *matHeaderCellDef> Grade </th>
+                            <td mat-cell *matCellDef="let material"> {{material.grade}} </td>
+                            </ng-container>
+                        
+                            <!-- Weight Column -->
+                            <ng-container matColumnDef="particle">
+                            <th mat-header-cell *matHeaderCellDef> Particle Size </th>
+                            <td mat-cell *matCellDef="let material"> {{material.paticle_size}} </td>
+                            </ng-container>
+
+                               
+                            <ng-container matColumnDef="purity">
+                                <th mat-header-cell *matHeaderCellDef> Purity </th>
+                                <td mat-cell *matCellDef="let material"> {{material.purity}} </td>
+                            </ng-container>
+
+                            
+                            <!-- Container Count Column -->
+                            <ng-container matColumnDef="container_count">
+                            <th mat-header-cell *matHeaderCellDef> Containers </th>
+                            <td mat-cell *matCellDef="let material"> {{material.active_containers.length}} </td>
+                            </ng-container>
+
+                            <!-- Container Count Column -->
+                            <ng-container matColumnDef="actions">
+                                <th mat-header-cell *matHeaderCellDef> Actions </th>
+                                <td mat-cell *matCellDef="let material"> <button mat-button>Select</button> </td>
+                            </ng-container>
+                        
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+
+                        <mat-checkbox (change)="creatingNewMaterial = true;">
+                            <p 	>I didn't find the material i'm entering!</p>
+				        </mat-checkbox>
+                    
+                    </div>
+
+                </div>
+
+                <div *ngIf="creatingNewMaterial"  id="material_creation">
+
+
+                    <mat-checkbox (change)="creatingNewMaterial = false;" [checked]="true">
+                        <p > Select Existing Material </p>
+                    </mat-checkbox>
+                </div>
+
+
+        </mat-step> 
+
+        <mat-step [stepControl]="lotFormGroup">
+            <ng-template matStepLabel> Lot </ng-template>
+        </mat-step>
+        <mat-step [stepControl]="containerFormGroup">
+            <ng-template matStepLabel>Container </ng-template>
+        </mat-step>
+        <mat-step [stepControl]="qcidFormGroup">
+            <ng-template matStepLabel> QCID </ng-template>
+        </mat-step>
+        <mat-step [stepControl]="sdsFormGroup">
+            <ng-template matStepLabel> SDS </ng-template>
+        </mat-step>
+        
+            <!-- container -->
+            <!-- QCID -->
+            <!-- SDS -->
+
+    </mat-horizontal-stepper>
+</div>

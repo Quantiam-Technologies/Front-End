@@ -1,0 +1,27 @@
+<div fxLayout.gt-md="row" fxLayout="column"  fxFlex>
+
+    <div fxLayout="column"  fxLayoutAlign="center center"  fxLayoutGap="10px" fxFlex >
+    
+        <highcharts-chart 
+        *ngIf="renderHeadcountChart" 
+        [Highcharts]="Highcharts"
+        [options]="headcountOptions"
+        [(update)]="updateHeadcountFlag"
+        style="height:400px;"
+        ></highcharts-chart>
+       
+            <ag-grid-angular
+            *ngIf="renderHeadcountChart" 
+            style="width: 500px; height: 150px;"
+            class="ag-theme-balham"
+            [rowData]="headcountRowData"    
+            [modules]="modules"
+            (gridReady)="headcountGridReady($event)"
+            [columnDefs]="headcountColumnDefs">
+            </ag-grid-angular>
+      
+    </div>
+    
+    
+    
+    </div>
