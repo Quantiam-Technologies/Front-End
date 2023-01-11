@@ -6,6 +6,8 @@ import { SharedModule } from '../shared/shared.module';
 import { MaterialDesignModule } from '../material-design/material-design.module';
 
 
+import { jqxDataTableModule } from 'jqwidgets-ng/jqxdatatable';
+
 import { ParticleSizeIndexComponent } from './particle-size-index/particle-size-index.component';
 import { ParticleSizeViewComponent } from './particle-size-view/particle-size-view.component';
 import { ParticleSizeDatabaseComponent } from './particle-size-database/particle-size-database.component';
@@ -39,6 +41,7 @@ const routes: Routes = [
     CommonModule,
     SharedModule,
     MaterialDesignModule,
+    jqxDataTableModule,
   ]
 })
 export class ParticleSizeModule { }

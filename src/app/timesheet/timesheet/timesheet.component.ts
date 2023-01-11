@@ -573,13 +573,17 @@ export class TimesheetComponent implements OnInit {
     {
 
    
-    this.routeParams.payperiod  = parseInt(this.routeParams.payperiod) - 1;
-    if (this.routeParams.payperiod  === 0) {
+      var checkNextPayPeriod  = parseInt(this.routeParams.payperiod) - 1;
+    if (checkNextPayPeriod  === 0) {
 
       this.routeParams.payperiod = 26;
       this.routeParams.year = parseInt(this.routeParams.year) - 1;
 
     }
+    else
+      {
+        this.routeParams.payperiod  = parseInt(this.routeParams.payperiod) - 1;
+      }
 
     this.router.navigate([`/timesheet/${this.routeParams.userId}/year/${this.routeParams.year}/payperiod/${this.routeParams.payperiod}`]);
   }
@@ -595,12 +599,17 @@ export class TimesheetComponent implements OnInit {
     else
     {
 
-      this.routeParams.payperiod  = parseInt(this.routeParams.payperiod) + 1;
-      if (this.routeParams.payperiod  >= 27) {
+      var checkNextPayPeriod  = parseInt(this.routeParams.payperiod) + 1;
+    
+      if (checkNextPayPeriod  > 27) {
   
         this.routeParams.payperiod = 1;
         this.routeParams.year = parseInt(this.routeParams.year) + 1;
   
+      }
+      else
+      {
+        this.routeParams.payperiod  = parseInt(this.routeParams.payperiod) + 1;
       }
   
       this.router.navigate([`/timesheet/${this.routeParams.userId}/year/${this.routeParams.year}/payperiod/${this.routeParams.payperiod}`]);

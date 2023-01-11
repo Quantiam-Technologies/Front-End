@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   ///apiUrl: 'http://api.edm.quantiam.com'
-  apiUrl: 'http://192.168.1.131'
+  apiUrl: 'http://api.edm.quantiam.com'
 };

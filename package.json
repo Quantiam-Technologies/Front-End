@@ -1,6 +1,7 @@
 {
   "name": "quantiam-angular13-plus",
   "version": "0.0.0",
+  "author": "Tyson Boyce",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

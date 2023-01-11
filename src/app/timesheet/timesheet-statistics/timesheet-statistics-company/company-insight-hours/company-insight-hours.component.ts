@@ -184,7 +184,7 @@ export class CompanyInsightHoursComponent implements OnInit {
 
             this.allMonthlyResponseObj = r;
             this.source.localData = r.data;
-             this.dataAdapter = new jqx.dataAdapter(this.source);
+           this.dataAdapter = new jqx.dataAdapter(this.source);
             console.log(this.allMonthlyResponseObj);
             this.allMonthlyStackedChartOptions.series = r.monthlyTotalByCategory;
             this.allMonthlyStackedChartOptions.xAxis.categories = r.monthList;
