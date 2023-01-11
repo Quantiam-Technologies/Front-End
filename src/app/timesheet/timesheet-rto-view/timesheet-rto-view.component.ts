@@ -123,8 +123,7 @@ export class TimesheetRtoViewComponent implements OnInit {
     checkTimeRequestRules() {
 
 
-
-        if ((this.requestTime.type === 'pto' || this.requestTime.type === 'vacation') && (this.requestTime.hours < 1 && this.requestTime.hours > -1)) {
+        if ((this.requestTime.type === 'pto' || this.requestTime.type === 'vacation') && (this.requestTime.hours < 1 && this.requestTime.hours > -1) && !this.userService.hasPermission(11)) {
             this.notification.error('Error', 'PTO must be a minimum of 1 hour. ', {timeOut: 4000});
             return false;
         }

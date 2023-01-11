@@ -13,13 +13,23 @@ import { NotificationsService } from 'angular2-notifications';
 
 export class MaterialLotContainerService {
 
+
+
+ 
+
+
   public _containerSource = new BehaviorSubject({});
   public materialLotContainer$: Observable<any> = this._containerSource.asObservable();
 
   private last_id: string;
   private endpoint = '/material/lot/container';
 
-  constructor(public http: HttpClient, public notification: NotificationsService) { }
+  constructor(public http: HttpClient, public notification: NotificationsService) {
+
+
+   
+
+   }
 
 
   getMaterialLotContainer(id: string) {
