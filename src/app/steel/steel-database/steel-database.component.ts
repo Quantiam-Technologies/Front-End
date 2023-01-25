@@ -105,13 +105,13 @@ export class SteelDatabaseComponent implements OnInit {
       headerName: 'Manufacturer',
       field: 'steel_type.manufacturer',
       width: 60,
-      hide:true,
+     // hide:true,
     },
     {
       headerName: 'Metallurgy',
       field: 'steel_type.metallurgy',
       width: 60,
-      hide:true,
+      //hide:true,
     },
     {
       headerName: 'Campaign',

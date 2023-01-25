@@ -38,6 +38,13 @@ Change Log
 - Material Container Creation Rework ---- Supplier -> Select Material From List  , reduce duplicate Materials
 
 
+# 2023.01
+
+## Timesheet
+
+- Resolved an error where the timesheet overhours would not display, causing the loading icon to never end. 
+
+
 # 2022.01
 
 ## Changes 

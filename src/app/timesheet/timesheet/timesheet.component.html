@@ -198,13 +198,20 @@
       </div>
 
       <div fxFlex fxLayout="column">
-          <h3 class="page-header" *ngIf="timeSheetObj?.overhours[0]">Overtime 
+          <div *ngIf="!timeSheetObj.overhours">
+              <p>An error occured calculating overhours. </p>
+              
+              <p>To resolve, change some hours in your time sheet, then refresh the page. </p>  
+              <p>If the error persists, talk to the developer. </p> 
+
+          </div>
+          <h3 class="page-header" *ngIf="timeSheetObj.overhours && timeSheetObj?.overhours[0]">Overtime 
           <small>
             
               <a style="float:right" target="_blank" href="https://work.alberta.ca/documents/Overtime-Hours-and-Overtime-Pay.pdf">Overtime Explanation</a>
           </small> 
           </h3>
-          <table *ngIf="timeSheetObj?.overhours[0]" class="stattable table-stats table-condensed table-striped table-shadow"> 
+          <table *ngIf="timeSheetObj.overhours && timeSheetObj?.overhours[0]" class="stattable table-stats table-condensed table-striped table-shadow"> 
             <thead> 
                 <tr>
                   <th> Week </th>
