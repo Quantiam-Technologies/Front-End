@@ -147,7 +147,7 @@ export class ArbinTestComponent implements OnInit {
 
   fetchTestData(id, name = null)
   {
-    this.http.get('http://api.edm.quantiam.com:3001/arbin/test/'+id).subscribe((r:any) => {
+    this.http.get('http://api.edm.quantiam.com:3000/arbin/test/'+id).subscribe((r:any) => {
        this.firstLoad = true;
        this.selectedTests.push(parseInt(id));
     
@@ -197,7 +197,7 @@ export class ArbinTestComponent implements OnInit {
 
   fetchEISData(id, name = null)
   {
-    this.http.get('http://api.edm.quantiam.com:3001/arbin/test/eis/'+id).subscribe((r:any) => {
+    this.http.get('http://api.edm.quantiam.com:3000/arbin/test/eis/'+id).subscribe((r:any) => {
        //this.firstLoad = true;
        //this.selectedTests.push(parseInt(id));
     

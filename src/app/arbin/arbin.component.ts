@@ -21,7 +21,7 @@ export class ArbinComponent implements OnInit {
 
   fetchData ()
   {
-    this.http.get('http://localhost:3001/arbin/test').subscribe(r => {
+    this.http.get('http://localhost:3000/arbin/test').subscribe(r => {
 
         this.someData = r;
     }, error => { 

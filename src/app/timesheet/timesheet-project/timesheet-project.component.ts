@@ -97,10 +97,12 @@ export class TimesheetProjectComponent implements OnInit {
       }
     ],
     afterOnCellMouseDown: (event, coords, TD) => {
-      console.log(event);
-      if (event.realTarget.id === 'deleteButton' && coords.col === 5) {
+      console.log(event,coords);
+      
+      if (event.target.innerHTML === 'Delete' && coords.col === 5) {
         this.deleteProjectFromRow(coords);
       }
+    
     }
 
   }
@@ -131,9 +133,19 @@ export class TimesheetProjectComponent implements OnInit {
 		  
       this.http.delete(environment.apiUrl +  `/project/${id}`).subscribe((response:any) => {
 
+        if(this.userService.hasPermission(9))
+        {
+
         this.notify.success('Deleted', 'You deleted project ' + id, { timeOut: 4000, showProgressBar: false, clickToClose: true }); /// Daily OT notificaton
   
           this.fetchProjectList();
+        }
+        else
+        {
+          
+          this.notify.error('Error', 'You do not have permission to delete this.', { timeOut: 4000, showProgressBar: false, clickToClose: true }); /// Daily OT notificaton
+  
+        }
          
        
       }, (e)=>{
@@ -160,10 +172,15 @@ export class TimesheetProjectComponent implements OnInit {
   }
   
   updateProject(id,payload ){
+    console.log(id,payload);
+    if(!id && payload.id)
+    {
+      id = payload.id;
+    }
 
     if(id)
       {
-
+        console.log('test');
       this.http.put(environment.apiUrl + `/project/${id}`,payload).subscribe((r)=>{
         this.notify.success('Success', 'You updated project ' + id + '.', { timeOut: 4000, showProgressBar: false, clickToClose: true }); /// Daily OT notificaton
       }, (e)=>{

@@ -43,7 +43,7 @@ Change Log
 ## Timesheet
 
 - Resolved an error where the timesheet overhours would not display, causing the loading icon to never end. 
-
+- Resolved issue where newly created projects could not be updated. 
 
 # 2022.01
 
