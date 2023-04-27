@@ -1,7 +1,7 @@
 
 import { Component, ChangeDetectorRef, OnInit, AfterViewInit, OnDestroy  } from '@angular/core';
 import { Location} from '@angular/common';
-import { FormBuilder, FormGroup} from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { AuthService } from '../services/auth/auth.service';
 import { UserService } from '../services/user/user.service';
@@ -113,13 +113,13 @@ export class CoreComponent implements OnInit, OnDestroy {
   isAdmin = false;
 
 
-	options: FormGroup;
+	options: UntypedFormGroup;
 	mobileQuery: MediaQueryList;
 	private _mobileQueryListener: () => void;
 
 
   constructor(
-		fb: FormBuilder,
+		fb: UntypedFormBuilder,
 		changeDetectorRef: ChangeDetectorRef,
 		media: MediaMatcher,
 		public userService: UserService,

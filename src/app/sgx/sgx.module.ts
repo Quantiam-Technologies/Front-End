@@ -12,15 +12,14 @@ import { SgxDatabaseComponent } from './sgx-database/sgx-database.component';
 import { SgxCreationDialogComponent } from './sgx-creation-dialog/sgx-creation-dialog.component';
 
 @NgModule({
-  declarations: [SgxIndexComponent, SgxDatabaseComponent, SgxCreationDialogComponent],
-  imports: [
-    CommonModule,
-    SgxRoutingModule,
-    FlexLayoutModule,
-    SharedModule,
-    MaterialDesignModule,
-    AgGridModule.withComponents([])
-  ],
-  entryComponents: [SgxCreationDialogComponent]
+    declarations: [SgxIndexComponent, SgxDatabaseComponent, SgxCreationDialogComponent],
+    imports: [
+        CommonModule,
+        SgxRoutingModule,
+        FlexLayoutModule,
+        SharedModule,
+        MaterialDesignModule,
+        AgGridModule.withComponents([])
+    ]
 })
 export class SgxModule { }

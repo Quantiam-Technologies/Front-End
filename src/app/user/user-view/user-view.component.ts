@@ -12,7 +12,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-user-view',
@@ -23,7 +23,7 @@ export class UserViewComponent implements OnInit, OnDestroy {
 
 
   constructor(
-  private fb: FormBuilder,
+  private fb: UntypedFormBuilder,
   public userService: UserService,
   private route: ActivatedRoute,
   private location: Location,

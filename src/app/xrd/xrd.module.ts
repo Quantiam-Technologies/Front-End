@@ -36,14 +36,13 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [XrdIndexComponent, XrdDatabaseComponent, XrdViewComponent, PickXrdAnalysesDialogComponent],
-  entryComponents: [PickXrdAnalysesDialogComponent],
-  imports: [
-    RouterModule.forChild(routes),
-    CommonModule,
-    HighchartsChartModule,
-    SharedModule,
-    MaterialDesignModule,
-  ]
+    declarations: [XrdIndexComponent, XrdDatabaseComponent, XrdViewComponent, PickXrdAnalysesDialogComponent],
+    imports: [
+        RouterModule.forChild(routes),
+        CommonModule,
+        HighchartsChartModule,
+        SharedModule,
+        MaterialDesignModule,
+    ]
 })
 export class XrdModule { }

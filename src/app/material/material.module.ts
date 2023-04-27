@@ -32,18 +32,17 @@ import { MaterialCreationDialog2021Component } from './material-creation-dialog2
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-  	SharedModule,
-  	MaterialDesignModule,
-    MaterialRoutingModule,
-  	// DataTablesModule,
-  ],
-  declarations: [MaterialCreationDialogComponent, MaterialIndexComponent, MaterialDatabaseComponent, MaterialViewComponent,
-	  MaterialComponent, MaterialContainerViewComponent, MaterialContainerDatabaseComponent, MaterialContainerViewAnalysisComponent, MaterialSettingsComponent, MaterialContainerLogComponent,  MaterialHazardSymbolSelectorComponent, MaterialCheckCreationDialogComponent, MaterialCreationDialog2021Component ],
-  providers: [MaterialService, MaterialLotContainerService, MaterialDatatableService, MaterialLotContainerDatatableService],
-  schemas: [NO_ERRORS_SCHEMA],
-  entryComponents: [MaterialHazardSymbolSelectorComponent]
+    imports: [
+        CommonModule,
+        FormsModule,
+        SharedModule,
+        MaterialDesignModule,
+        MaterialRoutingModule,
+        // DataTablesModule,
+    ],
+    declarations: [MaterialCreationDialogComponent, MaterialIndexComponent, MaterialDatabaseComponent, MaterialViewComponent,
+        MaterialComponent, MaterialContainerViewComponent, MaterialContainerDatabaseComponent, MaterialContainerViewAnalysisComponent, MaterialSettingsComponent, MaterialContainerLogComponent, MaterialHazardSymbolSelectorComponent, MaterialCheckCreationDialogComponent, MaterialCreationDialog2021Component],
+    providers: [MaterialService, MaterialLotContainerService, MaterialDatatableService, MaterialLotContainerDatatableService],
+    schemas: [NO_ERRORS_SCHEMA]
 })
 export class MaterialModule { }

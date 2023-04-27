@@ -45,23 +45,21 @@ import { CompanyInsightUnpaidComponent } from './timesheet-statistics/timesheet-
 import { CompanyInsightHeadcountComponent } from './timesheet-statistics/timesheet-statistics-company/company-insight-headcount/company-insight-headcount.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    TimesheetRoutingModule,
-    HighchartsChartModule,
-    HotTableModule.forRoot(),
-    MaterialDesignModule,
-    SharedModule,
-    jqxDataTableModule,
-    FullCalendarModule ,
-  ],
-  entryComponents:[ CreateRtoDialogComponent,CreatePayoutComponent, MachineUserDialogComponent ],
-  declarations: [ 
-    NumericEditor, TimesheetIndexComponent, TimesheetComponent, 
-    TimesheetBankComponent, TimesheetSimpleComponent, TimesheetCalendarComponent, TimesheetRtoComponent, TimesheetRtoViewComponent,
-     TimesheetProjectComponent, TimesheetHolidayComponent, TimesheetRtoAllocationComponent, TimesheetReportComponent, UserHoursComponent,
-      ProjectUserHoursComponent, UserRTOBankStatusComponent, UserAbsenceSummaryComponent, TimesheetSettingsComponent, CreateRtoDialogComponent, TimesheetStatisticsComponent, TimesheetStatisticsUserComponent, TimesheetStatisticsCompanyComponent, CreatePayoutComponent, TimesheetEquipmentComponent, TimesheetMachinesComponent, MachineUserDialogComponent,  TimesheetLogComponent, CompanyInsightHoursComponent, CompanyInsightUnpaidComponent, CompanyInsightHeadcountComponent,
-      
-      ]
+    imports: [
+        CommonModule,
+        TimesheetRoutingModule,
+        HighchartsChartModule,
+        HotTableModule.forRoot(),
+        MaterialDesignModule,
+        SharedModule,
+        jqxDataTableModule,
+        FullCalendarModule,
+    ],
+    declarations: [
+        NumericEditor, TimesheetIndexComponent, TimesheetComponent,
+        TimesheetBankComponent, TimesheetSimpleComponent, TimesheetCalendarComponent, TimesheetRtoComponent, TimesheetRtoViewComponent,
+        TimesheetProjectComponent, TimesheetHolidayComponent, TimesheetRtoAllocationComponent, TimesheetReportComponent, UserHoursComponent,
+        ProjectUserHoursComponent, UserRTOBankStatusComponent, UserAbsenceSummaryComponent, TimesheetSettingsComponent, CreateRtoDialogComponent, TimesheetStatisticsComponent, TimesheetStatisticsUserComponent, TimesheetStatisticsCompanyComponent, CreatePayoutComponent, TimesheetEquipmentComponent, TimesheetMachinesComponent, MachineUserDialogComponent, TimesheetLogComponent, CompanyInsightHoursComponent, CompanyInsightUnpaidComponent, CompanyInsightHeadcountComponent,
+    ]
 })
 export class TimesheetModule { }

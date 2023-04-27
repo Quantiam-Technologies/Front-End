@@ -21,36 +21,31 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { TokenInterceptor } from '../auth/token.interceptor';
 
 @NgModule({
-  imports: [
-	CommonModule,
-	CoreRoutingModule,
-	MaterialDesignModule,
-	SharedModule,
-
-	MarkdownModule.forRoot({ loader: HttpClient }),
-	HttpClientModule,
-
-    NgHttpLoaderModule.forRoot(),
-  ],
-  exports: [
-		RouterModule,
-		HeaderComponent,
-  ],
-  declarations: [
-		HeaderComponent,
-		CoreComponent,
-		PatchNotesComponent,
-		DashboardComponent,
-		DialogSteelContainerSelectionComponent
-	],
-	bootstrap: [CoreComponent],
-
-	providers: [{
-		provide: HTTP_INTERCEPTORS,
-		useClass: TokenInterceptor,
-		multi: true
-	  }, ],
-	  entryComponents: [DialogSteelContainerSelectionComponent]
-
+    imports: [
+        CommonModule,
+        CoreRoutingModule,
+        MaterialDesignModule,
+        SharedModule,
+        MarkdownModule.forRoot({ loader: HttpClient }),
+        HttpClientModule,
+        NgHttpLoaderModule.forRoot(),
+    ],
+    exports: [
+        RouterModule,
+        HeaderComponent,
+    ],
+    declarations: [
+        HeaderComponent,
+        CoreComponent,
+        PatchNotesComponent,
+        DashboardComponent,
+        DialogSteelContainerSelectionComponent
+    ],
+    bootstrap: [CoreComponent],
+    providers: [{
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true
+        },]
 })
 export class CoreModule { }

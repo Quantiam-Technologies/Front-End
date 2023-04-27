@@ -1,6 +1,6 @@
 import {Component, ElementRef, ViewChild,OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {FormBuilder, FormControl, FormGroup,Validators} from '@angular/forms';
+import {FormBuilder, UntypedFormControl, UntypedFormGroup,Validators} from '@angular/forms';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { SelectUserService } from '../../shared/select-user/select-user.service';
 import {Observable} from 'rxjs';
@@ -84,15 +84,15 @@ export class CarComponent implements OnInit {
         });
     }
 
-    this.carFormObjectOptions = new FormGroup({
-      name: new FormControl(this.carObject.name, [Validators.required]),
-      description: new FormControl(this.carObject.description, [Validators.required]),
-      completed: new FormControl(this.carObject.completed,[Validators.required]),  //ongoing, resolved
-      effective: new FormControl(String(this.carObject.effective),null),  //ongoing, resolved
+    this.carFormObjectOptions = new UntypedFormGroup({
+      name: new UntypedFormControl(this.carObject.name, [Validators.required]),
+      description: new UntypedFormControl(this.carObject.description, [Validators.required]),
+      completed: new UntypedFormControl(this.carObject.completed,[Validators.required]),  //ongoing, resolved
+      effective: new UntypedFormControl(String(this.carObject.effective),null),  //ongoing, resolved
      // type: new FormControl(this.carObject.type,null),  //temporary, permanent
-      target_completion: new FormControl(this.carObject.target_completion,[Validators.required]),
-      responsible: new FormControl(this.carObject,[Validators.required]),  //who is responsible for this action 
-      disposition_comment: new FormControl(this.carObject.disposition_comment,),  //who is responsible for this action 
+      target_completion: new UntypedFormControl(this.carObject.target_completion,[Validators.required]),
+      responsible: new UntypedFormControl(this.carObject,[Validators.required]),  //who is responsible for this action 
+      disposition_comment: new UntypedFormControl(this.carObject.disposition_comment,),  //who is responsible for this action 
      });
 
      this.userService.list();

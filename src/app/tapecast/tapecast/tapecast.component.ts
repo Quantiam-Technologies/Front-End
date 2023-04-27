@@ -4,7 +4,7 @@ import {map, startWith,tap} from 'rxjs/operators';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { MatAutocomplete} from '@angular/material/autocomplete';
 import { SelectUserService } from '../../shared/select-user/select-user.service';
-import {FormBuilder, FormControl, FormGroup,Validators} from '@angular/forms';
+import {FormBuilder, UntypedFormControl, UntypedFormGroup,Validators} from '@angular/forms';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -32,7 +32,7 @@ export class TapecastComponent implements OnInit {
 
   selectedOperators = [{id:65,name:'Tyson Boyce',title:'QA/QC Supervisor', clearable: false}];
 
-  operatorsControl = new FormControl();
+  operatorsControl = new UntypedFormControl();
 
   constructor(
     private userService:SelectUserService,
@@ -46,8 +46,8 @@ export class TapecastComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.tapecastFormObject = new FormGroup({
-      operators: new FormControl({ value:this.selectedOperators},[Validators.required]),
+    this.tapecastFormObject = new UntypedFormGroup({
+      operators: new UntypedFormControl({ value:this.selectedOperators},[Validators.required]),
       
     });
     //get ID and fetch object

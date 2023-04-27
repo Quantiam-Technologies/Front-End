@@ -18,16 +18,14 @@ import { SampleCreationDialogComponent } from './sample-creation-dialog/sample-c
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SampleRoutingModule,
-	FlexLayoutModule,
-	SharedModule,
-	MaterialDesignModule,
-	AgGridModule.withComponents([]),
-
-  ],
-  entryComponents: [SampleCreationDialogComponent],
-  declarations: [SampleIndexComponent, SampleListComponent,  SampleFormComponent, SampleDatabaseComponent, SgxScaleAuthComponent, SampleViewComponent, SampleCreationDialogComponent]
+    imports: [
+        CommonModule,
+        SampleRoutingModule,
+        FlexLayoutModule,
+        SharedModule,
+        MaterialDesignModule,
+        AgGridModule.withComponents([]),
+    ],
+    declarations: [SampleIndexComponent, SampleListComponent, SampleFormComponent, SampleDatabaseComponent, SgxScaleAuthComponent, SampleViewComponent, SampleCreationDialogComponent]
 })
 export class SampleModule { }

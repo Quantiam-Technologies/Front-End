@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MaterialLotContainerService } from '../../services/material-lot-container/material-lot-container.service';
 import { MaterialLotService } from '../../services/material-lot/material-lot.service';
 import { MaterialService } from '../../services/material/material.service';
@@ -37,11 +37,11 @@ import * as Swal from 'sweetalert2/dist/sweetalert2.js';
 export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
 
     isLinear = true;
-    materialFormGroup: FormGroup;
-    lotFormGroup: FormGroup;
-    containerFormGroup: FormGroup;
-    sdsFormGroup: FormGroup;
-    qcidFormGroup: FormGroup;
+    materialFormGroup: UntypedFormGroup;
+    lotFormGroup: UntypedFormGroup;
+    containerFormGroup: UntypedFormGroup;
+    sdsFormGroup: UntypedFormGroup;
+    qcidFormGroup: UntypedFormGroup;
 
     materialChecked = false;
     materialCheckedOkay = false;
@@ -49,7 +49,7 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
     hideMaterialCheckBox = false;
 
     lookedForMaterial = false;
-    form: FormGroup;
+    form: UntypedFormGroup;
     description: string;
     newMaterial = false;
     selectedMaterial: any = {};
@@ -88,7 +88,7 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
 
 
     constructor(
-        private fb: FormBuilder,
+        private fb: UntypedFormBuilder,
         public dialogRef: MatDialogRef < MaterialCreationDialogComponent > ,
         @Inject(MAT_DIALOG_DATA) data,
         private materialLotContainerService: MaterialLotContainerService,
@@ -98,7 +98,7 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
         public router: Router,
         private materialLotContainerDatatable: MaterialLotContainerDatatableService,
         private locationService: LocationService,
-        private _formBuilder: FormBuilder,
+        private _formBuilder: UntypedFormBuilder,
         private notification: NotificationsService,
 		private http: HttpClient,
 		public dialog: MatDialog,

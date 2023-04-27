@@ -1,7 +1,7 @@
 
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {Component, ElementRef, ViewChild,OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup,Validators} from '@angular/forms';
+import {FormBuilder, UntypedFormControl, UntypedFormGroup,Validators} from '@angular/forms';
 import {MatChipInputEvent} from '@angular/material/chips';
 import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
 import { UserService } from '../../services/user/user.service';
@@ -78,19 +78,19 @@ export class NcrComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.ncrOptions = new FormGroup({
-      name: new FormControl({ value:this.ncrObject.name, disable: true}, [Validators.required]),
-      requirement_violated: new FormControl({ value:this.ncrObject.requirement_violated, disable: true}, [Validators.required]),
-      type: new FormControl({ value:this.ncrObject.type, disable: true}, [Validators.required]),
-      severity: new FormControl({ value:this.ncrObject.severity, disable: true}, [Validators.required]),
-      description: new FormControl({ value:this.ncrObject.description, disable: true}, [Validators.required]),
-      immediate_containment_action: new FormControl({ value:null, disable: true},null),
-      buisness_unit: new FormControl({ value:this.ncrObject.buisness_unit, disable: true}, [Validators.required]),
-      status: new FormControl({ value:this.ncrObject.status, disable: true},null),
-      project_id: new FormControl({ value:this.ncrObject.project_id, disable: true},null),
-      occurred: new FormControl({ value:this.ncrObject.occurred, disable: true},[Validators.required]),
-      responsible: new FormControl({ value:this.selectedResponsible, disable: true},[Validators.required]),
-      completion_notes: new FormControl({ value: this.ncrObject.completion_notes, disable: false}),
+    this.ncrOptions = new UntypedFormGroup({
+      name: new UntypedFormControl({ value:this.ncrObject.name, disable: true}, [Validators.required]),
+      requirement_violated: new UntypedFormControl({ value:this.ncrObject.requirement_violated, disable: true}, [Validators.required]),
+      type: new UntypedFormControl({ value:this.ncrObject.type, disable: true}, [Validators.required]),
+      severity: new UntypedFormControl({ value:this.ncrObject.severity, disable: true}, [Validators.required]),
+      description: new UntypedFormControl({ value:this.ncrObject.description, disable: true}, [Validators.required]),
+      immediate_containment_action: new UntypedFormControl({ value:null, disable: true},null),
+      buisness_unit: new UntypedFormControl({ value:this.ncrObject.buisness_unit, disable: true}, [Validators.required]),
+      status: new UntypedFormControl({ value:this.ncrObject.status, disable: true},null),
+      project_id: new UntypedFormControl({ value:this.ncrObject.project_id, disable: true},null),
+      occurred: new UntypedFormControl({ value:this.ncrObject.occurred, disable: true},[Validators.required]),
+      responsible: new UntypedFormControl({ value:this.selectedResponsible, disable: true},[Validators.required]),
+      completion_notes: new UntypedFormControl({ value: this.ncrObject.completion_notes, disable: false}),
      });
 
      this.ncrOptions.controls['responsible'].setValue({id:65,name:'Tyson Boyce',title:'QA/QC Supervisor', clearable: false});

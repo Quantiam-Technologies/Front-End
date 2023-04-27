@@ -1,6 +1,6 @@
 import { Component, OnInit,ChangeDetectorRef } from '@angular/core';
 import {MediaMatcher} from '@angular/cdk/layout';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {UntypedFormBuilder, UntypedFormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -14,14 +14,14 @@ export class HeaderComponent implements OnInit {
 
   sidenav;
   title = 'app';
-	options: FormGroup;	
+	options: UntypedFormGroup;	
 	mobileQuery: MediaQueryList;
 	private _mobileQueryListener: () => void;	
 	//
   ngOnInit() {
   }
 
-  constructor(fb: FormBuilder,changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(fb: UntypedFormBuilder,changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
   
 	this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
