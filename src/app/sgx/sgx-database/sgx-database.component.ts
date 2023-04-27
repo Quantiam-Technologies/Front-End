@@ -6,7 +6,7 @@ import {  SampleService } from '../../services/sample/sample.service';
 
 import { SgxCreationDialogComponent } from '../sgx-creation-dialog/sgx-creation-dialog.component';
 
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog';
 
 @Component({
   selector: 'app-sgx-database',

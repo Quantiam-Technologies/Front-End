@@ -13,7 +13,7 @@ import {
 
 //import { fadeAnimation } from '../animations';
 
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { PatchNotesComponent } from './patch-notes/patch-notes.component';
 
 import { WebsocketService } from '../services/websocket/websocket.service';

@@ -2,8 +2,8 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {Component, ElementRef, ViewChild,OnInit} from '@angular/core';
 import {FormBuilder, UntypedFormControl, UntypedFormGroup,Validators} from '@angular/forms';
-import {MatChipInputEvent} from '@angular/material/chips';
-import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/autocomplete';
+import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
+import {MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent, MatLegacyAutocomplete as MatAutocomplete} from '@angular/material/legacy-autocomplete';
 import { UserService } from '../../services/user/user.service';
 import { ProjectService } from '../../services/project/project.service';
 import { SelectUserService } from '../../shared/select-user/select-user.service';
@@ -15,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { NotificationsService } from 'angular2-notifications';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA} from '@angular/material/legacy-dialog';
 import { CarDialogComponent } from '../car-dialog/car-dialog.component';
 import { CarComponent } from '../car/car.component';
 

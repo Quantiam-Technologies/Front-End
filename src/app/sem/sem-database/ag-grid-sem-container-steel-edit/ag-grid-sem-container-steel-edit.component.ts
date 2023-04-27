@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild, HostListener, ViewContainerRef, ElementRef } from '@angular/core';
 import { ICellEditorAngularComp } from '@ag-grid-community/angular';
-import {MatDialog } from '@angular/material/dialog';
+import {MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { DialogSteelContainerSelectionComponent } from '../dialog-steel-container-selection/dialog-steel-container-selection.component';
 
 

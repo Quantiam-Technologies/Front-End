@@ -12,7 +12,7 @@ import { NotificationsService } from 'angular2-notifications';
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { MatDialog } from '@angular/material/dialog'; 
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'; 
 
 import { FileSaverService } from 'ngx-filesaver';
 

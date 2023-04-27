@@ -5,7 +5,7 @@ HC_exporting(Highcharts);
 import HC_dragPanes from 'highcharts/modules/drag-panes';
 HC_dragPanes(Highcharts);
 
-import { MatTableDataSource } from '@angular/material/table';
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
 import * as SavitzkyGolay from 'ml-savitzky-golay';
 
 import { environment } from '../../../environments/environment';

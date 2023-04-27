@@ -4,7 +4,7 @@ import {  environment} from '../../../environments/environment';
 import {  HttpClient, } from '@angular/common/http';
 import {  Location} from '@angular/common';
 import { HotTableRegisterer } from '@handsontable/angular';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 import Handsontable from 'handsontable';
 
