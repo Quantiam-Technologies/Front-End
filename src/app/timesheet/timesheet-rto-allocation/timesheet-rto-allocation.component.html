@@ -31,8 +31,7 @@
       <hot-column data="vacation"   type="numeric" title="Vacation" [readOnly]="userService.hasPermission(37)? false: true"></hot-column>
       <hot-column data="pto" type="numeric" title="PTO" [readOnly]="userService.hasPermission(37)? false: true"></hot-column>
       <hot-column data="ppl"  type="numeric" title="PPL" [readOnly]="userService.hasPermission(37)? false: true"></hot-column>
-      <hot-column data="employee.startdate" title="Started"  [readOnly]="true"></hot-column>
-      <hot-column data="employee.leavedate" title="Left"  [readOnly]="true"></hot-column>
+      <hot-column data="employee.active" title="Left"  [readOnly]="true"></hot-column>
       <hot-column data="comment" title="Comment"  width="300" [readOnly]="userService.hasPermission(37)? false: true"></hot-column>
     
     </hot-table>  

@@ -1,6 +1,14 @@
 <div fxLayout="column" fxLayoutAlign="center center" fxFlex fxFlex.gt-lg="100">
 
-   
+   <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" >
+
+      <mat-button-toggle-group [(ngModel)]="active_filter" (ngModelChange)="onActiveFilterChange()">
+        <mat-button-toggle value="1">Active</mat-button-toggle>
+        <mat-button-toggle value="0">Inactive</mat-button-toggle>
+        <mat-button-toggle value="both" >Both</mat-button-toggle>
+      </mat-button-toggle-group>
+
+    
 
         <mat-form-field style="width:400px">
           <!--   <span matPrefix>+1 &nbsp;</span> -->
@@ -8,7 +16,8 @@
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 
-    
+   
+    </div>
 
         <ag-grid-angular  
         style="width: calc(100%); height:calc(78vh); margin-top:10px;" 

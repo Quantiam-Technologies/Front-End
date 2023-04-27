@@ -38,6 +38,25 @@ Change Log
 - Material Container Creation Rework ---- Supplier -> Select Material From List  , reduce duplicate Materials
 
 
+# 2023.02
+
+
+
+
+## Harder
+
+## Better
+
+## Faster
+
+- [USER] reduced the amount of database queries to construct a user
+
+## Stronger
+
+- [Change Log] Resolved issue where change log would not load after web application was moved to new server. 
+
+
+
 # 2023.01
 
 ## Timesheet

@@ -240,7 +240,7 @@ export class UserService  {
 
   public isActive() {
     const user = this.fetchAuthUserObj();
-    if ( user.leavedate) { return false; }
+    if ( !user.active) { return false; }
     return true;
   }
 

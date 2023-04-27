@@ -70,10 +70,10 @@ export class TimesheetRtoAllocationComponent implements OnInit {
             const currentYear = new Date().getFullYear();
             const filteredArray = response.filter(element => {
 
-                if (element.employee && element.employee.hasOwnProperty('leavedate')) {
+                if (element.employee && element.employee.employment_history.hasOwnProperty('leavedate')) {
 
                  //  const selectedYear2 = new Date(this.selectedYear).getFullYear();
-                    const employeeLeaveYear = new Date(element.employee.leavedate).getFullYear();
+                    const employeeLeaveYear = new Date(element.employee.employment_history[0].leavedate).getFullYear();
                   //  console.log(employeeLeaveYear, this.selectedYear);
                     if (employeeLeaveYear >= parseInt(this.selectedYear, null)) { return element; }
                 } 

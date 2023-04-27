@@ -62,7 +62,7 @@
 						
 			<button mat-button class='name-title-box' *ngIf="userLoaded" routerLink="/user/{{user.id}}">
 				<p  class='name'> {{user.name}} </p>
-				<p  class='name-title'> {{user.title}} </p>
+				<p  class='name-title'> {{user.employment_history[0]?.title || 'test'}} </p>
 			</button>
 			<button style="font-size:14px; font-weight: bold;" mat-button (click)="logout()">Logout</button>
 		
