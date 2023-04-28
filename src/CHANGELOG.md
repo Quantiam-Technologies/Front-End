@@ -38,22 +38,26 @@ Change Log
 - Material Container Creation Rework ---- Supplier -> Select Material From List  , reduce duplicate Materials
 
 
-# 2023.02
+# 2023.04.28.1
+
+## New
+
+- [Framework] Quantiam Apps now uses Angular 15.
+- [Dependancies] Relevant libraries have been updated to accomodate this.
+
+## Changes
+
+- [Material Creation]  The Denomination field will now prevent a user from entering numbers. 
+- [Material Creation]  The Amount ordered field will not prevent a user from entering letters. 
 
 
-
-
-## Harder
-
-## Better
-
-## Faster
+## Optimization
 
 - [USER] reduced the amount of database queries to construct a user
 
-## Stronger
+## Fixes
 
-- [Change Log] Resolved issue where change log would not load after web application was moved to new server. 
+- [Change Log] Resolved issue where change log would not load after this web application was moved to the new server. 
 
 
 

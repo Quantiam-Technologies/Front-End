@@ -497,6 +497,7 @@ export class MaterialContainerViewComponent implements OnInit, OnDestroy {
 	  });
 
   }
+  
 
   SDStabChanged(event){
 	  console.log(event);
@@ -514,6 +515,21 @@ export class MaterialContainerViewComponent implements OnInit, OnDestroy {
 	  {
 		//this.fetchCofAList();
 	  }
+  }
+
+
+  keyPressAlpha(event) {
+
+	var inp = String.fromCharCode(event.keyCode);
+
+	if (/[a-zA-Z]/.test(inp)) {
+	  return true;
+	} else {
+	  event.preventDefault()
+	 // event.stopPropogation();
+	 // console.log('test is not number');
+	  return false;
+	}
   }
 
 }
