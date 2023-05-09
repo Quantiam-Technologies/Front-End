@@ -37,17 +37,17 @@ export class ParticleSizeDatabaseComponent implements OnInit {
   oldCellValue;
 
   defaultColDef = {
-    filter: true,
-    sorting: true,
-    editable: false,
+
+    sortable: true,
     resizable: true,
+    filter: true,
     cellStyle: function (params) {
       return {
         cursor: 'pointer',
       };
     },
-    
-   };
+
+  };
 
 
   frameworkComponents = {
@@ -59,16 +59,35 @@ export class ParticleSizeDatabaseComponent implements OnInit {
   };
 
   columnDefs = [
+    
     {
       headerName: 'ID',
       field: 'id',
       width: 100,
-      filter: false,
       editable: false,
+      filter: 'agSetColumnFilter',
+        filterParams: {
+            values: params => {
+                // async update simulated using setTimeout()
+                setTimeout(() => {
+                    // fetch values from server
+                    const values = ['test','test2','test3'];
+                    // supply values to the set filter
+                    params.success(values);
+                }, 3000);
+            }
+        },
       cellRenderer: (cell) => {
         return '<b>' + cell.data.id + '</b>';      
       }
+      
     }, 
+    {
+      headerName: 'Material ID',
+      field: 'container.lot.material.id',
+      width: 50,
+      hide: false,
+    },
     {
       headerName: 'Container',
       // field: 'id',
@@ -90,11 +109,7 @@ export class ParticleSizeDatabaseComponent implements OnInit {
         return null;
       },
     },
-    {
-      headerName: 'Material ID',
-      field: 'container.lot.material.id',
-      hide: true,
-    },
+
     {
       headerName: 'Material',
       field: 'container.lot.material.name',
