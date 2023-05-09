@@ -233,30 +233,26 @@
 					
 						<mat-form-field  fxFlex="15">
 							<input  
-							
 							formControlName="thirdCtrl3" 
 							#Denomination id="container_denomination" type="text" 
-							pattern="[A-Za-z]"
-							(keypress)="keyPressAlpha($event)"
 							(blur)="checkIfWeight()"
 							required matInput placeholder="Denomination" 
 							[(ngModel)] ='container.denomination' name="denomination"  >
-								<mat-hint>g, kg, ml, L, oz, unit </mat-hint>
+								<mat-hint>g,kg,ml,L</mat-hint>
 						</mat-form-field> 
 
 						<mat-form-field  fxFlex>
 							<input #AmountOrdered
-													
+						
 							formControlName="thirdCtrl4" 
 							type="number"  required matInput 
-							
-							placeholder="Amount Ordered ({{container.denomination}})"
+							placeholder="Amount Ordered {{container.denomination}}"
 							[(ngModel)] ='container.amount_ordered' 
 							
 							name="amount_ordered" >
 							
 							
-							<mat-hint> "500", "5000","6" </mat-hint>
+							<mat-hint> "500g","500ml", "5L","6kg" </mat-hint>
 						</mat-form-field>
 						
 						<mat-form-field fxFlex>

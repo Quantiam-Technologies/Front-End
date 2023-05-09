@@ -684,19 +684,6 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
         this.hideMaterialCheckBox = false;
     }
 
-    keyPressAlpha(event) {
-
-        var inp = String.fromCharCode(event.keyCode);
-    
-        if (/[a-zA-Z]/.test(inp)) {
-          return true;
-        } else {
-          event.preventDefault()
-         // event.stopPropogation();
-         // console.log('test is not number');
-          return false;
-        }
-      }
 
     ngOnDestroy() {
 

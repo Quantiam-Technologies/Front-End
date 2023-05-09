@@ -10,8 +10,7 @@ import { EventInput } from '@fullcalendar/core';
 import { UserService } from '../../services/user/user.service';
 
 import { Calendar } from '@fullcalendar/core'; // include this line
-import { FullCalendarComponent } from '@fullcalendar/angular';
-import { CalendarOptions } from '@fullcalendar/core';
+import { FullCalendarComponent, CalendarOptions } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 
 import timeGrigPlugin from '@fullcalendar/timegrid';

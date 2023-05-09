@@ -221,12 +221,6 @@
 				<div fxLayoutGap="30px"  class="top-mat-form-buffer" fxLayout="row wrap">	
 							
 
-					<mat-form-field class="full-width" fxFlex=15>
-						<input  #ContainerName (change)="updateContainerField(ContainerName)" [disabled]="!editContainer"   type="text" matInput placeholder="Container Nickname" [(ngModel)] ='container.container_name' name="container_name" >
-						<mat-hint> Optional </mat-hint>
-					</mat-form-field >  
-
-
 						<mat-form-field *ngIf="!editContainer" class="full-width" fxFlex=15>
 								<input  type="text" matInput placeholder="Lot name" [(ngModel)] ='container.lot.lot_name' name="name" disabled>
 							</mat-form-field>
@@ -246,7 +240,10 @@
 								></app-select2-material-lot>
 						</div>
 					
-							
+							<mat-form-field class="full-width" fxFlex=15>
+									<input  #ContainerName (change)="updateContainerField(ContainerName)" [disabled]="!editContainer"   type="text" matInput placeholder="Container Nickname" [(ngModel)] ='container.container_name' name="container_name" >
+									<mat-hint> Optional </mat-hint>
+								</mat-form-field >  
 								<mat-form-field fxFlex=10>
 									<input  #QCID (change)="updateContainerField(QCID)" [disabled]="!editContainer"  type="text" matInput placeholder="QCID (optional)" [(ngModel)] ='container.qcid' name="qcid" >
 								</mat-form-field>  
@@ -282,8 +279,7 @@
 							
 							<div fxFlex fxLayoutGap="10px">
 								<mat-form-field class="full-width" fxFlex="10" >
-												<input  #Denomination (change)="updateContainerField(Denomination)"  [disabled]="!editContainer" type="text" 
-												matInput placeholder="Denomination" [(ngModel)] ='container.denomination' name="denomination" (keypress)="keyPressAlpha($event)" >
+												<input  #Denomination (change)="updateContainerField(Denomination)" [disabled]="!editContainer" type="text" matInput placeholder="Denomination" [(ngModel)] ='container.denomination' name="denomination" >
 								</mat-form-field >
 								<mat-form-field  fxFlex.gt-lg="20" fxFlex="30" class="full-width">
 									<input #AmountOrdered (change)="updateContainerField(AmountOrdered)" [disabled]="!editContainer"   type="text" matInput placeholder="Amount Ordered ({{container.denomination}})" [(ngModel)] ='container.amount_ordered' name="amount_ordered" >

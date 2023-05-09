@@ -46,15 +46,15 @@
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/moment/min/moment.min.js",         
+              "node_modules/moment/min/moment.min.js",
+              "node_modules/marked/lib/marked.js",              
               "node_modules/bootstrap/dist/js/bootstrap.min.js"
             ],            
             "allowedCommonJsDependencies": [
               "highcharts",
               "core-js",
               "lodash",
-              "moment",
-              "file-saver"
+              "moment"
            ]
           },
           "configurations": {
