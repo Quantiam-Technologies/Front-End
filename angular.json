@@ -53,8 +53,7 @@
             "allowedCommonJsDependencies": [
               "highcharts",
               "core-js",
-              "lodash",
-              "moment"
+              "lodash"
            ]
           },
           "configurations": {
