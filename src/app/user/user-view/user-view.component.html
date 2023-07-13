@@ -75,7 +75,7 @@
 					<!-- <label *ngIf="editUser"	fxLayoutAlign="start center"> Immediate Supervisor </label>  -->
 				
 
-					   <app-select-user fxFlex.xl='30' fxFlex
+					   <app-select-user  *ngIf="editUser" fxFlex.xl='30' fxFlex
 							   
 							   [hidden]="!editUser || !user.employeeID"
 							   fxLayoutAlign="start center"
@@ -176,7 +176,7 @@
 			
 			<div fxLayoutGap="10px" fxLayout="row wrap">
 				
-			<!-- 	<mat-form-field fxFlex >
+			<mat-form-field fxFlex >
 					<input matInput [matDatepicker]="myDatepicker1" placeholder="Start Date" [(ngModel)] ='user.startdate' 
 					(dateChange)="updateUser($event.value)" [disabled]="!editUser || !user.employeeid">
 						  <mat-datepicker-toggle matSuffix [for]="myDatepicker1"></mat-datepicker-toggle>
@@ -189,7 +189,7 @@
 						  (dateChange)="updateUser($event.value)" [disabled]="!editUser || !user.employeeid">
 						  <mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
 						  <mat-datepicker #myDatepicker2></mat-datepicker>
-				</mat-form-field> -->
+				</mat-form-field> 
 			
 			
 			</div>
@@ -211,9 +211,9 @@
 	
 			
 			
-		<mat-card   class='quantiam-mat-card' fxLayout="column" [hidden]="!user?.employeeid" >
+		<mat-card   class='quantiam-mat-card' fxLayout="column" [hidden]="!user?.employeeid" fxFlex>
 			<mat-card-title>
-				Management
+				User Management
 			</mat-card-title> 
 			<mat-card-content>
 
@@ -233,11 +233,12 @@
 						
 								
 								#rto_agrid
-								*ngIf="user.rto_allotment[0]"							
+								*ngIf="user?.rto_allotment[0]"							
 								class="ag-theme-material width-100"
 								style="min-height:200px"
 								[rowData]="user.rto_allotment" 
 								[columnDefs]="rtoColumnDefs"
+								[modules]="modules"
 								
 								(gridReady)="onRtoGridReady($event)"
 								(cellEditingStopped)="onRtoCellEditingStopped($event)"
@@ -372,7 +373,7 @@
 						[columnDefs]="groupColumnDefs"
 						(gridReady)="onGroupGridReady($event)"
 					
-						
+						[modules]="modules"
 					
 						[enableRangeSelection]="true"						
 						[defaultColDef]="groupDefaultColDef"
@@ -385,6 +386,11 @@
 					</div>
 				</mat-tab>
 					<mat-tab label="Machines">
+
+						
+
+							<button routerLink="/timesheet/settings/machines" routerLinkActive="mat-list-item-button-active" mat-raised-button color="primary">Manage Machine Access</button>
+
 							<table fxFlex style="box-shadow: none;  width:100%;" mat-table [dataSource]="user.machines" matSort>
 
 						
@@ -415,7 +421,7 @@
 							</mat-paginator> -->
 					
 					</mat-tab>
-					<mat-tab label="RFID">
+					<!-- <mat-tab label="RFID">
 							<table fxFlex style="box-shadow: none;  width:100%;" mat-table [dataSource]="rfidTableSource" matSort>
 
 									<tr mat-header-row *matHeaderRowDef="displayedColumnsRfid"></tr>
@@ -447,11 +453,11 @@
 		
 									
 							</table>
-						<!-- 	<mat-paginator  style="display:none;" [pageSizeOptions]="pageSizeOptions"
+						 	<mat-paginator  style="display:none;" [pageSizeOptions]="pageSizeOptions"
 										(page)="pageEvent = $event" showFirstLastButtons>
-							</mat-paginator>  -->
+							</mat-paginator> 
 					
-					</mat-tab>
+					</mat-tab> -->
 				</mat-tab-group>
 			
 		

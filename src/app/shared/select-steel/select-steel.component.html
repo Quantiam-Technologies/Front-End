@@ -26,8 +26,11 @@
 <!-- scroll-host & scrollable-content  [searchFn]="customSearchFn" 
 (scroll)="onScroll($event)" -->
 
-<ng-template ng-label-tmp let-item="item">
-  <small> {{ item.identifier}} </small> {{item.heat_id}} 
+<ng-template ng-label-tmp let-item="item" >
+  <div fxLayout="row" fxLayoutGap="3px" fxFlex fxLayoutAlign="start center">
+    <p>{{item.heat_id}} </p> <div *ngIf="item.cut">C{{item.cut}}</div> <small> {{item.id}} </small>
+  </div>
+  
 </ng-template>
 
 <ng-template ng-header-tmp>
@@ -40,31 +43,36 @@
   <div fxLayout="row" class="dropdown-options" fxLayoutGap="10px" fxLayoutAlign="start center" fxFlex >
   
 
-    <div style="width:70px; font-size: 10px;" >
+    <!-- <div style="width:30px; font-size: 10px;" >
       <div fxLayout="column" fxLayoutGap="2px">
           <div style="font-size: 9px;">  {{item.id}}</div>
-         <div style="font-size: 8px;"> {{item.identifier}}</div>
+         <div style="font-size: 8px;"> {{item.identifier}}</div> 
          
       </div>
     
-    </div>
+    </div> -->
 
-     <div style="width:150px; margin-right:5px;" fxLayout="column"  [ngOptionHighlight]="search">
-      <div fxLayout="column" fxLayoutGap="5px" fxLayoutAlign="center start">
-        <b>{{item.heat_id || ''}}</b>     
+     <div style="min-width:100px; margin-right:5px;" fxLayout="column"  [ngOptionHighlight]="search">
+      <div fxLayout="column" fxLayoutGap="2px" fxLayoutAlign="center start">
+          <div fxLayout="row"  style="font-size: 12px;" fxLayoutGap="5px">
+            <b>{{item.heat_id || ''}} </b> <div *ngIf="item.cut">C{{item.cut}}</div>
+          </div>
+          <div fxLayout="row" >
+            <div style="font-size: 9px;" fxFlex fxLayoutAlign="start center">  {{item.id}}</div>
+          </div>
      </div>
     </div>
-    <div style="width:150x; font-size: 11px;" [ngOptionHighlight]="search" >
-        {{item.steel_type.part_name || 'Unknown'}}
+    <div style="min-width:120px; font-size: 11px;" [ngOptionHighlight]="search" >
+        {{item.steel_type.part_name || 'Unknown Steel Type'}}
       </div>
-    <div fxLayout="row" fxLayoutGap="5px" style="width:80px; font-size: 11px;"  >
+    <!-- <div fxLayout="row" fxLayoutGap="5px" style="width:80px; font-size: 11px;"  >
           <p>C:</p><span>{{item.cut}}</span>
-      </div>
-    <div fxLayout="row" fxLayoutGap="5px" style="width:80px; font-size: 11px;"  >
+      </div> -->
+   <!--  <div fxLayout="row" fxLayoutGap="5px" style="width:80px; font-size: 11px;"  >
           <p>R:</p><span>{{item.rework}}</span>
-      </div>
-    <div style="width:100px; font-size: 11px;" [ngOptionHighlight]="search" >
-        {{item.campaign.campaign_shortname}}
+      </div> -->
+    <div style="min-width:120px; font-size: 11px;" [ngOptionHighlight]="search" >
+        <i>{{item.campaign.campaign_shortname}}</i> 
       </div>
    
   

@@ -10,7 +10,7 @@ import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 })
 export class AgGridParticlePdfComponent implements ICellEditorAngularComp {
 
-  private params: any;
+  params: any;
 
   public selectedValue: any;
   public previousValue: any;
@@ -31,7 +31,7 @@ export class AgGridParticlePdfComponent implements ICellEditorAngularComp {
     
     this.params = params;
     this.previousValue = params.value;
-   // console.log(params.data);
+   console.log(params.data);
   }
 
   

@@ -35,35 +35,49 @@
                         <div fxLayout="row" fxLayoutAlign="start start">
                             <div >{{rto?.user.name}} </div>
                             <div fxFlex fxLayoutAlign="center center" style="height:35px;"> <small>RTO {{rto.requestID}}</small> </div>
-                            <div fxLayout="row">
-                                <button [disabled]="rto?.status === 'approved'" mat-icon-button color="primary" class="clickable" (click)="showTimeOffRequestForm = !showTimeOffRequestForm">
-                                    <mat-icon  matTooltip="Create time off requests">create</mat-icon>
+                            <div fxLayout="row" *ngIf="rto?.status !== 'approved'">
+                                <button  mat-icon-button style="color:green;" class="clickable" (click)="showTimeOffRequestForm = !showTimeOffRequestForm">
+                                    <mat-icon  matTooltip="Create a time off request.">add_circle</mat-icon>
                                 </button>
-                                <button [disabled]="rto?.status === 'approved'" mat-icon-button color="warn" class="clickable" (click)="deleteRTO()">
+                                <button  mat-icon-button color="warn" class="clickable" (click)="deleteRTO()">
                                     <mat-icon   matTooltip="Delete this entire RTO.">delete</mat-icon>
                                 </button>
                             </div>
                         </div>
                     </mat-card-title>
-                    <mat-card-subtitle> Is asking for the following time off. </mat-card-subtitle>
+                    <mat-card-subtitle> Time off request. </mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content>
 
                     <table class="table table-striped table-hover dataTable" cellspacing="0" width="100%">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>Date of Absence</th>
                                 <th>Duration</th>
                                 <th>Type</th>
-                                <th>Updated</th>
-                                <th>Conflicts</th>
+                                <th>Created</th>
+                                <th *ngIf="rto.status === 'pending'">Conflicts</th>
                                 <th aria-hidden="false"  *ngIf="rto?.status === 'pending'"></th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            <tr class="ng-scope" *ngFor="let timeRequest of rto?.requested_time">
-                                <td>{{timeRequest.date | date:'fullDate'}}</td>
+                            <tr class="ng-scope" *ngFor="let timeRequest of rto?.requested_time"
+                                [style.background-color]="((timeRequest.date < timeRequest.created)) ? 'rgb(255 205 93 / 13%) !important': ''"
+                              
+                            >
+                                <td> 
+                                    <button  *ngIf="(timeRequest.date < timeRequest.created)" mat-icon-button color="info"  >
+                                        <mat-icon aria-label="request info" style="color:orange" matTooltip="Absence date preceeds or is on request date.">history</mat-icon>
+                                    </button>
+
+                                </td>
+                                <td>
+                                    
+                                    {{timeRequest.date | date:'fullDate'}}
+
+                                </td>
 
                                 <td><p>{{timeRequest.hours}} Hours </p>
                                     <small *ngIf="timeRequest.start_hour" fxLayout="row" fxLayoutGap="5px">
@@ -77,17 +91,18 @@
                                     </small>
 
                                 </td>
-                                <td>{{timeRequest.type | titlecase}}</td>
-                                <td>{{timeRequest.updated}}</td>
-                                <td>
+                                <td>{{timeRequest.type | uppercase }}</td>
+                                <td> {{timeRequest.created | date:'mediumDate'}}</td>
+                                <td *ngIf="rto.status === 'pending'">
                                     
                                 
                                 <ng-template #popContent>
                                     <table class="table">
                                         <tbody>
-                                            <tr *ngFor="let absence of existingAbsences[timeRequest.date]">
+                                            <tr *ngFor="let absence of timeRequest.conflicts">
                                                 <td>{{absence.firstname}} {{absence.lastname.charAt(0)}}</td>
                                                 <td>{{absence.hours}} Hours</td>
+                                                <td>{{absence.type}}</td>
                                                 <td *ngIf="absence.start_hour"> {{absence.start_hour}} <span ngif="absence.end_hour">to {{absence.end_hour}}</span> </td>
                                                 <td *ngIf="!absence.start_hour">  </td>
 
@@ -105,13 +120,14 @@
                                 placement="right" 
                                 [ngbPopover]="popContent" 
                                 popoverTitle="Conflicts Identified">
-                                        {{timeRequest.conflicts}} Conflict(s)
+                                        {{timeRequest.conflicts?.length}} Conflict(s)
                                       </button>
 
+                                
                                       <button mat-button color="success" [hidden]="timeRequest?.conflicts"> None </button>
                                 </td>
                                 <td style="text-align: center;"  *ngIf="rto?.status === 'pending'">
-                                    <button mat-icon-button color="warn" class="clickable" (click)="deleteTimeRequest(timeRequest)">
+                                    <button mat-icon-button color="warn" class="clickable" (click)="deleteTimeRequest(timeRequest)" matTooltip="Delete this absence date.">
                                         <mat-icon aria-label="Delete this.">delete</mat-icon>
                                     </button>
                                 </td>
@@ -209,9 +225,59 @@
 
         </div>
 
-        <div fxLayout="column" id="right-column" fxFlex fxFlex.gt-md=50 fxGrow="0" fxLayoutGap="20px">
+        <div fxLayout="row" id="right-column" fxFlex fxFlex.gt-md=50 fxLayoutGap="10px">
 
-            <div fxLayout="row" fxLayoutAlign="end start">
+            <div *ngIf="rtoBank" fxFlex fxFill>
+                <mat-card id="approval_card"  >
+                    <mat-card-header>
+                            <mat-card-title fxLayout="row" fxFlex> Rto Bank Impact</mat-card-title>
+                        
+                     
+                    </mat-card-header>
+                    <mat-card-content>
+
+                            <table class="table table-striped table-hover dataTable" cellspacing="0" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Current</th>
+                                            <th>Impact</th>
+                                            <th>Result</th>
+                                          
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><b>PTO</b></td>
+                                            <td>{{rtoBank.remaining.pto }}</td>
+                                            <td><span *ngIf="typeTotals.pto != 0" [style.color]="typeTotals.pto < 0 ? 'red' : 'green'">{{typeTotals.pto}}</span></td>
+                                            <td><span *ngIf="typeTotals.pto != 0" [style.color]="(rtoBank.remaining.pto + typeTotals.pto) < 0 ? 'red' : ''">{{(rtoBank.remaining.pto + typeTotals.pto).toFixed(2) }}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>Vacation</b></td>
+                                            <td>{{rtoBank.remaining.vacation }}</td>
+                                            <td><span *ngIf="typeTotals.vacation != 0" [style.color]="typeTotals.vacation < 0 ? 'red' : 'green'">{{typeTotals.vacation}}</span></td>
+                                            <td><span *ngIf="typeTotals.vacation != 0" [style.color]="(rtoBank.remaining.vacation + typeTotals.vacation) < 0 ? 'red' : ''">{{(rtoBank.remaining.vacation + typeTotals.vacation).toFixed(2) }}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><b>CTO</b></td>
+                                            <td>{{rtoBank.remaining.cto }}</td>
+                                            <td> <span *ngIf="typeTotals.cto != 0" [style.color]="typeTotals.cto < 0 ? 'red' : 'green'">{{typeTotals.cto}}</span></td>
+                                            <td><span *ngIf="typeTotals.cto != 0" [style.color]="(rtoBank.remaining.cto + typeTotals.cto) < 0 ? 'red' : ''">{{(rtoBank.remaining.cto + typeTotals.cto).toFixed(2) }}</span></td>
+                                        </tr>
+                                    </tbody>
+                            </table>
+
+                      
+                   
+                    </mat-card-content>
+
+                </mat-card>
+
+            </div>
+
+
+            <div fxFill>
                 <mat-card id="approval_card" fxFlex=60>
                     <mat-card-header>
 
@@ -281,54 +347,7 @@
 
             </div>
 
-            <div fxLayout="row" fxLayoutAlign="end start" *ngIf="rtoBank">
-                    <mat-card id="approval_card"  >
-                        <mat-card-header>
-                                <mat-card-title fxLayout="row" fxFlex> Rto Bank Impact</mat-card-title>
-                            
-                         
-                        </mat-card-header>
-                        <mat-card-content>
-
-                                <table class="table table-striped table-hover dataTable" cellspacing="0" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <th>Type</th>
-                                                <th>Current</th>
-                                                <th>Impact</th>
-                                                <th>Result</th>
-                                              
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><b>PTO</b></td>
-                                                <td>{{rtoBank.remaining.pto }}</td>
-                                                <td><span *ngIf="typeTotals.pto != 0" [style.color]="typeTotals.pto < 0 ? 'red' : 'green'">{{typeTotals.pto}}</span></td>
-                                                <td><span *ngIf="typeTotals.pto != 0" [style.color]="(rtoBank.remaining.pto + typeTotals.pto) < 0 ? 'red' : ''">{{(rtoBank.remaining.pto + typeTotals.pto).toFixed(2) }}</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Vacation</b></td>
-                                                <td>{{rtoBank.remaining.vacation }}</td>
-                                                <td><span *ngIf="typeTotals.vacation != 0" [style.color]="typeTotals.vacation < 0 ? 'red' : 'green'">{{typeTotals.vacation}}</span></td>
-                                                <td><span *ngIf="typeTotals.vacation != 0" [style.color]="(rtoBank.remaining.vacation + typeTotals.vacation) < 0 ? 'red' : ''">{{(rtoBank.remaining.vacation + typeTotals.vacation).toFixed(2) }}</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>CTO</b></td>
-                                                <td>{{rtoBank.remaining.cto }}</td>
-                                                <td> <span *ngIf="typeTotals.cto != 0" [style.color]="typeTotals.cto < 0 ? 'red' : 'green'">{{typeTotals.cto}}</span></td>
-                                                <td><span *ngIf="typeTotals.cto != 0" [style.color]="(rtoBank.remaining.cto + typeTotals.cto) < 0 ? 'red' : ''">{{(rtoBank.remaining.cto + typeTotals.cto).toFixed(2) }}</span></td>
-                                            </tr>
-                                        </tbody>
-                                </table>
-    
-                          
-                       
-                        </mat-card-content>
-    
-                    </mat-card>
-    
-                </div>
+           
         </div>
 
 

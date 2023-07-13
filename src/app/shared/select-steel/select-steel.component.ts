@@ -38,7 +38,7 @@ export class SelectSteelComponent implements OnInit {
   items = [];
   itemsBuffer = [];
   allRetrievedItemsList = [];
-  dropdownWidth = 600; // in pixels
+  dropdownWidth = 380; // in pixels
   bufferSize = 100;
   virtualScroll = true;
   numberOfItemsFromEndBeforeFetchingMore = 20;
@@ -202,7 +202,7 @@ export class SelectSteelComponent implements OnInit {
   setTimeout((x) => {
 
     const dropdown = document.querySelector('.total-padding');
-   // dropdown.setAttribute('style', 'width:' + this.dropdownWidth + 'px !important;height: 1800px;'); // this changes the dropdown to be as wide as it's contents
+    dropdown.setAttribute('style', 'width:' + this.dropdownWidth + 'px !important;height: 1800px;'); // this changes the dropdown to be as wide as it's contents
     // dropdown.setAttribute('style',''); //workaround
 
   }, 100);

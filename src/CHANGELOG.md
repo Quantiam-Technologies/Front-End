@@ -38,14 +38,42 @@ Change Log
 - Material Container Creation Rework ---- Supplier -> Select Material From List  , reduce duplicate Materials
 
 
+
+# 2023.06.28
+
+
+## Fixes
+
+- Leave & Startdate on the employee screen is visible again. Employment history development feature rolled back. 
+
+## Timesheet 
+
+- Timesheets now load ~3 seconds quicker
+
+## RTO Screen
+
+- Icon for adding new absences now a plus sign, and not the "edit" pencil.
+- Delete & Edit RTO buttons now disappear after approval.
+- RTO Bank and Notification boxes now squish together properly on the top row. 
+- Absence date, created column no longer displays hours/minutes/seconds. 
+- Absences prior or on the day of the requested date, are now highlighted in orange at approval stage
+<br><img  style="margin:5px;" src="https://imgur.com/5d0ZxXf.png" width="80%"><br>
+
+
+
+
+## Particle Size Database
+
+- Particle size Database correctly syncs after a run is saved on the Mastersizer. 
+- The table has been restyled to be more readable.
+- Runs that do nothave associative containers have the correct name displayed.
+- PDF buttons only appear where there is a report saved for the run. 
+- Update timesheet button now repopulates the mastersize timesheet for the last 20 days. 
+<br><img  style="margin:5px;" src="https://imgur.com/g6HDetO.png" width="80%"><br> 
+
 # 2023.02
 
 
-
-
-## Harder
-
-## Better
 
 ## Faster
 
@@ -54,7 +82,6 @@ Change Log
 ## Stronger
 
 - [Change Log] Resolved issue where change log would not load after web application was moved to new server. 
-
 
 
 # 2023.01

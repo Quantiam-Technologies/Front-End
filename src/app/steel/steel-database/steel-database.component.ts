@@ -75,7 +75,6 @@ export class SteelDatabaseComponent implements OnInit {
       headerName: 'Cut',
       field: 'cut',
       width: 40,
-      hide:true,
     },
     
     {
@@ -85,12 +84,12 @@ export class SteelDatabaseComponent implements OnInit {
       hide:true,
     },
     {
-      headerName: 'Part Name',
+      headerName: 'Steel Type',
       field: 'steel_type.part_name',
       width: 100,
     },  
     {
-      headerName: 'Length',
+      headerName: 'Length (mm)',
       field: 'steel_type.length',
       width: 40,
     },
@@ -123,11 +122,13 @@ export class SteelDatabaseComponent implements OnInit {
       headerName: 'Hold',
       field: 'hold',
       width: 40,
+      hide: true,
     },
     {
       headerName: 'Comments',
       field: 'Comments',
       width: 80,
+      hide:true,
     },
     {
       headerName: 'Created',

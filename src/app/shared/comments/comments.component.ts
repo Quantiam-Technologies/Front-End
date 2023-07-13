@@ -58,7 +58,7 @@ export class CommentsComponent implements OnInit {
 
   fetchComments(identifier){
 
-    this.http.get<any>(environment.apiUrl + `comment/${identifier}`)
+    this.http.get<any>(environment.apiUrl + `/comment/${identifier}`)
     .subscribe((r)=>{
 
 

@@ -35,3 +35,10 @@
     font-size: 0.9rem;
     padding: 3px 0px;
 }
+
+
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+
+    --bs-table-accent-bg:inherit;
+  
+  }

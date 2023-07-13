@@ -63,7 +63,7 @@ export class ParticleSizeDatabaseComponent implements OnInit {
     {
       headerName: 'ID',
       field: 'id',
-      width: 100,
+      width: 70,
       editable: false,
       filter: 'agSetColumnFilter',
         filterParams: {
@@ -83,32 +83,13 @@ export class ParticleSizeDatabaseComponent implements OnInit {
       
     }, 
     {
-      headerName: 'Material ID',
-      field: 'container.lot.material.id',
-      width: 50,
-      hide: false,
-    },
-    {
-      headerName: 'Container',
-      // field: 'id',
-      width: 70,
-      cellRenderer: 'steelContainerDisplay',
-      cellEditor: 'steelContainerEdit',
-      valueSetter: (params) => {
-
-         if (params.newValue) {         
-          if (params.newValue.container_id) {
-            params.data.container = params.newValue;
-            params.data.container_id = params.newValue.container_id;
-           }
-           this.update(params);
-
-          return params.newValue;
-
-        }
-        return null;
-      },
-    },
+      headerName: 'Project',
+      field: 'project_id',
+      width: 60,
+      filter: false,
+      cellEditor: 'projectEditor',
+    },    
+  
 
     {
       headerName: 'Material',
@@ -117,7 +98,12 @@ export class ParticleSizeDatabaseComponent implements OnInit {
 
         if (cell.hasOwnProperty('data') && cell.data.name) { return cell.data.name; }
 
-        if (cell.hasOwnProperty('data') && cell.data.container_id) { return cell.data.container.lot.material.name; }
+        if (cell.hasOwnProperty('data') && cell.data.container_id) { 
+          
+          return cell.data.container.lot.material.name+', '+cell.data.container.lot.material.grade+', '+cell.data.container.lot.material.supplier.supplier_name; 
+        
+        
+        }
 
         if (cell.hasOwnProperty('data') && !cell.data.container_id) { 
           
@@ -139,33 +125,29 @@ export class ParticleSizeDatabaseComponent implements OnInit {
     {
       headerName: 'Grade',
       field: 'container.lot.material.grade',
+      hide: true,
     }, 
     {
       headerName: 'Supplier',
       field: 'container.lot.material.supplier.supplier_name',
+      hide: true,
     },
     {
       headerName: 'D(90)',
       field: 'd90',
-      width: 60,
+      width: 50,
     },
     {
       headerName: 'D(50)',
       field: 'd50',
-      width: 60,
+      width: 50,
     },
     {
       headerName: 'D(10)',
       field: 'd10',
-      width: 60,
+      width: 50,
     },
-    {
-      headerName: 'Project',
-      field: 'project_id',
-      width: 60,
-      filter: false,
-      cellEditor: 'projectEditor',
-    },    
+ 
     {
       headerName: 'Operator',
       field: 'operator_id',
@@ -195,8 +177,39 @@ export class ParticleSizeDatabaseComponent implements OnInit {
     }, */ 
     {
       headerName: 'Analyzed',
+      width: 90,
       field: 'created_at',
      
+    },
+
+    {
+      headerName: 'Material ID',
+      field: 'container.lot.material.id',
+      width: 50,
+      hide: false,
+    },
+   
+
+    {
+      headerName: 'Container',
+      // field: 'id',
+      width: 70,
+      cellRenderer: 'steelContainerDisplay',
+      cellEditor: 'steelContainerEdit',
+      valueSetter: (params) => {
+
+         if (params.newValue) {         
+          if (params.newValue.container_id) {
+            params.data.container = params.newValue;
+            params.data.container_id = params.newValue.container_id;
+           }
+           this.update(params);
+
+          return params.newValue;
+
+        }
+        return null;
+      },
     },
     
     {

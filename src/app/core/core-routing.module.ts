@@ -31,6 +31,17 @@ const routes: Routes = [
 
 			},
 			{
+				path: 'honing',
+				loadChildren: () => import('../honing/honing.module').then(m => m.HoningModule),
+				// pathMatch: 'prefix',
+			},
+
+			{
+				path: 'campaign',
+				loadChildren: () => import('../campaign/campaign.module').then(m => m.CampaignModule),
+				// pathMatch: 'prefix',
+			},
+			{
 				path: 'material',
 				loadChildren: () => import('../material/material.module').then(m => m.MaterialModule),
 				// pathMatch: 'prefix',

@@ -204,3 +204,17 @@ table .table-stats{
 padding:10px;
 
 }
+
+
+
+
+/**** Icons ***/
+
+.green-icon {
+  color: white;
+}
+/* Note: If you're using an SVG icon, you should make the class target the `<svg>` element */
+.green-icon svg {
+  fill: white;
+}
+

@@ -22,8 +22,8 @@
 
             <div fxFlex fxLayoutAlign="start end" fxLayoutGap="10px" fxLayout="row">
              <!--    <mat-icon> comment </mat-icon> -->
-                <h6 style="margin-bottom:0px !important;">{{comment.commentor.name_abbrev}} </h6>
-                <small> {{comment.comment_datetime}}</small>
+                <h3 style="margin-bottom:0px !important;">{{comment.commentor.name_abbrev}} <small> {{comment.comment_datetime}}</small> </h3>
+                
             </div>
           
               <ckeditor fxFlex [editor]="Editor" [data]="comment.comment_text" 

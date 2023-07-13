@@ -208,7 +208,7 @@
           <h3 class="page-header" *ngIf="timeSheetObj.overhours && timeSheetObj?.overhours[0]">Overtime 
           <small>
             
-              <a style="float:right" target="_blank" href="https://work.alberta.ca/documents/Overtime-Hours-and-Overtime-Pay.pdf">Overtime Explanation</a>
+              <a style="float:right" target="_blank" href="https://www.alberta.ca/overtime-hours-overtime-pay.aspx">Overtime Explanation</a>
           </small> 
           </h3>
           <table *ngIf="timeSheetObj.overhours && timeSheetObj?.overhours[0]" class="stattable table-stats table-condensed table-striped table-shadow"> 
@@ -274,7 +274,7 @@
       </div>
 
       <div fxFlex *ngIf="timeSheetObj?.bank" >
-          <h3 class="page-header">Bank <small> Running total for {{timeSheetObj.payPeriod.year}}</small> </h3>
+          <h3 class="page-header">Bank <small> {{timeSheetObj.payPeriod.year}} Totals </small> </h3>
           <table class="stattable table-stats table-condensed table-striped table-shadow"> 
               <thead> 
                   <tr>
@@ -282,7 +282,7 @@
                     <th> Carry Over </th>
                     <th> Allotted </th>
                     <th> Used </th>
-                    <th> Bank </th>
+                    <th> Banked ({{currentYear}})  </th>
                   </tr>
                 </thead>
                 <tbody>

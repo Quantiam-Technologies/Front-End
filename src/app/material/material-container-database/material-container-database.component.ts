@@ -54,6 +54,7 @@ export class MaterialContainerDatabaseComponent implements OnInit {
    context;
 
 
+   activeFilter = 1;
    supplierSearchFilter;
    filteredTextFilterName;
    hazardSearchFilter;
@@ -61,6 +62,8 @@ export class MaterialContainerDatabaseComponent implements OnInit {
 
   private locationList: any = [];
   private locationListObj: any[];
+
+
 
   private navigateMode = true;
   private editMode = true;
@@ -239,7 +242,7 @@ export class MaterialContainerDatabaseComponent implements OnInit {
             return '<p style="color:green">In Stock</p>';
           }
 
-          return '<p style="color:orange"> Used up </p>';
+          return '<p style="color:orange"> N/A </p>';
         },
 
       },
@@ -534,6 +537,8 @@ export class MaterialContainerDatabaseComponent implements OnInit {
   }
 
 
+
+
   supplierFilterChanged(event)
   {
     
@@ -613,6 +618,8 @@ fetchMaterialContainerDatabase () {
 
       const requestParams: HttpParams = new HttpParams()
       .append('limit', `${this.gridOptions.cacheBlockSize}`)
+      .append('active', null)
+      // .append('active', 1)
       .append('like', `${this.filteredTextFilterName}`)
       .append('hazards[]', this.hazardSearchFilter)
       .append('suppliers[]', this.supplierSearchFilter)

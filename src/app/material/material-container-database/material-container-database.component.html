@@ -12,10 +12,10 @@
                <!--  <app-select-material></app-select-material> -->
                
                     <ngb-alert   type="info"  [dismissible]="false" style="margin-top:7px; margin-bottom:0px;">
-                            <b> SDS Storage </b> <a target="_blank" href="File:///Q:/Administration - All Staff/Chemical Inventory Tracking System and SDS/SDS"> Q:\Administration - All Staff\SDS </a>
+                            <b> SDS Storage </b> <a target="_blank" href="File:///Q:/Administration - All Staff/Chemical Inventory Tracking System and SDS/SDS"> Q:\Administration - All Staff\Chemical Inventory Tracking System and SDS\SDS </a>
                     </ngb-alert>
 
-                    <mat-slide-toggle  (click)="toggleCellsEditable()"> Edit Table </mat-slide-toggle> 
+                  <!--   <mat-slide-toggle  (click)="toggleCellsEditable()"> Edit Table </mat-slide-toggle>  -->
                
                <!-- <app-select-material-supplier></app-select-material-supplier>  -->
         </div>
@@ -63,6 +63,17 @@
                     <div style="max-width: 350px;"> 
                        <app-select-location [multiple]="true" (change)="locationFilterChanged($event)" ></app-select-location>
                     </div>  
+                    <div style="max-width: 350px; font-size:10px;"> 
+
+                    
+                        <ng-select   [(ngModel)]="activeFilter"  (change)="refreshDatabase()" [searchable]="false"  [clearable]="false"   >
+                            <ng-option [value]=1>Active</ng-option>
+                            <ng-option [value]=0>Inactive</ng-option>
+                            <ng-option value=null>Both</ng-option>
+                        
+                        </ng-select>
+                      
+                    </div>
                     <!-- <div style="max-width: 350px;"> 
                        <app-select-material-lot style="width:200px;"  ></app-select-material-lot >
                     </div> -->

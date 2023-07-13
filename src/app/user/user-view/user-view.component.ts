@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import {Location} from '@angular/common';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AllModules  } from '@ag-grid-enterprise/all-modules';
 
 
 import { NotificationsService } from 'angular2-notifications';
@@ -39,10 +40,11 @@ export class UserViewComponent implements OnInit, OnDestroy {
    @ViewChild(MatSort) sort: MatSort;
 
   id: any;
-  user: any = {};
+  user: any = {rto_allotment:[{}]};
   user$: any;
   userID: number;
   editUser = false;
+  modules = AllModules;
   displayedColumnsSupervisors: string[] = ['id', 'name', 'title'];
   displayedColumnsPermissions: string[] = ['permission_id', 'permission_name', 'permission_description', 'derived_from_group', 'customColumn1'];
   displayedColumnsMachines: string[] = ['id', 'machine_name', 'machine_purpose'];
@@ -240,6 +242,11 @@ export class UserViewComponent implements OnInit, OnDestroy {
 
 
   updateUser (obj) {
+
+    if(obj.startdate){
+        var split = obj.startdate.split("T");
+        obj.startDate = split[0];
+    }
 
        this.userService.update(this.user.employeeid, this.user).subscribe((r) => {
 

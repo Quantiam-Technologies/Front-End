@@ -25,16 +25,7 @@ export class UserDatabaseComponent implements OnInit {
 
     columnDefs = [
 
-          {headerName: 'Active', field: 'active', maxWidth: 150, valueGetter: function cellRenderer (params) {
-            if(params.data.active)
-            {
-              return 'Active';
-            }
-            else
-            {
-              return 'Inactive';
-            }
-        },  },
+       
         {headerName: 'ID', sort: 'asc', field: 'employeeid', headerTooltip: '#',  filter: 'agTextColumnFilter', maxWidth: 90, },
         {headerName: 'Firstname', field: 'firstname',   maxWidth: 130, },
         {headerName: 'Lastname', field: 'lastname', maxWidth: 130, },
@@ -46,6 +37,19 @@ export class UserDatabaseComponent implements OnInit {
         {headerName: 'Direct Line', field: 'direct_line',  maxWidth: 130,  },
         {headerName: 'Ext.', field: 'extension',  maxWidth: 100, },
         {headerName: 'Email', field: 'email',   },
+
+        {headerName: 'Active', field: 'active', maxWidth: 150, valueGetter: function cellRenderer (params) {
+          if(params.data.active)
+          {
+            return 'Active';
+          }
+          else
+          {
+            return 'Inactive';
+          }
+      }, 
+     },
+
         {headerName: 'Username', field: 'ldap_username', hide: true,  },
        
       
