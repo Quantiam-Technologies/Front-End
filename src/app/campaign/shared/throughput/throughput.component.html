@@ -1,0 +1,54 @@
+<div fxLayout="row" fxFlex fxLayoutGap="30px"  *ngIf="throughputResponse"> 
+
+        
+        <highcharts-chart 
+
+        
+
+        [Highcharts]="Highcharts"
+
+        [constructorType]="chartConstructor"
+        [options]="chartOptions"
+        [callbackFunction]="chartCallback"
+
+        [(update)]="updateFlag"
+        [oneToOne]="oneToOneFlag"
+        [runOutsideAngular]="runOutsideAngular"
+
+        style="width: 100%; height: 500px; display: block;"
+        ></highcharts-chart>
+
+
+
+    <div fxLayout="column" >
+        
+        <h2>Recent Unit Operations </h2>
+        <div style="width: 450px; height:450px; overflow:auto;">
+        <table  class="table" fxFlex  >
+            <thead>
+                <tr>
+                   
+                    <th>Type</th>
+                    <th>Total</th>
+                    <th>Name</th>
+                    <th>Date Time</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let unitOperation of throughputResponse.unitOperation_data">
+                    
+                    <td>{{unitOperation.process_type}}</td>
+                    <td>{{unitOperation.total}}</td>
+                    <td><button type="button" class="btn btn-primary btn-xs" (click)="navigateToProcess(unitOperation)">{{unitOperation.process_name}} </button></td>
+                    <td>{{unitOperation.process_date}}</td>
+                    
+                </tr>
+            </tbody>
+        </table>
+        </div>
+
+    </div>
+            
+    
+</div>

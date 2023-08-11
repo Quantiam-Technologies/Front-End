@@ -2,48 +2,54 @@
 <div ></div>
 
 
-<div fxLayout="row">
+<div fxLayout="row" >
     
-<h2> SiLT 2023 Campaign </h2>
+   <!--  <h2> SiLT 2023 Campaign </h2> -->
 
 </div>
 
 
-<div fxLayout="row" id="Summary Region">
+<div fxLayout="row" id="Summary Region"  >
     
 
+    <div  fxLayout="column"  >
 
-    <div> Produced Tubes </div>
-
-
+        <highcharts-chart 
+        [Highcharts]="Highcharts"
     
+        [constructorType]="chartConstructor"
+        [options]="chartOptions"
+        [callbackFunction]="chartCallback"
+    
+        [(update)]="updateFlag"
+        [oneToOne]="oneToOneFlag"
+        [runOutsideAngular]="runOutsideAngular"
+    
+        style="width: 100%; height: 500px; display: block;"
+        ></highcharts-chart>
+
+        <div >
+            <app-reworks></app-reworks>
+        </div>
+        
+
+    </div>
+
+    <div>
+        <!--- part by part breakdown ? -->
+        <app-throughput></app-throughput>
+    </div>
+
+    <div>
+           <!--  <app-total-progress></app-total-progress> -->
+    </div>
+
+
 
 
 </div>
+
+
     
 
 
-
-
-
-
-
-<div fxLayout="row" id="Unit Op">
-    <nav mat-tab-nav-bar>
-        <!-- <a mat-tab-link routerLink="database" routerLinkActive="mat-tab-link-active"> Materials </a>-->
-        
-        <a mat-tab-link  > Receiving </a>	
-        <a mat-tab-link  > Honing </a>	
-        <a mat-tab-link  > Slip  </a>	
-        <a mat-tab-link  > Slip Cast </a>	
-        <a mat-tab-link  > Debind </a>	
-        <a mat-tab-link  > Consol </a>	
-        <a mat-tab-link  > Post Fnish </a>	
-        <a mat-tab-link  > Oxide Generation </a>	
-        <a mat-tab-link  > Final </a>	
-        
-    
-        
-        
-    </nav>
-</div>

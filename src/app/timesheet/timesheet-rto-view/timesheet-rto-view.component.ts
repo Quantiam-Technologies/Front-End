@@ -6,7 +6,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { UserService } from '../../services/user/user.service';
 
 import * as moment from 'moment';
-import * as Swal from 'sweetalert2/dist/sweetalert2.js';
+//import * as Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
     selector: 'app-timesheet-rto-view',

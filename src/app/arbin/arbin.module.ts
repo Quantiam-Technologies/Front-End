@@ -12,7 +12,6 @@ import { ArbinTestComponent } from './arbin-test/arbin-test.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialDesignModule } from '../material-design/material-design.module';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 const routes: Routes = [
   {
@@ -40,7 +39,6 @@ const routes: Routes = [
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
-    NgxChartsModule,
     HighchartsChartModule,
     SharedModule,
     MaterialDesignModule

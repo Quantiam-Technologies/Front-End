@@ -18,6 +18,8 @@ import { DialogSteelContainerSelectionComponent } from '../sem/sem-database/dial
 
 import { DashboardComponent } from '../dashboard/dashboard.component';
 
+
+import { CampaignModule } from '../campaign/campaign.module';
 import { TokenInterceptor } from '../auth/token.interceptor';
 
 @NgModule({
@@ -26,6 +28,7 @@ import { TokenInterceptor } from '../auth/token.interceptor';
         CoreRoutingModule,
         MaterialDesignModule,
         SharedModule,
+        CampaignModule,
         MarkdownModule.forRoot({ loader: HttpClient }),
         HttpClientModule,
         NgHttpLoaderModule.forRoot(),
@@ -39,6 +42,7 @@ import { TokenInterceptor } from '../auth/token.interceptor';
         CoreComponent,
         PatchNotesComponent,
         DashboardComponent,
+        
         DialogSteelContainerSelectionComponent
     ],
     bootstrap: [CoreComponent],

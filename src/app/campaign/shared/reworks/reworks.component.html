@@ -1,0 +1,32 @@
+<h2 fxLayout="row" fxLayoutGap="10px"> <div>Reworks</div> <small>({{campaignReworks.length}})</small>    </h2>
+<div style="overflow:auto; max-width: 600px; max-height: 400px;">
+<table  class="table" fxFlex  >
+    <thead>
+        <tr>
+           
+            <th>Steel</th>
+            <th>Process</th>
+            <th>Occured</th>
+            <th>Comment</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let rework of campaignReworks">
+            
+            <td >
+                <button type="button" class="btn btn-primary btn-xs" routerLink="/steel/{{rework.steel_id}}" fxLayout="row" fxLayoutGap="5px">
+                    <div> {{rework.steel.heat_id}} </div> 
+                     <div *ngIf="rework.steel.cut">C{{rework.steel.cut}}</div> 
+                     </button>
+             </td>
+            <td>{{rework.process.process_name}}</td>
+            <td style="font-size:11px;">{{rework.created_at}}</td>
+            <td><p>{{rework.comment}}</p></td>
+           <!--  <td><button type="button" class="btn btn-primary btn-xs" (click)="navigateToProcess(unitOperation)">{{unitOperation.process_name}} </button></td> -->
+           
+            
+        </tr>
+    </tbody>
+</table>
+</div>

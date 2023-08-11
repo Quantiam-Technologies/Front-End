@@ -237,68 +237,8 @@
 							
 								</mat-list>  
 						</mat-expansion-panel>
-						
-						<mat-divider  ></mat-divider>
-						<mat-expansion-panel  expanded="true" >
-							  <mat-expansion-panel-header [expandedHeight]="'32px'" [collapsedHeight]="'32px'">
-								<mat-panel-title>
-								    Manufacturing
-								</mat-panel-title>
-								
-							  </mat-expansion-panel-header>
-								<mat-list>
 
 
-									<!-- <mat-list-item  > 
-												<button routerLink="/prefinish/database" routerLinkActive="mat-list-item-button-active" mat-button>Powder Processing</button>
-										</mat-list-item> -->
-										<mat-list-item  > 
-												<button routerLink="/honing" routerLinkActive="mat-list-item-button-active" mat-button>Prefinish Hone</button>
-										</mat-list-item>
-									<!-- 	<mat-list-item  > 
-												<button routerLink="/slip/database" routerLinkActive="mat-list-item-button-active" mat-button>Slip Creation</button>
-										</mat-list-item> -->
-										<!-- <mat-list-item  > 
-											<button routerLink="/tapecast/database" routerLinkActive="mat-list-item-button-active" mat-button>Tape Casting</button>
-										</mat-list-item> -->
-										<mat-list-item  > 
-											<button  mat-button> 
-												<a style="color:inherit !important; width:100%; text-decoration: inherit !important;" 	target="_blank" href="http://old.edm.quantiam.com/#!/slip/database"> </a>
-												Slip Creation
-											</button>
-										
-										</mat-list-item>
-										 <mat-list-item  > 
-											<button  mat-button> 
-												<a style="color:inherit !important; text-decoration: inherit !important;" 	target="_blank" href="http://old.edm.quantiam.com/#!/slipcast/database">Slip Casting</a>
-											</button>
-										
-										</mat-list-item>
-
-										<mat-list-item  > 
-											<button  mat-button> 
-												<a style="color:inherit !important; text-decoration: inherit !important;" 	target="_blank" href="http://old.edm.quantiam.com/#!/furnacerun/database">Furnace Runs</a>
-											</button>
-										
-										</mat-list-item>
-
-
-										<mat-list-item  > 
-											<button routerLink="/prefinish/database" routerLinkActive="mat-list-item-button-active" mat-button>Post Hone</button>
-									</mat-list-item>
-
-									
-									<!--	<mat-list-item  > 
-												<button routerLink="/furnace/run/database" routerLinkActive="mat-list-item-button-active" mat-button>Furnace Runs</button>
-										</mat-list-item>
-										<mat-list-item  > 
-												<button routerLink="/shipment/database" routerLinkActive="mat-list-item-button-active" mat-button>Shipping</button>
-										</mat-list-item> -->
-									
-										   
-								</mat-list>
-						</mat-expansion-panel>
-				
 						<mat-divider></mat-divider>
 						<mat-expansion-panel expanded="true" >
 							  <mat-expansion-panel-header [expandedHeight]="'32px'" [collapsedHeight]="'32px'">
@@ -346,66 +286,75 @@
 								</mat-list>  
 						</mat-expansion-panel>
 					
+
 						
-					
-
-
-						<mat-divider style="display:none"></mat-divider>
-						<mat-expansion-panel expanded="true" style="display:none">
-								 <mat-expansion-panel-header [expandedHeight]="'32px'" [collapsedHeight]="'32px'">
-								
-								
+						<mat-divider  ></mat-divider>
+						<mat-expansion-panel  expanded="true" >
+							  <mat-expansion-panel-header [expandedHeight]="'32px'" [collapsedHeight]="'32px'">
 								<mat-panel-title>
-									Operations
+								    Manufacturing
 								</mat-panel-title>
 								
 							  </mat-expansion-panel-header>
 								<mat-list>
-								 <mat-list-item  > 
-										 <button routerLinkActive="mat-list-item-button-active" mat-button>Receiving</button>
-								</mat-list-item>
-									 <mat-list-item  > 
-										 <button routerLinkActive="mat-list-item-button-active" mat-button>Surface Finishing</button>
-								</mat-list-item>
-								<mat-list-item  > 
-										 <button routerLinkActive="mat-list-item-button-active" mat-button>Powder Processing</button>
-								</mat-list-item>
-								<mat-list-item  > 
-										 <button routerLinkActive="mat-list-item-button-active" mat-button>Slip Making</button>
-								</mat-list-item>
-								<mat-list-item  > 
-										 <button routerLinkActive="mat-list-item-button-active" mat-button>Slip Casting</button>
-								</mat-list-item>
-								 <mat-list-item  > 
-										 <button routerLinkActive="mat-list-item-button-active" mat-button>Furnace Runs</button>
-										<!--  <mat-list>
-												<div>
-													<mat-list-item  > 														
-																<button routerLinkActive="mat-list-item-button-active" mat-button>Runs</button>											
-													</mat-list-item>
-												</div>
-												<div>
-												<mat-list-item > 														
-															<button routerLinkActive="mat-list-item-button-active" mat-button>Profiles</button>											
-												</mat-list-item>
-												</div>
-												<div>
-												<mat-list-item > 														
-															<button routerLinkActive="mat-list-item-button-active" mat-button>Insights</button>											
-												</mat-list-item>
-												</div>
-										 </mat-list> -->
-								</mat-list-item>
-									 <mat-list-item  > 
-										 <button routerLinkActive="mat-list-item-button-active" mat-button>Shipping</button>
-								</mat-list-item>
-								
-								
-								</mat-list>
-						</mat-expansion-panel>
-						
+
+
+									<!-- <mat-list-item  > 
+												<button routerLink="/prefinish/database" routerLinkActive="mat-list-item-button-active" mat-button>Powder Processing</button>
+										</mat-list-item> -->
+										<mat-list-item *ngIf="userService.hasPermission(38)" > 
+												
+												<button routerLink="/honing" routerLinkActive="mat-list-item-button-active" mat-button> <p>Honing</p>								   
+													<fa-icon  [icon]="faExclamationCircle" ></fa-icon>
+												</button>
+										</mat-list-item>
+									<!-- 	<mat-list-item  > 
+												<button routerLink="/slip/database" routerLinkActive="mat-list-item-button-active" mat-button>Slip Creation</button>
+										</mat-list-item> -->
+										<!-- <mat-list-item  > 
+											<button routerLink="/tapecast/database" routerLinkActive="mat-list-item-button-active" mat-button>Tape Casting</button>
+										</mat-list-item> -->
+										<mat-list-item  > 
+											<button  mat-button> 
+												<a style="color:inherit !important; width:100%; text-decoration: inherit !important;" 	target="_blank" href="http://old.edm.quantiam.com/#!/slip/database"> </a>
+												Slip Creation
+											</button>
+										
+										</mat-list-item>
+										 <mat-list-item  > 
+											<button  mat-button> 
+												<a style="color:inherit !important; text-decoration: inherit !important;" 	target="_blank" href="http://old.edm.quantiam.com/#!/slipcast/database">Slip Casting</a>
+											</button>
+										
+										</mat-list-item>
+
+										<mat-list-item  > 
+											<button routerLink="/furnace/run/database" routerLinkActive="mat-list-item-button-active" mat-button> <p>Furnace Runs</p>								   
+												<fa-icon  [icon]="faExclamationCircle" ></fa-icon>
+											</button>
+										
+										</mat-list-item>
+										
+
 
 									
+
+									
+									<!--	<mat-list-item  > 
+												<button routerLink="/furnace/run/database" routerLinkActive="mat-list-item-button-active" mat-button>Furnace Runs</button>
+										</mat-list-item>
+										<mat-list-item  > 
+												<button routerLink="/shipment/database" routerLinkActive="mat-list-item-button-active" mat-button>Shipping</button>
+										</mat-list-item> -->
+									
+										   
+								</mat-list>
+						</mat-expansion-panel>
+				
+					
+						
+					
+
 					
 
 						<mat-divider style="display:none"></mat-divider>

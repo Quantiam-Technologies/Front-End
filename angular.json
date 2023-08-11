@@ -41,19 +41,23 @@
               "src/assets/css/tablecloth.css",
               "node_modules/handsontable/dist/handsontable.full.min.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/jqwidgets-ng/jqwidgets/styles/jqx.base.css",          
-              "src/styles.css"
+              "node_modules/jqwidgets-ng/jqwidgets/styles/jqx.base.css",
+              "node_modules/select2/dist/css/select2.min.css",            
+              "src/styles.css",
+              "src/assets/css/overrides.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/moment/min/moment.min.js",         
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/select2/dist/js/select2.min.js"
             ],            
             "allowedCommonJsDependencies": [
               "highcharts",
               "core-js",
               "lodash",
-              "moment"
+              "moment",
+              "file-saver"
            ]
           },
           "configurations": {

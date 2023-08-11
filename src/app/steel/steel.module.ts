@@ -12,6 +12,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MaterialDesignModule } from '../material-design/material-design.module';
 import { SteelTypeComponent } from './steel-type/steel-type.component';
 import { SteelTypeDatabaseComponent } from './steel-type-database/steel-type-database.component';
+import { AgGridSteelActionsDisplayComponent } from './steel-database/ag-grid-steel-actions-display/ag-grid-steel-actions-display.component';
 
 
 const routes: Routes = [
@@ -55,6 +56,6 @@ const routes: Routes = [
     MaterialDesignModule,
     RouterModule.forChild(routes),
   ],
-  declarations: [SteelIndexComponent, SteelDatabaseComponent, SteelViewComponent, SteelCreationDialogComponent, SteelReworkDialogComponent, SteelTypeComponent, SteelTypeDatabaseComponent]
+  declarations: [SteelIndexComponent, SteelDatabaseComponent, SteelViewComponent, SteelCreationDialogComponent, SteelReworkDialogComponent, SteelTypeComponent, SteelTypeDatabaseComponent, AgGridSteelActionsDisplayComponent]
 })
 export class SteelModule { }

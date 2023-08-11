@@ -15,7 +15,7 @@
 			
 				
 				
-				<mat-form-field  fxFlex="20">
+				<mat-form-field  fxFlex="10">
 							<input  #EmployeeID 
 							(change)="updateUser(EmployeeID)"
 							[disabled]="!editUser" 
@@ -40,7 +40,7 @@
 							name="prefix"
 					> </mat-form-field >
 				
-				<mat-form-field  fxFlex="30%">
+				<mat-form-field fxFlex >
 							<input  #FirstName 
 							(change)="updateUser(FirstName)"
 							[disabled]="!editUser || !user.employeeid" 
@@ -51,7 +51,7 @@
 							name="firstname"
 					>
 				</mat-form-field >
-					<mat-form-field  fxFlex>
+					<mat-form-field fxFlex >
 							<input  #LastName 
 							(change)="updateUser(LastName)"
 							[disabled]="!editUser || !user.employeeid" 
@@ -64,7 +64,20 @@
 					</mat-form-field >
 			
 				
-			
+					<mat-form-field  fxFlex="15" >
+						<mat-select 	
+						placeholder="Employee Type" 
+						(selectionChange)="updateUser($event)"
+						[disabled]="!editUser || !user.employeeid" 
+						[(ngModel)] ='user.compensation'
+											
+						>
+								<mat-option value="Salary">Salary</mat-option>
+								<mat-option value="Hourly">Hourly</mat-option>
+								<mat-option value="Temporary">Contract/Temporary</mat-option>
+							  </mat-select>
+
+				</mat-form-field>
 					
 				
 			
@@ -117,7 +130,7 @@
 							disabled
 							type="text" 
 							matInput 
-							placeholder="Phone" 
+							placeholder="Direct Line (Phone)" 
 							[(ngModel)] ='user.direct_line'
 							[disabled]="!editUser || !user.employeeid" 
 							name="direct_line"
@@ -144,22 +157,9 @@
 				
 					 
 
-				<!-- 	<mat-form-field   style="width:150px" >
-							<mat-select 	
-							placeholder="Employee Type" 
-							(selectionChange)="updateUser($event)"
-							[disabled]="!editUser || !user.employeeid" 
-							[(ngModel)] ='user.compensation'
-												
-							>
-									<mat-option value="Salary">Salary</mat-option>
-									<mat-option value="Hourly">Hourly</mat-option>
-									<mat-option value="Temporary">Contract/Temporary</mat-option>
-								  </mat-select>
-
-					</mat-form-field>
+				 	
 			
-					<mat-form-field fxFlex>
+				<!--	<mat-form-field fxFlex>
 								<input  #Title 
 								(change)="updateUser(Title)"
 								[disabled]="!editUser || !user.employeeid" 

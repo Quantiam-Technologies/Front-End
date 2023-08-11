@@ -1,7 +1,6 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
 
-import { SlickCarouselModule } from 'ngx-slick-carousel';
 
 
 import { CommonModule } from '@angular/common';
@@ -97,8 +96,8 @@ import { jqxTabsModule } from 'jqwidgets-ng/jqxtabs';
         NgxFileDropModule ,
         NgbModule,
         CKEditorModule,
-        SlickCarouselModule,
-        HighchartsChartModule,
+        
+        
         ReactiveFormsModule,
         jqxButtonModule, jqxWindowModule, jqxCheckBoxModule, jqxTabsModule
     ],
@@ -156,7 +155,8 @@ import { jqxTabsModule } from 'jqwidgets-ng/jqxtabs';
         SelectSampleComponent,
         SelectTgarunComponent,
         SelectPermissionComponent,
-        SelectSteelComponent,
+        SelectSteelComponent,        
+        SelectSteelTypeComponent,
         SelectHazardComponent,
         SelectLocationComponent,
         SelectMaterialLotComponent,
@@ -169,7 +169,7 @@ import { jqxTabsModule } from 'jqwidgets-ng/jqxtabs';
         NgbModule,
         CommentsComponent,
         LogsComponent,
-        SlickCarouselModule,
+        
         SafePipe,
         ReactiveFormsModule,
         NgSelectModule,

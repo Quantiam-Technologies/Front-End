@@ -77,6 +77,11 @@ const routes: Routes = [
 			// 	pathMatch: 'prefix',
 			},
 			{
+				path: 'furnace',
+				loadChildren: () => import('../furnace/furnace.module').then(m => m.FurnaceModule),
+			// 	pathMatch: 'prefix',
+			},
+			{
 				path: 'xps',
 				loadChildren: () => import('../xps/xps.module').then(m => m.XpsModule),
 			// 	pathMatch: 'prefix',
