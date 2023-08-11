@@ -6,6 +6,9 @@ import { NotificationsService } from 'angular2-notifications';
 
 import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 
+
+import {  AgGridSteelActionsDisplayComponent } from './ag-grid-steel-actions-display/ag-grid-steel-actions-display.component'; 
+
 import { Router } from '@angular/router';
 
 import { AllModules  } from '@ag-grid-enterprise/all-modules';
@@ -19,10 +22,29 @@ import { SteelCreationDialogComponent } from '../steel-creation-dialog/steel-cre
 })
 export class SteelDatabaseComponent implements OnInit {
 
-  constructor(  private dialog: MatDialog, private http: HttpClient, private notification: NotificationsService, private router: Router) { }
+  constructor(  private dialog: MatDialog, private http: HttpClient, private notification: NotificationsService, private router: Router) {
 
-  gridApi;
+
+    this.gridOptions = {
+      rowSelection: 'single',
+      cacheBlockSize: 20,
+      enableRangeSelection: true,
+      // maxBlocksInCache: 2,
+     // enableServerSideFilter: false,
+     // enableServerSideSorting: false,
+      rowModelType: 'serverSide',
+      serverSideStoreType: 'partial',
+      pagination: true,
+      maxConcurrentDatasourceRequests: 1,
+      paginationPageSize: 20,
+      // paginationAutoPageSize: true
+    };
+
+   }
+
+    gridApi;
    gridColumnApi;
+   gridOptions;
 
    pageSizes = [20, 25, 50, 100];
 
@@ -34,17 +56,19 @@ export class SteelDatabaseComponent implements OnInit {
    cacheBlockSize;
 
    filteredCampaign = '';
+   filteredSteelTypeId = '';
    filteredTextFilterName = '';
    timeoutTextFilter;
 
    totalRows;
 
-   frameworkComponents = {
+   frameworkComponents = {    
+    steelActionsContainerDisplay: AgGridSteelActionsDisplayComponent,
   };
 
   columnDefs = [
     {
-      headerName: '',
+      headerName: 'Code',
       field: 'datamatrix',
       width: 30,
       cellRenderer: (cell) => {
@@ -60,38 +84,68 @@ export class SteelDatabaseComponent implements OnInit {
     {
       headerName: 'ID',
       field: 'id',
-      width: 40,
+      width: 35,
       cellRenderer: (cell) => {
 
-        return '<b>'+ cell.data.id + '</b>';
+        return ''+ cell.data.id + '';
       }
     },
     {
       headerName: 'Name',
       field: 'heat_id',
       width: 100,
+      cellRenderer: (cell) => {
+
+        var string = '<b>'+ cell.data.heat_id + '</b>';
+        if(cell.data.cut) string = string+' C'+cell.data.cut;
+        return string; 
+      }
     },    
     {
       headerName: 'Cut',
       field: 'cut',
-      width: 40,
-    },
-    
-    {
-      headerName: 'Reworked',
-      field: 'rework',
-      width: 40,
+      width: 35,
       hide:true,
     },
+    
     {
       headerName: 'Steel Type',
       field: 'steel_type.part_name',
       width: 100,
     },  
     {
-      headerName: 'Length (mm)',
+      headerName: 'Metallurgy',
+      field: 'steel_type.metallurgy',
+      width: 60,
+    },
+    {
+      headerName: 'Manufacturer',
+      field: 'steel_type.manufacturer',
+      width: 60,
+      hide:true,
+    },
+   
+    {
+      headerName: 'Campaign',
+      field: 'campaign.campaign_name',
+      width: 80,
+    },
+    
+    {
+      headerName: 'Reworks',
+      field: 'rework',
+      width: 45,
+      //hide:true,
+    },
+    {
+      headerName: 'OG Len (mm)',
       field: 'steel_type.length',
-      width: 40,
+      width: 80,
+    },
+    {
+      headerName: 'Shipped Len (mm)',
+      field: 'steel_type.length_shipped',
+      width: 80,
     },
 
     {
@@ -100,23 +154,7 @@ export class SteelDatabaseComponent implements OnInit {
       width: 60,
       hide:true,
     },
-    {
-      headerName: 'Manufacturer',
-      field: 'steel_type.manufacturer',
-      width: 60,
-     // hide:true,
-    },
-    {
-      headerName: 'Metallurgy',
-      field: 'steel_type.metallurgy',
-      width: 60,
-      //hide:true,
-    },
-    {
-      headerName: 'Campaign',
-      field: 'campaign.campaign_name',
-      width: 80,
-    },
+    
     
     {
       headerName: 'Hold',
@@ -138,7 +176,8 @@ export class SteelDatabaseComponent implements OnInit {
     },    
     {
       headerName: 'Actions',
-      width: 40,
+      width: 60,
+      cellRenderer: 'steelActionsContainerDisplay',
     },
   ];
 
@@ -153,19 +192,7 @@ export class SteelDatabaseComponent implements OnInit {
     }
    };
 
-  gridOptions = {
-    rowSelection: 'single',
-    cacheBlockSize: 20,
-    enableRangeSelection: true,
-    // maxBlocksInCache: 2,
-   // enableServerSideFilter: false,
-   // enableServerSideSorting: false,
-    rowModelType: 'serverSide',
-    pagination: true,
-    maxConcurrentDatasourceRequests: 1,
-     paginationPageSize: 20,
-    // paginationAutoPageSize: true
-  };
+ 
 
 
   ngOnInit() {
@@ -194,7 +221,8 @@ export class SteelDatabaseComponent implements OnInit {
         .append('limit', `${this.gridOptions.cacheBlockSize}`)
         .append('like', `${this.filteredTextFilterName}`)
         .append('page', `${page}`)
-        .append('campaign', `${this.filteredCampaign}`);
+        .append('steel_type_id', `${this.filteredSteelTypeId}`)
+        .append('campaign_id', `${this.filteredCampaign}`);
        // .append('type', `${this.filteredSemrun}`);
 
 
@@ -202,6 +230,7 @@ export class SteelDatabaseComponent implements OnInit {
 
               params2.successCallback(response.data, response.total);
               this.totalRows = response.total;
+              
               this.gridApi.sizeColumnsToFit();
             //  console.log(params2);
           });
@@ -251,6 +280,12 @@ export class SteelDatabaseComponent implements OnInit {
 
       this.refreshDatabase();
     })
+  }
+
+
+  filterCampaign(event) {
+    if (event) {  this.filteredCampaign = event.id; } else { this.filteredCampaign = ''; }
+      this.refreshDatabase();
   }
 
 

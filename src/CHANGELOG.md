@@ -3,23 +3,6 @@ Change Log
 
 # Known Issues, To do List
 
-#Tapecast App
-- Make Beakers work
-- Steps Tapecast
-
-#Tile Creation App
-
-
-#QAQC
-
-- Non conformance thin square tiles
-- Non conformance concavity 
-- Genearte Barcodes for existing tiles
-   
-- Force recalculation of weekly overhours after an RTO request for the given weeks.
-- Overtime hours should update after a hours change. 
-
-
 ### Known Issues
 
 - Material Supplier dropdown, does not clear properly when declining to create a new tag.
@@ -37,6 +20,36 @@ Change Log
 - Active / Inactive filter for Employee Screen
 - Material Container Creation Rework ---- Supplier -> Select Material From List  , reduce duplicate Materials
 
+
+# 2023.08.11
+
+## New
+
+- Steel Database screen now replicates functionality from old website. 
+- Furnace runs now integrate information from the Q: Drive
+
+## Fixes
+
+- 
+
+
+
+# 2323.07.27
+
+## New 
+
+- Campaign dashboards, first iterations of produced steel and throughput now visible on the front page
+- First iteration of the steel screen now works at directory steel/{id} 
+- List of Campaign reworks on the dashboard.
+
+## Fixes 
+
+- Steel campaign filter now works. 
+- Steel databse can now navigate beyond the first 20 rows. 
+
+## Issues 
+
+- Campaign status graph doesn't subtract reworks yet
 
 
 # 2023.06.28
