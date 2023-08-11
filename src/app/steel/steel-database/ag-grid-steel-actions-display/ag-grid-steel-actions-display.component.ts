@@ -5,6 +5,10 @@ import { HttpClient } from '@angular/common/http';
 import {  environment} from '../../../../environments/environment';
 import {ICellRendererAngularComp} from '@ag-grid-community/angular';
 
+import { SteelReworkDialogComponent } from '../../steel-rework-dialog/steel-rework-dialog.component';
+
+import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+
 import { faFileExcel,faArrowRotateLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -22,6 +26,7 @@ export class AgGridSteelActionsDisplayComponent implements ICellRendererAngularC
   constructor(
     private http: HttpClient,    
     private _FileSaverService: FileSaverService,
+    private dialog: MatDialog, 
     ){ }
 
   refresh() {
@@ -47,8 +52,28 @@ export class AgGridSteelActionsDisplayComponent implements ICellRendererAngularC
 
   }
 
+ 
+
     ngOnDestroy() {
 
+    }
+
+
+    displayReworkDialog(params)
+    {
+  
+      const dialogRef = this.dialog.open(SteelReworkDialogComponent, {
+        width: '600px',
+        position: {'top':'10px'},
+        data: params.data,
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+  
+  
+          //  this.refreshDatabase();  ?? 
+          console.log(result);
+      })
     }
 
 }

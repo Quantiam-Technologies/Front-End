@@ -155,7 +155,8 @@ import { jqxTabsModule } from 'jqwidgets-ng/jqxtabs';
         SelectSampleComponent,
         SelectTgarunComponent,
         SelectPermissionComponent,
-        SelectSteelComponent,        
+        SelectSteelComponent,
+        
         SelectSteelTypeComponent,
         SelectHazardComponent,
         SelectLocationComponent,

@@ -1,12 +1,13 @@
 
 
 
+<div fxLayout="row" fxLayoutGap="5px">
+    <button mat-raised-button class="mat-small" matTooltip="Download Printable Traveller"  color="primary"   > 
+        <fa-icon (click)="printTraveller(params)"  [icon]="faFileExcel" ></fa-icon>
 
-<button  mat-button class="mat-small" color="accent"> 
-    <fa-icon (click)="printTraveller(params)"  [icon]="faFileExcel" ></fa-icon>
+    </button>
 
- </button>
-
-  <button  mat-button class="mat-small" color="accent"> 
-    <fa-icon "  [icon]="faArrowRotateLeft" ></fa-icon>    
-</button> 
+    <button  mat-raised-button (click)="displayReworkDialog(params)" class="mat-small" style="background-color: rgb(255, 255, 255); color:rgb(255, 0, 0);" matTooltip="Reework this steel."> 
+        <fa-icon   [icon]="faArrowRotateLeft" ></fa-icon>    
+    </button> 
+</div> 

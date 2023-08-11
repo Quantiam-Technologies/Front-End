@@ -265,19 +265,18 @@ export class SteelDatabaseComponent implements OnInit {
     
   }
 
-  createSteel()
+  createSteelDialog()
   {
 
     const dialogRef = this.dialog.open(SteelCreationDialogComponent, {
       width: '600px',
       position: {'top':'10px'},
       //data: car,
-      disableClose: true,
     });
 
     dialogRef.afterClosed().subscribe(result => {
 
-
+      console.log(result);
       this.refreshDatabase();
     })
   }
@@ -288,6 +287,13 @@ export class SteelDatabaseComponent implements OnInit {
       this.refreshDatabase();
   }
 
+
+  
+  printTraveller(steel_id){
+    this.http.get(environment.apiUrl + '/steel/'+steel_id+'/traveller',).subscribe((r:any) => {
+      window.location.assign(r.url);    
+    });
+  }
 
 
   
