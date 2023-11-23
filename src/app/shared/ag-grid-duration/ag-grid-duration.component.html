@@ -2,10 +2,12 @@
   
   <mat-form-field style="width:100px;">
     <input matInput  name="duration_hours" placeholder="Hours" [(ngModel)]="hours"  type="number" max='23' min=0>
+    <mat-label>Hours</mat-label>
   </mat-form-field>
 
   <mat-form-field  style="width:100px;">
     <input  matInput #durationMinutes name="duration_minutes" placeholder="Minutes" [(ngModel)]="minutes"  type="number" max='59' min=0   >
+    <mat-label>Minutes</mat-label>
   </mat-form-field>
  
 
