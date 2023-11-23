@@ -15,7 +15,7 @@
         style="width: 500px; height: 150px;"
         class="ag-theme-balham"
         [rowData]="unpaidRowData"    
-        [modules]="modules"
+         
         (gridReady)="onunpaidGridReady($event)"
         [columnDefs]="unpaidColumnDefs">
         </ag-grid-angular>
@@ -37,7 +37,7 @@
     style="width: 500px; height: 150px;"
     class="ag-theme-balham"    
     (gridReady)="onctoGridReady($event)"
-    [modules]="modules"
+     
     [rowData]="CTOCreditedRowData"
     [columnDefs]="CTOCreditedColumnDefs">
     </ag-grid-angular>
