@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateRtoDialogComponent } from '../create-rto-dialog/create-rto-dialog.component';
 
-import { AllModules  } from '@ag-grid-enterprise/all-modules';
+ 
 import {environment} from '../../../environments/environment';
 import * as moment from 'moment';
 
@@ -23,7 +23,7 @@ export class TimesheetRtoComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
 
-  modules = AllModules;
+   
   private pageSizes = [10, 20, 25, 50, 100, 200];
 
    showSubordinatesOnly = true;

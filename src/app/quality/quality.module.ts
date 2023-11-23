@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule  } from '@angular/router';
 
 import { HighchartsChartModule } from 'highcharts-angular';
-import { AgGridModule } from '@ag-grid-community/angular';
+import { AgGridModule } from 'ag-grid-angular';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialDesignModule } from '../material-design/material-design.module';
 import { NcrDatabaseComponent } from './ncr-database/ncr-database.component';
@@ -58,7 +58,7 @@ const routes: Routes = [
     MaterialDesignModule,
     SharedModule,
     HighchartsChartModule,
-  	AgGridModule.withComponents([]),
+  	AgGridModule,
   ]
 })
 export class QualityModule { }

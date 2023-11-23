@@ -6,7 +6,7 @@ import {  HttpClient} from '@angular/common/http';
 import { UserService } from '../../services/user/user.service';
 import { TimesheetService } from '../timesheet.service';
 
-import { AllModules  } from '@ag-grid-enterprise/all-modules';
+ 
 
 
 
@@ -33,7 +33,7 @@ export class TimesheetComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
 
-  modules = AllModules;
+   
   public rowData = [];
 
   timesheetStartYear = 2014;

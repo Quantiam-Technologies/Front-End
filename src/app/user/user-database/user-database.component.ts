@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { Router } from '@angular/router';
 
-import { AllModules  } from '@ag-grid-enterprise/all-modules';
+ 
 @Component({
   selector: 'app-user-database',
   templateUrl: './user-database.component.html',
@@ -19,7 +19,7 @@ export class UserDatabaseComponent implements OnInit {
    active_filter = '1';
    searchBarValue: string;
 
-   modules = AllModules;
+    
 
 
 

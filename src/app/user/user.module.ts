@@ -5,7 +5,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MaterialDesignModule } from '../material-design/material-design.module';
 
 import { HighchartsChartModule } from 'highcharts-angular';
-import { AgGridModule } from '@ag-grid-community/angular';
+import { AgGridModule } from 'ag-grid-angular';
 
 import { UserRoutingModule } from './user-routing.module';
 import { UserIndexComponent } from './user-index/user-index.component';
@@ -24,7 +24,7 @@ import { UserHierarchyComponent } from './user-hierarchy/user-hierarchy.componen
     MaterialDesignModule,
     SharedModule,
     HighchartsChartModule,
-	AgGridModule.withComponents([]),
+	AgGridModule,
   ],
   declarations: [UserIndexComponent, UserViewComponent, UserViewPermissionsComponent, UserViewKeycardComponent, UserViewMachinesComponent, UserDatabaseComponent, UserHierarchyComponent],
    // schemas:[NO_ERRORS_SCHEMA]

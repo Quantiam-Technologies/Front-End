@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AgGridModule } from '@ag-grid-community/angular';
+import { AgGridModule } from 'ag-grid-angular';
 import { MaterialDesignModule } from '../material-design/material-design.module';
 import { XpsRoutingModule } from './xps-routing.module';
 import { XpsIndexComponent } from './xps-index/xps-index.component';
@@ -13,7 +13,7 @@ import { XpsDatabaseComponent } from './xps-database/xps-database.component';
   //  ChartModule,
    XpsRoutingModule,
    MaterialDesignModule,
-   AgGridModule.withComponents([]),
+   AgGridModule,
   ],
   declarations: [XpsIndexComponent,  XpsViewComponent, XpsDatabaseComponent]
 })

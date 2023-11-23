@@ -8,7 +8,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 
 import { NgxFileDropModule  } from 'ngx-file-drop';
-import { AgGridModule } from '@ag-grid-community/angular';
+import { AgGridModule } from 'ag-grid-angular';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -80,14 +80,7 @@ import { jqxTabsModule } from 'jqwidgets-ng/jqxtabs';
 
 @NgModule({
     imports: [
-        AgGridModule.withComponents([
-            AgGridSelectProjectEditorComponent, AgGridSelectUserComponent,AgGridDurationComponent,
-              AgGridSemTypeComponent, 
-             AgGridSemContainerSteelCellDisplayComponent, AgGridSemContainerSteelEditComponent,AgGridParticlePdfComponent,DisplayAnalysisCellComponent,
-             XrdAnalysesFileRendererComponent,AgGridTimesheetValueEditorComponent
-             
-             
-            ]),
+        AgGridModule,
         CommonModule,
         NgSelectModule,
         FormsModule,
@@ -96,8 +89,6 @@ import { jqxTabsModule } from 'jqwidgets-ng/jqxtabs';
         NgxFileDropModule ,
         NgbModule,
         CKEditorModule,
-        
-        
         ReactiveFormsModule,
         jqxButtonModule, jqxWindowModule, jqxCheckBoxModule, jqxTabsModule
     ],
@@ -144,6 +135,7 @@ import { jqxTabsModule } from 'jqwidgets-ng/jqxtabs';
         SelectSteelTypeComponent,
     ],
     exports: [
+        AgGridModule,
         SelectArbinTestComponent,
         SelectMaterialSupplierComponent,
         SelectMaterialComponent,
@@ -155,8 +147,7 @@ import { jqxTabsModule } from 'jqwidgets-ng/jqxtabs';
         SelectSampleComponent,
         SelectTgarunComponent,
         SelectPermissionComponent,
-        SelectSteelComponent,
-        
+        SelectSteelComponent,        
         SelectSteelTypeComponent,
         SelectHazardComponent,
         SelectLocationComponent,
@@ -164,13 +155,11 @@ import { jqxTabsModule } from 'jqwidgets-ng/jqxtabs';
         SelectCampaignComponent,
         MiniXrdComponent,
         MiniSemComponent,
-        NgxFileDropModule ,
-        AgGridModule,
+        NgxFileDropModule,
         PopUpSteelCardComponent,
         NgbModule,
         CommentsComponent,
-        LogsComponent,
-        
+        LogsComponent,        
         SafePipe,
         ReactiveFormsModule,
         NgSelectModule,

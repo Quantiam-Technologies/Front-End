@@ -11,7 +11,7 @@ import {  AgGridSteelActionsDisplayComponent } from './ag-grid-steel-actions-dis
 
 import { Router } from '@angular/router';
 
-import { AllModules  } from '@ag-grid-enterprise/all-modules';
+ 
 
 import { SteelCreationDialogComponent } from '../steel-creation-dialog/steel-creation-dialog.component';
  
@@ -48,7 +48,7 @@ export class SteelDatabaseComponent implements OnInit {
 
    pageSizes = [20, 25, 50, 100];
 
-   modules = AllModules;
+    
    rowData: [];
    rowModelType;
    rowSelection;

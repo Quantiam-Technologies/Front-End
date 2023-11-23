@@ -9,7 +9,7 @@ import { SampleCreationDialogComponent } from '../sample-creation-dialog/sample-
 import { MatDialog } from '@angular/material/dialog';
 
 
-import { AllModules  } from '@ag-grid-enterprise/all-modules';
+ 
 
 @Component({
   selector: 'app-sample-database',
@@ -32,7 +32,7 @@ export class SampleDatabaseComponent implements OnInit {
    icons;
    cellOldValue;
 
-   modules = AllModules;
+    
 
    sampleTypeList: any[] = ['5 % H2 Treatment (furnace)', 'Sintered Pellet', 'Carbon Impregnation', 'Post Cracking', 'Pellet Reduction', 'Carbon Physical Mixture'];
 

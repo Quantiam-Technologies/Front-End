@@ -17,7 +17,7 @@ import { AgGridSemContainerSteelEditComponent } from './ag-grid-sem-container-st
 
 import { SettingsService } from '../../services/settings/settings.service';
 
-import { AllModules  } from '@ag-grid-enterprise/all-modules';
+ 
 
 @Component({
   selector: 'app-sem-database',
@@ -28,7 +28,7 @@ export class SemDatabaseComponent implements OnInit {
 
    gridApi;
    gridColumnApi;
-   modules = AllModules;
+    
    pageSizes = [20, 25, 50, 100, 200];
 
 

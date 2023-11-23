@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { SharedModule } from '../shared/shared.module';
 import { MaterialDesignModule } from '../material-design/material-design.module';
-import { AgGridModule } from '@ag-grid-community/angular';
+import { AgGridModule } from 'ag-grid-angular';
 
 import { SampleRoutingModule } from './sample-routing.module';
 import { SampleIndexComponent } from './sample-index/sample-index.component';
@@ -24,7 +24,7 @@ import { SampleCreationDialogComponent } from './sample-creation-dialog/sample-c
         FlexLayoutModule,
         SharedModule,
         MaterialDesignModule,
-        AgGridModule.withComponents([]),
+        AgGridModule,
     ],
     declarations: [SampleIndexComponent, SampleListComponent, SampleFormComponent, SampleDatabaseComponent, SgxScaleAuthComponent, SampleViewComponent, SampleCreationDialogComponent]
 })

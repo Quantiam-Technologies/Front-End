@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {  environment} from '../../../environments/environment';
-import { AllModules  } from '@ag-grid-enterprise/all-modules';
+ 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
@@ -16,7 +16,7 @@ export class TapecastDatabaseComponent implements OnInit {
   private gridColumnApi;
    rowData: any = [{}, {}];
 
-   modules = AllModules;
+    
 
    rowModelType;
    rowSelection;

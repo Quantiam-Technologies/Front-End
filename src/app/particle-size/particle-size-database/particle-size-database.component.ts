@@ -15,7 +15,7 @@ import { AgGridParticlePdfComponent } from './ag-grid-particle-pdf/ag-grid-parti
 
 import { SettingsService } from '../../services/settings/settings.service';
 
-import { AllModules  } from '@ag-grid-enterprise/all-modules';
+ 
 
 @Component({
   selector: 'app-particle-size-database',
@@ -26,7 +26,7 @@ export class ParticleSizeDatabaseComponent implements OnInit {
 
   gridApi;
   gridColumnApi;
-  modules = AllModules;  
+     
   pageSizes = [20, 25, 50, 100, 200];
 
   totalRows;
