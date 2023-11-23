@@ -5,9 +5,6 @@ import { Observable, of , forkJoin } from 'rxjs';
 //import { debounce } from 'lodash';
 import { debounce } from 'lodash-es';
 import { map, tap } from 'rxjs/operators';
-import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
-import { MasterDetailModule } from '@ag-grid-enterprise/master-detail';
-
 import { NotificationsService } from 'angular2-notifications';
 
 
@@ -36,9 +33,6 @@ export class ThreedmodelDatabaseComponent implements OnInit {
     private loading: boolean = false;
 
     searchResults$: Observable < any > ;
-    modules = [ClientSideRowModelModule,
-        MasterDetailModule,
-    ];
 
     columnDefs:any = [
 

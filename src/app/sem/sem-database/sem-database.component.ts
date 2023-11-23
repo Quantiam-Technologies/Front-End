@@ -15,6 +15,8 @@ import { AgGridDurationComponent } from '../../shared/ag-grid-duration/ag-grid-d
 import { AgGridSemContainerSteelCellDisplayComponent } from './ag-grid-sem-container-steel-cell-display/ag-grid-sem-container-steel-cell-display.component';
 import { AgGridSemContainerSteelEditComponent } from './ag-grid-sem-container-steel-edit/ag-grid-sem-container-steel-edit.component';
 
+import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
+
 import { SettingsService } from '../../services/settings/settings.service';
 
  
@@ -31,6 +33,10 @@ export class SemDatabaseComponent implements OnInit {
     
    pageSizes = [20, 25, 50, 100, 200];
 
+
+      public modules: any[] = [
+        ServerSideRowModelModule 
+    ];
 
    columnDefs;
    defaultColDef;
@@ -55,7 +61,7 @@ export class SemDatabaseComponent implements OnInit {
    filteredSemrun = '';
    timeoutTextFilter;
 
-   frameworkComponents;
+   components;
 
    totalRows;
 
@@ -274,7 +280,7 @@ export class SemDatabaseComponent implements OnInit {
         // paginationAutoPageSize: true
       };
 
-      this.frameworkComponents = {
+      this.components = {
         projectEditor: AgGridSelectProjectEditorComponent,
         userEditor: AgGridSelectUserComponent,
         typeEditor: AgGridSemTypeComponent,

@@ -153,7 +153,7 @@ export class TimesheetMachinesComponent implements OnInit {
     if (confirm('Are you sure you want to create a new machine?')) {
 
       this.http.post(environment.apiUrl + `/machine`, null).subscribe((r: any) => {
-        this.hotRegisterer.getInstance('id').alter('insert_row', 0);
+        this.hotRegisterer.getInstance('id').alter('insert_row_above', 0);
         this.hotRegisterer.getInstance('id').setDataAtCell(0, 0, r.id );
       });
     }

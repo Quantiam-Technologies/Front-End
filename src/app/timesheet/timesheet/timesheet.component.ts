@@ -13,8 +13,9 @@ import { TimesheetService } from '../timesheet.service';
 import { NotificationsService } from 'angular2-notifications';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
-
 import { AgGridTimesheetValueEditorComponent } from './ag-grid-timesheet-value-editor/ag-grid-timesheet-value-editor.component';
+import { RowGroupingModule } from '@ag-grid-enterprise/row-grouping';
+import { RangeSelectionModule } from '@ag-grid-enterprise/range-selection';
 
 import * as moment from 'moment';
 
@@ -32,6 +33,11 @@ export class TimesheetComponent implements OnInit {
 
   private gridApi;
   private gridColumnApi;
+
+  public modules: any[] = [
+    RowGroupingModule,
+    RangeSelectionModule
+];
 
    
   public rowData = [];
@@ -72,7 +78,7 @@ export class TimesheetComponent implements OnInit {
 
 
 
-  autoGroupColumnDef = {
+  autoGroupColumnDef:any = {
     headerName: 'Category',
     lockPosition: true,
     width: 340,
@@ -272,7 +278,7 @@ export class TimesheetComponent implements OnInit {
     this.http.get<any>(environment.apiUrl + url)
     // .pipe(delay(500))
     .subscribe(response => {
-     // console.log(response);
+       console.log(response);
             this.timeSheetObj = response;
             this.routeParams.year = response.payPeriod.year;
             this.routeParams.payperiod = response.payPeriod.payPeriod;
@@ -398,13 +404,7 @@ export class TimesheetComponent implements OnInit {
 
         },
         timesheet_type: 'hours_field',
-        // tooltipValueGetter: function (params) {
-
-        //   if (params.node.group) { return null; }
-
-        //   return long_headerDate + ' - Project ' + params.data.project.projectID;
-
-        // },
+        // tooltipValueGetter: function (params) {},
         aggFunc: this.sumHoursColumn,
         cellStyle: (params) => {
 
@@ -552,8 +552,12 @@ export class TimesheetComponent implements OnInit {
 
   sumHoursColumn(data) {
 
+    //console.log(data);
+
+    //if(!data) return null;
+
     let sum = 0;
-    data.forEach( function(value) {
+    data.values.forEach( function(value) {
       if (value) {
           sum = sum + parseFloat(value);
         }

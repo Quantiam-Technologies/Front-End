@@ -3,7 +3,7 @@ import { Component,  OnDestroy } from '@angular/core';
 import { FileSaverService } from 'ngx-filesaver';
 import { HttpClient } from '@angular/common/http';
 import {  environment} from '../../../../environments/environment';
-import {ICellRendererAngularComp} from '@ag-grid-community/angular';
+import {ICellRendererAngularComp} from 'ag-grid-angular';
 
 import { SteelReworkDialogComponent } from '../../steel-rework-dialog/steel-rework-dialog.component';
 
@@ -36,7 +36,7 @@ export class AgGridSteelActionsDisplayComponent implements ICellRendererAngularC
   agInit(params: any): void {
     this.params = params;
   }
-  afterGuiAttached?(params?: import('@ag-grid-community/all-modules').IAfterGuiAttachedParams): void {
+  afterGuiAttached?(): void {
     throw new Error('Method not implemented.');
   }
 

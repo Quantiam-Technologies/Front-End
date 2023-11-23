@@ -63,6 +63,8 @@
           domLayout='autoHeight'
           [animateRows]="true"
           [components] = "frameworkComponents"
+          [modules]="modules"
+
           
           (rowDoubleClicked)="onRowDoubleClicked($event)"
           (gridReady)="onGridReady($event)"

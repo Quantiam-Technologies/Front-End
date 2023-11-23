@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import {ICellRendererAngularComp,} from '@ag-grid-community/angular';
+import {ICellRendererAngularComp,}  from 'ag-grid-angular';
 
 import { PickXrdAnalysesDialogComponent } from '../pick-xrd-analyses-dialog/pick-xrd-analyses-dialog.component';
 

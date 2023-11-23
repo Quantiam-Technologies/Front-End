@@ -3,6 +3,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import {  environment} from '../../../environments/environment';
 import { NotificationsService } from 'angular2-notifications';
 
+import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
+
 import { Router } from '@angular/router';
 
 @Component({
@@ -40,6 +42,7 @@ export class FurnaceDatabaseComponent {
 
    pageSizes = [10, 20, 25, 50, 100];
 
+
    rowData: [];
    rowModelType;
    rowSelection;
@@ -56,6 +59,10 @@ export class FurnaceDatabaseComponent {
    frameworkComponents = {    
     //steelActionsContainerDisplay: AgGridSteelActionsDisplayComponent,
   };
+
+  public modules: any[] = [
+    ServerSideRowModelModule 
+];
 
   columnDefs = [
     {

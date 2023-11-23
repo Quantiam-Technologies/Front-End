@@ -116,7 +116,7 @@ export class TimesheetHolidayComponent implements OnInit {
      if (confirm('Are you sure you want to create a new holiday?')) {
 
       this.http.post(environment.apiUrl + `/holiday`, null).subscribe((r: any) => {
-        this.hotRegisterer.getInstance(this.id).alter('insert_row', 0);
+        this.hotRegisterer.getInstance(this.id).alter('insert_row_above', 0);
         this.hotRegisterer.getInstance(this.id).setDataAtCell(0, 0, r.entryid );
 
 

@@ -23,7 +23,6 @@ import { MaterialLot } from '../../shared/models/material-lot.model';
 import { Material } from '../../shared/models/material.model';
 
 import * as _moment from 'moment';
-import * as Swal from 'sweetalert2/dist/sweetalert2.js';
 
 
 @Component({

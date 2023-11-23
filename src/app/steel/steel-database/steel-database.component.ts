@@ -8,6 +8,7 @@ import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dial
 
 
 import {  AgGridSteelActionsDisplayComponent } from './ag-grid-steel-actions-display/ag-grid-steel-actions-display.component'; 
+import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
 
 import { Router } from '@angular/router';
 
@@ -24,6 +25,7 @@ export class SteelDatabaseComponent implements OnInit {
 
   constructor(  private dialog: MatDialog, private http: HttpClient, private notification: NotificationsService, private router: Router) {
 
+   
 
     this.gridOptions = {
       rowSelection: 'single',
@@ -41,6 +43,11 @@ export class SteelDatabaseComponent implements OnInit {
     };
 
    }
+
+   public modules: any[] = [
+    ServerSideRowModelModule 
+];
+
 
    gridApi;
    gridColumnApi;

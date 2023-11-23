@@ -197,7 +197,7 @@ export class TimesheetProjectComponent implements OnInit {
     {
 
       this.http.post(environment.apiUrl + `/project`,null).subscribe((r:any)=>{
-        this.hotRegisterer.getInstance('id').alter('insert_row',0);
+        this.hotRegisterer.getInstance('id').alter('insert_row_above',0);
         this.hotRegisterer.getInstance('id').setDataAtCell(0,0, r.projectid );
         this.notify.success('Success', 'You created a project ' + r.projectid + ' at the top of the spreadsheet.', { timeOut: 4000, showProgressBar: false, clickToClose: true }); /// Daily OT notificaton
   

@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ViewChild, ViewContainerRef} from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import {ICellEditorAngularComp} from '@ag-grid-community/angular';
+import {ICellEditorAngularComp} from "ag-grid-angular";
 import { faFilePdf } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

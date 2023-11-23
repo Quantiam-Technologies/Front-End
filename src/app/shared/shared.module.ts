@@ -8,7 +8,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule } from '@angular/forms';
 
 import { NgxFileDropModule  } from 'ngx-file-drop';
-import { AgGridModule } from 'ag-grid-angular';
+
+
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -42,6 +43,8 @@ import { SelectMaterialComponent } from './select-material/select-material.compo
 import { SelectMaterialSupplierComponent } from './select-material-supplier/select-material-supplier.component';
 import { AgGridDurationComponent } from './ag-grid-duration/ag-grid-duration.component';
 import { AgGridSelectSteelOrContainerComponent } from './ag-grid-select-steel-or-container/ag-grid-select-steel-or-container.component';
+
+import { AgGridModule } from 'ag-grid-angular';
 
 
 
@@ -162,6 +165,7 @@ import { jqxTabsModule } from 'jqwidgets-ng/jqxtabs';
         LogsComponent,        
         SafePipe,
         ReactiveFormsModule,
+        FormsModule,
         NgSelectModule,
         NgSelect2Module,
         FileAssociatorComponent,        

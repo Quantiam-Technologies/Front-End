@@ -10,6 +10,9 @@ import * as moment from 'moment';
 import { Router,ActivatedRoute,  } from '@angular/router';
 
 
+import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
+
+
 import { UserService } from '../../services/user/user.service';
 
 
@@ -23,6 +26,9 @@ export class TimesheetRtoComponent implements OnInit {
   private gridApi;
   private gridColumnApi;
 
+  public modules: any[] = [
+    ServerSideRowModelModule 
+];
    
   private pageSizes = [10, 20, 25, 50, 100, 200];
 

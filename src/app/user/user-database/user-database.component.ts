@@ -23,7 +23,7 @@ export class UserDatabaseComponent implements OnInit {
 
 
 
-    columnDefs = [
+    columnDefs:any = [
 
        
         {headerName: 'ID', sort: 'asc', field: 'employeeid', headerTooltip: '#',  filter: 'agTextColumnFilter', maxWidth: 90, },

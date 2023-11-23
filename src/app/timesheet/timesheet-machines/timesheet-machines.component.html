@@ -7,7 +7,7 @@
             <button mat-raised-button color="primary" (click)="addTableRow()" *ngIf="userService.hasPermission(20)"> Create Machine </button>
         </div>
 
-        <hot-table  
+        <hot-table 
        
         height="75vh"
         class="hot"
@@ -17,10 +17,9 @@
         [licenseKey]="'non-commercial-and-evaluation'"  
         
     
-    >
-    
- 
+    >       
+        </hot-table> 
         
-        </hot-table>  
+        
     </div>  
 </div>

@@ -53,13 +53,13 @@
                     
                 <mat-form-field fxFlex="33"  >
                     <mat-label>Quarter</mat-label>
-                    <mat-select  name="Quarter" [(ngModel)]="yearlyDataParams.quarter" (selectionChange)="getYearlyChartData()">
+                    <select  name="Quarter" matNativeControl  [(ngModel)]="yearlyDataParams.quarter" (selectionChange)="getYearlyChartData()">
                         <mat-option>--</mat-option>
                         <mat-option  value="1">Quarter 1 </mat-option>
                         <mat-option  value="2">Quarter 2 </mat-option>
                         <mat-option  value="3">Quarter 3 </mat-option>
                         <mat-option  value="4">Quarter 4 </mat-option>
-                    </mat-select>
+                    </select>
                 </mat-form-field>
                 <mat-form-field fxFlex="33" >
                     <mat-label>Absences</mat-label>
@@ -77,7 +77,7 @@
             <div fxLayout="row" fxFlex>
 
                 
-                    <hot-table  
+                    <hot-table 
                     
                     class="hot"
                     [hotId]="id"

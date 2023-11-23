@@ -8,6 +8,7 @@ import { RefreshDBTablesService } from '../../services/refresh-db-tables/refresh
 import { AgGridSemContainerSteelCellDisplayComponent } from '../../sem/sem-database/ag-grid-sem-container-steel-cell-display/ag-grid-sem-container-steel-cell-display.component';
 import { AgGridSemContainerSteelEditComponent } from '../../sem/sem-database/ag-grid-sem-container-steel-edit/ag-grid-sem-container-steel-edit.component';
 
+import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
 
 import { AgGridSelectProjectEditorComponent } from '../../shared/ag-grid-select-project/ag-grid-select-project.component';
 import { XrdAnalysesFileRendererComponent } from './xrd-analyses-file-renderer/xrd-analyses-file-renderer.component';
@@ -21,6 +22,10 @@ export class XrdDatabaseComponent implements OnInit {
 
    gridApi;
    gridColumnApi;
+
+   public modules: any[] = [
+    ServerSideRowModelModule 
+];
 
    pageSizes = [20, 25, 50, 100];
 

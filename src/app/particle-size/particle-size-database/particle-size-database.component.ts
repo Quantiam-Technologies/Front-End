@@ -13,6 +13,8 @@ import { AgGridSelectUserComponent } from '../../shared/ag-grid-select-user/ag-g
 import { AgGridSemContainerSteelCellDisplayComponent } from '../../sem/sem-database/ag-grid-sem-container-steel-cell-display/ag-grid-sem-container-steel-cell-display.component';
 import { AgGridParticlePdfComponent } from './ag-grid-particle-pdf/ag-grid-particle-pdf.component';
 
+import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
+
 import { SettingsService } from '../../services/settings/settings.service';
 
  
@@ -28,6 +30,10 @@ export class ParticleSizeDatabaseComponent implements OnInit {
   gridColumnApi;
      
   pageSizes = [20, 25, 50, 100, 200];
+
+  public modules: any[] = [
+    ServerSideRowModelModule 
+];
 
   totalRows;
   rowData;

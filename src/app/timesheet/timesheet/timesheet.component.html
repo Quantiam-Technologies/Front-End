@@ -145,6 +145,7 @@
     [defaultColDef]="defaultColDef"
     [autoGroupColumnDef]="autoGroupColumnDef"
     [components]="frameworkComponents"
+    [modules]="modules"
    
 
      
@@ -157,7 +158,7 @@
     (rowClicked)="onRowClicked($event)"
 
     [enableRangeSelection]="false"
-    [suppressCellSelection]="false"
+    [suppressCellFocus]="false"
     [singleClickEdit] = "true"
     [pagination]="false"
     [suppressPropertyNamesCheck]="true"

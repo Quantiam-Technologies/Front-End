@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {  environment} from '../../../environments/environment';
 import { NotificationsService } from 'angular2-notifications';
+import { ColDef } from 'ag-grid-community';
 import * as _moment from 'moment';
 
  
@@ -43,7 +44,7 @@ export class LogsComponent implements OnInit {
 
    totalRows;
 
-   gridOptions = {
+   gridOptions:any = {
     rowSelection: 'single',
     cacheBlockSize: 20,
     enableRangeSelection: true,
@@ -58,7 +59,7 @@ export class LogsComponent implements OnInit {
   };
 
 
-  columnDefs = [
+  columnDefs: ColDef[] = [
     {
       headerName: 'Action ID',
       field: 'id',

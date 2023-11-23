@@ -24,7 +24,6 @@ import { MaterialHazardSymbolSelectorComponent } from '../material-hazard-symbol
 import { MaterialCheckCreationDialogComponent } from '../material-check-creation-dialog/material-check-creation-dialog.component';
 
 import * as _moment from 'moment';
-import * as Swal from 'sweetalert2/dist/sweetalert2.js';
 
 
 @Component({
