@@ -16,6 +16,10 @@ import {  environment} from '../../../environments/environment';
 
 import { DisplayAnalysisCellComponent } from './display-analysis-cell/display-analysis-cell.component';
 
+
+
+import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
+
 import { UserService } from '../../services/user/user.service';
 
 
@@ -66,7 +70,9 @@ export class MaterialContainerDatabaseComponent implements OnInit {
   private navigateMode = true;
   private editMode = true;
   private editableContainerCellFields = ['location', 'purchase_order', 'qcid', 'container_name', 'container_number'];
-
+  public modules: any[] = [
+    ServerSideRowModelModule 
+];
 
   constructor( public userService: UserService,
     private _FileSaverService: FileSaverService,

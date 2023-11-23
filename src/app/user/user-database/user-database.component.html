@@ -1,21 +1,23 @@
-<div fxLayout="column" fxLayoutAlign="center center" fxFlex fxFlex.gt-lg="100">
+<div fxLayout="column" >
 
-   <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" >
+   <div  fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center" fxFlex >
 
-      <mat-button-toggle-group [(ngModel)]="active_filter" (ngModelChange)="onActiveFilterChange()">
+    
+    
+      <mat-button-toggle-group appearance="legacy" (value)="active_filter" [(ngModel)]="active_filter" (ngModelChange)="onActiveFilterChange()">
         <mat-button-toggle value="1">Active</mat-button-toggle>
         <mat-button-toggle value="0">Inactive</mat-button-toggle>
         <mat-button-toggle value="both" >Both</mat-button-toggle>
       </mat-button-toggle-group>
-
+   
     
-
-        <mat-form-field style="width:400px">
+    
+        <mat-form-field appearance="outline" class="quantiam-material-db-search-bar">
           <!--   <span matPrefix>+1 &nbsp;</span> -->
             <input type="text" matInput (keyup)="onFilterChanged()"  [(ngModel)]="searchBarValue"  placeholder="Search">
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
-
+     
    
     </div>
 

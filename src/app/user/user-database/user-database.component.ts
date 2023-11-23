@@ -31,6 +31,8 @@ export class UserDatabaseComponent implements OnInit {
         {headerName: 'Lastname', field: 'lastname', maxWidth: 130, },
         { headerName: 'Title', field: 'title',  },
         {headerName: 'Supervisor', field: 'employeeid', maxWidth: 150, valueGetter: function aPlusBValueGetter(params) {
+
+          if(!params.data.supervisor.name) { return "Steve Petrone"; }
           return params.data.supervisor.name;
       },  },
 
@@ -106,9 +108,10 @@ export class UserDatabaseComponent implements OnInit {
   {
     //console.log(this.active_filter);
     var activeFilterSent = this.active_filter;
-    if(this.active_filter == 'both'){ activeFilterSent = null; }
+   
 
-    const obj: any = {'params': { 'supervisor': true, 'active': activeFilterSent}};
+    const obj: any = {'params': { 'supervisor': true,'active': activeFilterSent}};
+    if(this.active_filter == 'both'){ delete  obj.params.active; };
     this.http.get<any>('http://api.edm.quantiam.com/users', obj).subscribe((r) => {
 
       this.rowData = r;

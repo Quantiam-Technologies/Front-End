@@ -1,0 +1,46 @@
+::ng-deep .quantiam-material-db-search-bar  .mat-mdc-form-field-subscript-wrapper
+{
+height:0px;
+    
+}
+
+::ng-deep .quantiam-material-db-search-bar .mat-mdc-text-field-wrapper {
+    max-height: 30px;
+  }
+
+  ::ng-deep .quantiam-material-db-search-bar .mat-mdc-form-field-infix {
+        min-height: 0px;
+  }
+  
+  ::ng-deep .quantiam-material-db-search-bar .mat-mdc-form-field {
+    max-height: 40px;
+    font-size:6px;
+  }
+  
+  ::ng-deep .quantiam-material-db-search-bar .mat-mdc-form-field-infix {
+    padding: 0 !important;
+  }
+
+  ::ng-deep .quantiam-material-db-search-bar .mat-mdc-form-field-infix input {
+    padding: 5px !important;
+  }
+
+  ::ng-deep .quantiam-material-db-search-bar .mat-mdc-form-field-icon-suffix{
+
+  
+    background: #3c658a;
+    max-height: 30px;
+    padding: 3px !important;
+    border-radius:3px;
+}
+
+::ng-deep .quantiam-material-db-search-bar .mat-mdc-form-field-icon-suffix mat-icon {
+    padding: 0px !important;
+    color:white;
+
+}
+
+
+::ng-deep .quantiam-material-db-search-bar .mat-mdc-input-element {
+    color:#00000070;
+}

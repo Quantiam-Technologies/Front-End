@@ -325,3 +325,18 @@ mat-list-item:focus{
 {
 	overflow: visible !important;
 } 
+
+
+mat-sidenav mat-accordion mat-expansion-panel mat-expansion-panel-header mat-panel-title {
+	font-family: Roboto, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+
+}
+
+
+mat-sidenav mat-accordion mat-divider {
+
+	border-top-color: rgba(0,0,0,.12);
+
+}

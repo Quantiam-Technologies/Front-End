@@ -84,6 +84,11 @@ padding-right:12px !important;
 
 /* ag-grid Balham overwrites */
 
+.ag-theme-balham .ag-header-icon{
+	color: white;
+	}
+
+
 .ag-theme-balham .ag-header{
 background-color: #3c658a;
 }
@@ -91,6 +96,7 @@ background-color: #3c658a;
 .ag-theme-balham .ag-header-cell-text{
 
 	color: rgb(255, 255, 255);
+	font-weight: 500;
 }
 
 .ag-theme-balham .ag-root {
@@ -273,8 +279,9 @@ textarea.mat-input-element {
 }
 
 .mat-button-toggle-checked {
-    background-color: #34597a;
-    color: rgb(255, 255, 255);
+    background-color: #34597a !important;
+    color: rgb(255, 255, 255) !important;
+	border-radius: 2px;
 }
 
 /* .mat-drawer-container

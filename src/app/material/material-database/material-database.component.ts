@@ -3,6 +3,8 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 
+
+import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
 import { MaterialDatatableService } from '../services/material-datatable.service';
 
 import { environment } from '../../../environments/environment';
@@ -33,6 +35,9 @@ export class MaterialDatabaseComponent implements OnInit, OnDestroy {
   // dtOptions: DataTables.Settings = {};
   materials: Material[];
   _materialDatatable = null;
+  public modules: any[] = [
+    ServerSideRowModelModule 
+];
 
 
   dtOptions;
