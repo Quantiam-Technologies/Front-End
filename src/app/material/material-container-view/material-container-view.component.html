@@ -44,7 +44,7 @@
 			</div> 
 
 
-			<mat-card id="material card" class="quantiam-mat-card" style="padding-bottom:10px !important;"   >
+			<mat-card appearance="outlined" id="material card" class="quantiam-mat-card" style="padding-bottom:10px !important;"   >
 						<mat-card-title style="margin:0px"  >
 								Material Information - {{container.lot.material.id}}
 
@@ -68,22 +68,27 @@
 					<div >
 					
 						<div fxLayoutGap="10px" style="margin-bottom:10px" fxLayout="row wrap"   fxLayoutAlign="start stretch"  >	
-							<mat-form-field   fxFlex>
+							<mat-form-field  appearance="outline" fxFlex>
+								<mat-label>Material Name</mat-label>
 								<input #MaterialName [disabled]="!editMaterial" (change)="updateMaterial(MaterialName)" type="text" matInput placeholder="Name" [(ngModel)] ='container.lot.material.name' name="name" disabled>
 							</mat-form-field>  
-							<mat-form-field  fxFlex>
+							<mat-form-field appearance="outline" fxFlex>
+								<mat-label>Material Grade</mat-label>
 								<input  #Grade [disabled]="!editMaterial" (change)="updateMaterial(Grade)" type="text" matInput placeholder="Grade" [(ngModel)] ='container.lot.material.grade' name="grade" disabled>
 								<mat-hint> "MN-101","VC-6928" </mat-hint>
 							</mat-form-field>
-							<mat-form-field  fxFlex=10>
+							<mat-form-field appearance="outline" fxFlex=10>
+								<mat-label>Purity</mat-label>
 								<input  #Purity [disabled]="!editMaterial" (change)="updateMaterial(Purity)" type="text" matInput placeholder="Purity (%)" [(ngModel)] ='container.lot.material.purity' name="purity" disabled>
-								<mat-hint> "98","99.5" </mat-hint>
+								<mat-hint> 98,99.5 </mat-hint>
 							</mat-form-field>
-							<mat-form-field  fxFlex>
+							<mat-form-field  appearance="outline" fxFlex>
+								<mat-label>Particle Size</mat-label>
 								<input  #ParticleSize [disabled]="!editMaterial" (change)="updateMaterial(ParticleSize)" type="text" matInput placeholder="Particle Size" [(ngModel)] ='container.lot.material.particle_size' name="particle_size" disabled>
 								<mat-hint> "1-5um", "-325 mesh" </mat-hint>
 							</mat-form-field>
-							<mat-form-field  fxFlex *ngIf="!editMaterial">
+							<mat-form-field appearance="outline"  fxFlex *ngIf="!editMaterial">
+								<mat-label>Supplier</mat-label>
 								<input  type="text" matInput placeholder="Supplier" [(ngModel)] ='container.lot.material.supplier.supplier_name' name="supplier" disabled>
 							</mat-form-field>  
 							
@@ -106,22 +111,26 @@
 						<div fxLayoutGap="6px"  fxLayout="row wrap"   >	
 							
 							
-							<mat-form-field class="full-width" fxFlex>
+							<mat-form-field appearance="outline" class="full-width" fxFlex>
 								<input #Nomenclature [disabled]="!editMaterial" (change)="updateMaterial(Nomenclature)" type="text" matInput placeholder="Molecular Formula" [(ngModel)] ='container.lot.material.formula' name="formula" >
+								<mat-label>Molecular Formula</mat-label>
 								<mat-hint> "CrO2","MnO2","W","NaCl" </mat-hint>
 							</mat-form-field>  
 							
-							<mat-form-field class="full-width"  fxFlex="20" fxFlex.lt-lg="20">
+							<mat-form-field  appearance="outline" class="full-width"  fxFlex="20" fxFlex.lt-lg="20">
+								<mat-label>CAS</mat-label>
 								<input   #Cas [disabled]="!editMaterial" (change)="updateMaterial(Cas)" type="text" matInput placeholder="CAS #" [(ngModel)] ='container.lot.material.cas' name="cas" >
 							</mat-form-field> 
 							<!-- <mat-form-field class="full-width" fxFlex>
 								<input #Catalog [disabled]="!editMaterial" (change)="updateMaterial(Catalog)"  type="text" matInput placeholder="Catalog #" [(ngModel)] ='container.lot.material.catalog' name="catalog" >
 								<mat-hint> Product Number eg. "2332A-DDS2" </mat-hint>
 							</mat-form-field> --> 
-							<mat-form-field   class="full-width" fxFlex fxFlex.gt-md="20" >
-								<input   #ForumlaWeight [disabled]="!editMaterial" (change)="updateMaterial(ForumlaWeight)" type="number" matInput placeholder="Forumla Weight" [(ngModel)] ='container.lot.material.formula_weight' name="formula_weight" >
+							<mat-form-field appearance="outline"  class="full-width" fxFlex fxFlex.gt-md="20" >
+								<mat-label>Formula Weight</mat-label>
+								<input   #ForumlaWeight [disabled]="!editMaterial" (change)="updateMaterial(ForumlaWeight)" type="number" matInput placeholder="Formula Weight" [(ngModel)] ='container.lot.material.formula_weight' name="formula_weight" >
 							</mat-form-field>
-							<mat-form-field class="full-width" fxFlex >
+							<mat-form-field appearance="outline" class="full-width" fxFlex >
+								<mat-label>Density</mat-label>
 								<input   #Density [disabled]="!editMaterial" (change)="updateMaterial(Density)" type="text" matInput placeholder="Density (g/ml)" [(ngModel)] ='container.lot.material.density' name="density" >
 							</mat-form-field>	
 							<!-- --> 
@@ -177,7 +186,7 @@
 
 			
 			
-			<mat-card  id="Container Section"  class="quantiam-mat-card" style="padding-bottom:10px !important;"   >
+			<mat-card  appearance="outlined"  id="Container Section"  class="quantiam-mat-card" style="padding-bottom:10px !important;"   >
 			<mat-card-title style="margin:0px">
 				Container Information
 
@@ -221,7 +230,8 @@
 				<div fxLayoutGap="30px"  class="top-mat-form-buffer" fxLayout="row wrap">	
 							
 
-						<mat-form-field *ngIf="!editContainer" class="full-width" fxFlex=15>
+						<mat-form-field  appearance="outline" *ngIf="!editContainer" class="full-width" fxFlex=15>
+							<mat-label>Lot Name</mat-label>
 								<input  type="text" matInput placeholder="Lot name" [(ngModel)] ='container.lot.lot_name' name="name" disabled>
 							</mat-form-field>
 							<div *ngIf="container.lot.material.id && editContainer">
@@ -240,19 +250,23 @@
 								></app-select2-material-lot>
 						</div>
 					
-							<mat-form-field class="full-width" fxFlex=15>
+							<mat-form-field appearance="outline" class="full-width" fxFlex=15>
+								<mat-label>Container Name</mat-label>
 									<input  #ContainerName (change)="updateContainerField(ContainerName)" [disabled]="!editContainer"   type="text" matInput placeholder="Container Nickname" [(ngModel)] ='container.container_name' name="container_name" >
-									<mat-hint> Optional </mat-hint>
+									<mat-hint> "Robert's Tungsten" </mat-hint>
 								</mat-form-field >  
-								<mat-form-field fxFlex=10>
+								<mat-form-field appearance="outline" fxFlex=10>
+									<mat-label>QCID</mat-label>
 									<input  #QCID (change)="updateContainerField(QCID)" [disabled]="!editContainer"  type="text" matInput placeholder="QCID (optional)" [(ngModel)] ='container.qcid' name="qcid" >
 								</mat-form-field>  
-								<mat-form-field fxFlex>
+								<mat-form-field  appearance="outline" fxFlex>
+									<mat-label>Purchase Order</mat-label>
 									<input  #PurchaseOrder (change)="updateContainerField(PurchaseOrder)" [disabled]="!editContainer"  type="text" matInput placeholder="P.O. #" [(ngModel)] ='container.purchase_order' name="purchase_order" >
 								</mat-form-field> 
 
 											
-								<mat-form-field fxFlex=20 class="full-width">
+								<mat-form-field appearance="outline" fxFlex=20 class="full-width">
+									<mat-label>Location</mat-label>
 										<mat-select 
 												#LocationId
 												placeholder="Location"
@@ -278,34 +292,41 @@
 				
 							
 							<div fxFlex fxLayoutGap="10px">
-								<mat-form-field class="full-width" fxFlex="10" >
+								<mat-form-field  appearance="outline" class="full-width" fxFlex="10" >
+									<mat-label>Denomination</mat-label>
 												<input  #Denomination (change)="updateContainerField(Denomination)" [disabled]="!editContainer" type="text" matInput placeholder="Denomination" [(ngModel)] ='container.denomination' name="denomination" >
 								</mat-form-field >
-								<mat-form-field  fxFlex.gt-lg="20" fxFlex="30" class="full-width">
+								<mat-form-field  appearance="outline" fxFlex.gt-lg="20" fxFlex="30" class="full-width">
+									<mat-label>Amount Ordered</mat-label>
 									<input #AmountOrdered (change)="updateContainerField(AmountOrdered)" [disabled]="!editContainer"   type="text" matInput placeholder="Amount Ordered ({{container.denomination}})" [(ngModel)] ='container.amount_ordered' name="amount_ordered" >
 								</mat-form-field >
-								<mat-form-field  fxFlex class="full-width">
+								<mat-form-field  appearance="outline" fxFlex class="full-width">
+									<mat-label>Gross Weight</mat-label>
 									<input #GrossWeight (change)="updateContainerField(GrossWeight)" [disabled]="!editContainer"  type="text" matInput placeholder="Gross Weight (g)" [(ngModel)] ='container.gross_weight' name="gross_weight" >
 								</mat-form-field>	
 
-								<mat-form-field  fxFlex class="full-width">
+								<mat-form-field appearance="outline" fxFlex class="full-width">
+									<mat-label>Remaining</mat-label>
 									<input #Remaining (change)="updateContainerField(Remaining)" [disabled]="!editContainer"  type="text" matInput placeholder="Remaining Weight (g)" [(ngModel)] ='container.remaining' name="remaining" >
 								</mat-form-field>	 
 							</div>
 				
 								
 							<div fxLayout="row" fxLayoutGap="10px" fxFlex>
-								<mat-form-field class="full-width" fxFlex>
-								<input matInput [matDatepicker]="myDatepicker2" placeholder="Date Received" [(ngModel)] ='container.container_received' (dateChange)="updateContainerField($event.value,'container_received')" [disabled]="!editContainer">
+								<mat-form-field appearance="outline" class="full-width" fxFlex>
+									<mat-label>Received Date</mat-label>
+									<input matInput [matDatepicker]="myDatepicker2" placeholder="Date Received" [(ngModel)] ='container.container_received' (dateChange)="updateContainerField($event.value,'container_received')" [disabled]="!editContainer">
 								<mat-datepicker-toggle matSuffix [for]="myDatepicker2"></mat-datepicker-toggle>
 								<mat-datepicker #myDatepicker2></mat-datepicker>
 								</mat-form-field>
-								<mat-form-field class="full-width" fxFlex>
+								<mat-form-field appearance="outline" class="full-width" fxFlex>
+									<mat-label>Date Opened</mat-label>
 									<input matInput [matDatepicker]="myDatepicker" placeholder="Date Opened" [(ngModel)] ='container.container_opened' (dateChange)="updateContainerField($event.value,'container_opened')" [disabled]="!editContainer">
 									<mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
 									<mat-datepicker #myDatepicker></mat-datepicker>
 								</mat-form-field>
-								<mat-form-field class="full-width" fxFlex>
+								<mat-form-field appearance="outline" class="full-width" fxFlex>
+									<mat-label>Expiry Date</mat-label>
 									<input matInput [matDatepicker]="myDatepicker3" placeholder="Expiration Date" [(ngModel)] ='container.expire_date' (dateChange)="updateContainerField($event.value,'expire_date')" [disabled]="!editContainer">
 									<mat-datepicker-toggle matSuffix [for]="myDatepicker3"></mat-datepicker-toggle>
 									<mat-datepicker #myDatepicker3></mat-datepicker>
@@ -340,7 +361,7 @@
 	
 
 			<div *ngIf="container.sister_containers_active.length > 1">
-					<mat-card class="quantiam-mat-card" style="padding-bottom:10px !important;"   >
+					<mat-card appearance="outlined" class="quantiam-mat-card" style="padding-bottom:10px !important;"   >
 							<mat-card-title style="margin:0px">
 								Active Sister Containers for {{container.lot.material.name}} {{container.lot.material.grade}}  {{container.lot.material.particle_size}}
 							</mat-card-title>		
@@ -380,8 +401,8 @@
 
 		<div id="right column" style="height:100%;" fxLayout="column" fxFlex>
 
-			<mat-tab-group backgdroundColor="primary" (focusChange)="SDStabChanged($event)" fxFlex>
-				<mat-tab label="SDS" fxLayout="column" id="MSDS Query SECTION"  fxFlex fxLayoutGap="20px" >  
+			<mat-tab-group  backgdroundColor="primary" (focusChange)="SDStabChanged($event)" fxFlex>
+				<mat-tab label="SDS"  fxLayout="column" id="MSDS Query SECTION"  fxFlex fxLayoutGap="20px" >  
 
 
 					
@@ -417,9 +438,9 @@
 								</ngx-file-drop>
 	
 	
-								<div  [hidden]="!container.lot.material.sds"  fxLayout="column" fxLayoutGap="10px" fxFlex>
+								<div style=" min-height: 600px;" [hidden]="!container.lot.material.sds"  fxLayout="column" fxLayoutGap="10px" fxFlex>
 						
-									<iframe  id="iframe" type="application/pdf"  style="overflow: auto; min-width: 50%;" fxFlex>
+									<iframe  id="iframe" type="application/pdf"  style="overflow: auto; min-width: 50%; min-height: 500px;" fxFlex>
 									</iframe>
 								</div>
 	

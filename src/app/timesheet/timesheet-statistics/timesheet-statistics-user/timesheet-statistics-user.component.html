@@ -6,7 +6,7 @@ fxLayout.gt-md="row"  fxLayoutAlign.gt-md="center start" fxLayoutGap="20px"
 
 
   <div fxLayout="column" fxFlex>
-      <div fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center start">
+      <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="center start">
           
           <app-select-user [selectedValue]="user.id" 
           [authorizedSubordinatesOrMachines]="true"
@@ -37,7 +37,7 @@ fxLayout.gt-md="row"  fxLayoutAlign.gt-md="center start" fxLayoutGap="20px"
 
     <div id="tables" fxLayout="row" fxFlex fxLayoutGap="20px" fxLayoutAlign="center start" fxFlex>
         <div>
-            <h3> Raw <small>{{reportObj?.denomination}}</small></h3>
+            <h3> Raw ({{reportObj?.denomination}})</h3>
             <hot-table class="hot" hotId="raw" [settings]="hotTableRawSettings" [licenseKey]="'non-commercial-and-evaluation'">
                 <!-- 
           <hot-column data="category_id" title="ID" read-only></hot-column> -->
@@ -47,7 +47,7 @@ fxLayout.gt-md="row"  fxLayoutAlign.gt-md="center start" fxLayoutGap="20px"
             </hot-table>
         </div>
         <div>
-          <h3> Summary  <small>{{reportObj?.denomination}}</small> </h3>
+          <h3> Summary ({{reportObj?.denomination}}) </h3>
             <hot-table class="hot" hotId="aggregate" [settings]="hotTableAggregateSettings" [licenseKey]="'non-commercial-and-evaluation'">
 
                 <hot-column data="name" title="Project" width="70px" read-only></hot-column>

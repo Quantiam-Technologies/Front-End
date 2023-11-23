@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { CreateRtoDialogComponent } from '../create-rto-dialog/create-rto-dialog.component';
 
 import { AllModules  } from '@ag-grid-enterprise/all-modules';

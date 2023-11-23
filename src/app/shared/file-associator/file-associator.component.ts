@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { FileSaverService } from 'ngx-filesaver';
-import {MatLegacyTableDataSource as MatTableDataSource} from '@angular/material/legacy-table';
+import {MatTableDataSource} from '@angular/material/table';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({

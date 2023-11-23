@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import {  environment} from '../../../environments/environment';
 import { NotificationsService } from 'angular2-notifications';
 
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 
 
 import {  AgGridSteelActionsDisplayComponent } from './ag-grid-steel-actions-display/ag-grid-steel-actions-display.component'; 
@@ -42,7 +42,7 @@ export class SteelDatabaseComponent implements OnInit {
 
    }
 
-    gridApi;
+   gridApi;
    gridColumnApi;
    gridOptions;
 
@@ -93,7 +93,7 @@ export class SteelDatabaseComponent implements OnInit {
     {
       headerName: 'Name',
       field: 'heat_id',
-      width: 100,
+      width: 70,
       cellRenderer: (cell) => {
 
         var string = '<b>'+ cell.data.heat_id + '</b>';
@@ -111,12 +111,19 @@ export class SteelDatabaseComponent implements OnInit {
     {
       headerName: 'Steel Type',
       field: 'steel_type.part_name',
-      width: 100,
+      width: 80,
     },  
     {
       headerName: 'Metallurgy',
       field: 'steel_type.metallurgy',
       width: 60,
+      hide:true
+    },
+    
+    {
+      headerName: 'Last Status',
+      field: 'last_known_process_status',
+      width: 80,
     },
     {
       headerName: 'Manufacturer',
@@ -270,14 +277,15 @@ export class SteelDatabaseComponent implements OnInit {
 
     const dialogRef = this.dialog.open(SteelCreationDialogComponent, {
       width: '600px',
-      position: {'top':'10px'},
+      position: {'top':'20px'},
       //data: car,
     });
 
     dialogRef.afterClosed().subscribe(result => {
 
       console.log(result);
-      this.refreshDatabase();
+     // if(result)
+     // this.refreshDatabase();
     })
   }
 

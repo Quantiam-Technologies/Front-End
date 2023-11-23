@@ -6,7 +6,7 @@
     fill: transparent !important;
 }
 
-::ng-deep .mat-card{
+::ng-deep .mat-mdc-card{
 
     padding-bottom: 0px !important;
     margin-top: 1px;

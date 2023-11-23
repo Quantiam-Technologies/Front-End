@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit,ViewChild } from '@angular/core';
 import {Observable} from 'rxjs';
 import {map, startWith,tap} from 'rxjs/operators';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import { MatLegacyAutocomplete as MatAutocomplete} from '@angular/material/legacy-autocomplete';
+import { MatAutocomplete} from '@angular/material/autocomplete';
 import { SelectUserService } from '../../shared/select-user/select-user.service';
 import {FormBuilder, UntypedFormControl, UntypedFormGroup,Validators} from '@angular/forms';
 import { HttpClient, HttpParams } from '@angular/common/http';

@@ -17,6 +17,7 @@ const routes: Routes = [
   
   {
     path: 'silt2023',
+    data: { key: 'silt2023'},
     component: Silt2023Component,
   },
   {

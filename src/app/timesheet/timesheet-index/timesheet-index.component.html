@@ -7,7 +7,7 @@
         
         ></app-select-user>  -->
 
-        <nav mat-tab-nav-bar>
+        <nav    [tabPanel]="tabPanel" mat-tab-nav-bar mat-stretch-tabs="false">
         
             <a mat-tab-link  
              [routerLink]="['/timesheet', this.currentTimesheet.userId, 'year',this.currentTimesheet.year, 'payperiod', this.currentTimesheet.payperiod]"
@@ -35,7 +35,7 @@
         
         </nav>
             
-        <div class="tab-content">
+        <mat-tab-nav-panel class="tab-content" #tabPanel>
             <router-outlet ></router-outlet>
-        </div>
+        </mat-tab-nav-panel>
             

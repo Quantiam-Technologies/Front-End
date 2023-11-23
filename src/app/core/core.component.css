@@ -176,30 +176,22 @@ router-outlet ~ * {
 	
 }
 
-.side-panel .mat-list .mat-list-item
+.side-panel mat-list mat-list-item
 {	
 	font-size: 10px;
 	height: 30px;
 	cursor: pointer;
+	padding: 0px 8px !important;
 	
 	
 }
 
 
-.side-panel .mat-list .mat-list-item:hover
-{	
-	/* background: rgba(0,0,0,.04); */
-	
-}
 
-.side-panel .mat-list .mat-list-item .mat-list-item-content
+
+.side-panel mat-expansion-panel-header
 {
-	padding: 0px !important;
-}
 
-.side-panel .mat-expansion-panel-header
-{
-	font-size: 12px;
 	height:32px !important;
 	padding: 0 10px;
 }
@@ -209,7 +201,7 @@ router-outlet ~ * {
  
 } */
 
-.side-panel .mat-expansion-panel-header:hover
+.side-panel mat-expansion-panel-header:hover
 {
 	
 	    background: rgba(0,0,0,.04);
@@ -222,7 +214,7 @@ router-outlet ~ * {
 	width:155px !important;
 }
 
-.side-panel .mat-button
+.side-panel button
 {
 	font-size: 12px;
     height: 30px;
@@ -235,7 +227,10 @@ router-outlet ~ * {
 	text-align: left;
 }
 
-
+.side-panel .mdc-button .mdc-button__label
+{
+	
+}
 
 
 .side-panel .mat-list-base {
@@ -254,7 +249,7 @@ router-outlet ~ * {
 }
 
 
-::ng-deep .side-panel .mat-list-item-content button:hover{
+::ng-deep .side-panel mat-list-item-content button:hover{
 	color: #005da0 !important;
    /*  font-weight: bold !important; */
     background-color: #e0e0e0 !important;
@@ -282,19 +277,20 @@ mat-list-item:focus{
 }
 
 
-::ng-deep .app-container mat-list-item button span {
+::ng-deep .side-panel mat-list-item button span {
 
 	width: 100%;
+	padding: 2px 4px !important;
 }
-::ng-deep .app-container mat-list-item button p {
+::ng-deep .side-panel mat-list-item button p {
 
 	display: inline;
 	float: left;
-	margin-top: 6px;
+	margin-top: 6px !important;
 	font-weight: normal;
 }
 
-::ng-deep .app-container mat-list-item button fa-icon { 
+::ng-deep .side-panel mat-list-item button fa-icon { 
 	display: inline;
 	float: right;
 

@@ -24,7 +24,7 @@ const routes: Routes = [
       {
         path: 'database',
         component: SteelDatabaseComponent,
-        data: {key: 'SeelDatabase'}
+        data: {key: 'SteelDatabase'}
       },
       {
         path: ':id',

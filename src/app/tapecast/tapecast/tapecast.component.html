@@ -25,7 +25,7 @@
 
     <div fxFlex fxLayoutGap=10px fxLayout="column" >
 
-    <mat-card>
+    <mat-card appearance="outlined">
         <mat-card-content fxLayout="row" fxLayoutGap=20px id="tapecast_table"> 
 
 
@@ -61,11 +61,11 @@
                     <div fxLayout="row">
                         <mat-form-field appearance="outline" class="example-chip-list" >
                             <mat-label>Tapecast Operators</mat-label>
-                            <mat-chip-list #chipList aria-label="Fruit selection" placeholder="Add or remove as necessary.">
-                                <mat-chip 
+                            <mat-chip-grid #chipList aria-label="Fruit selection" placeholder="Add or remove as necessary.">
+                                <mat-chip-row 
                                 (removed)="removeOperator(user,i)" *ngFor="let user of tapecastObject.operators; index as i">{{user.name || user.employee.name}}
                                     <mat-icon matChipRemove>cancel</mat-icon>
-                                </mat-chip>
+                                </mat-chip-row>
                                 <input required 
                                 #responsibleInput
                                 [formControl]="operatorsControl"
@@ -74,7 +74,7 @@
                                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                 [matChipInputAddOnBlur]="true" 
                                 >
-                            </mat-chip-list> 
+                            </mat-chip-grid> 
                             <mat-autocomplete #operators="matAutocomplete" (optionSelected)="selectOperators($event)" [panelWidth]="'auto'">
                                 <mat-option  *ngFor="let user of filteredUsers | async"  [value]="user">
                                    {{ user.name }} <small >{{user.id}} </small> <small style="margin-left:10px;"> {{user.title}} </small>
@@ -188,7 +188,7 @@
         </mat-card-content>
     </mat-card>
     
-    <mat-card *ngIf="tapecastObject.tapecast_profile_id">
+    <mat-card appearance="outlined" *ngIf="tapecastObject.tapecast_profile_id">
         <mat-card-content fxLayout="column" > 
             <div fxLayout="row" fxFlex>
                 <h3> Slip  </h3>

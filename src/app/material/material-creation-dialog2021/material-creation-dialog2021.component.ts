@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
-import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MaterialLotContainerService } from '../../services/material-lot-container/material-lot-container.service';
 import { MaterialLotService } from '../../services/material-lot/material-lot.service';
@@ -14,7 +14,7 @@ import { WebsocketService } from '../../services/websocket/websocket.service';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { NotificationsService } from 'angular2-notifications';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'; 
+import { MatDialog } from '@angular/material/dialog'; 
 import { MaterialHazardSymbolSelectorComponent } from '../material-hazard-symbol-selector/material-hazard-symbol-selector.component';
 import { MaterialCheckCreationDialogComponent } from '../material-check-creation-dialog/material-check-creation-dialog.component';
 

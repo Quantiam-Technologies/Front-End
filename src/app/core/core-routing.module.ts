@@ -27,6 +27,7 @@ const routes: Routes = [
 			},
 			{
 				path: 'dashboard',
+				data: {key: 'dashboard'},
 				component: DashboardComponent,
 
 			},

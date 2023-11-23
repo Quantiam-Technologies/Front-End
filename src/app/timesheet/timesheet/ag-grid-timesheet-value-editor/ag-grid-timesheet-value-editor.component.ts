@@ -5,6 +5,8 @@ import {ICellEditorAngularComp} from '@ag-grid-community/angular';
 
 import { NotificationsService } from 'angular2-notifications';
 
+import { UserService } from '../../../services/user/user.service';
+
 
 import * as moment from 'moment';
 
@@ -36,7 +38,9 @@ export class AgGridTimesheetValueEditorComponent implements ICellEditorAngularCo
 
 
   constructor(
-    private notification: NotificationsService,) { }
+    private notification: NotificationsService,
+    
+    public userService: UserService,) { }
 
 
 
@@ -58,11 +62,20 @@ export class AgGridTimesheetValueEditorComponent implements ICellEditorAngularCo
 
     if(this.value)
     {
-      if((int !== 8) && this.params.node.data.project.projectID === 5) { 
+
+    
+
+      if((int !== 8) && this.params.node.data.project.projectID === 5 ) { 
+
+        if(this.userService.hasPermission(10))
+        {
+          this.notification.info('Information', 'Admin permissions allow you to set Stat holidays under 8 hours.', {timeOut: 4000, showProgressBar: false, clickToClose: true}); /// Daily OT notificaton
+          return false;
+        }
         
         this.notification.error('Stat Error', ' Stat holidays must be 8 hours.', {timeOut: 4000, showProgressBar: false, clickToClose: true}); /// Daily OT notificaton
               
-        ;return true;
+        return true;
       }
     }
     if (this.value === this.oldValue) { return true; }

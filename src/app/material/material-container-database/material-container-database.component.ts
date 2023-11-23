@@ -3,7 +3,7 @@ import { FileSaverService } from 'ngx-filesaver';
 
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { MaterialCreationDialogComponent } from '../../material/material-creation-dialog/material-creation-dialog.component';
 import { MaterialCreationDialog2021Component } from '../../material/material-creation-dialog2021/material-creation-dialog2021.component';
 

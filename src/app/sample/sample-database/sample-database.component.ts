@@ -6,7 +6,7 @@ import {  SampleService } from '../../services/sample/sample.service';
 
 import { SampleCreationDialogComponent } from '../sample-creation-dialog/sample-creation-dialog.component';
 
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 
 import { AllModules  } from '@ag-grid-enterprise/all-modules';

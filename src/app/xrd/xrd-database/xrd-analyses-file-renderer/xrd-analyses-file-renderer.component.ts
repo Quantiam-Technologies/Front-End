@@ -6,7 +6,7 @@ import { PickXrdAnalysesDialogComponent } from '../pick-xrd-analyses-dialog/pick
 
 
 import { Router } from '@angular/router';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-xrd-analyses-file-renderer',

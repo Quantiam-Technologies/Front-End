@@ -1,14 +1,14 @@
 import {Component, ElementRef, ViewChild,OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {FormBuilder, UntypedFormControl, UntypedFormGroup,Validators} from '@angular/forms';
-import {MatLegacyChipInputEvent as MatChipInputEvent} from '@angular/material/legacy-chips';
+import {MatChipInputEvent} from '@angular/material/chips';
 import { SelectUserService } from '../../shared/select-user/select-user.service';
 import {Observable} from 'rxjs';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {map, startWith,tap} from 'rxjs/operators';
-import {MatLegacyDialog as MatDialog, MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA} from '@angular/material/legacy-dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute } from '@angular/router';
 

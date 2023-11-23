@@ -9,9 +9,9 @@ import { AllModules  } from '@ag-grid-enterprise/all-modules';
 
 import { NotificationsService } from 'angular2-notifications';
 
-import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { UntypedFormBuilder, FormGroup } from '@angular/forms';
 

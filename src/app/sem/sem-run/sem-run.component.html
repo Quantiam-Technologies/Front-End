@@ -12,7 +12,7 @@
 
         <div fxLayout="row" fxLayout.lt-md="column"  fxLayoutGap="10px" fxLayoutAlign="start center" fxFlex>
             <div fxFlex=30>
-                <h3> {{Semrun.samplename}} </h3>
+                <h2> {{Semrun.samplename}} </h2>
             </div>
             <div fxLayoutAlign="start center" fxFlex>
                 <ngb-alert type="info" [dismissible]="false" style="margin-top:7px; margin-bottom:0px;">
@@ -48,13 +48,14 @@
                         text-overflow: ellipsis;
                         padding: 5px;
                       ">
+                      
                         <div   class="clickable" fxLayout="row wrap" fxLayoutAlign="center center">
+                          
                             {{img.filename}}
-                            <mat-chip color="accent" style=" border-radius: 10px;
-                            width: 50px; margin-left:5px" *ngIf="img.assoc_files[0]" selected>More</mat-chip>
+                            
                         </div>
                         
-
+                        <mat-chip-option color="accent" style="background-color: #ff4081;" *ngIf="img.assoc_files[0]">More</mat-chip-option>
                               
                         </span>
                       

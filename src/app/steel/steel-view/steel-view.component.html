@@ -1,86 +1,284 @@
 
 
 <div *ngIf="steelObject">
-
+<!-- 
   <h2 fxLayout="row" fxLayoutGap="10px">
     <small> QMIS-{{steelObject.id}}</small> 
     <div>{{steelObject.heat_id}} </div> 
     <div *ngIf="steelObject.cut">C{{steelObject.cut}}</div> 
-    <div *ngIf="steelObject.rework">R{{steelObject.rework}}</div> 
+   <div *ngIf="steelObject.rework">R{{steelObject.rework}}</div>  
     <small *ngIf="steelObject.steel_type">{{steelObject.steel_type.part_name}}</small> 
   
     
-  </h2>
+  </h2> -->
 
-  <div fxLayout="row" FxFlex fxLayoutGap="10px">
+  <div fxLayout="row" FxFlex fxLayoutGap="10px" fxLayoutAlign="space-between start">
+    <div id="left Column">
+      <h2 fxLayoutAlign="space-between center"> 
+        
+        Properties
 
+        <div fxLayoutGap="5px">
 
-    <div id="Steel Properties" fxFlex>
-
-        <table class="table">
-          <thead>
-            <tr >
-              <th >Property</th>
-              <th >Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr  *ngFor="let steel of steelObject.steel_type | keyvalue">
-              <td>{{steel.key}}</td>
-              <td>{{steel.value}}</td>
-              
-            </tr>
-          </tbody>
-      </table>
-
-
-
-    </div>
-
-
-    <div id="Process History" fxFlex>
-
-      <table class="table">
-          <thead>
-            <tr>
-              <th>Process Type</th>
-              <th>Process Name</th>
-              <th>Process Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let steelHistory of steelProcessHistory" 
-            >
-              <td>{{steelHistory.process_type}}</td>
-              <td><button type="button" class="btn btn-primary btn-xs" (click)="navigateToProcess(steelHistory)">{{steelHistory.process_name}} </button></td>
-              <td>{{steelHistory.process_date}}</td>
-              
-              
-            </tr>
-          </tbody>
-      </table>
-
+          <button mat-icon-button color="primary" aria-label="Traveller" (click)="downloadTraveller()" matTooltip="Download the traveller for this steel.">
+            <mat-icon>file_open</mat-icon>
+          </button>
+  
+          <button mat-icon-button color="danger" aria-label="Hold" (click)="displayFailureDialog()"  matTooltip="Fail this steel. ">
+            <mat-icon>report</mat-icon>
+          </button> 
+          
+          
+         <!--  <button mat-icon-button color="primary" aria-label="Hold"  matTooltip="Place this steel on hold.">
+            <mat-icon>warning</mat-icon>
+          </button>
+  
+          <button mat-icon-button color="primary" aria-label="Failure"  matTooltip="Fail this steel. ">
+            <mat-icon>remove_shopping_cart</mat-icon>
+          </button> -->
+  
+        </div>
+        
+   
 
       
-      <table *ngIf="steelObject.reworks.length > 0" class="table">
-        <thead>
-          <tr>
-            <th>Rework Step Occurance</th>
-            <th>Rework Reason</th>
-            <th>Rework Date</th>
-            <th>Comment</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let rework of steelObject.reworks">
-            <td>{{rework.process.process_name}}</td>
-            <td>{{rework.rework_reason.name}}</td>
-            <td>{{rework.created_at}}</td>
-            <td>{{rework.comment}}</td>
-            
-          </tr>
-        </tbody>
-    </table>
+      </h2>
+      <mat-accordion>
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title style="color:rgba(0,0,0,.54) !important;">
+              Steel 
+            </mat-panel-title>
+            <mat-panel-description fxLayoutGap="10px" style="color:rgba(0,0,0,1) !important;">
+                      <div> QMIS-{{steelObject.id}}</div> 
+                      <div>{{steelObject.heat_id}} </div> 
+                      <div *ngIf="steelObject.cut">C{{steelObject.cut}}</div> 
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div id="Steel" fxFlex>
+
+            <table class="table">
+              <thead>
+                <tr >
+                  <th >Property</th>
+                  <th >Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr  *ngFor="let steel of steelObject | keyvalue">
+                  <td *ngIf="steel.value">{{steel.key}}</td>
+                  <td *ngIf="steel.value">{{steel.value}}</td>
+                  
+                </tr>
+              </tbody>
+          </table>
+        </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel (opened)="panelOpenState = true"
+                            (closed)="panelOpenState = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title style="color:rgba(0,0,0,.54) !important;">
+              Steel Type 
+            </mat-panel-title>
+            <mat-panel-description style="color:rgba(0,0,0,1) !important;">
+              {{steelObject.steel_type.id}} - {{steelObject.steel_type.part_name}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+                <div id="Steel Type" fxFlex>
+
+                  <table class="table">
+                    <thead>
+                      <tr >
+                        <th >Property</th>
+                        <th >Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr  *ngFor="let steel of steelObject.steel_type | keyvalue">
+                        <td *ngIf="steel.value">{{steel.key}}</td>
+                        <td *ngIf="steel.value">{{steel.value}}</td>
+                        
+                      </tr>
+                    </tbody>
+                </table>
+              </div>
+        </mat-expansion-panel>
+
+
+        <mat-expansion-panel>
+              <mat-expansion-panel-header>
+              <mat-panel-title style="color:rgba(0,0,0,.54) !important;">
+                Campaign 
+              </mat-panel-title>
+              <mat-panel-description style="color:rgba(0,0,0,1) !important;">
+                {{steelObject.campaign.campaign_name}}
+              </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div id="Steel Type" fxFlex>
+
+              <table class="table">
+              <thead>
+                <tr >
+                  <th >Property</th>
+                  <th >Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr  *ngFor="let steel of steelObject.campaign | keyvalue" >
+                  <td *ngIf="steel.value">{{steel.key}}</td>
+                  <td *ngIf="steel.value">{{steel.value}}</td>
+                  
+                </tr>
+              </tbody>
+              </table>
+              </div>
+              </mat-expansion-panel>
+        
+      </mat-accordion>
+  </div>
+  
+
+  <div id="right column" fxFlex="30" fxLayout="column" fxLayoutAlign="center start">
+
+
+    
+      <h2  fxLayoutAlign="space-between center" fxLayout="row">  History 
+
+        <div fxLayoutGap="5px">
+
+          <button mat-icon-button color="success" aria-label="Rework" (click)="displayReworkDialog()"  matTooltip="Rework this steel">
+            <mat-icon>restart_alt</mat-icon>
+          </button> 
+
+          <button mat-icon-button color="caution" aria-label="Hold" (click)="displayHoldDialog()"  matTooltip="Place this steel on hold">
+            <mat-icon>notifications</mat-icon>
+          </button> 
+        </div>
+
+      </h2>
+    
+    <mat-accordion>
+
+      <mat-expansion-panel id="processHistoryExpansionPanel">
+        <mat-expansion-panel-header>
+          <mat-panel-title style="color:rgba(0,0,0,.54) !important;">
+            Process History 
+          </mat-panel-title>
+          <mat-panel-description fxLayoutGap="10px" style="color:rgba(0,0,0,1) !important;">
+                    <!-- <div> QMIS-{{steelObject.id}}</div> 
+                    <div>{{steelObject.heat_id}} </div> 
+                    <div *ngIf="steelObject.cut">C{{steelObject.cut}}</div>  -->
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+            <div fxFlex>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Process Type</th>
+                        <th>Process Name</th>
+                        <th>Process Date</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let steelHistory of steelProcessHistory" 
+                      >
+                        <td>{{steelHistory.process_type}}</td>
+                        <td><button type="button" class="btn btn-info btn-xs" style="color:white;" (click)="navigateToProcess(steelHistory)">{{steelHistory.process_name}} </button></td>
+                        <td>{{steelHistory.process_date}}</td>
+                        
+                        
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel id="reworkHistoryExpansionPanel"  *ngIf="steelObject.reworks.length > 0" >
+          <mat-expansion-panel-header>
+            <mat-panel-title style="color:rgba(0,0,0,.54) !important;">
+              Rework History 
+            </mat-panel-title>
+            <mat-panel-description fxLayoutGap="10px" style="color:rgba(0,0,0,1) !important;">
+                      <!-- <div> QMIS-{{steelObject.id}}</div> 
+                      <div>{{steelObject.heat_id}} </div> 
+                      <div *ngIf="steelObject.cut">C{{steelObject.cut}}</div>  -->
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+              <div fxFlex>
+           
+                <table id="Rework Table" class="table">
+              
+                  <thead>
+                    <tr>
+                      <th>Occurred</th>
+                      <th>Reason</th>
+                     
+                      <th>Comment</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let rework of steelObject.reworks">
+                      <td>{{rework.process.process_name}}</td>
+                      <td style="font-size:12px;">{{rework.rework_reason.name}}</td>
+                     
+                      <td style="font-size:11px;">{{rework.comment}}</td>
+                      <td style="font-size:10px;">{{rework.created_at}}</td>
+                    </tr>
+                  </tbody>
+              </table>
+              </div>
+          </mat-expansion-panel>
+          
+          <mat-expansion-panel id="holdHistoryExpansionPanel" *ngIf="steelObject.holds.length > 0" >
+            <mat-expansion-panel-header>
+              <mat-panel-title style="color:rgba(0,0,0,.54) !important;">
+                Hold History 
+              </mat-panel-title>
+              <mat-panel-description fxLayoutGap="10px" style="color:rgba(0,0,0,1) !important;">
+                        <!-- <div> QMIS-{{steelObject.id}}</div> 
+                        <div>{{steelObject.heat_id}} </div> 
+                        <div *ngIf="steelObject.cut">C{{steelObject.cut}}</div>  -->
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+                <div fxFlex>
+                  <table id="Hold Table" class="table">
+      
+                    <thead>
+                      <tr>
+                    
+                        <th>Process</th>
+                        <th>Reason</th>
+                     
+                        <th>Comment</th>
+                        
+                        <th>Date</th>
+                        <th>Active?</th> 
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let hold of steelObject.holds"  [ngStyle]="{'background-color': (hold.active == 1) ? '#fffdf6' : '#fffff' }" >
+                       
+                        <td>{{hold.process.process_name}}</td>
+                        <td style="font-size:12px;">{{hold.reason.name}}</td>
+                      
+                        <td style="font-size:11px;">{{hold.comment}}</td>
+                        <td style="font-size:10px;">{{hold.created_at}}</td>
+                        <td><mat-icon *ngIf="hold.active">notifications</mat-icon> </td>
+                      </tr>
+                    </tbody>
+                </table>
+                </div>
+            </mat-expansion-panel>
+
+
+
+
+
+      </mat-accordion>
+
+     
 
 
     </div>

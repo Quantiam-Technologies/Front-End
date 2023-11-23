@@ -2,7 +2,7 @@ import { Component, OnInit,Inject } from '@angular/core';
 import { MarkdownService } from 'ngx-markdown';
 import { HttpClient } from '@angular/common/http';
 
-import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-patch-notes',
@@ -79,7 +79,7 @@ export class PatchNotesComponent implements OnInit {
       //noteObj.notes = '#'+splitVersionNotes[1];
       noteObj.notes = '# '+versionNotes;
 
-      if(index === 1){ noteObj.name = 'Issues & Todo';  }
+      if(index === 1){ noteObj.name = 'Issues';  }
 
       this.versionArray.push(noteObj);
 

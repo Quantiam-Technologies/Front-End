@@ -1,6 +1,6 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 
-
+import { NgSelect2Module } from 'ng-select2';
 
 
 import { CommonModule } from '@angular/common';
@@ -174,6 +174,7 @@ import { jqxTabsModule } from 'jqwidgets-ng/jqxtabs';
         SafePipe,
         ReactiveFormsModule,
         NgSelectModule,
+        NgSelect2Module,
         FileAssociatorComponent,        
         jqxButtonModule, jqxWindowModule, jqxCheckBoxModule, jqxTabsModule
 

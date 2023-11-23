@@ -7,7 +7,7 @@ import {ICellRendererAngularComp} from '@ag-grid-community/angular';
 
 import { SteelReworkDialogComponent } from '../../steel-rework-dialog/steel-rework-dialog.component';
 
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 
 import { faFileExcel,faArrowRotateLeft } from '@fortawesome/free-solid-svg-icons';
 

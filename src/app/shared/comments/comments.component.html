@@ -12,8 +12,8 @@
 
   <div *ngFor="let comment of commentArray" fxLayout="row" class="comment-wrapper"
   >
-   <mat-card style="min-width: 500px; padding: 8px 8px 2px 8px;"  (mouseenter)="showCommentOptions[comment.id] = true" (mouseleave)="showCommentOptions[comment.id] = false">
-      <div id="avatar" fxLayoutAlign="center start">
+   <mat-card fxLayout="row" appearance="outlined" style="min-width: 500px; padding: 8px 8px 2px 8px;"  (mouseenter)="showCommentOptions[comment.id] = true" (mouseleave)="showCommentOptions[comment.id] = false">
+      <div id="avatar" fxLayoutAlign="center center">
           <mat-icon class="person-icon">comment</mat-icon>
       </div>
 
@@ -36,7 +36,7 @@
           <div fxLayout="row" fxFlex.gt-lg=10 fxFlex=30 fxLayoutAlign="end center">    
             
 
-              <button mat-icon-button color="primary" class="clickable" 
+              <button mat-icon-button color="primary" style="color:white;" class="clickable" 
               [hidden]="!showCommentOptions[comment.id]" matTooltip="Finish Editing"
               [disabled]="userService.get('id') !== comment.comment_employee_id"
               > 

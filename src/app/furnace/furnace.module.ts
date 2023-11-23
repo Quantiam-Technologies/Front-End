@@ -5,7 +5,7 @@ import { FurnaceRoutingModule } from './furnace-routing.module';
 import { FurnaceRunComponent } from './furnace-run/furnace-run.component';
 import { FurnaceDatabaseComponent } from './furnace-database/furnace-database.component';
 import { FurnaceIndexComponent } from './furnace-index/furnace-index.component';
-import { NgSelect2Module } from 'ng-select2';
+
 
 
 import { SharedModule } from '../shared/shared.module';
@@ -22,7 +22,6 @@ import { FurnaceRunDatabaseComponent } from './furnace-run-database/furnace-run-
   imports: [
     CommonModule,
     FurnaceRoutingModule,
-    NgSelect2Module,
     SharedModule,
     MaterialDesignModule,
   ]

@@ -4,8 +4,13 @@
 }
 
 
-::ng-deep mat-tab-group .mat-tab-body-wrapper
+::ng-deep mat-tab-group mat-tab-body
 {
 
-    height:100% !important;
+    min-height:600px !important;
+}
+
+.editMaterial
+{
+    
 }

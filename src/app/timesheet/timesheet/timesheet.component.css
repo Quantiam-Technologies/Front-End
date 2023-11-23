@@ -96,6 +96,17 @@
     background-color: #52bb56;
 }
 
+.print-button:disabled{
+
+    border-radius: 17px;
+    margin-right: 50px;
+    padding: 5px 10px !important;
+    line-height: inherit !important;
+    font-size: 13px;
+   
+    background-color: #757575;
+}
+
 .print-button:hover
 {
     background-color: #3d8d40;

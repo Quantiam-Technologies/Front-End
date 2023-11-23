@@ -11,6 +11,7 @@
 						  
 						<mat-form-field class="full-width">
 							<input #materialName matInput placeholder="name" [(ngModel)] ='material.name' name="name" (change)="updateMaterial(materialName)">
+							<mat-label>Name</mat-label>
 						  </mat-form-field> 
 						 
 						  
@@ -88,7 +89,7 @@
 	<div fxLayoutGap="20px" fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="start stretch">
 		
 		
-	<mat-card id="" fxFlex="20">
+	<mat-card appearance="outlined" id="" fxFlex="20">
 	  <mat-card-header>
 		<div mat-card-avatar class="example-header-image"></div>
 		<mat-card-title>Shiba Inu</mat-card-title>
@@ -107,7 +108,7 @@
 		<button mat-button>SHARE</button>
 	  </mat-card-actions>
 	</mat-card>
-		<mat-card class="example-card" fxFlex="20">
+		<mat-card appearance="outlined" class="example-card" fxFlex="20">
 	  <mat-card-header>
 		<div mat-card-avatar class="example-header-image"></div>
 		<mat-card-title>Shiba Inu</mat-card-title>
@@ -126,7 +127,7 @@
 		<button mat-button>SHARE</button>
 	  </mat-card-actions>
 	</mat-card>
-		<mat-card class="example-card" fxFlex="20">
+		<mat-card appearance="outlined" class="example-card" fxFlex="20">
 	  <mat-card-header>
 		<div mat-card-avatar class="example-header-image"></div>
 		<mat-card-title>Shiba Inu</mat-card-title>

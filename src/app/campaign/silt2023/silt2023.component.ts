@@ -17,21 +17,23 @@ export class Silt2023Component implements OnInit {
 
   constructor(private http: HttpClient, private route: ActivatedRoute, ) {}
   
-  
+  producedSteelResponseObject;
   Highcharts: typeof Highcharts = Highcharts; // required
   chartConstructor: string = 'chart'; // optional string, defaults to 'chart'
   chartOptions: Highcharts.Options = {
    
     chart: {
       type: 'column',
-      backgroundColor: '#FFFFFF',
-    },
+      backgroundColor:null    },
     credits:{
       text:'Quantiam Technologies Inc.'
     },
+    subtitle: {
+      text: 'Updated Hourly'
+  },
     title: {
-        text: 'SiLT 2023 Campaign Status',
-        align: 'left'
+        text: 'SiLT 2023 Campaign Last Known Steel Status',
+        align: 'center'
     },
     xAxis: [{
         categories: [
@@ -42,7 +44,7 @@ export class Silt2023Component implements OnInit {
           'Consolidation',
           'Posting Finish',
           'Oxide Generation',
-          'Final',
+          'Shipping',
           ],
           title: {
             text: 'Unit Operation'
@@ -51,7 +53,7 @@ export class Silt2023Component implements OnInit {
 }],
     yAxis: {
         min: 0,
-        max: 160,
+/*         max: 160, */
         //minorGridLineWidth:0,
         gridLineWidth:0,
         title: {
@@ -59,12 +61,13 @@ export class Silt2023Component implements OnInit {
         },
         labels:{ enabled:false},
         stackLabels: {
-            enabled: true
+            enabled: true,
         }
     },
     
     legend: {
 
+      enabled:false,
       itemMarginTop: 10,
       itemMarginBottom: 10,
         align: 'center',
@@ -82,7 +85,20 @@ export class Silt2023Component implements OnInit {
     },
     tooltip: {
         headerFormat: '<b>{point.x}</b><br/>',
-        pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}',
+        pointFormatter: function(){ 
+
+          let point = this,
+          series = point.series;
+
+          let string = '';
+
+          if(point.y > 0){
+            string = string +  '<span style="color:'+series.color+'">'+series.name+':</span> '+point.y+'<br/>';
+          }
+          
+          return string;
+        },
+        shared: true,
       
     },
     plotOptions: {
@@ -125,18 +141,20 @@ export class Silt2023Component implements OnInit {
 
       console.log(r);
 
+      this.producedSteelResponseObject = r;
+
       var categoryArray = [];
       var SeriesArray = [];
 
       var totalObject = {
 
-        type:null,
+       type:null,
         id: '0',
         name: "Remaining",
-        data: [152,152,152,152,152],
+        data: [0,0,0,0,0,0],
         color:'rgba(0,0,0,0)',
-        borderColor: '#FF0000',
-        //borderWidth: '1px',
+        borderColor: '#FF0000', 
+      
 
       }
 

@@ -18,6 +18,7 @@ export class ReworksComponent {
 
   campaignId = 29;
   campaignReworks;
+  renderCampaignReworks = false;
 
   
   ngOnInit(){
@@ -32,6 +33,7 @@ export class ReworksComponent {
     this.http.get(environment.apiUrl + `/campaign/`+this.campaignId+`/rework`).subscribe((r: any) => {
 
       this.campaignReworks = r;
+      this.renderCampaignReworks = true;
 
     })
 

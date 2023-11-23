@@ -61,7 +61,7 @@
                       <div   *ngFor="let spectra of analysis.spectra"  fxLayout="row wrap" fxLayoutGap="10px"   >
 
 
-                          <mat-card   *ngFor="let pattern of spectra.patterns" fxFlex="20" style="margin-top:5px !important;">
+                          <mat-card   appearance="outlined"   *ngFor="let pattern of spectra.patterns" fxFlex="20" style="margin-top:5px !important;">
                               <mat-card-content fxLayout="column" >
                                 <div fxLayout="row"  fxLayoutAlign="start start">
           
@@ -119,7 +119,7 @@
             </mat-tab>
             <mat-tab label="Chart Controls">
               <ng-template matTabContent>
-                <mat-card   style="margin:5px !important;">
+                <mat-card   appearance="outlined"   style="margin:5px !important;">
                   <mat-card-content fxLayout="column" >
                   <div fxLayout="row wrap" fxLayoutAlign="start center" fxLayoutGap="10px">
                                      

@@ -12,6 +12,7 @@ import { StatusComponent } from './shared/status/status.component';
 import { HoldsComponent } from './shared/holds/holds.component';
 import { TotalProgressComponent } from './shared/total-progress/total-progress.component';
 import { ReworksComponent } from './shared/reworks/reworks.component';
+import { FailuresComponent } from './shared/failures/failures.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ReworksComponent } from './shared/reworks/reworks.component';
           StatusComponent,
           HoldsComponent,
           TotalProgressComponent,
-          ReworksComponent
+          ReworksComponent,
+          FailuresComponent
   ],
   imports: [
     CommonModule,

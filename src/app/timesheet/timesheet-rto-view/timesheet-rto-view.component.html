@@ -13,7 +13,7 @@
 
     </div>
 
-    <div fxLayout="row" fxLayoutGap="20px" fxFlex style="font-size: 1.25em;" *ngIf="rto?.user">
+    <div fxLayout="row" fxLayoutGap="20px" fxFlex style="" *ngIf="rto?.user">
 
         <div fxLayout="column" fxFlex.gt-md=50 fxLayoutGap="20px">
 
@@ -27,13 +27,13 @@
                 <app-select-user [placeholder]="rto?.user.name" [hidden]="!showSelectBox" (change)="selectedUserChanged($event)" [selectedValue]="rto?.user.id"></app-select-user>
             </div> -->
 
-            <mat-card id="requested_time_card">
-                <mat-card-header>
+            <mat-card appearance="outlined" id="requested_time_card">
+                <mat-card-header style="display: block !important;">
 
-                    <mat-card-title>
+                    <mat-card-title >
 
-                        <div fxLayout="row" fxLayoutAlign="start start">
-                            <div >{{rto?.user.name}} </div>
+                        <div fxLayout="row" fxLayoutAlign="center center" fxFlex>
+                            <div  >{{rto?.user.name}} </div>
                             <div fxFlex fxLayoutAlign="center center" style="height:35px;"> <small>RTO {{rto.requestID}}</small> </div>
                             <div fxLayout="row" *ngIf="rto?.status !== 'approved'">
                                 <button  mat-icon-button style="color:green;" class="clickable" (click)="showTimeOffRequestForm = !showTimeOffRequestForm">
@@ -45,7 +45,7 @@
                             </div>
                         </div>
                     </mat-card-title>
-                    <mat-card-subtitle> Time off request. </mat-card-subtitle>
+                <!--     <mat-card-subtitle> Time off request. </mat-card-subtitle> -->
                 </mat-card-header>
                 <mat-card-content>
 
@@ -143,20 +143,18 @@
             </mat-card>
             <div *ngIf="showTimeOffRequestForm">
 
-                <mat-card id="requested_time_card">
-                    <mat-card-header>
+                <mat-card appearance="outlined" id="requested_time_card">
+                    <mat-card-header  style="display: block !important;">
 
-                        <mat-card-title fxLayout="row" fxFlex>
+                        <mat-card-title >
 
-                                <div fxFlex>  Create Time Request </div>
-                            
-                               
-
-                                <div fxFlex fxLayoutAlign="end start" font-size="11px;">
-
+                            <div fxLayout="row" fxLayoutAlign="center center" fxFlex>                                    
+                                    <div fxFlex >Create Time Request </div>       
+                                    <div fxFlex fxLayoutAlign="end center">
                                         <mat-icon  class="clickable" (click)="showTimeOffRequestForm = false">close</mat-icon>
-
-                                </div>
+                                    </div>               
+                                    
+                            </div>                               
                                
                         </mat-card-title>
                         <!-- <mat-card-subtitle> Add all of your unique requests here. </mat-card-subtitle> -->
@@ -228,7 +226,7 @@
         <div fxLayout="row" id="right-column" fxFlex fxFlex.gt-md=50 fxLayoutGap="10px">
 
             <div *ngIf="rtoBank" fxFlex fxFill>
-                <mat-card id="approval_card"  >
+                <mat-card appearance="outlined" id="approval_card"  >
                     <mat-card-header>
                             <mat-card-title fxLayout="row" fxFlex> Rto Bank Impact</mat-card-title>
                         
@@ -278,7 +276,7 @@
 
 
             <div fxFill>
-                <mat-card id="approval_card" fxFlex=60>
+                <mat-card appearance="outlined" id="approval_card" fxFlex="60">
                     <mat-card-header>
 
                    

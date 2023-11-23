@@ -1,1 +1,41 @@
-<p>holds works!</p>
+<div *ngIf="!renderCampaignHolds" fxFill>
+    
+  <h2> There is currently no held product. </h2> 
+
+</div>
+
+<div *ngIf="renderCampaignHolds">
+
+    <h2 fxLayout="row" fxLayoutGap="10px"> <div>Held Product </div> <small>  ({{displayCampaignHolds.length}})</small>    </h2>
+    <div style="overflow:auto;  max-height: 300px;" class="remove-scrollbar">
+    <table  class="table" fxFlex  >
+        <thead class="sticky-header">
+            <tr>
+            
+                <th>Steel</th>
+                <th>Process</th>                
+                <th>Comment</th>
+                <th>Occured</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="background-color:#fffdf6 !important;" *ngFor="let hold of displayCampaignHolds">
+                
+                <td >
+                    <button type="button" class="btn btn-warning btn-xs" routerLink="/steel/{{hold.steel_id}}" fxLayout="row" fxLayoutGap="5px">
+                        <div> {{hold.steel.heat_id}} </div> 
+                        <div *ngIf="hold.steel.cut">C{{hold.steel.cut}}</div> 
+                        </button>
+                </td>
+                <td>{{hold.process.process_name}}</td>              
+                <td><p style="font-size:10px;">{{hold.comment}}</p></td>
+                <td style="font-size:10px;">{{hold.created_at}}</td>
+            <!--  <td><button type="button" class="btn btn-primary btn-xs" (click)="navigateToProcess(unitOperation)">{{unitOperation.process_name}} </button></td> -->
+            
+                
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>

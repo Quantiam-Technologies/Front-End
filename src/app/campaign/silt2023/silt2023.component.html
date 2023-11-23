@@ -1,6 +1,4 @@
 
-<div ></div>
-
 
 <div fxLayout="row" >
     
@@ -9,10 +7,10 @@
 </div>
 
 
-<div fxLayout="row" id="Summary Region"  >
+<div fxLayout="row" id="Summary Region" fxLayoutGap="30px" fxFill >
     
 
-    <div  fxLayout="column"  >
+    <div  fxLayout="column"  fxLayoutGap="15px">
 
         <highcharts-chart 
         [Highcharts]="Highcharts"
@@ -25,11 +23,45 @@
         [oneToOne]="oneToOneFlag"
         [runOutsideAngular]="runOutsideAngular"
     
-        style="width: 100%; height: 500px; display: block;"
+        style="width: 100%; height: 400px; display: block; min-width: 600px;"
         ></highcharts-chart>
 
         <div >
-            <app-reworks></app-reworks>
+                <!--- steel tube statuses -->
+            <div>
+                <div  class="remove-scrollbar" style="overflow:auto; max-width: 600px; max-height: 400px;">
+                    <table  class="table" fxFlex  >
+                        <thead class="sticky-header">
+                            <tr>
+                            
+                                <th>Steel Name</th>
+                                <th>Type</th>
+                                <th>Last Known Status</th>
+                               <!--  <th>Updated</th> -->
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let steel of producedSteelResponseObject.steel">
+                                
+                                <td >
+                                    <button type="button" class="btn btn-info btn-xs" style="color:white;" routerLink="/steel/{{steel.id}}" fxLayout="row" fxLayoutGap="5px">
+                                        <div> {{steel.heat_id}} </div> 
+                                        <div *ngIf="steel.cut">C{{steel.cut}}</div> 
+                                        </button>
+                                </td>
+                                <td>{{steel.steel_type.part_name}}</td>
+                                <td>{{steel.last_known_process_status}}</td>
+                              <!--   <td style="font-size:11px;">{{steel.updated_at}}</td> -->
+                            
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+
+
         </div>
         
 
@@ -38,6 +70,8 @@
     <div>
         <!--- part by part breakdown ? -->
         <app-throughput></app-throughput>
+
+
     </div>
 
     <div>

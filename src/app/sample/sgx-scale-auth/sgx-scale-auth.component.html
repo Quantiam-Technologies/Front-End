@@ -13,7 +13,7 @@
 	<div >
 	
 		<h3 *ngIf="!scaleInfoTest"> Sorry, we couldn't connect to the SGX scale. </h3>
-		<mat-card class="example-card"  *ngIf="scaleInfoTest && scaleInfo">
+		<mat-card appearance="outlined" class="example-card"  *ngIf="scaleInfoTest && scaleInfo">
 			  <mat-card-header>
 				<mat-card-title>{{scaleInfo.machine.name}}</mat-card-title>
 				<mat-card-subtitle>{{scaleInfo.machine.make}} - {{scaleInfo.machine.model}}</mat-card-subtitle>

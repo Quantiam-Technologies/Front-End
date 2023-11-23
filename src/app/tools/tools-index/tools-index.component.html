@@ -1,4 +1,4 @@
-<nav mat-tab-nav-bar>
+<nav mat-tab-nav-bar mat-stretch-tabs="false"  [tabPanel]="tabPanel">
     <!-- <a mat-tab-link routerLink="database" routerLinkActive="mat-tab-link-active"> Materials </a>-->
     
     <a mat-tab-link  routerLink="scale-bar"> Scalebar </a>
@@ -9,7 +9,7 @@
     
   </nav>
     
-  <div class="tab-content">
+  <div class="tab-content" #tabPanel>
       <router-outlet ></router-outlet>
   </div>
      

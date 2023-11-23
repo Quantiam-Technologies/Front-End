@@ -292,13 +292,21 @@ export class ArbinTestComponent implements OnInit {
   changeFields() 
   {
     this.HighchartOptions.series.forEach(series => {
-      
-          series.data.forEach(dataPoint => {
 
-            dataPoint.x = dataPoint[this.currentXField];
-            dataPoint.y = dataPoint[this.currentYField];
+
+       
+      
+          series.data.forEach((dataPoint,index) => {
+
+            series.data[index].x = dataPoint[this.currentXField];
+            series.data[index].y = dataPoint[this.currentYField];
+
+            //console.log(dataPoint);
+            //return;
             
           });
+
+         console.log(series,this.currentXField);
       
     });
 

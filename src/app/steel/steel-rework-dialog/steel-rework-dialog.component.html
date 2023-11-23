@@ -1,3 +1,62 @@
-<p>
-  steel-rework-dialog works!
-</p>
+
+
+
+<h2 mat-dialog-title> Rework {{steelObject.heat_id}}?  </h2>
+
+
+<div mat-dialog-content fxLayout="column" fxLayoutGap="15px">
+
+  <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="start center">
+
+
+    <ng-select2
+
+    [width]="'150px'"
+    [data]="reworkReasonList"
+    [(ngModel)]="reworkObject.rework_reason_id"
+    
+    placeholder="Rework Reason">		
+    </ng-select2> 
+
+
+    <ng-select2
+
+    [width]="'150px'"
+    [data]="processList"
+    [(ngModel)]="reworkObject.process_id"
+    placeholder="Occured Process">		
+    </ng-select2> 
+
+
+    <ng-select2
+
+    [width]="'150px'"
+    [data]="processList"
+    [(ngModel)]="reworkObject.next_process_id"
+    placeholder="Destination Process">		
+    </ng-select2> 
+
+
+
+  </div>
+
+  <div>
+
+    <mat-form-field fxFlex>
+      <mat-label>Comments</mat-label>
+      <textarea matInput placeholder="Optional: Describe the rework beyond the basic reasoning for occurence." style="height:150px;" [(ngModel)]="reworkObject.comment"></textarea>
+    </mat-form-field>
+
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="end center">
+
+    <button mat-raised-button (click)="createRework()" color="primary" [disabled]="!checkReworkRediness()"> Create </button>
+
+
+
+  </div>
+
+
+
+</div>

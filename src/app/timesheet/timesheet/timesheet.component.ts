@@ -28,6 +28,8 @@ export class TimesheetComponent implements OnInit {
 
   faDownload = faDownload;
 
+  updateInProgressArray = [];
+
   private gridApi;
   private gridColumnApi;
 
@@ -678,27 +680,36 @@ export class TimesheetComponent implements OnInit {
     if (params.value === '') { params.value = 0; }
   //  payload[this.timeSheetObj.denomination.toLowerCase()] = '' + params.value + '';
 
+
+    this.updateInProgressArray.push(params.column.colId+""+params.data.project.projectID);
+    console.log(this.updateInProgressArray);
+
     const url = '/timesheet/' + this.routeParams.userId + '/process';
     this.http.put<any>(environment.apiUrl + url + '?filterSpinner', payload)
     .subscribe(response => {
 
  
 
-                this.timeSheetObj.bank = response.bank;
-                this.timeSheetObj.overhours[response.week - 1].daily_sum = response.totaldaily_overhours;
-                this.timeSheetObj.overhours[response.week - 1].weekly_sum = response.totalweekly_overhours;
+                if(!this.timeSheetObj.machine)
+                {
+                  this.timeSheetObj.bank = response.bank;
+                  this.timeSheetObj.overhours[response.week - 1].daily_sum = response.totaldaily_overhours;
+                  this.timeSheetObj.overhours[response.week - 1].weekly_sum = response.totalweekly_overhours;
 
-                if(this.timeSheetObj.overhours[response.week - 1].weekly_sum > this.timeSheetObj.overhours[response.week - 1].daily_sum)
-                {
-                  this.timeSheetObj.overhours[response.week - 1].bank = this.timeSheetObj.overhours[response.week - 1].weekly_sum ;
-                }
-                else
-                {
-                  this.timeSheetObj.overhours[response.week - 1].bank =  this.timeSheetObj.overhours[response.week - 1].daily_sum;
+                  if(this.timeSheetObj.overhours[response.week - 1].weekly_sum > this.timeSheetObj.overhours[response.week - 1].daily_sum)
+                  {
+                    this.timeSheetObj.overhours[response.week - 1].bank = this.timeSheetObj.overhours[response.week - 1].weekly_sum ;
+                  }
+                  else
+                  {
+                    this.timeSheetObj.overhours[response.week - 1].bank =  this.timeSheetObj.overhours[response.week - 1].daily_sum;
+                  }
                 }
              
 
             this.notification.success('Saved ', response.projectid + ', ' + response[this.timeSheetObj.denomination.toLowerCase()] + ' ' + this.timeSheetObj.denomination + ' on ' + response.date, {timeOut: 2000, showProgressBar: false, clickToClose: true}); /// Daily OT notificaton
+            this.updateInProgressArray.splice(0,1);
+            console.log(this.updateInProgressArray);
 
          },
          error => {
@@ -708,7 +719,8 @@ export class TimesheetComponent implements OnInit {
             rowNode.setData(params.data);
             this.gridApi.redrawRows();
             this.notification.error('error ',  'The data was not saved.', {timeOut: 4000, showProgressBar: false, clickToClose: true}); /// Daily OT notificaton
-
+            this.updateInProgressArray.splice(0,1);
+            console.log(this.updateInProgressArray);
          });
   }
 
@@ -738,6 +750,11 @@ export class TimesheetComponent implements OnInit {
   }
 
   }
+
+
+  ConvertString(value){
+    return parseFloat(value)
+    }
 
   selectedUserChanged(event) {
 

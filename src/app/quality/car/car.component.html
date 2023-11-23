@@ -35,11 +35,11 @@
 
             <mat-form-field class="example-chip-list" fxFlex>
                 <mat-label>Responsible Persons</mat-label>
-                <mat-chip-list #chipList aria-label="Fruit selection" placeholder="Add or remove as necessary.">
-                    <mat-chip 
+                <mat-chip-grid #chipList aria-label="Fruit selection" placeholder="Add or remove as necessary.">
+                    <mat-chip-row 
                     (removed)="remove(user,i)" *ngFor="let user of selectedResponsible; index as i">{{user.name}}
                         <mat-icon matChipRemove>cancel</mat-icon>
-                    </mat-chip> 
+                    </mat-chip-row> 
                     <input required 
                     #responsibleInput
                     formControlName="responsible"
@@ -48,7 +48,7 @@
                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                     [matChipInputAddOnBlur]="addOnBlur" 
                     >
-                </mat-chip-list>
+                </mat-chip-grid>
                 <mat-autocomplete #responsible="matAutocomplete" (optionSelected)="selectResponsible($event)">
                     <mat-option  *ngFor="let user of filteredUsers | async"  [value]="user">
                     {{ user.name }} <small>{{user.title}}</small>

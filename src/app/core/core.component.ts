@@ -13,7 +13,7 @@ import {
 
 //import { fadeAnimation } from '../animations';
 
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { PatchNotesComponent } from './patch-notes/patch-notes.component';
 
 import { WebsocketService } from '../services/websocket/websocket.service';
@@ -24,7 +24,7 @@ import { faCoffee, faMicroscope, faBolt, faFlask, faXRay,
   faFireAlt, faPlaneDeparture, faHatWizard, faPaste, faCog, 
   faPiggyBank, faChartLine, faJournalWhills, faUserFriends, faPallet, faSitemap, faUserTimes, faDraftingCompass, faWrench, faExclamationCircle, faBraille, faSun } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar, faClock } from '@fortawesome/free-regular-svg-icons';
-import { faAngular, faGithub, faFontAwesome, faLaravel } from '@fortawesome/free-brands-svg-icons';
+import { faAngular, faGithub, faFontAwesome, faLaravel,faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 
 import { HttpClient  } from '@angular/common/http';
@@ -80,6 +80,7 @@ export class CoreComponent implements OnInit, OnDestroy {
   faExclamationCircle = faExclamationCircle;
   faBraille = faBraille;
   faSun = faSun;
+  faGoogle = faGoogle;
 
 
   title = 'app';

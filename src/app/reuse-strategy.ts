@@ -22,7 +22,11 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
     'company-insight-hours',
     '3dmodels-database',
     'TapecastDatabaseComponent',
-    'TapecastComponent'
+    'TapecastComponent',
+    'dashboard',
+    'silt2023',
+    'SteelDatabase','SteelTypeView','SteelTypeDatabaseView',
+
     
 
    ];

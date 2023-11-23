@@ -1,6 +1,8 @@
-<div fxLayout="row" fxFlex fxLayoutGap="30px"  *ngIf="throughputResponse"> 
+<div fxLayout="row"  fxLayoutGap="20px" fxFill *ngIf="throughputResponse"> 
 
-        
+    <div fxLayout="column"  fxFlex fxLayoutAlign="start center" fxLayoutGap="10px" >
+
+
         <highcharts-chart 
 
         
@@ -15,17 +17,55 @@
         [oneToOne]="oneToOneFlag"
         [runOutsideAngular]="runOutsideAngular"
 
-        style="width: 100%; height: 500px; display: block;"
+        style="width: 650px; max-height: 400px; display: block;"
         ></highcharts-chart>
 
 
 
-    <div fxLayout="column" >
+        
+        <div id="hold, rework, failures">
+
+                <div id="Counters" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+
+             
+
+                      <button mat-fab extended color="caution" (click)="changeReworkHoldFailure('hold')">
+                        <mat-icon>notifications</mat-icon>
+                        <span></span>
+                        {{ReworkHoldFailureResponse.holds_active}} Holds
+                      </button>
+
+                      <button mat-fab extended color="failure" (click)="changeReworkHoldFailure('fail')">
+                        <mat-icon>report</mat-icon>
+                        {{ReworkHoldFailureResponse.fails}} Failures
+                      </button>
+
+                      <button mat-fab extended color="success" (click)="changeReworkHoldFailure('rework')">
+                        <mat-icon>restart_alt</mat-icon>
+                        {{ReworkHoldFailureResponse.reworks}} Reworks
+                      </button>
+
+                </div>
+
+
+
+                <div id="tables">
+                    
+                    <app-reworks [hidden]="!displayReworkTable" style="margin:10px;"></app-reworks> 
+                    <app-holds [hidden]="!displayHoldTable" style="margin:10px;"></app-holds> 
+                </div>
+
+        </div>
+    </div>
+
+
+
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" >
         
         <h2>Recent Unit Operations </h2>
-        <div style="width: 450px; height:450px; overflow:auto;">
+        <div class="remove-scrollbar" style="width: 380px; overflow:auto;">
         <table  class="table" fxFlex  >
-            <thead>
+            <thead class="sticky-header">
                 <tr>
                    
                     <th>Type</th>
@@ -40,15 +80,24 @@
                     
                     <td>{{unitOperation.process_type}}</td>
                     <td>{{unitOperation.total}}</td>
-                    <td><button type="button" class="btn btn-primary btn-xs" (click)="navigateToProcess(unitOperation)">{{unitOperation.process_name}} </button></td>
-                    <td>{{unitOperation.process_date}}</td>
+                    <td><button type="button" class="btn btn-info btn-xs" style="color:white !important; font-size:11px;" (click)="navigateToProcess(unitOperation)">{{unitOperation.process_name}} </button></td>
+                    <td style="font-size:10px;">{{unitOperation.process_date}}</td>
                     
                 </tr>
             </tbody>
         </table>
         </div>
 
+    
+
     </div>
             
+
+   
+        
+   
+
+
+   
     
 </div>

@@ -12,7 +12,7 @@ import { NotificationsService } from 'angular2-notifications';
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'; 
+import { MatDialog } from '@angular/material/dialog'; 
 
 import { FileSaverService } from 'ngx-filesaver';
 
@@ -82,7 +82,7 @@ export class MaterialContainerViewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-		if (this.userService.hasPermission([40, 41])) { this.canEdit = true; }
+		if (this.userService.hasPermission([40,41])) { this.canEdit = true; }
 
 
 		const id  = this.route.snapshot.params['id'];  // obtain ID from route

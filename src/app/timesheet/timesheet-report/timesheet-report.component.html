@@ -1,4 +1,5 @@
-<nav mat-tab-nav-bar>
+<nav mat-tab-nav-bar mat-stretch-tabs="false">
+		
         
    
     <a mat-tab-link routerLink="user-hours" routerLinkActive="mat-tab-link-active"> User Hours </a>
@@ -12,6 +13,7 @@
 
 </nav>
 
-<div class="padding">
+<mat-tab-nav-panel class="tab-content">
     <router-outlet ></router-outlet>
-</div>
+  </mat-tab-nav-panel>
+       

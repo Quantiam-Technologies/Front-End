@@ -1,9 +1,9 @@
-:host ::ng-deep th.mat-header-cell
+:host ::ng-deep th.mat-mdc-header-cell
 {
     background-color: white;
 }
 
-:host ::ng-deep td.mat-cell
+:host ::ng-deep td.mat-mdc-cell
 {
     padding-right:10px;
 }

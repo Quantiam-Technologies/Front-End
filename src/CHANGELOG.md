@@ -3,34 +3,77 @@ Change Log
 
 # Known Issues, To do List
 
-### Known Issues
-
-- Material Supplier dropdown, does not clear properly when declining to create a new tag.
-- Cartesian XRD eva format does not include steptimes... hmm.
-- XRD runs are no longer syncing, this is because the XRD computers are off the network. 
 
 ### To do list
 
-- Overlays for XRD viewer 
-- Display (fix) EDS data display in the SEM viewer 
-- keywords for material searches 
-- Bug:: Approving an RTO doesn't doesn't trigger the timesheet calculation process.
-- Add merge material function
 - Steel Creation Dialog
-- Active / Inactive filter for Employee Screen
-- Material Container Creation Rework ---- Supplier -> Select Material From List  , reduce duplicate Materials
+- Failures Dashboard Display
+- Held Product 
+- CSS Employee Management
+- Timesheet
+  - RTO doesn't re calculate timeshet 
+  - CTO on holidays?
+- Hierachy Chart
+- Furnace Runs
+  - Create New Run
+  - Filters
+  - Zero Files Check
+  - Properties CSS + Loading Date
+  - Position Place Holder (displayed?)
+  - Scanning to Add Steel(?)
+  - Order by Layer -> Position
+  - Edit Locking
+  - Add Operators
+  - Change Furnace Profile
+  - Clear Steel Box After Selection + Adding
 
 
-# 2023.08.11
+# 2023.11.22
+
+## Changes
+ 
+- Timesheet Statutory Holiday Field can now be modified to values other then 8 hours by Administrators
+
+# 2023.09.18
+
+## Changes 
+
+- Campaign Dashboard modified to display current failures/holds/reworks.
+- Campaign Dashboard removed annoying scroll bars, (things still scroll).
+- Campaign Dashboard navigatable icons are now light blue, instead of dark blue. 
+- Campaign Dashboard now caches, and doesn't reload when navigated back to by clicking the top left "Quantiam". 
+- Timesheet now displays "processing changes" instead of the timesheet download button when changes are made. 
+
+
+# 2023.08.16
+
 
 ## New
 
-- Steel Database screen now replicates functionality from old website. 
-- Furnace runs now integrate information from the Q: Drive
+- Steel Database now displays Steel Status
+- Steel Database can now download travellers. 
+- Steel View now exists, deprecating old website.
+- Steel Rework creation/popup is now functional 
+- Furnace run screen now displays pictures/files from the relevant Q: Drive -- needs more organizational refinement. 
+- Furnace run database is now visible. 
 
 ## Fixes
+- The timesheet download button will now disable itself while waiting for the server to process all the math you gave it. Preventing users from downloading a timesheet that hasn't fully processed.
 
-- 
+
+## Updates
+
+- Angular Material components transitioned to the MDC framework, many styling issues have resulted. 
+- Campaign Status Dashboard now shows the status of each part at a given unit operation, rather then the cumulative totals.
+
+
+## Known Issues
+
+- Form fields use the default material styling, haven't been converted to "Quantiam Styling" May be large and blocky until next update. 
+- Comment Section in RTO looks wonky
+- active/inactive field in various drops down remain wonky
+
+
 
 
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MatLegacyDialog as MatDialog, MatLegacyDialogConfig as MatDialogConfig, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { MaterialCreationDialogComponent } from '../material-creation-dialog/material-creation-dialog.component';
 import { MaterialService } from '../../services/material/material.service';
 import { MaterialLotContainerService } from '../../services/material-lot-container/material-lot-container.service';

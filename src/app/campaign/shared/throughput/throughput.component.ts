@@ -14,12 +14,16 @@ import * as moment from 'moment';
 export class ThroughputComponent {
 
   
-  constructor(private http: HttpClient, private route: ActivatedRoute, ) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router ) {}
   
   urlProcessViewMap = {
     slipcast: "http://old.edm.quantiam.com/#!/slipcast/",
     furnace_run: "http://old.edm.quantiam.com/#!/furnacerun/"
   };
+
+  displayReworkTable = false;
+  displayHoldTable = true;
+  displayFailureTable = false;
 
   Highcharts: typeof Highcharts = Highcharts; // required
   chartConstructor: string = 'chart'; // optional string, defaults to 'chart'
@@ -28,19 +32,20 @@ export class ThroughputComponent {
   oneToOneFlag: boolean = true; // optional boolean, defaults to false
   runOutsideAngular: boolean = false; // optional boolean, defaults to false
   throughputResponse; 
+  ReworkHoldFailureResponse;
 
   chartOptions: Highcharts.Options  = { 
    
     chart: {
       type: 'column',
-      backgroundColor: '#FFFFFF',
+      backgroundColor:null
     },
     credits:{
       text:'Quantiam Technologies Inc.'
     },
     title: {
-        text: 'Campaign Throughput',
-        align: 'left'
+        text: 'Operation Throughput',
+        align: 'center'
     },
     xAxis: [{
         categories: [
@@ -55,7 +60,7 @@ export class ThroughputComponent {
 }],
     yAxis: {
         min: 0,
-        max: 60,
+        //max: 100,
         //minorGridLineWidth:0,
         gridLineWidth:0,
         title: {
@@ -66,9 +71,9 @@ export class ThroughputComponent {
             enabled: true
         }
     },
-    
+     
     legend: {
-
+      enabled:true,
       itemMarginTop: 10,
       itemMarginBottom: 10,
         align: 'center',
@@ -85,8 +90,21 @@ export class ThroughputComponent {
         
     },
     tooltip: {
-        headerFormat: '<b>{point.x}</b><br/>',
-        pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}',
+        headerFormat: 'Week - <b>{point.x}</b><br/>',
+        pointFormatter: function(){ 
+
+          let point = this,
+          series = point.series;
+
+          let string = '';
+
+          if(point.y > 0){
+            string = string +  '<span style="color:'+series.color+'">'+series.name+':</span> '+point.y+'<br/>';
+          }
+          
+          return string;
+        },
+        shared:true,
       
     },
     plotOptions: {
@@ -116,6 +134,19 @@ export class ThroughputComponent {
   ngOnInit(){
 
     this.fetchThroughputSteelData();
+    this.fetchReworkHoldFailureStatus();
+  }
+
+  fetchReworkHoldFailureStatus()
+  {
+
+    var params = {};
+    this.http.get(environment.apiUrl + `/campaign/29/ReworkHoldFailureSummary`, { params: params }).subscribe((r: any) => {
+      
+      this.ReworkHoldFailureResponse = r;
+
+    })
+
   }
 
 
@@ -186,8 +217,39 @@ export class ThroughputComponent {
 
   navigateToProcess(navigateToProcess)
   {
+    if(navigateToProcess.view_type === 'furnace_run') 
+    {
+      this.router.navigateByUrl('/furnace/run/'+navigateToProcess.process_id);
+    }
+    else
+    {
     if(this.urlProcessViewMap.hasOwnProperty(navigateToProcess.view_type)) window.open(this.urlProcessViewMap[navigateToProcess.view_type]+navigateToProcess.process_id, "_blank");
+    }
+  }
 
+
+  changeReworkHoldFailure(ReworkHoldFailure)
+  {
+    if(ReworkHoldFailure == 'rework'){
+
+      this.displayReworkTable = true;
+      this.displayHoldTable = false;
+      this.displayFailureTable = false;
+    }
+
+    if(ReworkHoldFailure == 'hold'){
+
+      this.displayReworkTable = false;
+      this.displayHoldTable = true;
+      this.displayFailureTable = false;
+    }
+
+    if(ReworkHoldFailure == 'fail'){
+
+      this.displayReworkTable = false;
+      this.displayHoldTable = false;
+      this.displayFailureTable = true;
+    }
   }
 
 

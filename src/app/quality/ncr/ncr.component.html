@@ -24,7 +24,7 @@
 
                 </div>
 
-            <mat-card>
+            <mat-card appearance="outlined">
                 <form [formGroup]="ncrOptions" fxLayout="column" fxLayoutGap="10px">
 
                     <div fxLayout="row wrap" fxFlex fxLayoutGap="10px">
@@ -111,11 +111,11 @@
                     
                         <mat-form-field class="example-chip-list" fxFlex>
                             <mat-label>Responsible Persons</mat-label>
-                            <mat-chip-list #chipList aria-label="Fruit selection" placeholder="Add or remove as necessary.">
-                                <mat-chip 
+                            <mat-chip-grid #chipList aria-label="Fruit selection" placeholder="Add or remove as necessary.">
+                                <mat-chip-row 
                                 (removed)="remove(user,i)" *ngFor="let user of selectedResponsible; index as i">{{user.name}}
                                     <mat-icon matChipRemove>cancel</mat-icon>
-                                </mat-chip>
+                                </mat-chip-row>
                                 <input required 
                                 #responsibleInput
                                 formControlName="responsible"
@@ -124,7 +124,7 @@
                                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                 [matChipInputAddOnBlur]="addOnBlur" 
                                 >
-                            </mat-chip-list>
+                            </mat-chip-grid>
                             <mat-autocomplete #responsible="matAutocomplete" (optionSelected)="selectResponsible($event)">
                                 <mat-option  *ngFor="let user of filteredUsers | async"  [value]="user">
                                 {{ user.name }} <small>{{user.title}}</small>
@@ -206,14 +206,14 @@
                                     </div>    
                                 </td>
                                 <td> 
-                                    <mat-chip *ngIf="car?.completed" color="success" selected>Completed</mat-chip>
-                                    <mat-chip  *ngIf="!car?.completed" color="accent" selected>Pending</mat-chip>
+                                    <mat-chip-option *ngIf="car?.completed" color="success" selected>Completed</mat-chip-option>
+                                    <mat-chip-option  *ngIf="!car?.completed" color="accent" selected>Pending</mat-chip-option>
                                 </td>
                                  <td> 
                                    
-                                    <mat-chip *ngIf="car?.effective && car?.completed" color="success" selected>Effective</mat-chip>
-                                    <mat-chip  *ngIf="car?.completed && car.effective === 0" color="warn" selected>Ineffective</mat-chip>
-                                    <mat-chip  *ngIf="car?.completed && car.effective === null" color="accent" selected>Assessing</mat-chip>
+                                    <mat-chip-option *ngIf="car?.effective && car?.completed" color="success" selected>Effective</mat-chip-option>
+                                    <mat-chip-option  *ngIf="car?.completed && car.effective === 0" color="warn" selected>Ineffective</mat-chip-option>
+                                    <mat-chip-option  *ngIf="car?.completed && car.effective === null" color="accent" selected>Assessing</mat-chip-option>
                                 </td>
                             <!--    <td> <mat-icon matBadgeSize="medium" matBadge="6" matBadgeColor="warn">description</mat-icon>
                                     Include text description of the icon's meaning for screen-readers
@@ -241,7 +241,7 @@
                     <h2> Completion </h2>
                 </div>
 
-                <mat-card fxLayout="column" fxLayoutGap="10px">
+                <mat-card appearance="outlined" fxLayout="column" fxLayoutGap="10px">
                     <form [formGroup]="ncrOptions" >
                     <mat-form-field fxFlex>
                         <mat-label>Completion Comments</mat-label>

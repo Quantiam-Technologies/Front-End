@@ -4,7 +4,7 @@ import { HotTableRegisterer } from '@handsontable/angular';
 import { UserService } from '../../services/user/user.service';
 import { NotificationsService } from 'angular2-notifications';
 import { HttpClient } from '@angular/common/http';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MachineUserDialogComponent } from '../machine-user-dialog/machine-user-dialog.component';
 
 @Component({

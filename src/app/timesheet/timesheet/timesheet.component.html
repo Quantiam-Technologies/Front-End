@@ -18,7 +18,7 @@
 
 
 
-  <div fxLayout="row" style="font-size: 1.25em;" fxLayoutAlign="start end" >
+  <div fxLayout="row" style="font-size: 1.10em;" fxLayoutAlign="start end" >
 
       <div fxLayout="column" fxFlex=30 fxLayoutAlign="start start" >
 
@@ -59,7 +59,7 @@
               </tbody>
           </table>
 
-          <a *ngIf="!timeSheetObj.machine" mat-button class="standards-button" href="https://www.alberta.ca/employment-standards.aspx" target="_blank">Alberta Employment Standards</a>
+          <a *ngIf="!timeSheetObj.machine" mat-button class="standards-button" href="https://www.alberta.ca/employment-standards.aspx" target="_blank" color="">Alberta Employment Standards</a>
         </div>
 
       </div>
@@ -70,8 +70,17 @@
          
 
           <div fxLayout="row" fxLayoutGap="7px" fxLayoutAlign="center start">
+
+            <div *ngIf="updateInProgressArray.length > 0" fxLayoutAlign="center center" fxLayout="row" fxlayoutGap="10px">
+
+              <b  > Processing Changes.  </b> 
+              <mat-spinner [diameter]="35" matTooltip="The server is doing a lot of math right."></mat-spinner>
+
+            </div>
+           
               <button mat-raised-button color="primary"
                class="print-button"
+                [hidden]="updateInProgressArray.length > 0"
                 (click)="generateTimesheetDownload()">
                 <fa-icon [icon]="faDownload" ></fa-icon>
                 Download
@@ -101,8 +110,9 @@
                 <mat-icon>arrow_left</mat-icon>Previous</button>
 
                
-          
-            <button mat-button (click)="nextPayPeroid()">Next
+
+            <button mat-button (click)="nextPayPeroid()">
+              Next
               <mat-icon>arrow_right</mat-icon>
             </button>
         </div>
@@ -171,7 +181,8 @@
 
       <div fxFlex=20>
           <h3 class="page-header">Hours <small>Current Pay Period</small>
-            <div  style="float:right;" ><b>Total:</b> {{timeSheetObj.time.total}} Hours </div>
+            <div  style="float:right;" *ngIf="timeSheetObj.time.distribution.Unpaid" ><b>Paid Hours:</b> {{timeSheetObj.time.total - timeSheetObj.time.distribution.Unpaid - ConvertString(timeSheetObj?.overhours[1].bank) - ConvertString(timeSheetObj?.overhours[0].bank) }} Hours </div>
+            <div  style="float:right;" *ngIf="!timeSheetObj.time.distribution.Unpaid" ><b>Paid Hours:</b> {{timeSheetObj.time.total - ConvertString(timeSheetObj?.overhours[1].bank) - ConvertString(timeSheetObj?.overhours[0].bank)}} Hours </div>
           </h3>
           <table class="stattable table-stats table-condensed table-striped table-shadow">
               <thead> 
@@ -182,9 +193,14 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><b>Regular:</b> {{timeSheetObj.time.distribution.Regular  || '0'  | number : '1.2-2'}}</td>
+                  <td><b>Regular:</b> {{timeSheetObj.time.distribution.Regular - ConvertString(timeSheetObj?.overhours[1].bank) - ConvertString(timeSheetObj?.overhours[0].bank) || '0'  | number : '1.2-2'}}</td>
                   <td> <b>Stat:</b> {{timeSheetObj.time.distribution.Stat  || '0'  | number : '1.2-2'}}</td>
                 </tr>
+                <tr>
+                  <td><b>Over Hours:</b> {{ConvertString(timeSheetObj?.overhours[1].bank) + ConvertString(timeSheetObj?.overhours[0].bank)  || '0'  | number : '1.2-2'}}</td>
+                  <td> </td>
+                </tr>
+                
                 <tr>
                     <td><b>PTO:</b> {{timeSheetObj.time.distribution.PTO || '0' | number : '1.2-2'}}</td>
                     <td><b>Vacation:</b> {{timeSheetObj.time.distribution.Vacation  || '0' | number : '1.2-2'}}</td>
