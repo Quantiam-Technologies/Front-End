@@ -42,7 +42,7 @@
     "@fullcalendar/timegrid": "^6.1.7",
     "@handsontable/angular": "^11.0.1",
     "@ng-bootstrap/ng-bootstrap": "^14.1.0",
-    "@ng-select/ng-select": "^10.0.4",
+    "@ng-select/ng-select": "^11.2.0",
     "@sweetalert2/ngx-sweetalert2": "^10.0.0",
     "ag-grid-angular": "^26.2.0",
     "ag-grid-community": "^26.2.0",
