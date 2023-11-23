@@ -4,7 +4,6 @@ import {  environment} from '../../../environments/environment';
 import { NotificationsService } from 'angular2-notifications';
 import { RefreshDBTablesService } from '../../services/refresh-db-tables/refresh-dbtables.service';
 
-import { AllModules  } from '@ag-grid-enterprise/all-modules';
 
 import { AgGridSemContainerSteelCellDisplayComponent } from '../../sem/sem-database/ag-grid-sem-container-steel-cell-display/ag-grid-sem-container-steel-cell-display.component';
 import { AgGridSemContainerSteelEditComponent } from '../../sem/sem-database/ag-grid-sem-container-steel-edit/ag-grid-sem-container-steel-edit.component';
@@ -23,7 +22,6 @@ export class XrdDatabaseComponent implements OnInit {
    gridApi;
    gridColumnApi;
 
-   modules = AllModules;
    pageSizes = [20, 25, 50, 100];
 
 

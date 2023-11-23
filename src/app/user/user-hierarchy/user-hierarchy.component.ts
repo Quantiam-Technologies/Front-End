@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
-import { AllModules } from '@ag-grid-enterprise/all-modules';
-
 import * as Highcharts from 'highcharts';
 
 
