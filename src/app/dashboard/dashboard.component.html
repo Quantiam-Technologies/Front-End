@@ -1,6 +1,43 @@
 
+<!-- <app-silt2023></app-silt2023>  -->
 
-<!-- <app-silt2023></app-silt2023> -->
 
+
+<!-- <app-slip-usage-campaign></app-slip-usage-campaign> -->
+
+<div fxLayout="column" fxFlex fxLayoutPadding="10px" style="margin:10px;">
+
+    <div fxLayout="row" fxLayoutGap="10px"> 
+
+        <div fxLayout="column">
+            <h1><b>Active Campaign</b></h1>
+            <app-select-campaign  [selectedValue]="selectedCampaignId" (change)="changeCampaign($event)" [clearable]=false></app-select-campaign>
+        </div>
+       
+            
+          <!--   <small>ID: 35    Name: 2024 Q-Tile CNRL Grader Blades </small> -->
+        
+      
+
+     
+
+    </div>
+
+ 
+
+
+    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center">
+        <mat-tab label="Slip Production">  
+            <app-slip-campaign-manufacturing style="margin:10px" [campaignID]="selectedCampaignId"></app-slip-campaign-manufacturing> 
+        </mat-tab>
+        <mat-tab label="QA/QC"> 
+            <app-quality-campaign-powder-characterization-check></app-quality-campaign-powder-characterization-check>
+        </mat-tab>
+       <!--  <mat-tab label="Tapecasting & Brick Assembly"> Planned Metrics </mat-tab>
+        <mat-tab label="Furnace Runs"> Planned Metrics  </mat-tab> -->
+      </mat-tab-group>
+   
+
+</div>
 
 

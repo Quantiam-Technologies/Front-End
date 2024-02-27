@@ -26,11 +26,11 @@
         </div>
         <div fxFlex fxLayout="row"  fxLayoutAlign="end start" fxLayoutGap="10px">
             <button  (click)="downloadIventoryList()" mat-raised-button color="primary"> 
-                SDS List
+                SDS / Inventory List
             </button>
-            <button *ngIf="userService.hasPermission([40,41,39])"  (click)="openDialog2021()" mat-raised-button color="accent"> 
+           <!--  <button *ngIf="userService.hasPermission([40,41,39])"  (click)="openDialog2021()" mat-raised-button color="accent"> 
                  Create Container (Beta)
-            </button>
+            </button> -->
             <button *ngIf="userService.hasPermission([40,41])"  (click)="openDialog()" mat-raised-button color="primary"> 
                 Create Container
             </button>
@@ -55,7 +55,7 @@
             <div fxFlex fxLayout="row" fxLayoutGap="10px">
                     <div style="max-width: 350px;"> 
                         <app-select-hazard (change)="hazardSelectionChanged($event)" ></app-select-hazard>
-                    </div>
+                    </div>  
                     <div style="max-width: 350px;"> 
                         <app-select-material-supplier  [multiple]="true"  (change)="supplierFilterChanged($event)" ></app-select-material-supplier>
                  
@@ -63,26 +63,28 @@
                     <div style="max-width: 350px;"> 
                        <app-select-location [multiple]="true" (change)="locationFilterChanged($event)" ></app-select-location>
                     </div>  
-                    <div style="max-width: 350px; font-size:10px;"> 
+                 
+                     <div style="max-width: 350px;"> 
+                       <app-select-slip-recipe  (change)="SlipRecipeFilterChanged($event)"></app-select-slip-recipe>
+                    </div> 
+
+                    <div style="max-width: 350px;"> 
 
                     
-                        <ng-select   [(ngModel)]="activeFilter"  (change)="refreshDatabase()" [searchable]="false"  [clearable]="false"   >
-                            <ng-option [value]=1>Active</ng-option>
-                            <ng-option [value]=0>Inactive</ng-option>
-                            <ng-option value=null>Both</ng-option>
+                        <ng-select   [(ngModel)]="emptyFilter"  (change)="refreshDatabase()" [searchable]="false"  [clearable]="false"   >
+                            <ng-option [value]=0> In Stock </ng-option>
+                            <ng-option [value]=1> Empty Items </ng-option>
+                            <ng-option value=both> In Stock + Empty </ng-option>
                         
                         </ng-select>
                       
                     </div>
-                    <!-- <div style="max-width: 350px;"> 
-                       <app-select-material-lot style="width:200px;"  ></app-select-material-lot >
-                    </div> -->
                    
 
             </div>
 
-            <div fxFlex fxLayout='row' fxLayoutAlign="end center">
-                <mat-form-field style="width:300px">
+            <div  fxLayout='row' fxLayoutAlign="end center">
+                <mat-form-field appearance="outline" class="quantiam-material-db-search-bar">
                     <!--   <span matPrefix>+1 &nbsp;</span> -->
                     <input type="text" matInput (keyup)="onFilterChanged()"  [(ngModel)]="filteredTextFilterName"  placeholder="Search">
                     <mat-icon matSuffix>search</mat-icon>
@@ -94,19 +96,15 @@
         #agGrid
            
               
-        style="width: calc(100%); height:calc(70vh); margin-top:10px;" 
-        class="ag-theme-balham"
+        style="height:calc(70vh); margin-top:10px;" 
+        class="ag-theme-quartz"
         [animateRows]="true"
-        
-       
-        [rowData]="rowData" 
-       
+        [serverSideDatasource]="rowData"       
         [columnDefs]="columnDefs"
-      
         [defaultColDef]="defaultColDef"
         [gridOptions]="gridOptions" 
         [components] = "frameworkComponents"
-        [modules] = "modules"
+        
 
          
         (gridReady)="onGridReady($event)"
@@ -116,11 +114,10 @@
        
         [enableRangeSelection]="true"
         [pagination]="true"
-       
     
         
         >
     </ag-grid-angular>
 
-
 </div>
+

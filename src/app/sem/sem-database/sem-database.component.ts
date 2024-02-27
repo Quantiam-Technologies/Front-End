@@ -258,8 +258,8 @@ export class SemDatabaseComponent implements OnInit {
       ];
 
       this.defaultColDef = {
-        filter: true,
-        sorting: true,
+       // filter: true,
+     //  sorting: true,
         editable: true,
        };
 
@@ -334,10 +334,9 @@ export class SemDatabaseComponent implements OnInit {
 
           this.http.get(environment.apiUrl + '/instrument/sem/run', {params: requestParams}).subscribe((response: any) => {
 
-               params2.successCallback(response.data, response.total);
-              // this.gridOptions.rowCount = response.total;
-            //   this.totalRows = response.total;
-               this.gridApi.sizeColumnsToFit();
+               params2.success({ rowData: response.data });
+               this.gridApi.sizeColumnsToFit();               
+               this.gridApi.setRowCount(response.total,true);
              ///  console.log(params2);
           });
 

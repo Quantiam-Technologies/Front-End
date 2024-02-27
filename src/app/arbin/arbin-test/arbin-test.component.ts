@@ -23,11 +23,15 @@ export class ArbinTestComponent implements OnInit {
   constructor( private http: HttpClient,private route: ActivatedRoute,) { }
 
   firstEISRender;
+  
+
+  renderTestSelectionField = false;
 
   selectedTests:any = [];
   dataSets:any = [];
   testData:any = [];
   firstLoad = false;
+  secondLoad = false;
 
   Highcharts = Highcharts;
   chart: any; // Chart Instance
@@ -48,6 +52,7 @@ export class ArbinTestComponent implements OnInit {
   graphType = ['spline','scatter'];
   currentEISGraphType = 'spline';
 
+  defaultGraphType = 'spline'; 
   EISchartOptions: any = {
     chart: {  panning: true,
       zoomType: 'xy',
@@ -146,13 +151,15 @@ export class ArbinTestComponent implements OnInit {
 
 
   fetchTestData(id, name = null)
-  {
+  { 
+    console.log(id);
     this.http.get('http://api.edm.quantiam.com:3000/arbin/test/'+id).subscribe((r:any) => {
-       this.firstLoad = true;
-       this.selectedTests.push(parseInt(id));
+      
+       //this.selectedTests.push(parseInt(id));
+       console.log(r);
     
         let serie:any = {};
-        serie.type = 'scatter';
+        serie.type = this.defaultGraphType;
 
         r.forEach((element) => {
 
@@ -169,7 +176,7 @@ export class ArbinTestComponent implements OnInit {
         serie.data = r;
         serie.name =  '('+id+') ' + r[0].Test_Name;
         serie.Test_ID =  r[0].Test_ID;
-        serie.boostThreshold = 1;
+       // serie.boostThreshold = 1;
         // serie.keys = ['name','test','test','y', 'test','test', 'test', 'test','test','test','x'];
         serie.turboThreshold = 0;
         serie.marker = {};
@@ -179,6 +186,37 @@ export class ArbinTestComponent implements OnInit {
 
 
         this.HighchartOptions.series.push(serie);
+       // console.log(this.HighchartOptions.series);
+
+
+        if(!this.firstLoad){
+
+          delete this.HighchartOptions.series[0];
+          this.selectedTests = [];
+          this.updateFlag = true;
+          this.firstLoad = true;
+
+          setTimeout(()=>{
+     //     this.HighchartOptions.series.push(serie);
+          this.selectedTests.push(parseInt(id));
+          this.renderTestSelectionField = true;
+          console.log(this.selectedTests);
+          this.updateFlag = true;
+          },500);
+
+
+
+        
+          setTimeout(()=>{
+          this.fetchTestData(id);
+          this.firstLoad = true;
+          },2000); 
+          
+        }
+       
+        if(this.firstLoad) this.secondLoad = true;
+
+        
         
        // this.updateSeriesNamesFromValues();
 
@@ -187,7 +225,8 @@ export class ArbinTestComponent implements OnInit {
          setTimeout(()=>{
 
           this.fetchEISData(id,serie.name);
-         },2000);
+         },1000);
+        
            
     }, error => { 
 
@@ -197,7 +236,7 @@ export class ArbinTestComponent implements OnInit {
 
   fetchEISData(id, name = null)
   {
-    this.http.get('http://api.edm.quantiam.com:3000/arbin/test/eis/'+id).subscribe((r:any) => {
+    this.http.get('http://api.edm.quantiam.com:3000/arbin/test/eis/'+id+'?filterSpinner').subscribe((r:any) => {
        //this.firstLoad = true;
        //this.selectedTests.push(parseInt(id));
     
@@ -218,13 +257,13 @@ export class ArbinTestComponent implements OnInit {
       
         serie.data = r;
         serie.name =  name;
-         serie.Test_ID =  id;
+         serie.Test_ID =  parseInt(id);
         //serie.boostThreshold = 1;
         // serie.keys = ['name','test','test','y', 'test','test', 'test', 'test','test','test','x'];
-       // serie.turboThreshold = 0;
+        serie.turboThreshold = 0;
         serie.marker = {};
         serie.marker.radius = 3;
-        console.log(serie);
+      //  console.log(serie);
 
 
 
@@ -291,6 +330,7 @@ export class ArbinTestComponent implements OnInit {
 
   changeFields() 
   {
+    console.log(this.currentXField);
     this.HighchartOptions.series.forEach(series => {
 
 
@@ -305,6 +345,8 @@ export class ArbinTestComponent implements OnInit {
             //return;
             
           });
+
+          series.type = this.defaultGraphType;
 
          console.log(series,this.currentXField);
       
@@ -333,19 +375,16 @@ export class ArbinTestComponent implements OnInit {
   }
 
   testRemoved(event){
-  
-    console.log(event.value.Test_ID);
-    this.HighchartOptions.series = this.HighchartOptions.series.filter(function( obj ) {
-        return obj.Test_ID !== event.value.Test_ID;
-    });
+    //console.log(event, this.HighchartOptions.series );
 
-    console.log(this.HighchartOptions.series);
-
-      this.EISchartOptions.series = this.EISchartOptions.series.filter(function( obj ) {
-        return obj.Test_ID !== event.value.Test_ID;
+    this.HighchartOptions.series.forEach((obj,index) => {
+      if(obj.Test_ID == event.Test_ID){ delete this.HighchartOptions.series[index]; }      
     });
     
-    console.log(this.EISchartOptions.series);
+    
+    this.EISchartOptions.series.forEach((obj,index) => {
+      if(obj.Test_ID == event.Test_ID){ delete this.EISchartOptions.series[index]; }      
+    });  
  
 
     this.updateFlag = true;

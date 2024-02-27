@@ -1,3 +1,79 @@
+/* @import "~@angular/material/prebuilt-themes/deeppurple-amber.css"; */
+
+
+/** useful thigns 
+
+Quantiam "Blue" #325c80
+
+**/
+
+/** Variable overrides **/
+
+:root{
+
+
+    --mat-select-panel-background-color: white;
+
+    --mat-option-selected-state-layer-color: aliceblue;
+
+    --mdc-outlined-card-container-color: white;
+    --mdc-outlined-text-field-disabled-input-text-color: rgb(66 117 155);
+
+    --mat-expansion-header-expanded-state-height: 64px;
+    --mat-expansion-header-collapsed-state-height: 48px;
+    --mat-expansion-header-text-weight: inherit;
+    --mat-expansion-container-background-color: white;
+
+    --mdc-elevated-card-container-elevation: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+
+    --mat-card-title-text-line-height: 32px;
+    --mat-card-title-text-size: 20px;
+    --mat-card-title-text-weight: 500;
+
+    --mat-card-subtitle-text-line-height: 22px;
+
+    --mdc-list-list-item-one-line-container-height: 36px;
+    --mdc-list-list-item-container-color: white;
+
+    --mat-menu-container-color: white;
+
+    --mat-datepicker-calendar-container-background-color: white;
+
+
+    --mat-menu-item-hover-state-layer-color: #f5f5f5;
+    --mat-option-hover-state-layer-color: #f5f5f5 !important;
+    --mat-option-focus-state-layer-color: white;
+
+    --mat-autocomplete-background-color: white;
+    
+
+    /* --mdc-filled-text-field-label-text-color: black; */
+
+}
+
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label{
+    font-size: 20px !important;
+}
+
+.mdc-text-field--filled .mdc-floating-label--float-above{
+    color: #3a7c12 !important;
+    font-weight: 600 !important;
+}
+
+/* .highcharts-color-0 {
+    fill: #386b99;
+} */
+
+/** theme **/
+
+
+.mat-calendar-body-cell-content.mat-focus-indicator:hover{
+
+    color:#004cff !important;
+
+}
+
+
 .mat-ripple{
     overflow:hidden;
     position:relative
@@ -552,6 +628,11 @@ textarea.cdk-textarea-autosize-measuring-firefox{
 .mdc-text-field--disabled .mdc-notched-outline__leading,.mdc-text-field--disabled .mdc-notched-outline__notch,.mdc-text-field--disabled .mdc-notched-outline__trailing{
     border-color:rgba(0, 0, 0, 0.06)
 }
+
+.mat-form-field-disabled .mdc-notched-outline{
+    color:#777777a8;
+}
+
 @media screen and (forced-colors: active),(-ms-high-contrast: active){
     .mdc-text-field--disabled .mdc-text-field__input::placeholder{
         color:GrayText
@@ -919,6 +1000,10 @@ textarea.cdk-textarea-autosize-measuring-firefox{
    /*  letter-spacing:var(--mdc-typography-body1-letter-spacing, 0.03125em); */
     text-decoration:var(--mdc-typography-body1-text-decoration, inherit);
     text-transform:var(--mdc-typography-body1-text-transform, none)
+}
+.mat-mdc-menu-panel
+{
+    max-width: 700px !important;
 }
 .mdc-menu-surface{
     box-shadow:0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
@@ -2611,9 +2696,12 @@ textarea.cdk-textarea-autosize-measuring-firefox{
 .mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-title,.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-description{
     color:inherit
 }
+
 .mat-expansion-panel-header{
-    height:48px
+    height:48px;
 }
+
+
 .mat-expansion-panel-header.mat-expanded{
     height:64px
 }
@@ -2991,5 +3079,191 @@ button.mat-primary{
 button.mat-accent{
     background-color:#ff4081;
     color:white;
+}
+
+
+
+
+
+/** Custom Material Search Bar **/
+
+.quantiam-material-db-search-bar  .mat-mdc-form-field-subscript-wrapper
+{
+height:0px;
+    
+}
+
+ .quantiam-material-db-search-bar .mat-mdc-text-field-wrapper {
+    max-height: 30px;
+  }
+
+   .quantiam-material-db-search-bar .mat-mdc-form-field-infix {
+        min-height: 0px;
+  }
+  
+  .quantiam-material-db-search-bar .mat-mdc-form-field {
+    max-height: 40px;
+    font-size:6px;
+  }
+  
+   .quantiam-material-db-search-bar .mat-mdc-form-field-infix {
+    padding: 0 !important;
+  }
+
+  .quantiam-material-db-search-bar .mat-mdc-form-field-infix input {
+    padding: 5px !important;
+  }
+
+   .quantiam-material-db-search-bar .mat-mdc-form-field-icon-suffix{
+
+  
+    background: #3c658a;
+    max-height: 30px;
+    padding: 3px !important;
+    border-radius:3px;
+}
+
+ .quantiam-material-db-search-bar .mat-mdc-form-field-icon-suffix mat-icon {
+    padding: 0px !important;
+    color:white;
+
+}
+
+
+ .quantiam-material-db-search-bar .mat-mdc-input-element {
+    color:#00000070;
+}
+
+
+
+
+/** Custom mat-card**/
+
+.quantiam-mat-card {
+	
+	padding: 0px !important;
+	box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+
+}
+
+.quantiam-mat-card mat-card-actions {
+	
+	padding-top: 0px !important; 
+	margin-top:0px !important; 
+	padding-bottom: 0px !important; 
+	margin-bottom:0px !important;
+}
+
+.quantiam-mat-card mat-card-content{
+	
+	padding: 5px 15px 15px 15px !important;
+	margin: 0px;
+}
+
+.quantiam-mat-card mat-card-actions {
+	 margin: 5px !important;
+	 padding: 0px;
+}
+
+.quantiam-mat-card mat-card-title{
+	
+	background-color: #2d597a;
+    color: white;
+    padding: 0px 8px;
+	height: 30px;
+    font-size: 14px;
+	font-weight:500;
+	margin-bottom: 5px;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+}
+
+.quantiam-mat-card mat-card-title action-bar {
+
+	float: right;
+	display: inline-block;
+
+}
+
+.quantiam-mat-card mat-card-title action-bar button {
+
+
+}
+
+
+.quantiam-mat-card mat-card-title action-bar .raised {
+
+	background-color: #fff !important;
+	color: #e91e63;
+
+}
+
+.quantiam-mat-card mat-card-title action-bar button span {
+
+	width: inherit;
+    height: inherit;
+
+}
+.quantiam-mat-card mat-card-title action-bar button  {
+	height:24px !important;
+	width:24px !important;
+    padding: 3px 0px 0px 1px !important;
+    top: 3px;
+    margin-right:4px;
+
+}
+.quantiam-mat-card mat-card-title action-bar button mat-icon {
+
+	font-size: 16px;
+
+}
+
+.quantiam-mat-card mat-card-title action-bar span {
+
+	line-height: inherit;
+
+}
+
+.quantiam-mat-card .mat-form-field-disabled mat-hint {
+
+    display:none;
+
+
+}
+
+.quantiam-mat-card table {
+	
+	margin-top:10px;
+	margin-bottom:10px;
+	
+	
+}
+
+.quantiam-mat-card table thead tr {
+	
+	height: 30px;
+}
+
+.quantiam-mat-card table thead tr th {
+	
+	padding: 5px;
+}
+
+.quantiam-mat-card table tbody tr {
+	
+	height:30px;
+}
+
+.quantiam-mat-card table tbody tr td {
+	
+	font-size: 12px;
+	border: 0px;
+	padding: 5px;
+}
+
+
+.mat-step-header .mat-step-label.mat-step-label-active {
+    color: rgba(7, 64, 169, 0.87);
+    font-weight: 600;
 }
 

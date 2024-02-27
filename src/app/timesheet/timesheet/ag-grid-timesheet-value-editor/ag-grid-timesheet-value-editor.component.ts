@@ -31,7 +31,7 @@ export class AgGridTimesheetValueEditorComponent implements ICellEditorAngularCo
   public previousValue: any;
   public infoString: string;
 
-  private input: any;
+  public input: any;
   private focused = false;
 
   @ViewChild('valueField', { read: ViewContainerRef, static: true }) public minuteInput: any;  // reference the container
@@ -45,7 +45,24 @@ export class AgGridTimesheetValueEditorComponent implements ICellEditorAngularCo
 
 
   ngAfterViewInit() {
-    setTimeout(() => {   this.minuteInput.element.nativeElement.select(); }, 0);
+    setTimeout(() => {  
+      
+      this.minuteInput.element.nativeElement.select(); 
+      let myArr = [];
+      let el = this.minuteInput.element.nativeElement.parentElement.parentElement.parentElement;
+      let attr = el.getAttribute('style');
+     // console.log(attr);
+      let firstNumber = attr.match(/\d+/g);
+      let newTop = parseInt(firstNumber[0])-24;
+      let newBottom = firstNumber[1]; //actually left, and unmodified
+    //  console.log(firstNumber);
+      el.setAttribute('style', 'top: '+newTop+'px; left: '+newBottom+'px');
+
+    
+    
+    }, 100);
+
+ 
 
   }
 

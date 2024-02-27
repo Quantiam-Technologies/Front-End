@@ -235,9 +235,9 @@ export class TimesheetRtoComponent implements OnInit {
 
           this.http.get(environment.apiUrl + '/rto', {params: requestParams}).subscribe((response: any) => {
 
-               params2.successCallback(response.data, response.total);
-               this.totalRows = response.total;
-               this.gridApi.sizeColumnsToFit();
+               params2.success({ rowData: response.data });
+               this.gridApi.sizeColumnsToFit();               
+               this.gridApi.setRowCount(response.total,true);
                console.log(params2);
           });
 

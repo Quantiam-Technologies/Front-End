@@ -1,7 +1,9 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
+import {map, startWith} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormControl } from '@angular/forms';
 import { MaterialLotContainerService } from '../../services/material-lot-container/material-lot-container.service';
 import { MaterialLotService } from '../../services/material-lot/material-lot.service';
 import { MaterialService } from '../../services/material/material.service';
@@ -43,11 +45,12 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
     qcidFormGroup: UntypedFormGroup;
 
     materialChecked = false;
+    materialSupplierNameChecked = false;
     materialCheckedOkay = false;
     checkIfDirectMatch = false;
     hideMaterialCheckBox = false;
 
-    lookedForMaterial = false;
+    lookedForMaterial = true;
     form: UntypedFormGroup;
     description: string;
     newMaterial = false;
@@ -70,6 +73,10 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
 	files = [] as any;
 	stuffCreated = false;
 
+    materialSearchFilterValue;
+    selectedMaterialname; 
+    supplierSelected = false;
+
     sdsBlob;
     showSDS = false;
     showSDSError = false;
@@ -79,6 +86,29 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
     _ws;
     _wsk;
 
+
+    myControl = new FormControl('');
+    selectedSupplierMaterialOptions:any = [{
+        "supplier_id": 4,
+        "slip_material_id": 205,
+        "id": 205,
+        "name": "Agar",
+        "grade": "fine",
+        "cas": "9002-18-0",
+        "formula_weight": null,
+        "density": null,
+        "powder": 0,
+        "solvent": 0,
+        "media": 0,
+        "organic": 0,
+        "supplier_name": "Aldrich",
+        "particle_size": null,
+        "purity": null,
+        "formula": "(C12H18O9)n",
+        "qcid": "7",
+        "r": 1
+    }];    
+    filteredOptions: Observable<any[]>;
 
     // Temporary until we link to DB
     locationList: any;
@@ -105,6 +135,7 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
+        this.createMaterialAttrs();
 
         this.materialFormGroup = this._formBuilder.group({
             firstCtrl: ['', Validators.required]
@@ -160,7 +191,40 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
         this.locationService.getList();
         this.fetchLocationList();
 
+
+
     }
+
+
+    private _filter(value:any) {
+        const filterValue = value.toLowerCase();
+
+        this.materialSearchFilterValue = filterValue;
+    
+        let test =  this.selectedSupplierMaterialOptions.filter(option => { 
+            //console.log(filterValue,option.name, option.name.toLowerCase().includes(filterValue));
+
+            if(option)
+            {
+            return option.name.toLowerCase().includes(filterValue) === true 
+            || (option.grade !== null && option.grade.toLowerCase().includes(filterValue) === true) || option.id == filterValue;
+            }
+        });
+
+        return test;
+      }
+
+
+      displayFn(material) {
+      //  console.log(material);
+        
+        return material;
+      //  return 'text';
+    
+      }
+    
+
+
 
     fetchLocationList() {
         this.locationService.list$.subscribe((r) => {
@@ -208,12 +272,14 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
 
     selectMaterial(obj) {
 
+      //  console.log(obj);
+
 
         this.selectedMaterial = obj;
-        this.material = {};
+        
         this.lot = {};
         this.selectedLot = {};
-        this.materialStepComplete = false;
+       // this.materialStepComplete = false;
 
         if (this.selectedMaterial && this.selectedMaterial.id) {
             this.materialStepComplete = true;
@@ -224,24 +290,74 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
         }
 		//  console.log(this.selectedMaterial);
 		
-		if(obj.hasOwnProperty('sds') && obj.sds) {
+		/* if(obj.hasOwnProperty('sds') && obj.sds) {
 			console.log('triggered');
 			this.fetchSDS();
-		}
+		}  */
+
+        this.materialFormGroup.setValue({
+            firstCtrl: this.material.name,
+         });
+
+     //   console.log(this.material,this.lot,this.container);
 
     }
 
 
     selectSupplier(obj) {
 
+        this.material = {};
         
         if (typeof(obj) !== 'undefined') {
             this.material.supplier_id = obj.supplier_id;
         }
+        else
+        {
+            this.materialFormGroup.setValue({
+                firstCtrl: '',
+             });
+        }
 
-        this.resetMaterialCheck();
+
+        //get list of materials from supplier --- populate material name
+        this.fetchMaterialsFromSelectedSupplier();
+      //  this.resetMaterialCheck();
 
 
+    }
+
+    fetchMaterialsFromSelectedSupplier(){
+
+
+           this.http.get(environment.apiUrl + '/material/supplier/' + this.material.supplier_id + '/materials').subscribe((r:any) => {
+
+
+            this.selectedSupplierMaterialOptions = r;
+            this.supplierSelected = true;
+         //   this.filteredOptions = new Observable(r);
+            // this.filteredOptions.pipe(map(materials=>{
+
+            //     console.log(materials);
+            // }));
+           
+
+            
+        this.filteredOptions = this.myControl.valueChanges.pipe(
+             // startWith(r),
+              map((value:any) => {
+                const name = typeof value === 'string' ? value : value?.name;
+
+                
+               // console.log(value);
+               // return value;
+             //  console.log(this.selectedSupplierMaterialOptions.slice());
+                return value ? this._filter(name as string) : this.selectedSupplierMaterialOptions.slice();
+              }),
+            );
+  
+
+
+        });
     }
 
     clearSupplier(){
@@ -305,7 +421,7 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
     updateQCID(container) {
         const params = {};
         container.savedQCID = false;
-        console.log(container);
+      //  console.log(container);
         //check for QCID string
         if(container.qcid.includes('QCID'))
         {
@@ -339,7 +455,7 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
 	updateMaterialSDSRevision() {
 	
 		const params:any = {};
-		console.log(params);
+		//console.log(params);
         params.sds_revision_date = _moment(this.material.sds_revision_date).format('YYYY-MM-DD');
         if (this.material.id) { this.materialService.update(params, this.material.id).subscribe(); }
     }
@@ -385,13 +501,13 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
 
     createButton(stepper) {
 
-
-        confirm('This action will create ' + this.containersToMake + ' container(s) of ' + this.material.name)
+        this.material.name = this.selectedMaterialname;
+        if(confirm('This action will create ' + this.containersToMake + ' container(s) of ' + this.material.name))
         {
 
             this.createAllTheStuff();
            
-			this.goForward(stepper);
+			setTimeout(()=>{this.goForward(stepper)},1000);
 			this.stuffCreated = true;
 
         }
@@ -416,7 +532,7 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
 
     createAllTheStuff(createNewMaterial = true, onlyCreateContainer = false) {
 
-       
+        
         if (this.creatingMaterial && this.lot.isNew) {
             this.materialService.create(this.material).subscribe((material) => {
                 this.material.id = material.id;
@@ -424,12 +540,12 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
 
                 this.materialLotService.create(this.lot).subscribe((lot_response) => {
 
-                    console.log(lot_response);
+                 //   console.log(lot_response);
                     this.container.lot_id = lot_response.id;
                     for (let index = 0; index < this.containersToMake; index++) {
                         this.materialLotContainerService.create(this.container).subscribe((container) => {
                             this.createdContainers.push(container);
-                            console.log(this.createdContainers);
+                        //    console.log(this.createdContainers);
                             this.container = container;
                             this.codeRegistryStep = true;
                             this.materialCreationStep = false;
@@ -453,7 +569,7 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
                 this.materialLotContainerService.create(this.container).subscribe((container) => {
                     this.createdContainers.push(container);
                     this.createdContainers = this.createdContainers;
-                    console.log(this.createdContainers);
+                 //   console.log(this.createdContainers);
                     this.container = container;
                     this.codeRegistryStep = true;
                     this.materialCreationStep = false;
@@ -468,12 +584,12 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
         ///// Only new container.
         this.container.lot_id = this.lot.id;
         if (this.container.container_received ) { this.container.container_received = _moment(this.container.container_received).format('YYYY-MM-DD'); }
-        console.log(this.container);
+      //  console.log(this.container);
                 for (let index = 0; index < this.containersToMake; index++) {
                 this.materialLotContainerService.create(this.container).subscribe((response) => {
                     this.createdContainers.push(response);
                     this.createdContainers = this.createdContainers;
-                    console.log(this.createdContainers);
+                //    console.log(this.createdContainers);
                     this.container = response;
                     this.codeRegistryStep = true;
                     this.materialCreationStep = false;
@@ -520,7 +636,7 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
 
                     // You could upload it like this:
                     const formData = new FormData();
-                    formData.append('sds', file, 'test.pdf');
+                    formData.append('sds', file);
 
                     // Headers
                     const headers = new HttpHeaders({
@@ -563,7 +679,7 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
 
         if (this.showSDS) { this.showSDS = false; }
 
-        this.http.get(environment.apiUrl + '/material/' + this.material.id + '/sds?filterSpinner', { responseType: 'blob' }).subscribe((response) => {
+        this.http.get(environment.apiUrl + '/material/' + this.material.id + '/sds', { responseType: 'blob' }).subscribe((response) => {
 
             this.sdsBlob = response;
             this.showSDS = true;
@@ -691,6 +807,20 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
         this._ws.unsubscribe();
         this._wsk.unsubscribe();
 
+    }
+
+
+    shouldHighlight(text)
+    {
+       
+
+
+        if(!text) return false;
+        if(text.length > 1){
+        let compare = text.toLowerCase();
+        if(compare.startsWith(this.materialSearchFilterValue.toLowerCase())) return true;
+        }
+        return false;
     }
 
 }

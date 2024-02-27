@@ -32,7 +32,7 @@ export class AgGridSelectProjectEditorComponent implements ICellEditorAngularCom
 
        this.input = this.container.element.nativeElement.firstChild.firstChild.firstChild.children[1].firstChild;
 
-       this.input.value = this.params.charPress;
+      // this.input.value = this.params.charPress;
        this.input.focus();
 
     }, 100);
@@ -56,7 +56,7 @@ export class AgGridSelectProjectEditorComponent implements ICellEditorAngularCom
   }
 
   selectValue(event) {
-    console.log(event);
+    //console.log(event);
     this.selectedValue = event;
     this.params.api.stopEditing();
     this.params.api.tabToNextCell();
@@ -67,7 +67,7 @@ export class AgGridSelectProjectEditorComponent implements ICellEditorAngularCom
 
   onKeyDown(event): void {
     const key = event.which || event.keyCode;
-    console.log(event.keyCode);
+  //  console.log(event.keyCode);
     if (key === 37 ||  // left
         key === 39 || key === 27 ) {  // right
 

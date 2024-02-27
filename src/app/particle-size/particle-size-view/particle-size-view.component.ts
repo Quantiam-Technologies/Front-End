@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges,ElementRef  } from '@angular/core';
+import { Component, OnInit, OnChanges,ElementRef,ChangeDetectorRef, AfterViewInit  } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { NotificationsService } from 'angular2-notifications';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,29 +7,102 @@ import { UserService } from '../../services/user/user.service';
 import { MaterialLotContainerService } from '../../services/material-lot-container/material-lot-container.service';
 import { C } from '@angular/cdk/keycodes';
 
+import { Pipe, PipeTransform} from '@angular/core';
+import { DomSanitizer } from "@angular/platform-browser";
+
+import * as Highcharts from 'highcharts';
+import HC_exporting from 'highcharts/modules/exporting';
+HC_exporting(Highcharts);
+
 @Component({
   selector: 'app-particle-size-view',
   templateUrl: './particle-size-view.component.html',
-  styleUrls: ['./particle-size-view.component.css']
+  styleUrls: ['./particle-size-view.component.css'],
 })
-export class ParticleSizeViewComponent implements OnInit {
+export class ParticleSizeViewComponent implements OnInit, AfterViewInit {
 
   runID;
   particleSizeRun:any;
+  materialHistoryObject:any;
   
-	container: any;
+  
+  Highcharts: typeof Highcharts = Highcharts;
+	
+  d10Array = [];
+  d50Array = [];
+  d90Array = [];
 
+  
+  updateMaterialhistoryFlag = false;
+
+  masterSizerHistoryChartOptions: any = {
+    
+    credits: {
+      text: 'Quantiam Technologies',
+    },
+    title: {
+      text:'Chart Title',
+    },
+    subtitle: {
+      text:'Chart Title',
+    },
+    tooltip: {
+      crosshairs: true,
+      shared: true
+  },
+    yAxis:{
+      title:{
+        text:'Microns'
+      },
+      
+    },
+    series: [
+      {
+        "name": "d10",
+        "type": "line",
+        "data": [
+          { y: 5.08, 'date':"test"},
+        ]
+      },
+      {
+        "name": "d50",
+        "type": "line",
+        "data": [          
+          { y: 5.08, 'date':"test"},
+        ]
+      }
+      ,{
+        "name": "d90",
+        "type": "line",
+        "data": [          
+          { y: 5.08, 'date':"test"},
+        ]
+      }
+    ],
+
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  container: any;
   margin:any;
   width;
   height;
+  safeurl;
    
+  noMeasurements = true;
 
   //JQX
   pageable: boolean;
   columnsResize: boolean;
   pagerButtonsCount: number
   multiplerowsextended: boolean;
-
+  pdfUrl:string;
  
 
   source: any =
@@ -60,16 +133,26 @@ export class ParticleSizeViewComponent implements OnInit {
   ];
 
 
-  constructor(private http: HttpClient,
+  constructor(
+    private sanitizer: DomSanitizer,
+    private http: HttpClient,
     private notification: NotificationsService,
     private route: ActivatedRoute,
     private userService: UserService,
     private materialLotCotainerService: MaterialLotContainerService,
-    public chartElem: ElementRef) { 
+    public chartElem: ElementRef,
+    private ref: ChangeDetectorRef 
+    ) { 
 
 
     
 
+    }
+
+
+
+    ngAfterViewInit() {
+      //this.ref.detach()
     }
 
   ngOnInit(): void {
@@ -96,16 +179,69 @@ export class ParticleSizeViewComponent implements OnInit {
 
   fetchData(){
 
+    this.noMeasurements = true;
+
+    this.ref.reattach();
+
     this.http.get(environment.apiUrl + '/particle-size/' + this.runID).subscribe((r:any) => {
 
       this.particleSizeRun = r;
-      r.measurements.shift();
+      if(r.measurements) { this.noMeasurements= false;  r.measurements.shift(); }
       this.source.localData = r.measurements;
-      console.log(r.measurements);
+     // console.log(r.measurements);
       this.dataAdapter = new jqx.dataAdapter(this.source);
-      console.log(this.particleSizeRun);
+      //console.log(this.particleSizeRun);
       this.fetchContainer();
 
+      this.getSafeUrl(r.pdf);
+
+      //http://api.edm.quantiam.com/file?server_path=\\STSERVER4\\DATA$\\Equipment\\Analytical\\Particle Size\\Master Sizer 3000\\Reports\\2024\\PSA-24-008.pdf
+
+    });
+
+
+  }
+
+
+
+     getSafeUrl(value) {
+      this.safeurl = this.sanitizer.bypassSecurityTrustResourceUrl('http://api.edm.quantiam.com/file?server_path='+value);     
+  }
+
+
+  fetchMaterialHistory(material_id){
+
+    this.http.get(environment.apiUrl + '/material/' + material_id + '/mastersizerhistory').subscribe((r:any) => {
+
+      this.materialHistoryObject = r;
+      console.log(this.materialHistoryObject);
+      
+      this.masterSizerHistoryChartOptions.series[0].data = [];
+      this.masterSizerHistoryChartOptions.series[1].data = [];
+      this.masterSizerHistoryChartOptions.series[2].data = [];
+
+      r.forEach(mastersizerRun => {
+        this.masterSizerHistoryChartOptions.series[0].data.push({ y: parseFloat(mastersizerRun.d10), name:mastersizerRun.id, date:mastersizerRun.created_at});
+        this.masterSizerHistoryChartOptions.series[1].data.push({ y: parseFloat(mastersizerRun.d50), name:mastersizerRun.id, date:mastersizerRun.created_at});
+        this.masterSizerHistoryChartOptions.series[2].data.push({ y: parseFloat(mastersizerRun.d90), name:mastersizerRun.id, date:mastersizerRun.created_at});
+
+        
+      });
+
+      this.masterSizerHistoryChartOptions.title.text = material_id+" - "+this.particleSizeRun.container.lot.material.name+"";
+      this.masterSizerHistoryChartOptions.subtitle.text = "Master Sizer Run History";
+
+
+ 
+
+      console.log( this.masterSizerHistoryChartOptions);
+      this.updateMaterialhistoryFlag = true;
+      setTimeout(()=>{ 
+        //this.ref.detach();
+      },2000);
+
+
+    
     });
 
 
@@ -117,6 +253,7 @@ export class ParticleSizeViewComponent implements OnInit {
     this.http.get(environment.apiUrl + '/material/lot/container/' + this.particleSizeRun.container_id).subscribe((r:any) => {
 
         this.container = r;
+        this.fetchMaterialHistory(r.lot.material.id);
        
     });
 
@@ -139,6 +276,9 @@ encodeUriFixes(string)
       return str; 
     }
 
+
+
+    
 
 
 }

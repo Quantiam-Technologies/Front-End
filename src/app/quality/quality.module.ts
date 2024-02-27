@@ -13,6 +13,7 @@ import { QualityIndexComponent } from './quality-index/quality-index.component';
 import { CarComponent } from './car/car.component';
 import { CarDialogComponent } from './car-dialog/car-dialog.component';
 import { CarDatabaseComponent } from './car-database/car-database.component';
+import { QualityCampaignPowderCharacterizationCheckComponent } from './quality-campaign-powder-characterization-check/quality-campaign-powder-characterization-check.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
       {
         path:'',
         redirectTo: 'ncr/database',
+        pathMatch:'full',
       },
        {
         component: CarDatabaseComponent,
@@ -51,7 +53,8 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [NcrDatabaseComponent, NcrComponent,QualityIndexComponent, CarComponent, CarDialogComponent, CarDatabaseComponent],
+  exports:[QualityCampaignPowderCharacterizationCheckComponent],
+  declarations: [NcrDatabaseComponent, NcrComponent,QualityIndexComponent, CarComponent, CarDialogComponent, CarDatabaseComponent, QualityCampaignPowderCharacterizationCheckComponent],
   imports: [    
     RouterModule.forChild(routes),
     CommonModule,

@@ -1,4 +1,4 @@
-<nav mat-tab-nav-bar mat-stretch-tabs="false">
+<nav mat-tab-nav-bar mat-stretch-tabs="false" [tabPanel]="timesheetSettingstabPanel" >
     
     <a mat-tab-link *ngIf="userService.hasPermission(24)" routerLink="project" routerLinkActive="mat-tab-link-active"> Projects </a>
     <a mat-tab-link *ngIf="userService.hasPermission(18)" routerLink="machines" routerLinkActive="mat-tab-link-active"> Machines </a>
@@ -11,6 +11,7 @@
 
 </nav>
     
-<div class="padding">
+<mat-tab-nav-panel class="padding" #timesheetSettingstabPanel>
     <router-outlet ></router-outlet>
-</div>
+</mat-tab-nav-panel>
+

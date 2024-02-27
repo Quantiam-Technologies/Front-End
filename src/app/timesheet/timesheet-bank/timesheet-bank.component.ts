@@ -91,7 +91,7 @@ export class TimesheetBankComponent implements OnInit {
         btn.classList.add('mat-raised-button');
         btn.classList.add('mat-primary');
         btn.classList.add('mat-small');
-        btn.setAttribute('style', 'margin: 3px');
+        btn.setAttribute('style', 'margin: 3px; border:0px;'); 
         btn.addEventListener('click', (r) => {
           this.router.navigate(['/timesheet/' + this.routeParams.userId + '/year/' + data.year + '/payperiod/' + data.payperiod]);
 
@@ -117,7 +117,7 @@ export class TimesheetBankComponent implements OnInit {
         btn.classList.add('mat-raised-button');
         btn.classList.add('mat-accent');
         btn.classList.add('mat-small');
-        btn.setAttribute('style', 'margin: 3px');
+        btn.setAttribute('style', 'margin: 3px; border:0px;');  
         btn.addEventListener('click', (r) => {
           this.router.navigate(['/timesheet/rto/' + data.requestID]);
 

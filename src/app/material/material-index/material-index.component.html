@@ -1,7 +1,7 @@
 <nav mat-tab-nav-bar mat-stretch-tabs="false" [tabPanel]="tabPanel" >
 			
 			
-			<a mat-tab-link  routerLink="container/database" routerLinkActive="mat-tab-link-active"> Container Database </a>
+			<a mat-tab-link  routerLink="container/database" routerLinkActive="mat-tab-link-active"> Inventory </a>
 			<!-- <a mat-tab-link routerLink="database" routerLinkActive="mat-tab-link-active"> Materials </a>-->
 			<!-- <a mat-tab-link > Container View </a> -->		
 			
@@ -14,9 +14,14 @@
 
 			
 			<a mat-tab-link   
-				*ngIf="selectedContainerId" 
+				*ngIf="selectedContainer.qcid && selectedContainer" 
 				routerLinkActive="mat-tab-link-active" 
-				[routerLink]="['/material/container',selectedContainerId]" >Container{{' - '+selectedContainerId}}</a>
+				[routerLink]="['/material/container',selectedContainer.id]" >QCID-{{''+selectedContainer.qcid}}</a>
+
+				<a mat-tab-link   
+				*ngIf="!selectedContainer.qcid && selectedContainer.id" 
+				routerLinkActive="mat-tab-link-active" 
+				[routerLink]="['/material/container',selectedContainer.id]" >Container {{' - '+selectedContainer.id}}</a>
 			
 			<!-- 	<a mat-tab-link  routerLink="settings" routerLinkActive="mat-tab-link-active"> 
 					

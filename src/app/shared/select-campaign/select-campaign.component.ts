@@ -21,6 +21,7 @@ export class SelectCampaignComponent implements OnInit {
   @Input() placeholder = 'Select Campaign'; // default value, object or ID
   @Input() selectedValue; // default value, object or ID
   @Input() multiple = false; // multi version
+  @Input() clearable = false; // can this be cleared
   @Input() selectableGroup = false; // multi version
   @Input() style = 'min-width: 200px'; // multi version
 

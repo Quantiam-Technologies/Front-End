@@ -25,7 +25,7 @@ export class AgGridSemTypeComponent implements ICellEditorAngularComp, AfterView
     window.setTimeout(() => {    
 
        this.input = this.container.element.nativeElement.firstChild.firstChild.firstChild.children[1].firstChild;
-       this.input.value = this.params.charPress;
+     //  this.input.value = this.params.charPress;
        this.input.focus();
 
     },100);

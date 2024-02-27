@@ -17,16 +17,17 @@ import {  environment} from '../../../environments/environment';
 import { DisplayAnalysisCellComponent } from './display-analysis-cell/display-analysis-cell.component';
 
 
-
-import { ServerSideRowModelModule } from '@ag-grid-enterprise/server-side-row-model';
-
 import { UserService } from '../../services/user/user.service';
+
+import { ColDef, GridReadyEvent, SideBarDef,RowGroupingDisplayType } from 'ag-grid-community';
 
 
 @Component({
   selector: 'app-material-container-database',
   templateUrl: './material-container-database.component.html',
-  styleUrls: ['./material-container-database.component.css']
+  styleUrls: ['./material-container-database.component.css'],
+  //imports: [AgGridAngular],
+  //standalone:true,
 })
 export class MaterialContainerDatabaseComponent implements OnInit {
 
@@ -57,22 +58,26 @@ export class MaterialContainerDatabaseComponent implements OnInit {
 
 
    activeFilter = 1;
+   emptyFilter = 'both';
    supplierSearchFilter;
    filteredTextFilterName;
    hazardSearchFilter;
    locationSearchFilter;
+   SlipRecipeFilter: null;
 
   private locationList: any = [];
   private locationListObj: any[];
 
-
+  public sideBar: SideBarDef | string | string[] | boolean | null = 'columns';
+  public groupDisplayType: RowGroupingDisplayType = 'singleColumn';
+ 
 
   private navigateMode = true;
   private editMode = true;
   private editableContainerCellFields = ['location', 'purchase_order', 'qcid', 'container_name', 'container_number'];
-  public modules: any[] = [
-    ServerSideRowModelModule 
-];
+
+
+
 
   constructor( public userService: UserService,
     private _FileSaverService: FileSaverService,
@@ -82,6 +87,8 @@ export class MaterialContainerDatabaseComponent implements OnInit {
 
   this.locationList = [];
 
+  
+
   this.columnDefs = [
       {
         field: 'container_id',
@@ -89,29 +96,38 @@ export class MaterialContainerDatabaseComponent implements OnInit {
         hide: true,
         headerName: 'Container ID',
 
+      },      
+      {
+        field: 'lot.id',
+        headerName: 'Lot ID',
+        width: 90,
+        hide: true,
       },
       {
         field: 'lot.material.id',
         width: 100,
         hide: true,
-        headerName: 'M ID',
+        headerName: 'Material ID',
 
       },
       {
         width: 60,
         field: 'qcid',
         headerName: 'QCID',
+        sortable:true,
         suppressMenu: true,
       },
       {
         width: 80,
         //field: 'lot.material.whmis_hazard_symbols',
         headerName: 'Warnings',
+        suppressMenu: true,
         cellRenderer: (cell) => {
 
           let html = '';
          
-          if (cell.data.lot.material.whmis_hazard_symbols.length > 0) {
+          try{
+          if (cell.data.lot.material.hasOwnProperty('whmis_hazard_symbols') && cell.data.lot.material.whmis_hazard_symbols.length > 0) {
 
             cell.data.lot.material.whmis_hazard_symbols.forEach((hazard) => {
 
@@ -121,6 +137,10 @@ export class MaterialContainerDatabaseComponent implements OnInit {
             return html;
 
           } else { return ''; }
+        }
+        catch(e){
+          console.log('Error',cell.data);
+        }
         }
 
       },
@@ -144,7 +164,7 @@ export class MaterialContainerDatabaseComponent implements OnInit {
         hide: true,
       },
       {
-        width: 110,
+        width: 140,
         field: 'lot.material.grade',
         headerName: 'Grade',
       },
@@ -158,10 +178,10 @@ export class MaterialContainerDatabaseComponent implements OnInit {
         width: 90,
         field: 'lot.material.particle_size',
         headerName: 'P. Size',
-        hide: false,
+        hide: true,
       },
       {
-        width: 95,
+        width: 100,
         field: 'lot.material.supplier.supplier_name',
         headerName: 'Supplier',
       },
@@ -169,12 +189,6 @@ export class MaterialContainerDatabaseComponent implements OnInit {
         field: 'lot.lot_name',
         headerName: 'Lot',
         width: 90,
-      },
-      {
-        field: 'lot.id',
-        headerName: 'Lot ID',
-        width: 90,
-        hide: true,
       },
       {
         width: 80,
@@ -194,6 +208,7 @@ export class MaterialContainerDatabaseComponent implements OnInit {
         width: 80,
         field: 'purchase_order',
         headerName: 'PO #',
+        hide:true
       },
       {
         width: 100,
@@ -235,10 +250,11 @@ export class MaterialContainerDatabaseComponent implements OnInit {
         hide: true,
         headerName: 'Updated'
       },
-      {
+     /*  {
         field: 'active',
         width: 80,
         headerName: '?',
+        hide: true,
         cellRenderer: function(cell) {
 
          // console.log(cell);
@@ -249,12 +265,12 @@ export class MaterialContainerDatabaseComponent implements OnInit {
           return '<p style="color:orange"> N/A </p>';
         },
 
-      },
+      }, */
       {
         field: 'empty',
         width: 80,
-        headerName: 'Empty',
-        hide: true,
+        headerName: 'Empty?',
+        hide: false,
         cellRenderer: function(cell) {
 
           // console.log(cell);
@@ -263,56 +279,53 @@ export class MaterialContainerDatabaseComponent implements OnInit {
           }
           else
           {
-            return '<p style="color:green">No</p>';
+            return '<p style="color:green">In Stock</p>';
           }
 
           return '';
         },
 
       },
+
+      {
+        width: 80,
+        field: 'remaining',
+        headerName: 'Est. Remaining',
+        hide: true,
+      },
       {
         headerName: 'Documents',
+        width: 200,
         cellRenderer: 'DisplayAnalysisCellComponent'        
 
       },
       {
-        field: 'sds',
-        width: 60,
-        headerName: 'SDS',
-        hide:true,
-        cellRenderer: function(cell) {
-
-          if (!cell.hasOwnProperty('data')) { return ''; }
-          if (cell.data.lot.material.sds) {
-            return '<p style="color:green"> SDS </p>';
-          }
-          if (cell.data.lot.material.supplier_id === 14) {
-            return '<p style="color:orange">Internal</p>';
-          }
-          if (!cell.value) { return '<p style="color:red">Missing</p>'; }
-          return '';
-        },
-        onCellClicked: (cell ) => {
-          if (cell.data) { this.fetchSDS(cell.data.lot.material.id); }
-        }
-
-      },
-      {
-        width: 80,
-        field: 'sds_updated_at',
+        width: 90,
+        field: 'lot.material.sds_updated_at',
         headerName: 'SDS Updated',
         hide: true,
-      },
+      }, 
      
     ];
 
  //   this.components = { datePicker: getDatePicker() };
 
     this.defaultColDef = {
-
-      sortable: true,
+      //menuTabs:[''],
+      //enablePivot:true,
+      sortable: false,
       resizable: true,
+      //editable: true,
+      
+    //  menuTabs: ['generalMenuTab','filterMenuTab', 'columnsMenuTab'],
+       // allow every column to be aggregated
       filter: false,
+      // enableValue: true,
+    // allow every column to be grouped
+   // enableRowGroup: true,
+    // allow every column to be pivoted
+   // enablePivot: true,
+      
       cellStyle: function (params) {
         return {
           cursor: 'pointer',
@@ -335,19 +348,19 @@ export class MaterialContainerDatabaseComponent implements OnInit {
 
     this.gridOptions = {
       rowSelection: 'single',
-      cacheBlockSize: 18,
+      cacheBlockSize: 100,
       enableRangeSelection: true,
-       maxBlocksInCache: 2,
+      // maxBlocksInCache: 2,
        rowHeight: 35,
      //  enableServerSideFilter: true,
-      enableServerSideSorting: false,
       rowModelType: 'serverSide',
-      
-      serverSideStoreType: 'partial',
+      getRowId: function(row){ return row.data.id; },      
+      suppressServerSideInfiniteScroll:false,
       pagination: true,
       maxConcurrentDatasourceRequests: 1,
-     // paginationPageSize: 20,
-      paginationAutoPageSize: true
+      //paginationPageSize: 15,
+      paginationPageSizeSelector:[ 15, 50,100]
+      //paginationAutoPageSize: true
     };
 
 
@@ -385,7 +398,7 @@ export class MaterialContainerDatabaseComponent implements OnInit {
 
     this.route.queryParams.subscribe((queryParams: any) => {
 
-      console.log(queryParams);
+//      console.log(queryParams);
 
       if (queryParams.refreshTable === 'true') {
 
@@ -428,8 +441,9 @@ export class MaterialContainerDatabaseComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
+    console.log('Grid ready trigger');
     const datasource = this.fetchMaterialContainerDatabase();
-    params.api.setServerSideDatasource(datasource); // datasource needs to be a serverSide model
+    params.api.setGridOption('serverSideDatasource',datasource); // datasource needs to be a serverSide model
 
   }
 
@@ -614,17 +628,28 @@ export class MaterialContainerDatabaseComponent implements OnInit {
 
 
 fetchMaterialContainerDatabase () {
-
+  console.log('fetchMaterialContainer');
   return {
-    getRows: (params2: any) => {
-      console.log(params2);
+    getRows: (params: any) => {
+      console.log('[Datasource] - rows requested by grid: ', params.request);
       const page = (this.gridApi.paginationGetCurrentPage() + 1);
+
+      let qcidSort = null;
+      let columns = this.gridApi.getColumnState().filter(s => s.sort !== null);
+      if(columns.length > 0){  qcidSort = columns[0].sort };
+      
+    
+    //  console.log(sort);
 
       const requestParams: HttpParams = new HttpParams()
       .append('limit', `${this.gridOptions.cacheBlockSize}`)
       .append('active', null)
+      .append('sort', null)
+      .append('sortQCID', qcidSort)
+      .append('empty',  `${this.emptyFilter}`)
       // .append('active', 1)
       .append('like', `${this.filteredTextFilterName}`)
+      .append('sliprecipe', `${this.SlipRecipeFilter}`)
       .append('hazards[]', this.hazardSearchFilter)
       .append('suppliers[]', this.supplierSearchFilter)
       .append('locations[]', this.locationSearchFilter)
@@ -632,11 +657,11 @@ fetchMaterialContainerDatabase () {
 
 
 
-        this.http.get(environment.apiUrl + '/material/lot/container', {params: requestParams}).subscribe((response: any) => {
+        this.http.get(environment.apiUrl + '/material/lot/container?filterSpinner', {params: requestParams}).subscribe((response: any) => {
 
-             params2.successCallback(response.data, response.total);
-             this.totalRows = response.total;
+          params.success({ rowData: response.data });
              this.gridApi.sizeColumnsToFit();
+             this.gridApi.setRowCount(response.total,true);
            ///  console.log(params2);
         });
 
@@ -648,7 +673,7 @@ fetchMaterialContainerDatabase () {
 refreshDatabase() {
 
   const datasource = this.fetchMaterialContainerDatabase();
-  this.gridApi.setServerSideDatasource(datasource);
+  this.gridApi.setGridOption('serverSideDatasource',datasource);
 }
 
 downloadIventoryList()
@@ -661,6 +686,18 @@ downloadIventoryList()
   });
   
  
+}
+
+SlipRecipeFilterChanged(event){
+  if (typeof event !== 'undefined') {
+  this.SlipRecipeFilter = event.id;  
+  }
+  else
+  {
+    delete this.SlipRecipeFilter;
+  }
+  this.refreshDatabase();
+
 }
 
 

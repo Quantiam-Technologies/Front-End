@@ -1,0 +1,16 @@
+<h2> Recipe Component History  </h2>
+<div fxLayout="row" FxFlex>
+
+    <app-select-slip-recipe  clearable=false (change)="SlipRecipeChanged($event)"></app-select-slip-recipe>
+</div>
+
+<div fxLayout="row" FxFlex fxLayoutGap="20px">
+    <highcharts-chart [Highcharts]="Highcharts" [options]="HighchartsOptions" 
+    [(update)]="updateHighchartsFlag"></highcharts-chart>
+    
+    
+    <highcharts-chart [Highcharts]="Highcharts" [options]="HighchartsOptions2" 
+    [(update)]="updateHighchartsFlag2"></highcharts-chart>
+
+</div>
+

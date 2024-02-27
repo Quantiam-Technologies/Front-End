@@ -6,6 +6,10 @@ Change Log
 
 ### To do list
 
+- reenable column filter thing for material database
+- material ID 
+
+
 - Steel Creation Dialog
 - Failures Dashboard Display
 - Held Product 
@@ -28,11 +32,108 @@ Change Log
   - Clear Steel Box After Selection + Adding
 
 
-# 2023.11.22
+
+# 2024.02.27
+
+## Material Creation
+
+- The Material Name Field will now suggests already existing materials and upon selection it will auto populate relevant information, reducing potential time needed to fill in material information.
+<br><img  style="margin:5px;" src="https://imgur.com/hT4AD3g.png" width="60%"><br>
+
+- When filling out a field, the label will now turn Green to signify it has a value.
+<br><img  style="margin:5px;" src="https://imgur.com/XnhFZoF.png" width="50%"><br>
+
+## Material Container
+
+- The XRD, Particle Size and Slips now display near "Container Information", instead of near  "Material Information"
+<br><img  style="margin:5px;" src="https://imgur.com/cAsveIl.png" width="40%"><br>
+
+
+# 2024.02.02
+
+## Dashboard
+
+- Prototype Metrics for a campaign, is now displayed on the front page dashboard  
+- Slip production - visible on the dashboard
+
+## Slip Analytics
+- Slip production can now switch between historical campaigns
+- Slip usage/production can now export data found in tables + charts
+- various bug fixing
+
+## Material Container View
+
+- Slips & Slip Recipes are now visible/navigateable from the container screen. 
+<br><img  style="margin:5px;" src="https://imgur.com/ZWrYgkc.png" width="40%"><br>
+
+
+# 2024.01.25
+
+## Arbin Test Viewer
+- X & Y Axis fields now behave as expected
+- Added option to change between scatter plot & spline
+- Removing a test will no longer crash the graph
+
+
+## Materials Viewer
+
+- When viewing a contianer, the tab at the top will display the QCID, rather then the Container ID if available. 
+- Container Tab Database changed to "Inventory"
+- Can now filter containers by Slip Recipe
+
+## Particle Size Viewer
+
+- particle size PDF reports now display on the right side
+- moved run specific data to the left side
+- aligned information at the top into neat row
+- when viewing an analysis for a controlled container, the material analysis history will be displayed in a chart
+<br><img  style="margin:5px;" src="https://imgur.com/6rqQETL.png" width="80%"><br>
+
+
+# 2023.12.1
+
+### Timesheet 
+
+
+- RTO Bank will only recalculate after all hours entered have finished saving.
+- Timesheet hour saving is now 1 second faster
+
+### Slip Creation 
+
+- Where lists of containers used are visible, the material ID, container supplier, and particle size can now be seen 
+<br><img  style="margin:5px;" src="https://imgur.com/4dTjz2J.png" width="80%"><br>
+
+
+# 2023.11.24
 
 ## Changes
  
-- Timesheet Statutory Holiday Field can now be modified to values other then 8 hours by Administrators
+### Employees
+
+- Employees -> Directory search fields & Active/Inactive filters look much better. 
+- Steve Petrone now displays as a supervisor on the directory
+- The "Active" and "Inactive" boxes for employee drop down, is no longer misaligned. 
+- The Employee view screen attributes have been reorganized. User management screen expanded. 
+
+### Timesheet 
+
+- Timesheet Statutory Holiday Field can now be modified to values other then 8 hours by Timesheet Administrators
+- Timesheet Previous & Next buttons now have the arrow icons correctly positions. 
+
+
+### RTO Bank History
+
+- Buttons that navigate to the respective Timesheet and RTOs, no longer have the ugly black border.  
+
+### Campaigns
+ 
+- Campaign slection dropdown, is no longer crowded
+
+
+## Upgrades
+
+- Painfully upgraded from Angular 15 to Angular 16 -- stll some stylistic issues to resolve. 
+
 
 # 2023.09.18
 

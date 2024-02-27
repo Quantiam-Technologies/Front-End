@@ -89,17 +89,7 @@
 						[fixedInViewport]="mobileQuery.matches" [fixedTopGap]="options.value.top"
 						[fixedBottomGap]="options.value.bottom"
 			>
-<!-- 			
-			<div id="small_navigation" style="margin: 0px 0px 10px 0px;" fxLayout="row" fxLayoutAlign="center center">
-				<button (click)="backClicked()" mat-button style="min-width:60px;"> 
-					<mat-icon>arrow_back</mat-icon> 
-					
-				</button>	
-				<button (click)="forwardClicked()" mat-button style="min-width:60px;"> 
-					<mat-icon>arrow_forward</mat-icon> 
-					
-				</button>
-			</div> -->
+
 					<mat-accordion class="side-panel" multi="true">
 
 						<!-- <mat-expansion-panel expanded="true" *ngIf="isAdmin">
@@ -126,7 +116,7 @@
 								</mat-list>  
 						</mat-expansion-panel> -->
 						<mat-divider style="display:none"></mat-divider >
-						<mat-expansion-panel expanded="false"  style="padding-top:3px; ">
+						<mat-expansion-panel expanded="true"  style="padding-top:3px; ">
 							
 								
 							<mat-expansion-panel-header [expandedHeight]="'32px'" [collapsedHeight]="'32px'">
@@ -260,14 +250,19 @@
 											<fa-icon [icon]="faPallet"></fa-icon>
 										
 										</button>
-									</mat-list-item>  
+									</mat-list-item> 
+									
+									<mat-list-item  > 
+										<button routerLink="/weartile/database" routerLinkActive="mat-list-item-button-active" mat-button> <p>Wear Tiles</p>
+										   <fa-icon [icon]="faSquare"></fa-icon>
+									   </button>
+								   </mat-list-item>  
 
-										 <mat-list-item  > 
+								    <mat-list-item  > 
 										 <button routerLink="/material/container/database" routerLinkActive="mat-list-item-button-active" mat-button> <p>Materials</p>
 											<fa-icon [icon]="faFlask"></fa-icon>
 										</button>
 									</mat-list-item> 
-									
 								<!-- 	<mat-list-item  > 
 										 <button routerLink="/3dmodels/database" routerLinkActive="mat-list-item-button-active" mat-button> <p>3d Models</p>
 											<fa-icon [icon]="faDraftingCompass"></fa-icon>
@@ -298,35 +293,52 @@
 							  </mat-expansion-panel-header>
 								<mat-list>
 
+									
+									<mat-list-item  > 
+										<button  mat-button > 
+											<a style="color:inherit !important; text-decoration: inherit !important;" 	target="_blank" href="http://old.edm.quantiam.com/#!/slipcast/database">Slipcasting</a>
+										</button>
+									
+									</mat-list-item>
+
+									<mat-list-item  > 
+										<button  mat-button > 
+											<a style="color:inherit !important; width:100%; text-decoration: inherit !important;" 	target="_blank" href="http://old.edm.quantiam.com/#!/slip/database">Slip Creation</a>
+											
+										</button>
+									
+									</mat-list-item>
+
+									<mat-list-item  > 
+										<button routerLink="/furnace/run/database" routerLinkActive="mat-list-item-button-active" mat-button> <p>Tapecasting</p>								   
+											<fa-icon  [icon]="faExclamationCircle" ></fa-icon>
+										</button>
+									
+									</mat-list-item>
+									
+									<mat-list-item  > 
+										<button routerLink="/furnace/run/database" routerLinkActive="mat-list-item-button-active" mat-button> <p>Brick Assembly</p>								   
+											<fa-icon  [icon]="faExclamationCircle" ></fa-icon>
+										</button>
+									
+									</mat-list-item>
 
 									<!-- <mat-list-item  > 
 												<button routerLink="/prefinish/database" routerLinkActive="mat-list-item-button-active" mat-button>Powder Processing</button>
 										</mat-list-item> -->
-										<mat-list-item *ngIf="userService.hasPermission(38)" > 
+									<!-- 	<mat-list-item *ngIf="userService.hasPermission(38)" > 
 												
 												<button routerLink="/honing" routerLinkActive="mat-list-item-button-active" mat-button> <p>Honing</p>								   
 													<fa-icon  [icon]="faExclamationCircle" ></fa-icon>
 												</button>
-										</mat-list-item>
+										</mat-list-item> -->
 									<!-- 	<mat-list-item  > 
 												<button routerLink="/slip/database" routerLinkActive="mat-list-item-button-active" mat-button>Slip Creation</button>
 										</mat-list-item> -->
 										<!-- <mat-list-item  > 
 											<button routerLink="/tapecast/database" routerLinkActive="mat-list-item-button-active" mat-button>Tape Casting</button>
 										</mat-list-item> -->
-										<mat-list-item  > 
-											<button  mat-button > 
-												<a style="color:inherit !important; width:100%; text-decoration: inherit !important;" 	target="_blank" href="http://old.edm.quantiam.com/#!/slip/database">Slip Creation</a>
-												
-											</button>
-										
-										</mat-list-item>
-										 <mat-list-item  > 
-											<button  mat-button > 
-												<a style="color:inherit !important; text-decoration: inherit !important;" 	target="_blank" href="http://old.edm.quantiam.com/#!/slipcast/database">Slip Casting</a>
-											</button>
-										
-										</mat-list-item>
+									
 
 										<mat-list-item  > 
 											<button routerLink="/furnace/run/database" routerLinkActive="mat-list-item-button-active" mat-button> <p>Furnace Runs</p>								   

@@ -1,0 +1,57 @@
+
+
+
+
+<ng-select 
+	
+[items]="items"
+[(ngModel)]="selectedValue"
+[placeholder]="placeholder"
+[multiple]="multiple"
+
+
+bindLabel="recipe_name"
+bindValue="id"
+
+(change)="onChange($event)"
+(clear)="onClear($event)"
+
+(open)="onOpen()"
+
+
+appendTo="body"
+>
+    <!-- -->
+<!-- 
+         <ng-template ng-header-tmp>
+            <div fxLayout="row" fxLayoutAlign="start center"  fxLayoutGap="10px">
+                 <mat-checkbox  [(ngModel)]="showActive" (change)="showItems()" [check]="showActive"> Active </mat-checkbox>
+                 <mat-checkbox  [(ngModel)]="showInactive" (change)="showItems()"> Inactive </mat-checkbox>
+            </div>
+        </ng-template> -->
+
+
+
+ <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm" >
+        
+                
+        <div fxLayout="row" fxLayoutAlign="start center"  >
+            <div fxLayout="row"  fxLayoutAlign="start center"  >
+                <div style="width:50px; font-size:14px;"  [ngOptionHighlight]="search"> <b>{{item.id}} </b></div> 
+                <div style="width:250px; font-size:12px; margin-left:10px" [ngOptionHighlight]="search">{{item.recipe_name}}</div>
+                
+            </div>
+        <!-- 	<div style="width:150px; font-size: 11px; white-space: normal;" > {{item.Category}} </div>
+     -->
+            <div style="width:80px;" >
+                <a *ngIf="item.orderable" mat-raised-button color="primary" routerLink="/material/{{item.id}}"  > Active </a>
+                <a *ngIf="!item.orderable" mat-button  color="warn" routerLink="/material/{{item.id}}"  > Inactive </a>
+            </div>
+        </div>
+            
+        
+    
+
+ </ng-template>
+
+</ng-select>

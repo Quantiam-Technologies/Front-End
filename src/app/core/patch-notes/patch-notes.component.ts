@@ -65,7 +65,7 @@ export class PatchNotesComponent implements OnInit {
   processChangeLog(changenotes)
   {
     let splitNotes = changenotes.split('\r\n# ');
-    console.log(splitNotes);
+  //  console.log(splitNotes);
     
     splitNotes.forEach((versionNotes,index) => {
       const noteObj:any = {};

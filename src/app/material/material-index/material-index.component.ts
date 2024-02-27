@@ -16,7 +16,7 @@ import { UserService } from '../../services/user/user.service';
 export class MaterialIndexComponent implements OnInit, OnDestroy {
 
   selectedMaterialId;
-  selectedContainerId;
+  selectedContainer;
   selectedLotId;
   _material:any;
   _container:any;
@@ -42,7 +42,7 @@ export class MaterialIndexComponent implements OnInit, OnDestroy {
       //// Container register thingy
      this._container = this.materialLotContainerService.materialLotContainer$.subscribe( res => {
 
-        if (typeof res !== 'undefined') {  this.selectedContainerId = res.id; }
+        if (typeof res !== 'undefined') {  this.selectedContainer = res; }
        });
 
       // Default Nav Pane

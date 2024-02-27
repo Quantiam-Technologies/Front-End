@@ -1,0 +1,43 @@
+<!-- <p>slip-campaign-usage works!</p> -->
+<div fxLayout="row" fxLayoutGap="5px" style="margin:2px">
+    <div fxLayout="column" fxLayoutGap="5px">
+                  
+            <button mat-button color="primary" [matMenuTriggerFor]="menu">  <mat-icon>download</mat-icon>Export Data</button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="exportCSV('measured')">
+                <mat-icon>leaderboard</mat-icon>
+                Chart Data</button>
+
+                <button mat-menu-item (click)="exportCSV('slips')">
+                    <mat-icon>list</mat-icon>
+                    Slip List</button>
+            </mat-menu>
+       
+        <mat-card ngif="campaignSlipUsageObject" >
+            <mat-card-content ><h1>{{campaignSlipUsageObject?.numberSlips}}<small style="margin-left:5px;">Slips</small></h1></mat-card-content>
+        </mat-card>
+        <mat-card >
+            <mat-card-content ><h1>{{campaignSlipUsageObject?.slipRecipes.length}}<small style="margin-left:5px;">Recipe(s)</small></h1></mat-card-content>
+        </mat-card>
+        
+        <mat-card >
+            <mat-card-content ><h2><small>Total Organic</small><br>{{organicSum | number : '1.0-0'}} g</h2></mat-card-content>
+        </mat-card>
+        <mat-card >
+            <mat-card-content ><h2><small>Total Solvent</small><br>{{SolventSum | number : '1.0-0'}} g</h2></mat-card-content>
+        </mat-card>
+        <mat-card >
+            <mat-card-content ><h2><small>Total Powder</small><br>{{powderSum | number : '1.0-0'}} g</h2></mat-card-content>
+        </mat-card>
+        <mat-card >
+            <mat-card-content ><h2><small>Total Slip Produced</small><br>{{(SolventSum+organicSum+powderSum) | number : '1.0-0'}} g</h2></mat-card-content>
+        </mat-card>
+    </div>
+    <div fxLayout="row" fxFlex fxLayoutGap="20px">
+        <mat-card >
+            <highcharts-chart [Highcharts]="Highcharts" [options]="HighchartsOptions" 
+            [(update)]="updateHighchartsFlag" [oneToOne]="true"></highcharts-chart>
+        </mat-card>
+    </div>
+  
+</div>

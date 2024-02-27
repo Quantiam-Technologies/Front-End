@@ -1,0 +1,29 @@
+
+<nav mat-tab-nav-bar mat-stretch-tabs="false" [tabPanel]="tabPanel" >
+			
+			
+    <a mat-tab-link  routerLink="/weartile/database" routerLinkActive="mat-tab-link-active"> WearTile Database </a>
+    <!-- <a mat-tab-link routerLink="database" routerLinkActive="mat-tab-link-active"> Materials </a>-->
+    <!-- <a mat-tab-link > Container View </a> -->		
+    
+    <!-- <a mat-tab-link *ngIf="userService.hasPermission([40,41])"   (click)="openDialog()" > Add Container </a> -->
+    
+    <a mat-tab-link  *ngIf="selectedWearTileId" [routerLink]="['/weartile',selectedWearTileId]" routerLinkActive="mat-tab-link-active"> 
+        WearTile {{' - '+selectedWearTileId}}
+    </a> 
+
+
+  
+    
+    <!-- 	<a mat-tab-link  routerLink="settings" routerLinkActive="mat-tab-link-active"> 
+            
+             
+             Settings
+         </a> -->
+    </nav>
+
+    
+<mat-tab-nav-panel  #tabPanel class="tab-content">
+        <router-outlet ></router-outlet>
+</mat-tab-nav-panel>
+   

@@ -3,22 +3,22 @@
   <div fxLayout="row" class="donotprint"  >
 
     <div  fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start start" fxFlex> 
-        <mat-form-field>
-        <select  matNativeControl placeholder="Minimum Hours" [(ngModel)]="minimumHours" (change)="updateCalendar()" >
-            <option value=0>0</option>
-            <option value=1>1</option>
-            <option value=2>2</option>
-            <option value=3>3</option>
-            <option value=4>4</option>
-            <option value=5>5</option>
-            <option value=6>6</option>
-            <option value=7>7</option>
-            <option value=8>8</option>
+     <!--    <mat-form-field>
+        <mat-select  matNativeControl placeholder="Minimum Hours" [(ngModel)]="minimumHours" (change)="updateCalendar()" >
+            <mat-option value=0>0</mat-option>
+            <mat-option value=1>1</mat-option>
+            <mat-option value=2>2</mat-option>
+            <mat-option value=3>3</mat-option>
+            <mat-option value=4>4</mat-option>
+            <mat-option value=5>5</mat-option>
+            <mat-option value=6>6</mat-option>
+            <mat-option value=7>7</mat-option>
+            <mat-option value=8>8</mat-option>
 
-        </select>
+        </mat-select>
    
-      
-    </mat-form-field>
+      <mat-label>Hours </mat-label>
+    </mat-form-field> -->
 
    <app-select-user placeholder="Select Employee" (change)="updateSelectedUser($event)" appendTo=''></app-select-user>
 
@@ -35,7 +35,7 @@
           ></app-select-user>
  -->
   
-   <mat-checkbox [(ngModel)]="subordinatesOnly" (change)="updateCalendar()">Subordinates</mat-checkbox>
+   <mat-checkbox [(ngModel)]="subordinatesOnly" (change)="updateCalendar()">Subordinates Only</mat-checkbox>
 </div>
 
      <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="end start" fxFlex>

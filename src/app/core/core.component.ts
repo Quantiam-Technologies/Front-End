@@ -20,7 +20,7 @@ import { WebsocketService } from '../services/websocket/websocket.service';
 import { SettingsService } from '../services/settings/settings.service';
 
 
-import { faCoffee, faMicroscope, faBolt, faFlask, faXRay, 
+import { faCoffee, faMicroscope, faBolt, faFlask, faXRay, faSquare,
   faFireAlt, faPlaneDeparture, faHatWizard, faPaste, faCog, 
   faPiggyBank, faChartLine, faJournalWhills, faUserFriends, faPallet, faSitemap, faUserTimes, faDraftingCompass, faWrench, faExclamationCircle, faBraille, faSun } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar, faClock } from '@fortawesome/free-regular-svg-icons';
@@ -52,6 +52,7 @@ export class CoreComponent implements OnInit, OnDestroy {
 
 
   // Icons
+  faSquare = faSquare;
   faLaravel = faLaravel;
   faPlaneDeparture = faPlaneDeparture;
   faFireAlt = faFireAlt;

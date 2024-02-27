@@ -1,31 +1,30 @@
 <div 
 style="margin-top:10px;"
-fxLayout="column" fxLayoutAlign="center center" 
-fxLayout.gt-md="row"  fxLayoutAlign.gt-md="center start" fxLayoutGap="20px"
+fxLayout="column" fxLayoutAlign="center center"  fxLayoutGap="20px" fxFlex
 >
-
-
-  <div fxLayout="column" fxFlex>
-      <div fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="center start">
+<div fxLayout="row" fxLayoutGap="10px"  fxLayoutAlign="center center" fxFlex>
           
-          <app-select-user [selectedValue]="user.id" 
-          [authorizedSubordinatesOrMachines]="true"
-          [allOptions]="userService.hasPermission(1)" (change)="changeUser($event)" [clearable]="false"></app-select-user>
+    <app-select-user [selectedValue]="user.id" 
+    [authorizedSubordinatesOrMachines]="true"
+    [allOptions]="userService.hasPermission(1)" (change)="changeUser($event)" [clearable]="false"></app-select-user>
 
-          <mat-form-field>
-              <input matInput [(ngModel)]="startDate" [matDatepicker]="startDatePicker" placeholder="Start Date">
-              <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-              <mat-datepicker #startDatePicker></mat-datepicker>
-          </mat-form-field>
-          <mat-form-field>
-              <input matInput [(ngModel)]="endDate" [matDatepicker]="endDatePicker" placeholder="End Date">
-              <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-              <mat-datepicker #endDatePicker></mat-datepicker>
-          </mat-form-field>
-          <div>
-              <button mat-raised-button color="primary" (click)="fetchData()"> Apply </button>
-          </div>
-      </div>
+    <mat-form-field>
+        <input matInput [(ngModel)]="startDate" [matDatepicker]="startDatePicker" placeholder="Start Date">
+        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput [(ngModel)]="endDate" [matDatepicker]="endDatePicker" placeholder="End Date">
+        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+    <div>
+        <button mat-raised-button color="primary" (click)="fetchData()"> Apply </button>
+    </div>
+</div>
+
+  <div fxLayout="row" fxFlex>
+   
 
 
       <div fxLayoutAlign="center start" fxFlex>
@@ -33,9 +32,8 @@ fxLayout.gt-md="row"  fxLayoutAlign.gt-md="center start" fxLayoutGap="20px"
           <highcharts-chart *ngIf="projectPieChartOptions" [Highcharts]="Highcharts" [options]="projectPieChartOptions" [(update)]="updateFlag" style="height:400px;"></highcharts-chart>
 
       </div>
-  </div>
 
-    <div id="tables" fxLayout="row" fxFlex fxLayoutGap="20px" fxLayoutAlign="center start" fxFlex>
+      <div id="tables" fxLayout="row" fxFlex fxLayoutGap="20px" fxLayoutAlign="center start" fxFlex>
         <div>
             <h3> Raw ({{reportObj?.denomination}})</h3>
             <hot-table class="hot" hotId="raw" [settings]="hotTableRawSettings" [licenseKey]="'non-commercial-and-evaluation'">
@@ -57,5 +55,9 @@ fxLayout.gt-md="row"  fxLayoutAlign.gt-md="center start" fxLayoutGap="20px"
             </hot-table>
         </div>
     </div>
+
+  </div>
+
+  
 
 </div>

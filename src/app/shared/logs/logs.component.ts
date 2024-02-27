@@ -168,8 +168,9 @@ export class LogsComponent implements OnInit {
 
           this.http.get(environment.apiUrl + '/api/logs', {params: requestParams}).subscribe((response: any) => {
 
-               params2.successCallback(response.data, response.total);
-               this.totalRows = response.total;
+               params2.success({ rowData: response.data });
+               
+               this.gridApi.setRowCount(response.total,true);
               this.gridApi.sizeColumnsToFit();
              ///  console.log(params2);
           });

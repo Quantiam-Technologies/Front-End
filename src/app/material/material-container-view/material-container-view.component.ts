@@ -10,6 +10,7 @@ import { UserService } from '../../services/user/user.service';
 import { NgxFileDropEntry, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import { NotificationsService } from 'angular2-notifications';
 
+import { DomSanitizer } from "@angular/platform-browser";
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { MatDialog } from '@angular/material/dialog'; 
@@ -28,6 +29,8 @@ import { MaterialHazardSymbolSelectorComponent } from '../material-hazard-symbol
 
 export class MaterialContainerViewComponent implements OnInit, OnDestroy {
 
+	
+	safeurl;
   _container = null;
 	container: any;
 	canEdit = false;
@@ -47,6 +50,8 @@ export class MaterialContainerViewComponent implements OnInit, OnDestroy {
 	showSDS = false;
 	SDSurl;
 	firstLoad = true;
+	SDSpath;
+	SDSpathDisplay;
 
 	matButtonToggleState = 'container';
 
@@ -66,6 +71,8 @@ export class MaterialContainerViewComponent implements OnInit, OnDestroy {
   locationList: any;
 
   constructor(
+	
+    private sanitizer: DomSanitizer,
 	private materialLotCotainerService: MaterialLotContainerService,
 	private materialService: MaterialService,
 	private materialLotService: MaterialLotService,
@@ -92,7 +99,11 @@ export class MaterialContainerViewComponent implements OnInit, OnDestroy {
 			this.route.params.subscribe((p) =>{
 
 					
-				 	this.materialLotCotainerService.getMaterialLotContainer(p['id']).subscribe(res => {});
+				 	this.materialLotCotainerService.getMaterialLotContainer(p['id']).subscribe(res => {
+
+
+
+					});
 
 			})
 
@@ -104,7 +115,7 @@ export class MaterialContainerViewComponent implements OnInit, OnDestroy {
 
 			});
 
-      this._container = this.materialLotCotainerService.materialLotContainer$.subscribe(res => { // subscribe to the material service for updates
+      this._container = this.materialLotCotainerService.materialLotContainer$.subscribe(res => { // subscribe to the material container service for updates
 
 			this.container = {};
 			this.firstLoad = false;
@@ -113,6 +124,8 @@ export class MaterialContainerViewComponent implements OnInit, OnDestroy {
 
 			this.container = res;
 			if(typeof res.lot !== 'undefined'){
+
+				
 
 				if(!this.container.lot.material.sds) { this.fetchPotentialMSDS(); }
 				if(this.container.lot.material.sds) { this.fetchSDS(); }
@@ -355,7 +368,7 @@ export class MaterialContainerViewComponent implements OnInit, OnDestroy {
 
           // You could upload it like this:
           const formData = new FormData();
-          formData.append('sds', file, 'test.pdf');
+          formData.append('sds', file);
 
           // Headers
           const headers = new HttpHeaders({
@@ -406,6 +419,9 @@ export class MaterialContainerViewComponent implements OnInit, OnDestroy {
 						ifr.contentWindow.location.replace(this.SDSurl)
 					}
 
+					console.log('Fetch SDS worked');
+					this.fetchSDSList();
+
 		}, (error)=>{
 			this.showSDS = false;
 			this.showSDSError = true;
@@ -422,10 +438,13 @@ export class MaterialContainerViewComponent implements OnInit, OnDestroy {
 
 			this.http.delete(environment.apiUrl + '/material/' + this.container.lot.material.id + '/sds?filterSpinner').subscribe((response) => {
 
+
+					this.fetchSDS();
+
 					// console.log(respone)
-					this.showSDS = false;
-					this.container.lot.material.sds = 0;
-					this.container.lot.material = response;
+					//this.showSDS = false;
+					//this.container.lot.material.sds = 0;
+					//this.container.lot.material = response;
 			});
 
 		}
@@ -472,7 +491,15 @@ export class MaterialContainerViewComponent implements OnInit, OnDestroy {
 	this.http.get(environment.apiUrl + '/material/' + this.container.lot.material.id + '/sds/list?filterSpinner').subscribe((response) => {
 
 			this.historicalSDSList = response;
-			console.log(this.historicalSDSList);
+
+
+			this.SDSpath = response[0].pathname.substr(0, response[0].pathname.lastIndexOf("\\"));
+			this.SDSpathDisplay = response[0].pathname.substr(0, response[0].pathname.lastIndexOf("\\")).replace('\\\\stserver4\\data$','Q:');
+
+			this.historicalSDSList.sort(function(x, y){
+				return y.cTime - x.cTime;
+			})
+		//	console.log(this.historicalSDSList);
 	});
 
   } 
@@ -499,10 +526,10 @@ export class MaterialContainerViewComponent implements OnInit, OnDestroy {
   }
 
   SDStabChanged(event){
-	  console.log(event);
-	  if(event.tab.textLabel === 'SDS')
+//	  console.log(event);
+	  if(event.tab.textLabel === 'Recent SDS')
 	  {
-		  this.fetchSDS();
+		this.fetchSDS();
 	  }
 
 	  if(event.tab.textLabel === 'Historical SDS')
@@ -515,5 +542,9 @@ export class MaterialContainerViewComponent implements OnInit, OnDestroy {
 		//this.fetchCofAList();
 	  }
   }
+
+  getSafeUrl(value) {
+	this.safeurl = this.sanitizer.bypassSecurityTrustResourceUrl('http://api.edm.quantiam.com/file?server_path='+value);     
+}
 
 }

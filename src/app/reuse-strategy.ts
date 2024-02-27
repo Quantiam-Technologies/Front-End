@@ -13,7 +13,7 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
    'tgaDatabase', 'tgaPeakTool',
     'MaterialContainerDatabase',
     'SemDatabase','SemRun',
-    'XrdDatabase','XrdView',
+    'XrdDatabase','XrdView','ParticleSizeDatabase','ParticleSizeAnalysis',
     'xpsDatabase',
     //'ArbinTest',
     'ArbinTestDatabase',

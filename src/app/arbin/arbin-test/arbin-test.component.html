@@ -4,7 +4,7 @@
     <div fxLayout="row" fxFlex fxLayoutGap="10px">
 
       
-        <app-select-arbin-test [multiple]=true *ngIf="firstLoad"
+        <app-select-arbin-test [multiple]=true *ngIf="renderTestSelectionField"
         [selectedValue]="selectedTests"
         [clearable]="true"
         (add)="testAdded($event)"
@@ -44,6 +44,15 @@
           <!-- <h3> Test Screen </h3> -->
         
           <mat-form-field>
+                  <mat-label>Graph Type</mat-label>
+                  <mat-select [(ngModel)]="defaultGraphType" (selectionChange)="changeFields()">
+                    <mat-option value="scatter"> Scatter </mat-option>
+                    <mat-option value="spline"> Spline </mat-option>
+                  </mat-select>
+          </mat-form-field>  
+          
+          
+          <mat-form-field>
                   <mat-label>x Axis</mat-label>
                   <mat-select [(ngModel)]="currentXField" (selectionChange)="changeFields()">
                     <mat-option *ngFor="let field of fields" [value]="field">
@@ -51,6 +60,7 @@
                     </mat-option>
                   </mat-select>
           </mat-form-field>
+          
           <mat-form-field>
                   <mat-label>y Axis</mat-label>
                   <mat-select [(ngModel)]="currentYField" (selectionChange)="changeFields()">
@@ -112,7 +122,6 @@
       <div fxLayout="row" fxFlex>
 
               <highcharts-chart
-              *ngIf="firstLoad"
               [Highcharts]="Highcharts"
               [options]="HighchartOptions"
               [(update)]="updateFlag" 

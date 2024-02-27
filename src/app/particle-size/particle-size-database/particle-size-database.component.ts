@@ -98,15 +98,16 @@ export class ParticleSizeDatabaseComponent implements OnInit {
   
 
     {
-      headerName: 'Material',
+      headerName: 'Sample Name',
       field: 'container.lot.material.name',
+      width: 150,
       cellRenderer: (cell) => {
 
         if (cell.hasOwnProperty('data') && cell.data.name) { return cell.data.name; }
 
         if (cell.hasOwnProperty('data') && cell.data.container_id) { 
           
-          return cell.data.container.lot.material.name+', '+cell.data.container.lot.material.grade+', '+cell.data.container.lot.material.supplier.supplier_name; 
+          return cell.data.container.lot.material.name; 
         
         
         }
@@ -129,9 +130,10 @@ export class ParticleSizeDatabaseComponent implements OnInit {
       }
     },
     {
-      headerName: 'Grade',
+      headerName: 'Material Grade',
       field: 'container.lot.material.grade',
-      hide: true,
+      width:150,
+      hide: false,
     }, 
     {
       headerName: 'Supplier',
@@ -192,7 +194,7 @@ export class ParticleSizeDatabaseComponent implements OnInit {
       headerName: 'Material ID',
       field: 'container.lot.material.id',
       width: 50,
-      hide: false,
+      hide: true,
     },
    
 
@@ -326,9 +328,10 @@ export class ParticleSizeDatabaseComponent implements OnInit {
 
           this.http.get(environment.apiUrl + '/particle-size/list', {params: requestParams}).subscribe((response: any) => {
 
-               params2.successCallback(response.data, response.total);
-               this.totalRows = response.total;
+               params2.success({ rowData: response.data });
                this.gridApi.sizeColumnsToFit();
+               
+              this.gridApi.setRowCount(response.total,true);
              ///  console.log(params2);
           });
 

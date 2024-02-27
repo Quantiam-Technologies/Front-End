@@ -1,0 +1,16 @@
+<h1 style="margin-top: 10px;">Slip Analytics </h1> 
+
+<nav mat-tab-nav-bar mat-stretch-tabs="false"  [tabPanel]="SliptabPanel">
+		
+    <a mat-tab-link routerLink="campaign/:id/manufacturing" routerLinkActive="mat-tab-link-active"> Campaign Slip Production </a>
+    <a mat-tab-link routerLink="recipe/249/measured-component-history" routerLinkActive="mat-tab-link-active"> Recipe Component History  </a>
+  <!--   <a mat-tab-link routerLink="analytic" routerLinkActive="mat-tab-link-active"> Analytics </a> -->
+  <!--   <a mat-tab-link routerLink="slip/recipe/249/measured-component-history" routerLinkActive="mat-tab-link-active"> Analytics </a> -->
+  <!-- 	<a mat-tab-link routerLink="{{32}}" routerLinkActive="mat-tab-link-active">SLip View</a> -->
+    
+  </nav>
+         
+  <mat-tab-nav-panel class="tab-content" #SliptabPanel>
+    <router-outlet ></router-outlet>
+</mat-tab-nav-panel>
+       

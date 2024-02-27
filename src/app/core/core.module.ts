@@ -20,14 +20,24 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 
 
 import { CampaignModule } from '../campaign/campaign.module';
+import { SlipModule } from '../slip/slip.module';
+import { QualityModule } from '../quality/quality.module';
 import { TokenInterceptor } from '../auth/token.interceptor';
+
+import 'ag-grid-enterprise';  //agrid enterprise features aplpication wide
+
+
+
 
 @NgModule({
     imports: [
+        
         CommonModule,
         CoreRoutingModule,
         MaterialDesignModule,
         SharedModule,
+        SlipModule,
+        QualityModule,
         CampaignModule,
         MarkdownModule.forRoot({ loader: HttpClient }),
         HttpClientModule,
@@ -42,6 +52,7 @@ import { TokenInterceptor } from '../auth/token.interceptor';
         CoreComponent,
         PatchNotesComponent,
         DashboardComponent,
+        
         
         DialogSteelContainerSelectionComponent
     ],

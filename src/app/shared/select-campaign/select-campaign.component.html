@@ -6,6 +6,7 @@
 [(ngModel)]="selectedValue"
 [placeholder]="placeholder"
 [multiple]="multiple"
+[clearable]="clearable"
 (change)="onChange($event)"
 (clear)="onClear($event)"
 bindLabel="campaign_name"
@@ -16,11 +17,11 @@ bindValue="campaign_id"
 			
 					
         <div fxFlex fxLayout="row" fxLayoutAlign="start center">
-            <div  fxFlex=10><i>{{item.campaign_id}}</i></div>
-            <div  fxFlex [ngOptionHighlight]="search">{{item.campaign_name}}</div>
-            <div fxFlex=20 fxLayoutAlign="end center">
-                <div  *ngIf="item.campaign_active"><button mat-button color="primary">Active</button> </div>
-               <div   *ngIf="!item.campaign_active"><button mat-button color="accent">Inactive</button></div>
+            <div style="min-width:20px; font-size:10px;" ><b>{{item.campaign_id}}</b></div>
+            <div style="min-width:220px; font-size:12px;"  [ngOptionHighlight]="search"> {{item.campaign_name}}</div>
+            <div style="padding:2px;"  fxLayoutAlign="end center">
+                <div  *ngIf="item.campaign_active"><button class="btn-xs btn btn-success" >Active</button> </div>
+               <div   *ngIf="!item.campaign_active"><button class="btn-xs btn btn-light" >Inactive</button></div>
            </div>
         </div>
        

@@ -71,10 +71,11 @@
 
           <div fxLayout="row" fxLayoutGap="7px" fxLayoutAlign="center start">
 
-            <div *ngIf="updateInProgressArray.length > 0" fxLayoutAlign="center center" fxLayout="row" fxlayoutGap="10px">
+            <div *ngIf="updateInProgressArray.length > 0" fxLayoutAlign="center center" fxLayout="row" fxLayoutGap="5px" style="margin-right:10px;">
 
+             
+              <mat-spinner diameter=30 matTooltip="The server is doing a lot of math right."></mat-spinner>
               <b  > Processing Changes.  </b> 
-              <mat-spinner [diameter]="35" matTooltip="The server is doing a lot of math right."></mat-spinner>
 
             </div>
            
@@ -105,16 +106,17 @@
 
          
 
-
+          <mat-icon>arrow_left</mat-icon>
             <button mat-button (click)="previousPayPeroid()">
-                <mat-icon>arrow_left</mat-icon>Previous</button>
+               Previous</button>
 
                
 
             <button mat-button (click)="nextPayPeroid()">
               Next
-              <mat-icon>arrow_right</mat-icon>
+             
             </button>
+            <mat-icon>arrow_right</mat-icon>
         </div>
          
       
@@ -288,6 +290,13 @@
             </tbody>
             
           </table>
+      </div>
+
+      <div fxFlex *ngIf="!timeSheetObj?.bank && timeSheetObj.compensation != 'machine'" fxLayoutAlign="center center" fxlayout="column" fxLayoutGap="5px">
+
+        <mat-spinner diameter=40></mat-spinner>
+        <p> Recalcuating Bank Totals </p>
+
       </div>
 
       <div fxFlex *ngIf="timeSheetObj?.bank" >

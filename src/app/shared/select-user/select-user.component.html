@@ -27,11 +27,26 @@
 >
 
   <ng-template ng-header-tmp>
-    <div fxLayout="row" fxLayoutAlign="start center"  fxLayoutGap="10px" >
-      <mat-checkbox  [(ngModel)]="showActive" (change)="showItems()" [check]="showActive"> Active </mat-checkbox>
-      <mat-checkbox  [(ngModel)]="showInactive" (change)="showItems()"> Inactive </mat-checkbox>
+
+
+
+	
+    <div fxLayout="row" fxLayoutAlign="start center"  fxLayoutGap="20px" fxFlex>
+
+		<div fxLayoutGap="5px">
+			<input  [(ngModel)]="showActive" (change)="showItems()" type="checkbox" id="scales" name="scales1" checked />
+			<label for="scales1">Active</label>
+		  </div>
+
+		  <div fxLayoutGap="5px">
+			<input   [(ngModel)]="showInactive" (change)="showItems()" type="checkbox" id="scales2" name="scales" checked />
+			<label for="scales2">Inactive</label>
+		  </div>
+
+   <!--    <mat-checkbox  [(ngModel)]="showActive" (change)="showItems()" [check]="showActive"> Active </mat-checkbox>
+      <mat-checkbox  [(ngModel)]="showInactive" (change)="showItems()"> Inactive </mat-checkbox> -->
     </div>
-	</ng-template> 
+</ng-template> 
 	
   <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm" >
 			<div fxLayout="row" fxLayoutAlign="center center"  fxLayoutGap="10px">

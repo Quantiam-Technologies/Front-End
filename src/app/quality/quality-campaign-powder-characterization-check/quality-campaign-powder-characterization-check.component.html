@@ -1,0 +1,50 @@
+
+<mat-card style="margin-top:10px; max-width:600px; max-height: 500px; margin:5px;">
+    
+    <mat-card-title style="margin-left: 10px; margin-top: 5px; margin-right:5px"> Powder Characterization Check
+    
+        
+        <button style="float: right;" mat-button color="primary" (click)="exportCSV()"> <mat-icon>download</mat-icon> Export Data</button>
+    
+    </mat-card-title>
+    <mat-card-subtitle style="margin-left: 10px;">Characterization for powders, that were used in campaign {{campaignID}}.</mat-card-subtitle>
+
+    <div  class="remove-scrollbar" style="overflow:auto; ">
+    <table  class="table table-quantiam-header" style="margin-top:5px" fxFlex  >
+        <thead class="sticky-header">
+            <tr>
+            
+                <th style="width:90px;">QCID</th>
+                <th style="width:220px;">Material</th>
+                <th>Particle Size</th>
+                <th>XRD</th>
+            <!--  <th>Updated</th> -->
+          
+            </tr>
+        </thead>
+        <tbody *ngIf="powderCheckArray">
+            <tr *ngFor="let container of powderCheckArray">
+                
+                
+                <td>
+                    <button type="button" class="btn btn-info btn-xs" style="color:white;" routerLink="/material/container/{{container?.container_id}}" fxLayout="row" fxLayoutGap="5px">
+                        <div> QCID-{{container.qcid}} </div> 
+                    </button>
+                </td>
+                <td style="font-size: 12px;">{{container.slip_material_id}} - {{container?.name}}<br><small style="font-size: 10px;">{{container?.grade}}</small></td>
+                <td>{{container.particle_size}} </td>
+                <td>
+                    
+                    
+                    <div *ngIf="container.xrd">{{container.xrd}}</div>
+                    <div *ngIf="!container.xrd"><button class="btn btn-xs btn-danger"> Missing </button></div>
+                    
+                </td>
+            <!--   <td style="font-size:11px;">{{steel.updated_at}}</td> -->
+            
+                
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</mat-card>

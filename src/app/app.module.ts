@@ -54,10 +54,12 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     AuthComponent,
-    DisconnectionScreenComponent
+    DisconnectionScreenComponent,
+    
   ],
   exports:[MaterialDesignModule],
   imports: [
+    
     RouterModule.forRoot(routes),
     BrowserModule,
     BrowserAnimationsModule,  

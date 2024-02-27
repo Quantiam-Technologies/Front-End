@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  selectedCampaignId= 36;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+
+  changeCampaign(event)
+  {
+    this.selectedCampaignId = event.campaign_id;
+    console.log(event);
   }
 
 }

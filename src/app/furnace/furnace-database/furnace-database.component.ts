@@ -223,9 +223,8 @@ export class FurnaceDatabaseComponent {
 
           this.http.get(environment.apiUrl + '/furnace/run', {params: requestParams}).subscribe((response: any) => {
 
-              params2.successCallback(response.data, response.total);
-              this.totalRows = response.total;
-              
+              params2.success({ rowData: response.data });              
+              this.gridApi.setRowCount(response.total,true);
               this.gridApi.sizeColumnsToFit();
             //  console.log(params2);
           });

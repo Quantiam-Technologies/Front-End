@@ -1,10 +1,11 @@
-<nav mat-tab-nav-bar mat-stretch-tabs="false">
+<nav mat-tab-nav-bar mat-stretch-tabs="false" [tabPanel]="ArbintabPanel">
 		
         <a mat-tab-link routerLink="test/database" routerLinkActive="mat-tab-link-active"> Database </a>
       <!-- 	<a mat-tab-link routerLink="{{32}}" routerLinkActive="mat-tab-link-active">Add Identity</a> -->
         
       </nav>
-    <div class="tab-content">
+            
+    <mat-tab-nav-panel class="tab-content" #ArbintabPanel>
       <router-outlet ></router-outlet>
-    </div>
+  </mat-tab-nav-panel>
          

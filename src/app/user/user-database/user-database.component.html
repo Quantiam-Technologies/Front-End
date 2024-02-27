@@ -23,10 +23,13 @@
 
         <ag-grid-angular  
         style="width: calc(100%); height:calc(60vh); margin-top:10px;" 
-        class="ag-theme-balham"     
+        class="ag-theme-balham"  
+        
+        [enableCellTextSelection]="true"
         
         [rowData]="rowData" 
         [columnDefs]="columnDefs"  
+        [gridOptions]="gridOptions"
          
         (gridReady)="onGridReady($event)"
         (rowDoubleClicked)="onRowDoubleClicked($event)"

@@ -81,7 +81,7 @@ export class TimesheetComponent implements OnInit {
   autoGroupColumnDef:any = {
     headerName: 'Category',
     lockPosition: true,
-    width: 340,
+    width: 350,
    // widt: 400,
     suppressMenu: true,
     lockPinned: true,
@@ -92,6 +92,8 @@ export class TimesheetComponent implements OnInit {
     field: 'project.description',
     cellStyle: function (params) {
       const cellStyle = {};
+
+        //cellStyle['lineHeight'] = "unset";
 
       if (params.node.footer) {
         cellStyle['border-right'] = '0px !important';
@@ -137,7 +139,7 @@ export class TimesheetComponent implements OnInit {
       width: 600,
       rowGroup: true,
       rowPinned: true,
-
+      cellDataType: false,
       // cellRenderer: "agGroupCellRenderer",
      // columnGroupShow: false,
      // marryChildren: true,
@@ -253,7 +255,7 @@ export class TimesheetComponent implements OnInit {
           return holiday.date === $event.column.colId;
         });
 
-        console.log(holidayCheck);
+       // console.log(holidayCheck);
       /*   if ($event.data.category.categoryName === 'Absence' &&
         ($event.data.project.projectID !== 5 && holidayCheck.length > 1)
         ) {
@@ -359,7 +361,7 @@ export class TimesheetComponent implements OnInit {
         cellEditor: 'numericEditor',
         cellRenderer:  (params) => {
 
-
+            
           if (params.node.group && !params.node.footer) { return '<i>' + $.trim(params.value) + '</i>'; }
 
           if (params.node.footer) {
@@ -686,7 +688,7 @@ export class TimesheetComponent implements OnInit {
 
 
     this.updateInProgressArray.push(params.column.colId+""+params.data.project.projectID);
-    console.log(this.updateInProgressArray);
+   // console.log(this.updateInProgressArray);
 
     const url = '/timesheet/' + this.routeParams.userId + '/process';
     this.http.put<any>(environment.apiUrl + url + '?filterSpinner', payload)
@@ -713,7 +715,12 @@ export class TimesheetComponent implements OnInit {
 
             this.notification.success('Saved ', response.projectid + ', ' + response[this.timeSheetObj.denomination.toLowerCase()] + ' ' + this.timeSheetObj.denomination + ' on ' + response.date, {timeOut: 2000, showProgressBar: false, clickToClose: true}); /// Daily OT notificaton
             this.updateInProgressArray.splice(0,1);
-            console.log(this.updateInProgressArray);
+
+            if(this.updateInProgressArray.length == 0)
+            {
+              this.fetchRtoBank();
+            }
+            //console.log(this.updateInProgressArray);
 
          },
          error => {
@@ -726,6 +733,22 @@ export class TimesheetComponent implements OnInit {
             this.updateInProgressArray.splice(0,1);
             console.log(this.updateInProgressArray);
          });
+  }
+
+
+  fetchRtoBank(){
+
+
+    if(this.timeSheetObj.compensation != 'machine')
+    {
+    const url = '/user/' + this.routeParams.userId + '/rtobank?filterSpinner'
+    this.http.get<any>(environment.apiUrl + url + '').subscribe(r => {
+
+        this.timeSheetObj.bank = r;
+
+    });
+    } 
+
   }
 
   generateTimesheetDownload() {

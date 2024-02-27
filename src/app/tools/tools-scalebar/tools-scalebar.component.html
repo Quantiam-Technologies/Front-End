@@ -4,23 +4,24 @@
 
  
   <mat-list >
-    <mat-list-item> <h2> Instructions for Axio Optical Microscope </h2>  </mat-list-item>
+    <mat-list-item style="margin-top:0px"> <h2> Instructions for Axio Optical Microscope </h2>  </mat-list-item>
     <mat-list-item >
-      <p mat-line>Make sure your file name contains the magnification of your image .</p>
-      <p mat-line>Valid Mags: 50x, 100x, 200x, 500x, 1000x</p>
-      <mat-icon mat-list-icon>list</mat-icon>
+
+      <p matListItemLine>Make sure your file name contains the magnification of your image.</p>
+      <p matListItemLine>Valid Mags: 50x, 100x, 200x, 500x, 1000x</p>
+      <mat-icon matListItemIcon>list</mat-icon>
+    </mat-list-item>
+    <mat-list-item style="height: 70px;" >
+        <img matListItemLine src="assets/img/examples/scale-bar-tools-mag.PNG" width=500px>
+        <mat-icon matListItemIcon>image</mat-icon>
     </mat-list-item>
     <mat-list-item >
-        <img mat-line src="assets/img/examples/scale-bar-tools-mag.PNG" width=500px>
-        <mat-icon mat-list-icon>image</mat-icon>
+        <p matListItemLine>Copy and paste the Q: folder directory you wish to process into the input box below.  </p>
+        <p matListItemLine>This will also process all sub folders.  </p>
+        <mat-icon matListItemIcon>list</mat-icon>
     </mat-list-item>
-    <mat-list-item >
-        <p mat-line>Copy and paste the Q: folder directory you wish to process into the input box below.  </p>
-        <p mat-line>This will also process all sub folders.  </p>
-        <mat-icon mat-list-icon>list</mat-icon>
-    </mat-list-item>
-    <mat-list-item style="margin-top:30px;" >
-        <!-- <mat-icon mat-list-icon>folder</mat-icon> -->
+    <mat-list-item style="height: 120px;" >
+        <!-- <mat-icon matListItemIcon>folder</mat-icon> -->
       <mat-form-field appearance="outline" style="width:100%;">
         <mat-label>Folder Location</mat-label>
       <input [(ngModel)]="toolOptions.path" matInput name="folder_directory" placeholder="Q:\somedirectory\with\pictures\that\you\want\to\add\scalebars\to"  required minlength="5">
@@ -28,7 +29,7 @@
       <!-- <mat-hint> Q:\somedirectory </mat-hint> -->
       </mat-form-field>
     </mat-list-item>
-    <mat-list-item style="margin-top:30px;" fxFLex>
+    <mat-list-item style="height: 70px;" fxFLex>
       <mat-form-field appearance="fill" style="width:100%;">
         <mat-label>Force Magnification</mat-label>
         <mat-select matNativeControl [(ngModel)]="forceMagnification"  >

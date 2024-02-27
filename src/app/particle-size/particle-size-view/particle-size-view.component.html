@@ -1,20 +1,60 @@
 <div fxLayout="column" fxFlex fxLayoutGap="10px">
 
-        <div fxFlex  fxLayout="row" fxLayoutGap="20px"> <!-- header row -->
-                <h3>{{runID}} </h3> 
-                <p> {{particleSizeRun?.name}} </p>
-                <button mat-raised-button class="mat-small"  
+        <div id="topline" fxFlex  fxLayout="row" fxLayoutAlign="start center"> <!-- header row -->
+                <h2 style="margin: 0px 10px 0px 0px !important">{{runID}} </h2> 
+
+                <button style="margin-right:10px" mat-raised-button class="mat-small"  
                 routerLink="/material/container/{{particleSizeRun.container_id}}" 
-                *ngIf="particleSizeRun?.container_id" color="accent"> {{ particleSizeRun?.qcid || particleSizeRun?.container_id  }} </button>
+                *ngIf="particleSizeRun?.container_id" color="accent"> QCID-{{ particleSizeRun?.container.qcid   }} </button>
+                
+               <!--  <p>{{particleSizeRun.created_at}} </p> -->
+                <h3 style="margin: 0px 10px 0px 0px !important"> {{particleSizeRun?.name}} </h3>
+                
    
         </div>
 
         <div fxFlex  fxLayout="row" fxLayoutGap="10px">
+                
+                
+                <div fxLayout="column" fxFlex fxLayoutGap="20px" fxLayoutAlign="center center">
+                        <h2> Collected Mastersizer Run Data</h2>   
+                        <div *ngIf="noMeasurements" class="alert alert-danger" role="alert">
+                                We couldn't retrieve the data for this run, the CSV file may not be saved correctly.
+                              </div>
+                        
+                        <div>
+
+                                <jqxDataTable  *ngIf="!noMeasurements"
+                                [width]="600"
+                                [source]="dataAdapter" [columns]="columns"
+                                [selectionMode]="'multipleextended'" ></jqxDataTable>
+
+
+                        </div>
+
+                        <div id="material_history" *ngIf="particleSizeRun?.container_id">
+
+                                <highcharts-chart [Highcharts]="Highcharts" [options]="masterSizerHistoryChartOptions" 
+                                [(update)]="updateMaterialhistoryFlag"></highcharts-chart>
+                              
+        
+                        </div>
+                               
+                        
+                </div>
 
       
-                <div xLayout="column" fxFlex>
-                        <!-- Interactive Graph -->
-                        <p> {{container?.container_name}} </p>
+                <div fxLayout="column" fxFlex>
+
+                        <div style="height:100%" >
+                                <iframe allowfullscreen  id="iframe" type="application/pdf"  
+                                [src]="safeurl"
+                                fxFlex>
+                                </iframe>
+                        </div>
+                      
+                  
+                    
                 <!--         <p> INteractive graph here, button for PDF</p> -->
                         <!-- data -->
 
@@ -26,12 +66,7 @@
                 
                 <!--- graph  of the data -->
 
-                <div fxLayout="column" fxFlex>
-                        <jqxDataTable
-                        [source]="dataAdapter" [columns]="columns"
-                        [columnsResize]="true"  [selectionMode]="'multipleextended'" ></jqxDataTable>
-                </div>
-
+                
         </div>
 </div>
 

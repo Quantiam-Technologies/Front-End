@@ -79,6 +79,7 @@ import { jqxButtonModule } from 'jqwidgets-ng/jqxbuttons';
 import { jqxWindowModule } from 'jqwidgets-ng/jqxwindow';
 import { jqxCheckBoxModule } from 'jqwidgets-ng/jqxcheckbox';
 import { jqxTabsModule } from 'jqwidgets-ng/jqxtabs';
+import { SelectSlipRecipeComponent } from './select-slip-recipe/select-slip-recipe.component';
 
 
 @NgModule({
@@ -136,6 +137,7 @@ import { jqxTabsModule } from 'jqwidgets-ng/jqxtabs';
         FileAssociatorComponent,
         SelectCampaignComponent,
         SelectSteelTypeComponent,
+        SelectSlipRecipeComponent,
     ],
     exports: [
         AgGridModule,
@@ -168,7 +170,8 @@ import { jqxTabsModule } from 'jqwidgets-ng/jqxtabs';
         FormsModule,
         NgSelectModule,
         NgSelect2Module,
-        FileAssociatorComponent,        
+        FileAssociatorComponent,   
+        SelectSlipRecipeComponent,     
         jqxButtonModule, jqxWindowModule, jqxCheckBoxModule, jqxTabsModule
 
     ],

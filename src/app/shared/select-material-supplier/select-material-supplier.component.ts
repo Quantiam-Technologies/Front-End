@@ -79,6 +79,7 @@ export class SelectMaterialSupplierComponent implements OnInit, OnDestroy {
 
          // console.log(r);
           this.change.emit(r);
+          this.selectedValue = r;
 
       });
     } else {

@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { Router } from '@angular/router';
 
- 
 @Component({
   selector: 'app-user-database',
   templateUrl: './user-database.component.html',
@@ -18,8 +17,14 @@ export class UserDatabaseComponent implements OnInit {
   private paginationPageSize = 25;
    active_filter = '1';
    searchBarValue: string;
+  
+  
+  gridOptions = {
 
-    
+    enableCellTextSelection: true,
+    enableRangeSelection: true,
+
+  }
 
 
 
@@ -40,14 +45,17 @@ export class UserDatabaseComponent implements OnInit {
         {headerName: 'Ext.', field: 'extension',  maxWidth: 100, },
         {headerName: 'Email', field: 'email',   },
 
-        {headerName: 'Active', field: 'active', maxWidth: 150, valueGetter: function cellRenderer (params) {
+        {headerName: 'Status', field: 'active', maxWidth: 150,
+        
+        
+       cellRenderer (params) {
           if(params.data.active)
           {
-            return 'Active';
+            return '<button class="btn btn-xs btn-success">Active</button>';
           }
           else
           {
-            return 'Inactive';
+            return '<button class="btn btn-xs btn-light">Inactive</button>';
           }
       }, 
      },

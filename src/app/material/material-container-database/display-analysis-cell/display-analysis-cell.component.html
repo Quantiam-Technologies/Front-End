@@ -1,9 +1,9 @@
 <div fxLayoutGap="12px">
-    <button *ngIf="params.data.lot.material.sds" mat-raised-button class="mat-small" matTooltip="SDS Document" (click)="fetchSDS(params.data.lot.material.id)">
+    <button *ngIf="params.data.lot.material.sds" mat-raised-button class="mat-small" matTooltip="Latest SDS Document" (click)="fetchSDS(params.data.lot.material.id)">
         <fa-icon [icon]="faFilePdf"> </fa-icon>
     </button>
 
-    <button *ngIf="!params.data.lot.material.sds" mat-raised-button class="mat-small" matTooltip="Missing SDS" style="background-color: red; color:white;" >
+    <button *ngIf="!params.data.lot.material.sds && !params.data.empty " mat-raised-button class="mat-small" matTooltip="Missing SDS" style="background-color: red; color:white;" >
         <fa-icon [icon]="faFilePdf"> </fa-icon>
     </button>
 

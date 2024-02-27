@@ -49,6 +49,14 @@
     border-color: rgba(226, 226, 226,0.8) !important;
     /* //cursor: pointer; */
 
+    
+}
+
+
+::ng-deep .ag-cell-value .ag-group-value
+{
+
+    overflow:visible !important;
 }
 
 ::ng-deep #timesheetPage .ag-status-bar 

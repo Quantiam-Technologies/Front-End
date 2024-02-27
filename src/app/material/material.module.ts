@@ -29,6 +29,7 @@ import { MaterialContainerLogComponent } from './material-container-log/material
 import { MaterialHazardSymbolSelectorComponent } from './material-hazard-symbol-selector/material-hazard-symbol-selector.component';
 import { MaterialCheckCreationDialogComponent } from './material-check-creation-dialog/material-check-creation-dialog.component';
 import { MaterialCreationDialog2021Component } from './material-creation-dialog2021/material-creation-dialog2021.component';
+import { AgGridTestComponent } from './ag-grid-test/ag-grid-test.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { MaterialCreationDialog2021Component } from './material-creation-dialog2
         SharedModule,
         MaterialDesignModule,
         MaterialRoutingModule,
+        AgGridTestComponent,
         // DataTablesModule,
     ],
     declarations: [MaterialCreationDialogComponent, MaterialIndexComponent, MaterialDatabaseComponent, MaterialViewComponent,

@@ -33,13 +33,13 @@
 				 <!-- <button mat-raised-button  (click)="createMaterialAttrs()" *ngIf="lookedForMaterial"> Create Material </button>
 			 -->
 			</div>
-			<div fxLayoutGap="5px" style="margin-bottom:10px;" fxLayout="row" fxLayoutAlign="center center">
+			<!-- <div fxLayoutGap="5px" style="margin-bottom:10px;" fxLayout="row" fxLayoutAlign="center center">
 				<button mat-raised-button  (click)="selectingMaterialAttrs(); lookedForMaterial = !lookedForMaterial;" *ngIf="creatingMaterial" fxFlex="20"> Select Material Instead </button>
 			</div>
+ -->
+			<div style="margin-top:20px;"  *ngIf="newMaterial || selectedMaterial?.id  || lookedForMaterial" fxLayout="column"  fxLayoutGap="10px" >
 
-			<div *ngIf="newMaterial || selectedMaterial?.id  || lookedForMaterial" fxLayout="column"  fxLayoutGap="10px" >
-
-					<h3>Required Attributes</h3> 
+					<h3><b>Required Attributes</b></h3> 
 
 					<div>
 					<!-- 	<app-select-material-supplier 
@@ -57,25 +57,11 @@
 					</div>	
 		
 
-					<div fxLayoutGap="10px" fxLayout="row" fxLayout.sm="column"  fxLayoutAlign="start stretch"  >	
-						  <mat-form-field class="full-width"  fxFlex>
-							<mat-label>Material Name</mat-label>
-							  <input #MaterialName   type="text" matInput placeholder="Name" (change)="validateNewMaterial()"   (blur)="resetMaterialCheck()" [(ngModel)] ='material.name' formControlName="firstCtrl" name="name" required [disabled]="!creatingMaterial">
-						 </mat-form-field>  
-						  <mat-form-field class="full-width" fxFlex>
-							<mat-label>Material Grade</mat-label>
-							  <input  #MaterialGrade  type="text" matInput placeholder="Grade" 
-							  (blur)="resetMaterialCheck()"
-							  [(ngModel)] ='material.grade' name="grade"   [ngModelOptions]="{standalone: true}" [disabled]="!creatingMaterial">
-							  	<mat-hint> Can be left blank, "MN-101", "VC-8729", "TOTAL Mn/SI" </mat-hint>
-						 </mat-form-field>
+					<div fxLayoutGap="20px" fxLayout="row" fxLayout.sm="column"  fxLayoutAlign="start stretch"  >	
 
-						 <mat-form-field class="full-width" *ngIf="!creatingMaterial">
-							<mat-label>Supplier</mat-label>
-							<input  type="text" matInput placeholder="Supplier" [value] ='material.supplier_name || material.supplier.supplier_name' name="supplier" disabled>
-						</mat-form-field>  
+
 						<app-select-material-supplier 
-						style="min-width: 200px;"
+						style="min-width: 200px; margin-top:20px;;"
 						name="supplier_name"
 						[addTag]="true"
 						placeholder="Supplier (Required)"
@@ -85,11 +71,66 @@
 						(clear)="clearSupplier()"
 						>
 						</app-select-material-supplier>
+
+						  <mat-form-field class="full-width"  fxFlex disabled>
+							<mat-label>Material Name</mat-label>
+							  <input #MaterialName   
+							  type="text" matInput placeholder="Name"
+								  [(ngModel)] ='selectedMaterialname'
+								 [ngModelOptions]="{standalone: true}"
+								 formControlName="firstCtrl" name="name" required 
+								 [formControl]="myControl"
+								 [matAutocomplete]="auto"
+								 [readonly]="!supplierSelected"
+								
+								 >
+								 <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete"  panelWidth="auto"  (optionSelected)='selectMaterial($event.option.value)' [displayWith]="displayFn">
+									<mat-option *ngFor="let option of filteredOptions | async; track option" [value]="option" style="padding-top: 5px; padding-bottom:5px;">
+
+									<div fxLayout="column">
+										<div fxLayout="row" fxLayoutGap="8px">
+											<p style="font-weight: lighter;"> {{option.id}}</p> <p> - </p>
+											<p [class.highlight]="shouldHighlight(option.name)"> {{option.name}} </p>
+											<p [class.highlight]="shouldHighlight(option.grade)">{{option.grade}}  </p>   <p style="font-weight: lighter;" *ngIf="option.purity">{{option.purity}}%</p>
+											
+											<span *ngIf="option.organic" style="background-color: #17a2b8;" class="badge">Organic</span>
+											<span *ngIf="option.powder" style="background-color: #28a745;" class="badge">Powder</span>
+											<span *ngIf="option.media" style="background-color: #969c9c;" class="badge">Media</span>
+											<span *ngIf="option.solvent" style="background-color: #17a2b8;" class="badge">Solvent</span>
+										
+										</div>
+										<div fxLayout="row" fxLayoutGap="10px">
+											<small>{{option.supplier_name}}</small> <small>{{option.formula}}</small>   <small *ngIf="option.cas"> CAS: {{option.cas}}</small> <small>{{option.particle_size}}</small> 
+										</div>
+										<div fxLayout="row">
+											<small *ngIf="option.qcid">Recent: QCID-{{option.qcid}}</small>
+										</div>
+									</div>
+									</mat-option>
+								  </mat-autocomplete>
+
+								  <mat-hint> Manufacturer Product Name.  "Nickel Vale Type 123" </mat-hint>
+
+
+						 </mat-form-field>  
+						  <mat-form-field class="full-width" fxFlex >
+							<mat-label>Material Grade</mat-label>
+							  <input  #MaterialGrade  type="text" matInput placeholder="Grade or Product Code" 
+							  [readonly]="!supplierSelected"
+							  [(ngModel)] ='material.grade' name="grade"   [ngModelOptions]="{standalone: true}" >
+							  	<mat-hint> Can be left blank, "MN-101", "VC-8729", "TOTAL Mn/SI" </mat-hint>
+						 </mat-form-field>
+
+						 <mat-form-field class="full-width" *ngIf="!creatingMaterial">
+							<mat-label>Supplier</mat-label>
+							<input  type="text" matInput placeholder="Supplier" [value] ='material.supplier_name || material.supplier.supplier_name' name="supplier" disabled>
+						</mat-form-field>  
+				
 						 
 						 
 					</div>		
 					
-					<h3>Optional Attributes</h3> 
+					<h3><b>Optional Attributes</b></h3> 
 
 					<div fxLayoutGap="10px"  fxLayout="row" fxLayout.sm="column"  >	
 						
@@ -97,21 +138,21 @@
 							
 							<mat-form-field class="full-width" fxFlex>
 								<mat-label>Particle Size</mat-label>
-								<input #ParticleSize type="text" matInput placeholder="Particle Size" [(ngModel)] ='material.particle_size'  [ngModelOptions]="{standalone: true}" name="particle_size"   [disabled]="!creatingMaterial">
-								<mat-hint> Optional: eg 1-5um, -325 mesh </mat-hint>
+								<input #ParticleSize type="text" matInput placeholder="Particle Size" [(ngModel)] ='material.particle_size'  [ngModelOptions]="{standalone: true}" name="particle_size"  >
+								<mat-hint> Optional: eg 1-5um, -325 mesh, >400um </mat-hint>
 						   </mat-form-field> 
 						   <mat-form-field class="full-width" fxFlex>
-							<mat-label>Purity</mat-label>
-							<input #Purity type="text" matInput placeholder="Purity (%)" [(ngModel)] ='material.purity'  [ngModelOptions]="{standalone: true}" name="purity"   [disabled]="!creatingMaterial">
-							<mat-hint> Optional: "99.9","99.5","99.0" </mat-hint>
+							<mat-label>Purity (%)</mat-label>
+							<input #Purity type="number" matInput placeholder="Purity (%)" [(ngModel)] ='material.purity'  [ngModelOptions]="{standalone: true}" name="purity"   >
+							<mat-hint> Optional: 99.9, 99.5, 99.0 </mat-hint>
 					 	  </mat-form-field> 
 						   
 						 
 						
 						  <mat-form-field class="full-width" fxFlex>
 							<mat-label>CAS</mat-label>
-							  <input   #Cas type="text" matInput placeholder="CAS #" [(ngModel)] ='material.cas'  [ngModelOptions]="{standalone: true}" name="cas"  [disabled]="!creatingMaterial" >
-							  <mat-hint> Optional |  Eg: 78954-4546-45 </mat-hint>
+							  <input   #Cas type="text" matInput placeholder="CAS #" [(ngModel)] ='material.cas'  [ngModelOptions]="{standalone: true}" name="cas"   >
+							  <mat-hint> Optional |   7783-03-1, 7441-45-45 </mat-hint>
 						 </mat-form-field>
 						 
 					</div>
@@ -121,26 +162,28 @@
 				 
 						<mat-form-field class="full-width" fxFlex>
 							<mat-label>Molecular Formula</mat-label>
-							<input #Nomenclature  type="text" matInput placeholder="Molecular Formula" [(ngModel)] ='material.formula' [ngModelOptions]="{standalone: true}" name="formula" [disabled]="!creatingMaterial" >
+							<input #Nomenclature  type="text" matInput placeholder="Molecular Formula" [(ngModel)] ='material.formula' [ngModelOptions]="{standalone: true}" name="formula" >
 							  <mat-hint> Optional | Eg: Mo2C, TaO3, H2O  </mat-hint>
 					  </mat-form-field>  
 					
 
 						 <mat-form-field class="full-width" fxFlex>
 							<mat-label>Density</mat-label>
-							  <input #Density type="text" matInput placeholder="Density (g/ml)" [(ngModel)] ='material.density' [ngModelOptions]="{standalone: true}" name="density"   [disabled]="!creatingMaterial">
+							  <input #Density type="text" matInput placeholder="Density (g/ml)" [(ngModel)] ='material.density' [ngModelOptions]="{standalone: true}" name="density"   >
 							  <mat-hint> Optional | Eg:  2.95 kg/m3 </mat-hint>
 						 </mat-form-field> 
 
 						 
 						 <mat-form-field class="full-width" fxFlex>
-							<mat-label>Formula Weight</mat-label>
-							  <input #FormulaWeight type="text" matInput placeholder="Formula Weight" [(ngModel)] ='material.formula_weight' [ngModelOptions]="{standalone: true}" name="formula_weight"   [disabled]="!creatingMaterial">
+							<mat-label>Formula Weight (g/mol)</mat-label>
+							  <input #FormulaWeight type="text" matInput placeholder="Formula Weight" [(ngModel)] ='material.formula_weight' [ngModelOptions]="{standalone: true}" name="formula_weight"   >
 							  <mat-hint> Optional | Eg:  192.8 g/mol</mat-hint>
 						 </mat-form-field> 
 					</div>
+
+					
 			</div>
-			<div *ngIf="material.name && material.supplier_id" fxLayout="row" fxLayoutAlign="end center" style="margin-top:10px;" fxLayoutGap="10px">
+			<div *ngIf="selectedMaterialname && material.supplier_id" fxLayout="row" fxLayoutAlign="end center" style="margin-top:10px;" fxLayoutGap="10px">
 				<!--[hidden]="materialChecked"-->
 
 				<!-- 	<button mat-raised-button   [hidden]="hideMaterialCheckBox" (click)="checkMaterialExistence(stepper)" color="accent">Check Material</button>
@@ -153,7 +196,8 @@
 							<b> Checked </b> Material seems to already exists!
 						</ngb-alert> 
 					</div> -->
-					<button mat-raised-button *ngIf="material.name && material.supplier_id" [disabled]="materialFormGroup.status === 'INVALID'" matStepperNext color="primary">Next</button>
+				
+					<button mat-raised-button  [readonly]="materialFormGroup.status === 'INVALID'" matStepperNext color="primary">Next</button>
 					
 			</div>
 	 	 </form>
@@ -168,18 +212,18 @@
 			
 			<div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center" style="margin-top:20px;">
 					
-							<app-select-material-lot 
-							*ngIf="((materialStepComplete && !lot.isNew ) 
-							|| (materialStepComplete && !newLot.lot_name && !lot.isNew))
+							<!-- <app-select-material-lot 
+							*ngIf="(( !lot.isNew ) 
+							|| (  !newLot.lot_name && !lot.isNew))
 							 && stepper.selectedIndex === 1"								
 							[materialID]="material.id"
 							(change)="selectLot($event)"		
 							style="width:200px;"  >
 						
 							</app-select-material-lot >
-								<div [hidden]="hideNewLot || newLot.lot_name || lot.isNew " *ngIf="(materialStepComplete && !lot.isNew ) || (!newLot.lot_name && !lot.isNew) || (!hideNewLot)"> or </div>
+								<div [hidden]="hideNewLot || newLot.lot_name || lot.isNew " *ngIf="( !lot.isNew ) || (!newLot.lot_name && !lot.isNew) || (!hideNewLot)"> or </div> -->
 								
-								<mat-form-field  class="full-width" [hidden]="hideNewLot" *ngIf="lot.isNew || (materialStepComplete && !selectedLot.text)"  fxFlex="30">
+								<mat-form-field  class="full-width" [hidden]="hideNewLot" *ngIf="lot.isNew || ( !selectedLot.text)"  fxFlex="30">
 									<input formControlName="secondCtrl"  [ngModelOptions]="{standalone: true}" #LotName 
 									type="text" matInput placeholder="New Lot Name" [(ngModel)] ='newLot.lot_name' name="name" 
 									(change)="newLotname($event)" >
@@ -188,9 +232,9 @@
 				</div>
 	
 
-		<div *ngIf="material.name" fxLayout="row" fxLayoutAlign="center center" style="margin-top:10px;" fxLayoutGap="5px">
+		<div *ngIf="selectedMaterialname" fxLayout="row" fxLayoutAlign="space-between" style="margin-top:10px;" fxLayoutGap="5px">
 			
-			<button mat-raised-button matStepperPrevious>Back</button>
+			<button mat-raised-button matStepperPrevious color="accent">Back</button>
 			<button mat-raised-button matStepperNext color="primary"  [disabled]="lotFormGroup.status === 'INVALID'">Next</button>
 		  </div>
 	
@@ -202,26 +246,17 @@
 		<form id="containerForm"  [formGroup]="containerFormGroup" >
 			
 		
-			<div fxLayoutGap="20px" fxLayout="column"  fxLayoutAlign="start stretch" fxFlex>
+			<div fxLayoutGap="20px" fxLayout="column" style="margin-top:40px"  fxLayoutAlign="start stretch" fxFlex>
 
-				<div  fxLayout="row"  fxLayout.sm="column" > 					
-					<mat-form-field  fxFlex>
-						<input  #ContainerName  
-						formControlName="thirdCtrl"  [ngModelOptions]="{standalone: true}"
-						type="text" matInput placeholder="Nickname" [(ngModel)] ='container.container_name' 
-						name="container_name" >
-						<mat-hint> "Ryan's Homemade Mix", "Blend #10". </mat-hint>
-					</mat-form-field>  
-				</div>
-		
-				<div fxLayoutGap="20px"  fxLayout="row wrap" fxLayout.sm="column"  fxFlex>	
-						
-						<mat-form-field class="full-width" fxFlex>
+				<div  fxLayout="row"  fxLayout.sm="column" fxLayoutGap="40px"> 	
+					
+					<mat-form-field class="full-width" fxFlex>
 						<mat-hint>Where does this chemical live. </mat-hint>
+						<mat-label>Location</mat-label>
 										<mat-select required
 												#LocationId
 												formControlName="thirdCtrl2" 
-												placeholder="Location"
+												placeholder="Chemical Location"
 												name="location_id"
 												[(ngModel)]="container.location_id"
 												
@@ -234,20 +269,37 @@
 												
 												>{{location.name}}</mat-option>
 										</mat-select>
-								
+										
 								
 						</mat-form-field>   
 								
+
+
+					<mat-form-field  fxFlex>
+						<input  #ContainerName  
+						formControlName="thirdCtrl"  [ngModelOptions]="{standalone: true}"
+						type="text" matInput placeholder="Container Nickname" [(ngModel)] ='container.container_name' 
+						name="container_name" >
+						<mat-label>Container Nickname</mat-label>
+						<mat-hint> Optional | "Ryan's Homemade Mix", "Blend #10". </mat-hint>
+					</mat-form-field>  
+				</div>
+		
+				<div fxLayoutGap="20px"  fxLayout="row wrap" fxLayout.sm="column"  fxFlex>	
 						
 					
-						<mat-form-field  fxFlex="15">
+						
+					
+						<mat-form-field  fxFlex="20">
 							<input  
 							formControlName="thirdCtrl3" 
 							#Denomination id="container_denomination" type="text" 
+							pattern="[^@]+@[^@]+\.[a-zA-Z]"
 							(blur)="checkIfWeight()"
 							required matInput placeholder="Denomination" 
 							[(ngModel)] ='container.denomination' name="denomination"  >
-								<mat-hint>g,kg,ml,L</mat-hint>
+								<mat-hint>lbs, kg, lots, bottles, mL, sticks</mat-hint>
+								<mat-label>Denomination</mat-label>
 						</mat-form-field> 
 
 						<mat-form-field  fxFlex>
@@ -255,19 +307,20 @@
 						
 							formControlName="thirdCtrl4" 
 							type="number"  required matInput 
-							placeholder="Amount Ordered {{container.denomination}}"
+							placeholder="Amount Ordered ({{container.denomination}})"
 							[(ngModel)] ='container.amount_ordered' 
 							
 							name="amount_ordered" >
+							<mat-label>Amount Ordered ({{container.denomination}})</mat-label>
 							
-							
-							<mat-hint> "500g","500ml", "5L","6kg" </mat-hint>
+							<mat-hint> # of "500","20", "5","6" </mat-hint>
 						</mat-form-field>
 						
 						<mat-form-field fxFlex>
 							<input  #PurchaseOrder formControlName="thirdCtrl5"  
 							type="text" matInput placeholder="P.O. #" [(ngModel)] ='container.purchase_order' name="purchase_order" >
 							<mat-hint>Optional: eg. 2018-xxxxx</mat-hint>
+							<mat-label>Purchase Order</mat-label>
 						</mat-form-field>  
 						
 						<mat-form-field  fxFlex>
@@ -283,22 +336,24 @@
 
 											
 				</div>	
-				<div fxLayoutGap="10px"  fxLayoutGap.sm="5px"   fxLayout="row" fxLayout.sm="column" [hidden]="!isWeight" >	
+				<div fxLayoutGap="10px"  fxLayoutGap.sm="5px"   fxLayout="row" fxLayout.sm="column"  >	
 						
 					<!-- 	<img width=50px height=50px style="margin-right:40px;" [(src)]="container.datamatrix"/> -->
 				
 					<mat-form-field  fxFlex>
 						<input #GrossWeighttype type="number" formControlName="thirdCtrl7"   
-						matInput placeholder="Gross Weight (g)" 
+						matInput placeholder="Gross Weight" 
 						(blur)="updateCalculatedTare()"
 						[(ngModel)] ='container.gross_weight' name="gross_weight" >
-						<mat-hint>This is the unopened weight measured on a scale. </mat-hint>						
+						<mat-hint>This is the unopened weight measured on a scale. </mat-hint>
+						<mat-label>Gross Weight</mat-label>							
 					</mat-form-field>		
 					<mat-form-field  fxFlex>
 						<input #CalculatedTare type="number" formControlName="thirdCtrl8"   
-						matInput placeholder="Calculated Tare (g)"  [disabled]="true"
+						matInput placeholder="Calculated Tare"  [readonly]="true"
 						[(ngModel)] ='container.calculated_tare' name="calculated_tare" >
-						<mat-hint>Calculated Tare weight (Gross - Amount Ordered). </mat-hint>						
+						<mat-hint>Calculated Tare weight (Gross - Amount Ordered). </mat-hint>		
+						<mat-label>Tare Weight</mat-label>					
 					</mat-form-field>		
 
 						
@@ -311,7 +366,7 @@
 		<div fxLayout="row" fxFlex>
 			<div fxLayoutGap="5px" fxLayoutAlign="start center" >
 				
-				<button mat-button matStepperPrevious>Back</button>
+				<button mat-button matStepperPrevious color="accent">Back</button>
 
 			</div>
 
@@ -323,10 +378,11 @@
 					matInput placeholder="Number of Containers"  
 					min=1 step="1"
 					[(ngModel)] ='containersToMake' [value]="containersToMake" name="ContainersToMake" >
-					<mat-hint>Number of Containers to create. </mat-hint>						
+					<mat-hint>Number of Containers to create. </mat-hint>		
+					<mat-label>Number of Containers</mat-label>				
 				</mat-form-field>		
-				<button *ngIf="!codeRegistryStep" class="mat-raised-button mat-primary"
-				(click)="createButton(stepper)" [disabled]="containerFormGroup.status === 'INVALID' || containersToMake < 1"> Create </button>
+				<button mat-raised-button color="primary"  *ngIf="!codeRegistryStep" class="mat-raised-button mat-primary"
+				(click)="createButton(stepper)" [disabled]="containersToMake < 1"> Create Container(s) </button>
 
 		
 			</div>
@@ -337,18 +393,18 @@
 		<!-- Check for an SDS before doing the label thing. -->
 
 		<div fxLayout="row">
-			<div fxLayout="column" fxFlex fxLayoutGap="10px;" fxLayoutAlign="center center">
+			<div fxLayout="column" fxFlex fxLayoutGap="10px;" style="margin-top:30px;" fxLayoutAlign="center center">
 				<img src="https://imgur.com/QegOMbn.png" width=250px>
 				<p> QCIDs are issued by Administration. </p>
 			</div>
-			<div fxLayout="column" fxFlex fxLayoutAlign="center center" fxLayoutGap="5px">
+			<div fxLayout="column" fxFlex="60" fxLayoutAlign="center center" fxLayoutGap="5px">
 
 					<table class="table">
 						<thead>
 							<th>Container No.</th>
 							<th>QCID</th>
-							<td>Save</td>
-							<td>Check Box</td>
+							<td></td>
+							<th>Saved?</th>
 						</thead>
 						<tbody>
 							<tr *ngFor="let container of createdContainers; let i = index;">
@@ -386,9 +442,9 @@
 
 			</div>
 		</div>
-		<div fxLayout="row" fxFlex>
+		<div fxLayout="row" fxLayout="space-between" fxFlex>
 			<div fxLayout="row" fxFlex>
-				<button mat-button matStepperPrevious>Back</button>
+				<button mat-button matStepperPrevious color="accent">Back</button>
 			</div>
 			<div fxLayout="row" fxLayoutAlign="end center" fxFlex>
 				<button mat-raised-button matStepperNext color="primary">Next</button>
@@ -404,7 +460,7 @@
 			<div fxFlex fxLayout="row" [hidden]="material.sds" fxFlex>
 
 				<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" fxFlex>
-					<p> This material doesn't have an SDS, you should upload one!</p>
+					<p style="margin-top:30px !important;"> This material doesn't have an SDS, you should upload one!</p>
 					<ngx-file-drop style="width:100% !important" fxFlex browseBtnLabel="Add SDS Here " 
 					(onFileDrop)="dropped($event)"  [showBrowseBtn]="true" [multiple]="false"
 					(onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)">
@@ -476,7 +532,7 @@
 
 			<div fxLayout="row" fxFlex>
 				<div fxFlex>
-					<button mat-button matStepperPrevious>Back</button>
+					<button mat-button matStepperPrevious color="accent">Back</button>
 				</div>
 				<div fxLayout="row" fxLayoutAlign="end center" fxFlex>
 					<button mat-raised-button matStepperNext color="primary" 
@@ -500,7 +556,7 @@
 </div>
 
   <div mat-dialog-actions style="margin-top:20px;" fxLayoutGap="10px" >
-    <button  mat-raised-button color="accent" style="float:right;"class="mat-raised-button"(click)="close()">Close</button>
+    <button  mat-raised-button color="danger" style="float:right;" class="mat-raised-button"(click)="close()">Close</button>
     <!-- <button *ngIf="!codeRegistryStep" class="mat-raised-button mat-primary"(click)="createButton()" [disabled]="!validateForm()">Create </button>
  -->
   </div>

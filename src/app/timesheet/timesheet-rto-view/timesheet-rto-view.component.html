@@ -69,7 +69,9 @@
                             >
                                 <td> 
                                     <button  *ngIf="(timeRequest.date < timeRequest.created)" mat-icon-button color="info"  >
-                                        <mat-icon aria-label="request info" style="color:orange" matTooltip="Absence date preceeds or is on request date.">history</mat-icon>
+                                        <mat-icon aria-label="request info" style="color:orange" >history
+                                        <mat-hint>Absence date preceeds or is on request date</mat-hint>
+                                        </mat-icon>
                                     </button>
 
                                 </td>

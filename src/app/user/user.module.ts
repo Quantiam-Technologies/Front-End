@@ -5,7 +5,6 @@ import { SharedModule } from '../shared/shared.module';
 import { MaterialDesignModule } from '../material-design/material-design.module';
 
 import { HighchartsChartModule } from 'highcharts-angular';
-import { AgGridModule } from 'ag-grid-angular';
 
 import { UserRoutingModule } from './user-routing.module';
 import { UserIndexComponent } from './user-index/user-index.component';
@@ -17,6 +16,7 @@ import { UserDatabaseComponent } from './user-database/user-database.component';
 import { UserHierarchyComponent } from './user-hierarchy/user-hierarchy.component';
 
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -24,7 +24,7 @@ import { UserHierarchyComponent } from './user-hierarchy/user-hierarchy.componen
     MaterialDesignModule,
     SharedModule,
     HighchartsChartModule,
-	AgGridModule,
+	
   ],
   declarations: [UserIndexComponent, UserViewComponent, UserViewPermissionsComponent, UserViewKeycardComponent, UserViewMachinesComponent, UserDatabaseComponent, UserHierarchyComponent],
    // schemas:[NO_ERRORS_SCHEMA]

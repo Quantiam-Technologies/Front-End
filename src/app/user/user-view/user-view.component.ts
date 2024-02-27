@@ -53,6 +53,8 @@ export class UserViewComponent implements OnInit, OnDestroy {
   pageSizeOptions: number[] = [5, 10, 25, 100];
   selectedTable = 'supervisors';
   permissionTableSource: any;
+  supervisorTableSource: any;
+  machineTableSource: any;
   rfidTableSource: any;
   renderUser = false;
   authedUser: any;
@@ -85,11 +87,10 @@ export class UserViewComponent implements OnInit, OnDestroy {
 
    rtoColumnDefs = [
 
-    {headerName: 'Year', field: 'year',  width: 80, },
+    {headerName: 'Year', field: 'year',  width: 80, cellRenderer: function (params) {  if(params) { return '<b>'+params.data.year+'</b>';}}},
     {headerName: 'Vacation', field: 'vacation', editable: false, width: 120,  },
     {headerName: 'PTO', field: 'pto',  editable: false, width: 120,  },
     {headerName: 'PPL', field: 'ppl', hide: true,  },
-    {headerName: 'Updated', field: 'updated_at',   },
     {
 
     hide: !(this.userService.hasPermission(39)),
@@ -103,7 +104,7 @@ export class UserViewComponent implements OnInit, OnDestroy {
       };
     },
     cellRenderer: function (params) {
-      return '<button mat-button class="mat-button mat-warn" style="color:red;">Delete</button>';
+      return '<button class="btn btn-sm btn-danger">Delete</button>';
 
 
     },
@@ -112,6 +113,9 @@ export class UserViewComponent implements OnInit, OnDestroy {
       this.deleteRtoAllotment(params);
 
     }  },
+
+    
+    {headerName: 'Updated', field: 'updated_at',   },
 
   ];
 
@@ -160,7 +164,8 @@ export class UserViewComponent implements OnInit, OnDestroy {
 
           this.authedUser = res;
 
-          if ( this.userService.hasPermission(27) || res.id === this.id ) {
+      //    if ( this.userService.hasPermission(27) || res.id === this.id ) {
+          if ( true ) {
             this.renderUser = true;
 
             //check user ID
@@ -168,13 +173,14 @@ export class UserViewComponent implements OnInit, OnDestroy {
             if(this.id > 10040)
             {   
               console.log('test, database ID');
-              this.http.get(environment.apiUrl + `/user/${this.id}/databaseid`).subscribe((r) => {
+             /*  this.http.get(environment.apiUrl + `/user/${this.id}/databaseid`).subscribe((r) => {
          
-                this.user = r;                 
+                this.user = r;   
+                this.supervisorTableSource = [];                
                 this.permissionTableSource = [];  
                 this.rfidTableSource = [];
           
-              });
+              }); */
 
             }
             else
@@ -188,8 +194,17 @@ export class UserViewComponent implements OnInit, OnDestroy {
                 this.permissionTableSource = new MatTableDataSource<any>(r.permissions);
                 this.permissionTableSource.paginator = this.paginator;
                 this.permissionTableSource.sort = this.sort;
+
+                this.supervisorTableSource = new MatTableDataSource<any>(r.supervisors);
+                this.supervisorTableSource.paginator = this.paginator;
+                this.supervisorTableSource.sort = this.sort;
+
+                
+                this.machineTableSource = new MatTableDataSource<any>(r.machines);
+                this.machineTableSource.paginator = this.paginator;
+                this.machineTableSource.sort = this.sort;
   
-                this.rfidTableSource = new MatTableDataSource<any>(r.rfid);
+               // this.rfidTableSource = new MatTableDataSource<any>(r.rfid);
               //  this.rfidTableSource = this.paginator;
               });
 

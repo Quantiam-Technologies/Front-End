@@ -28,8 +28,8 @@ export class AgGridSelectUserComponent implements ICellEditorAngularComp, AfterV
    //   console.log(this.container.element.nativeElement.firstChild.firstChild.firstChild.children[1].firstChild);
        this.input = this.container.element.nativeElement.firstChild.firstChild.firstChild.children[1].firstChild;
 
-       // console.log(this.input);
-       this.input.value = this.params.charPress;
+    //   console.log(this.input);
+      // this.input.value = this.params.charPress;
 
        this.input.focus();
     //   this.params.api.clearFocusedCell();
@@ -42,9 +42,10 @@ export class AgGridSelectUserComponent implements ICellEditorAngularComp, AfterV
   }
 
   agInit(params: any): void {
-    console.log(params);
+    //console.log(params);
     this.params = params;
     this.previousValue = params.value;
+    //console.log(this.previousValue);
   }
 
   getValue(): any {

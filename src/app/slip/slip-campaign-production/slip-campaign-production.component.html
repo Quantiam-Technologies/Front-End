@@ -1,0 +1,82 @@
+
+
+<!----
+
+By campaign display production of all relevant slips, and of what types.
+    - by slip type, stacked column?
+    - last slip is the last day displayed
+    - states?
+    - right side, big number of slips created
+
+
+-->
+
+
+
+<!-- <p>slip-campaign-production works!</p> -->
+
+<div fxLayout="row" fxLayoutGap="5px" fxFlex>
+
+    <div fxLayout="column" fxLayoutGap="5px">
+            <mat-card >
+                <highcharts-chart [Highcharts]="Highcharts" [options]="HighchartsOptions" 
+                [(update)]="updateHighchartsFlag" [oneToOne]="true"></highcharts-chart>
+            </mat-card>
+
+            <mat-card style="margin-top:10px">
+                    <div  class="remove-scrollbar" style="overflow:auto; min-width:600px; max-height: 200px; ">
+                    <table  class="table" fxFlex  >
+                        <thead class="sticky-header">
+                            <tr>
+                            
+                                <th>Slip</th>
+                                <th>Material</th>
+                                <th>Container</th>
+                                <th>Amount</th>
+                                <th>Date Time</th>
+                            <!--  <th>Updated</th> -->
+                                
+                            </tr>
+                        </thead>
+                        <tbody *ngIf="campaignProductionObject?.measured">
+                            <tr *ngFor="let measure of campaignProductionObject.measured">
+                                
+                                
+                                <td>{{measure.slip_id}}</td>
+                                <td style="font-size: 12px;">{{measure.slip_material_id}} - {{measure.container?.lot.material.name}}<br><small style="font-size: 10px;">{{measure.container?.lot.material.grade}}</small></td>
+                                <td >
+                                    <button type="button" class="btn btn-info btn-xs" style="color:white;" routerLink="/material/container/{{measure.container_id}}" fxLayout="row" fxLayoutGap="5px">
+                                        <div> QCID-{{measure.container?.qcid}} </div> 
+                                    </button>
+                                </td>
+                                <td>{{measure.measured}} g</td>
+                                <td>{{measure.measured_datetime}}</td>
+                            <!--   <td style="font-size:11px;">{{steel.updated_at}}</td> -->
+                            
+                                
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+            </mat-card>
+
+
+    </div>
+
+
+
+    <div fxLayout="column" fxLayoutGap="5px" ng>
+        <button mat-button color="primary" [matMenuTriggerFor]="menu"> <mat-icon>download</mat-icon> Export Data</button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="exportCSV('production')">  <mat-icon>leaderboard</mat-icon> Chart Data</button>
+              <button mat-menu-item (click)="exportCSV('measured')">  <mat-icon>science</mat-icon>Measured Containers Log</button>
+            </mat-menu>
+        <mat-card >
+            <mat-card-content ><h2><small>Materials Measured</small><br>{{campaignProductionObject?.measured.length}} </h2></mat-card-content>
+        </mat-card>
+        <mat-card >
+            <mat-card-content ><h2><small>Total Operator Time</small><br>~{{totalOperatorTime | number : '1.0-1'}} hrs</h2></mat-card-content>
+        </mat-card>
+
+    </div>
+</div>

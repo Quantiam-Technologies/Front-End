@@ -3,20 +3,20 @@
 </div>
 
 
-<div *ngIf="renderUser && user" fxFlex=100  >
-	<div  fxLayout="column" fxLayout.gt-md="row"  fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex >
+<div *ngIf="renderUser && user" fxFlex fxLayout="row"  >
+	<div  fxLayout="row wrap"  fxLayoutAlign="start start" fxLayoutGap="20px" fxFlex>
 	
-		<mat-card appearance="outlined" class="quantiam-mat-card" fxLayout="column" >
+		<mat-card appearance="outlined" class="quantiam-mat-card" fxLayout="column" fxFlex="40" >
 		<mat-card-title>
 			 Employee Attributes
 		</mat-card-title> 
-		<mat-card-content>
-			<div   fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start stretch">
+		<mat-card-content >
+			<div  style="margin-top:10px;"  fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start stretch">
 			
 				
 				
-				<mat-form-field appearance="outline"  fxFlex="10">
-					<mat-label>Employee ID</mat-label>
+				<mat-form-field appearance="outline"  fxFlex="15">
+					<mat-label>ID</mat-label>
 							<input  #EmployeeID 
 							(change)="updateUser(EmployeeID)"
 							[disabled]="!editUser" 
@@ -29,18 +29,7 @@
 					>
 				</mat-form-field >
 				
-				
-			 <mat-form-field appearance="outline"  fxFlex="10">
-				<mat-label>Prefix</mat-label>
-							<input  #Prefix 
-							(change)="updateUser(FirstName)"
-							[disabled]="!editUser || !user.employeeid" 
-							type="text" 
-							matInput 
-							placeholder="Prefix" 
-							[(ngModel)] ='user.prefix'
-							name="prefix"
-					> </mat-form-field >
+			
 				
 				<mat-form-field appearance="outline" fxFlex >
 					<mat-label>First Name</mat-label>
@@ -68,6 +57,27 @@
 					</mat-form-field >
 
 
+					
+				
+			
+			
+			</div>
+			
+
+			<div   fxLayout="row wrap" fxLayoutGap="10px" fxLayoutAlign="start stretch">
+			<mat-form-field appearance="outline"  fxFlex="20">
+				<mat-label>Prefix</mat-label>
+							<input  #Prefix 
+							(change)="updateUser(FirstName)"
+							[disabled]="!editUser || !user.employeeid" 
+							type="text" 
+							matInput 
+							placeholder="Prefix" 
+							[(ngModel)] ='user.prefix'
+							name="prefix"
+					> </mat-form-field >
+
+					
 					<mat-form-field appearance="outline" fxFlex >
 						<mat-label>Title</mat-label>
 							<input  #title 
@@ -82,54 +92,58 @@
 					</mat-form-field >
 			
 				
-					<mat-form-field appearance="outline"  fxFlex="15" >
-						<mat-label>Employee Type</mat-label>
-						<mat-select 	
-						placeholder="Employee Type" 
-						(selectionChange)="updateUser($event)"
-						[disabled]="!editUser || !user.employeeid" 
-						[(ngModel)] ='user.compensation'
-											
-						>
-								<mat-option value="Salary">Salary</mat-option>
-								<mat-option value="Hourly">Hourly</mat-option>
-								<mat-option value="Temporary">Contract/Temporary</mat-option>
-							  </mat-select>
-
-				</mat-form-field>
-					
-				
-			
 			
 			</div>
-			
+
+<div fxLayoutAlign="start stretch" fxLayoutGap="10px" >
+
+
+	<mat-form-field appearance="outline" >
+		<mat-label>Employee Type</mat-label>
+		<mat-select 	
+		placeholder="Employee Type" 
+		(selectionChange)="updateUser($event)"
+		[disabled]="!editUser || !user.employeeid" 
+		[(ngModel)] ='user.compensation'
+							
+		>
+				<mat-option value="Salary">Salary</mat-option>
+				<mat-option value="Hourly">Hourly</mat-option>
+				<mat-option value="Temporary">Contract/Temporary</mat-option>
+			  </mat-select>
+
+</mat-form-field>
+
+<app-select-user  *ngIf="editUser"  fxFlex
+							   
+[hidden]="!editUser || !user.employeeID"
+fxLayoutAlign="start center"
+(change)="updateSupervisor($event)"
+[placeholder]="user?.supervisors[0]?.name"
+						   
+></app-select-user>
+
+
+<mat-form-field appearance="outline" *ngIf="!editUser" fxFlex  >
+<mat-label>Immediate Supervisor</mat-label>
+<input  
+
+disabled
+type="text" 
+matInput 
+placeholder="Immediate Supervisor" 
+[ngModel] ='user?.supervisors[0]?.name'
+name="supervisor"
+>
+</mat-form-field >
+
+</div>
+
 			<div fxLayoutAlign="start stretch" fxLayoutGap="10px" >
 					<!-- <label *ngIf="editUser"	fxLayoutAlign="start center"> Immediate Supervisor </label>  -->
 				
 
-					   <app-select-user  *ngIf="editUser" fxFlex.xl='30' fxFlex
-							   
-							   [hidden]="!editUser || !user.employeeID"
-							   fxLayoutAlign="start center"
-							   (change)="updateSupervisor($event)"
-							   [placeholder]="user?.supervisors[0]?.name"
-							   						   
-					   ></app-select-user>
-					   
-					   
-						<mat-form-field appearance="outline" *ngIf="!editUser" fxFlex fxFlex.xl="25" >
-							<mat-label>Immediate Supervisor</mat-label>
-							   <input  
-							   
-							   disabled
-							   type="text" 
-							   matInput 
-							   placeholder="Immediate Supervisor" 
-							   [ngModel] ='user?.supervisors[0]?.name'
-							   name="supervisor"
-					   >
-				   </mat-form-field >
-
+					 
 				 
 
 					<mat-form-field appearance="outline"  fxFlex>
@@ -145,7 +159,7 @@
 					>
 					</mat-form-field >
 
-					<mat-form-field appearance="outline"  fxFlex>
+					<mat-form-field appearance="outline"  fxFlex="30">
 						<mat-label>Direct Line</mat-label>
 							<input  #Phone 
 							(change)="updateUser(Phone)"
@@ -226,8 +240,8 @@
 	
 		<mat-card-actions fxLayout="row-reverse">
 				
-				<button  *ngIf="userService.hasPermission(7)" mat-button (click)="editUserClick()"> Edit </button>
-			
+				<button  *ngIf="userService.hasPermission(7) && !editUser" mat-button color="primary" (click)="editUserClick()"> Edit </button>
+				<button  *ngIf="userService.hasPermission(7) && editUser" mat-button color="accent" (click)="editUserClick()"> Stop Editing </button>
 			
 			</mat-card-actions>
 		
@@ -237,7 +251,7 @@
 	
 			
 			
-		<mat-card   appearance="outlined"   class='quantiam-mat-card' fxLayout="column" [hidden]="!user?.employeeid" fxFlex>
+		<mat-card   appearance="outlined"   class='quantiam-mat-card' fxLayout="column" [hidden]="!user?.employeeid" fxFlex *ngIf="userService.hasPermission(7)">
 			<mat-card-title>
 				User Management
 			</mat-card-title> 
@@ -246,9 +260,9 @@
 					
 				
 				<mat-tab-group>
-						<mat-tab label="RTO" >
-								<div *ngIf="userService.hasPermission(37)" fxLayout="row" fxLayoutAlign="start center" >
-										<button mat-raised-button  color="primary" (click)="createRtoAllotment()">Create</button>
+						<mat-tab label="RTO Allotments" >
+								<div *ngIf="userService.hasPermission(37)" fxLayout="row" fxLayoutAlign="start center" style="margin:5px;">
+										<button mat-raised-button  color="primary" (click)="createRtoAllotment()">Create RTO Allotment</button>
 	
 									
 								</div>
@@ -284,24 +298,21 @@
 							
 							</div>
 						</mat-tab>
-					<mat-tab label="Supervisors"> 
+			<!-- 		<mat-tab label="Supervisors" > 
 
 					
-								<table  fxFlex style="box-shadow: none; width:100%;" mat-table [dataSource]="user.supervisors" matSort  >
+								<table  fxFlex style="box-shadow: none; width:100%;" mat-table [dataSource]="supervisorTableSource" matSort  >
 		
-										<!--- Note that these columns can be defined in any order.
-												The actual rendered columns are set as a property on the row definition" -->
-		
-										<!-- Position Column -->
+									
 										<ng-container matColumnDef="id">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
 											<td mat-cell *matCellDef="let element"> {{element.id}} </td>
 										</ng-container>
 		
-										<!-- Name Column -->
+										
 										<ng-container matColumnDef="name">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-											<td mat-cell *matCellDef="let element">  <button mat-button  routerLink="/user/{{element.id}}"> {{element.name}} </button>  </td>
+											<td mat-cell *matCellDef="let element">  <button mat-button  > {{element.name}} </button>  </td>
 										</ng-container> 
 										<ng-container matColumnDef="title">
 											<th mat-header-cell *matHeaderCellDef> Title </th>
@@ -315,8 +326,8 @@
 								</table>
 					
 
-					</mat-tab>
-				
+					</mat-tab> 
+				 -->
 					<mat-tab label="Permissions">
 
 								<div fxLayout="row">
@@ -366,7 +377,7 @@
 										<td mat-cell *matCellDef="let element; " > 
 											<button mat-button *ngIf="element.group_id" routerLink="../group/{{element.group_id}}" style="font-size:12px"> {{element.group_name}} </button> 
 											<button mat-button>
-												<mat-icon  *ngIf="!element.group_id" mat-raised-button color="warn" (click)="deletePermission(element)"> delete </mat-icon> 
+												<button  *ngIf="!element.group_id" class="btn btn-sm btn-danger" (click)="deletePermission(element)"> Delete </button> 
 											</button>
 											
 										</td>
@@ -384,7 +395,7 @@
 			
 					</mat-tab>
 
-					<mat-tab label="Group">
+				<!-- 	<mat-tab label="Groups">
 						
 					<div fxLayout="column" fxLayoutAlign="start center">
 						
@@ -410,8 +421,8 @@
 				
 					
 					</div>
-				</mat-tab>
-					<mat-tab label="Machines">
+				</mat-tab> -->
+					<!-- <mat-tab label="Machines">
 
 						
 
@@ -442,11 +453,11 @@
 									<tr mat-header-row *matHeaderRowDef="displayedColumnsMachines"></tr>
 									<tr mat-row *matRowDef="let row; columns: displayedColumnsMachines;"></tr>
 							</table>
-							<!-- <mat-paginator   [pageSizeOptions]="pageSizeOptions"
+							<mat-paginator   [pageSizeOptions]="pageSizeOptions"
 										(page)="pageEvent = $event" showFirstLastButtons>
-							</mat-paginator> -->
+							</mat-paginator>
 					
-					</mat-tab>
+					</mat-tab> -->
 					<!-- <mat-tab label="RFID">
 							<table fxFlex style="box-shadow: none;  width:100%;" mat-table [dataSource]="rfidTableSource" matSort>
 

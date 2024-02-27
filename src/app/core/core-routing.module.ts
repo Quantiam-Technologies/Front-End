@@ -143,6 +143,12 @@ const routes: Routes = [
 				// pathMatch: 'prefix',
 
 			},
+			{
+				path: 'weartile',
+				loadChildren: () => import('../weartile/weartile.module').then(m => m.WeartileModule),
+				// pathMatch: 'prefix',
+
+			}
 		]
 	},
 

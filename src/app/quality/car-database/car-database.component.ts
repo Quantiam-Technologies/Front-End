@@ -184,9 +184,10 @@ fetchDatabase () {
 
         this.http.get(environment.apiUrl + '/car', {params: requestParams}).subscribe((response: any) => {
 
-             params2.successCallback(response.data, response.total);
-             this.totalRows = response.total;
+             params2.success({ rowData: response.data });
              this.gridApi.sizeColumnsToFit();
+             
+             this.gridApi.setRowCount(response.total,true);
            ///  console.log(params2);
         });
 
