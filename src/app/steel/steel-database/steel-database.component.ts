@@ -155,11 +155,14 @@ export class SteelDatabaseComponent implements OnInit {
       headerName: 'OG Len (mm)',
       field: 'steel_type.length',
       width: 80,
+      hide:true,
     },
     {
       headerName: 'Shipped Len (mm)',
       field: 'steel_type.length_shipped',
       width: 80,
+      hide:true,
+
     },
 
     {

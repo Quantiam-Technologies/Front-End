@@ -12,18 +12,21 @@
        
         
         ></app-select-arbin-test>
-
+      <div>
         <mat-button-toggle-group value="IV" (change)="selectedGraphViewChanged($event)" class="mat-elevation-z1" #selectedGraphView="matButtonToggleGroup"  name="fontStyle" aria-label="Font Style" >
             <mat-button-toggle value="IV"> Current Voltage </mat-button-toggle>
             <mat-button-toggle value="EIS"> EIS </mat-button-toggle>
             <mat-button-toggle value="data_sets"> Data Sets </mat-button-toggle>
           
           </mat-button-toggle-group>
-    
-
-        <div fxLayout="row" fxLayoutAlign="end start" fxFlex>
-
         </div>
+       
+        <div fxLayout="row" fxLayoutAlign="end start" fxFlex>
+          
+          <div class="alert alert-info" *ngIf="dropData"> Data from some tests have been truncated by half, as datasets have > 6,000 points. </div>
+    
+        </div>
+       
 
     </div>
 
@@ -227,9 +230,10 @@
     </div>
     
 
-    <div [hidden]="selectedGraphView.value !== 'data_sets'" fxLayout="column" fxLayoutAlign="start start" fxFlex>
+    <div [hidden]="selectedGraphView.value !== 'data_sets'" fxLayout="row" fxLayoutGap="30" fxLayoutAlign="start start" fxFlex>
         
-      <div fxLayout="row" fxFlex=100 fxLayoutAlign="start start">
+      <div fxLayout="column" fxFlex fxLayoutAlign="start start" >
+        <h2> Entire Datasets </h2>
 
           <table class='table' >
               <thead>
@@ -250,6 +254,42 @@
                          <button mat-raised-button color="primary" class="mat-small" (click)="exportCSV(item)">CSV</button>
                       </td>
                   </tr>
+              </tbody>
+      
+          </table>
+      </div>
+
+      <div fxLayout="column" fxFlex fxLayoutAlign="start start">
+        <h2> Step Specific Datasets </h2>
+          <table class='table' >
+              <thead>
+                  <tr>
+                     <!--  <th>Index</th> -->
+                    
+                      <th>Name</th>                     
+                      <th>Type</th>        
+                      <th>Test ID</th>
+                      <th>Step ID</th>           
+                      <th>Download</th>
+                     
+                  </tr>
+              </thead>
+              <tbody *ngFor="let item of dataSets">
+                <ng-container *ngIf="item.type=='IV'">
+                  <tr   *ngFor="let stepID of IVsteps"  >
+                    
+                    
+
+                      <td> {{item.name}} </td>
+                      <td> {{item.test_id}} </td>
+                      <td> {{item.type}} </td>
+                      <td> {{stepID}} </td>
+                      <td>                      
+                         <button mat-raised-button color="primary" class="mat-small" (click)="exportCSVIVStepID(item,stepID)">CSV</button>
+                      </td>
+                  </tr>
+                </ng-container>
+                
               </tbody>
       
           </table>

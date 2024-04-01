@@ -53,11 +53,11 @@
        <div style="width:270px; margin-right:5px;" fxLayout="column"  [ngOptionHighlight]="search">
         <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="start center">
           <b>{{item.lot.material?.name || ''}}</b>     
-          <span style="font-size: 11px;" *ngIf="item.container_name">({{item.container_name}})</span>  
+          <!-- <span style="font-size: 11px;" *ngIf="item.container_name">({{item.container_name}})</span>  --> 
        </div>
         <i class="grade_text" >
             {{item.lot.material.grade}} 
-            <span *ngIf="item.lot.material.purity"> ({{item.lot.material.purity}})% </span>
+            <span *ngIf="item.lot.material.purity"> {{item.lot.material.purity}}% </span>
             <span *ngIf="item.lot.material.particle_size"> ({{item.lot.material.particle_size}}) </span>
         </i>
       </div>

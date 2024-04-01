@@ -13,7 +13,10 @@ import { NotificationsService } from 'angular2-notifications';
 import { DomSanitizer } from "@angular/platform-browser";
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { MatDialog } from '@angular/material/dialog'; 
+
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { MaterialChangeDialogComponent } from '../material-change-dialog/material-change-dialog.component';
+
 
 import { FileSaverService } from 'ngx-filesaver';
 
@@ -157,6 +160,28 @@ export class MaterialContainerViewComponent implements OnInit, OnDestroy {
 		this.fetchLocationList();
 
 	}
+
+
+
+	openChangeMaterialDialog()
+	{
+		
+
+
+			const dialogConfig = new MatDialogConfig();
+			  //dialogConfig.disableClose = true;
+			  dialogConfig.autoFocus = true;
+			  dialogConfig.width = '1200px';
+			 // dialogConfig.height = '0vh';
+			  dialogConfig.position = {'top': '50px'};
+			  const dialogRef = this.dialog.open(MaterialChangeDialogComponent, dialogConfig);
+			  dialogRef.afterClosed().subscribe(result => {
+			  	//  console.log('The dialog was closed');
+				//this.refreshDatabase();
+			  });
+		
+	}
+
 
   ngOnDestroy() {
     this._container.unsubscribe();
@@ -546,5 +571,7 @@ export class MaterialContainerViewComponent implements OnInit, OnDestroy {
   getSafeUrl(value) {
 	this.safeurl = this.sanitizer.bypassSecurityTrustResourceUrl('http://api.edm.quantiam.com/file?server_path='+value);     
 }
+
+
 
 }

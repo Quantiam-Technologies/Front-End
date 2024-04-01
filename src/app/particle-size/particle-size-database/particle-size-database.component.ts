@@ -91,10 +91,33 @@ export class ParticleSizeDatabaseComponent implements OnInit {
     {
       headerName: 'Project',
       field: 'project_id',
-      width: 60,
+      width: 50,
       filter: false,
       cellEditor: 'projectEditor',
     },    
+
+    {
+      headerName: 'Container',
+      // field: 'id',
+      width: 70,
+      cellRenderer: 'steelContainerDisplay',
+      cellEditor: 'steelContainerEdit',
+      valueSetter: (params) => {
+
+         if (params.newValue) {         
+          if (params.newValue.container_id) {
+            params.data.container = params.newValue;
+            params.data.container_id = params.newValue.container_id;
+           }
+           this.update(params);
+
+          return params.newValue;
+
+        }
+        return null;
+      },
+    },
+ 
   
 
     {
@@ -141,21 +164,25 @@ export class ParticleSizeDatabaseComponent implements OnInit {
       hide: true,
     },
     {
-      headerName: 'D(90)',
-      field: 'd90',
+      headerName: 'D(10)',
+      field: 'd10',
       width: 50,
     },
+    
     {
       headerName: 'D(50)',
       field: 'd50',
       width: 50,
     },
+    
+    
     {
-      headerName: 'D(10)',
-      field: 'd10',
+      headerName: 'D(90)',
+      field: 'd90',
       width: 50,
     },
- 
+
+    
     {
       headerName: 'Operator',
       field: 'operator_id',
@@ -198,27 +225,7 @@ export class ParticleSizeDatabaseComponent implements OnInit {
     },
    
 
-    {
-      headerName: 'Container',
-      // field: 'id',
-      width: 70,
-      cellRenderer: 'steelContainerDisplay',
-      cellEditor: 'steelContainerEdit',
-      valueSetter: (params) => {
-
-         if (params.newValue) {         
-          if (params.newValue.container_id) {
-            params.data.container = params.newValue;
-            params.data.container_id = params.newValue.container_id;
-           }
-           this.update(params);
-
-          return params.newValue;
-
-        }
-        return null;
-      },
-    },
+  
     
     {
       headerName: 'PDF',

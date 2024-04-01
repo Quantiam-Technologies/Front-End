@@ -12,7 +12,7 @@ import { NotificationsService } from 'angular2-notifications';
 export class QualityCampaignPowderCharacterizationCheckComponent {
 
 
-  campaignID = 35;
+  @Input() campaignID: any = 35;
   powderCheckArray = null;
 
   constructor(
@@ -32,6 +32,13 @@ export class QualityCampaignPowderCharacterizationCheckComponent {
         this.getData();
 
     }
+
+    
+  ngOnChanges(changes)
+  {
+    this.getData();
+  }
+
 
 
 

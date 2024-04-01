@@ -32,7 +32,10 @@
                     </button>
                 </td>
                 <td style="font-size: 12px;">{{container.slip_material_id}} - {{container?.name}}<br><small style="font-size: 10px;">{{container?.grade}}</small></td>
-                <td>{{container.particle_size}} </td>
+                <td>
+                    <div *ngIf="container.particle_size">{{container.particle_size}}</div>
+                    <div *ngIf="!container.particle_size"><button class="btn btn-xs btn-danger"> Missing </button></div>    
+                </td>
                 <td>
                     
                     

@@ -26,7 +26,7 @@
   <div>   
     <button mat-raised-button class="mat-small"  
       (click)="goToContainer(params)" 
-      *ngIf="params.data?.container_id" color="accent"> {{ params.data.container?.qcid || params.data.container?.container_id  }} </button>
+      *ngIf="params.data?.container_id" color="accent"> {{ params.data.container?.qcid ? 'QCID-'+params.data.container.qcid : params.data.container?.container_id }} </button>
   </div>
     <div>
       <mat-icon [hidden]="!showTrash"

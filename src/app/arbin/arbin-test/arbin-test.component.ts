@@ -23,8 +23,11 @@ export class ArbinTestComponent implements OnInit {
   constructor( private http: HttpClient,private route: ActivatedRoute,) { }
 
   firstEISRender;
-  
 
+  IVsteps = [];
+
+  
+  dropData = false;
   renderTestSelectionField = false;
 
   selectedTests:any = [];
@@ -155,19 +158,26 @@ export class ArbinTestComponent implements OnInit {
     console.log(id);
     this.http.get('http://api.edm.quantiam.com:3000/arbin/test/'+id).subscribe((r:any) => {
       
-       //this.selectedTests.push(parseInt(id));
-       console.log(r);
     
         let serie:any = {};
         serie.type = this.defaultGraphType;
 
-        r.forEach((element) => {
+        this.dropData = false;
 
+//        if(r.length > 6000) this.dropData = true;
+
+        r.forEach((element,index) => {
+
+
+        //  if (this.dropData && index % 2 === 0) {
             element.x = element[this.currentXField];
             element.y = element[this.currentYField];
+            if (!this.IVsteps.includes(element.Step_ID)) this.IVsteps.push(element.Step_ID);
+         // }
           
           
         });
+
 
         this.HighchartOptions.xAxis[0].title.text = this.currentXField;
         this.HighchartOptions.yAxis[0].title.text = this.currentYField;
@@ -202,7 +212,7 @@ export class ArbinTestComponent implements OnInit {
           this.renderTestSelectionField = true;
           console.log(this.selectedTests);
           this.updateFlag = true;
-          },500);
+          },1000);
 
 
 
@@ -429,7 +439,6 @@ export class ArbinTestComponent implements OnInit {
 
   exportCSV(row)
   {
-    console.log(row);
 
     let rows = [];
     if(row.type === 'EIS'){
@@ -467,6 +476,59 @@ export class ArbinTestComponent implements OnInit {
             const url = URL.createObjectURL(blob);
             link.setAttribute('href', url);
             link.setAttribute('download', row.name+' '+row.type+'.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+         // }
+         // }
+        }
+      
+
+
+  }
+
+
+  exportCSVIVStepID(row, stepID)
+  {
+    console.log(row);
+
+    let rows = [];  
+
+
+    rows = this.HighchartOptions.series[row.index].data;
+    
+
+        const separator = ',';
+        const keys = Object.keys(rows[0]);
+        const csvContent =
+          keys.join(separator) +
+          '\n' +
+          rows
+          .filter(row => row['Step_ID'] === stepID)
+          .map(row => {
+            return keys.map(k => {              
+              let cell = row[k] === null || row[k] === undefined ? '' : row[k];
+              cell = cell instanceof Date
+                ? cell.toLocaleString()
+                : cell.toString().replace(/"/g, '""');
+              if (cell.search(/("|,|\n)/g) >= 0) {
+                cell = `"${cell}"`;
+              }
+              return cell;
+            }).join(separator);
+          }).join('\n');
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+     /*    if (navigator.msSaveBlob) { // IE 10+
+          navigator.msSaveBlob(blob, row.name);
+        } else { */
+          const link = document.createElement('a');
+          if (link.download !== undefined) {
+            // Browsers that support HTML5 download attribute
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', row.name+'  '+row.type+' Step ID - '+stepID+'.csv');
             link.style.visibility = 'hidden';
             document.body.appendChild(link);
             link.click();

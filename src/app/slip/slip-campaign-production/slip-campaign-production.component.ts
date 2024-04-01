@@ -160,17 +160,12 @@ export class SlipCampaignProductionComponent implements OnInit {
     this.http.get<any>(environment.apiUrl + '/campaign/'+this.campaignID+'/slip/production').subscribe(r => { 
 
       
-      this.HighchartsOptions.series[0].data = [];
-      this.HighchartsOptions.series[1].data = [];
-
-      this.HighchartsOptions.xAxis[0].categories = this.getDates(r.first,r.last)
-
-      this.HighchartsOptions.xAxis[0].categories.forEach(element => {
-
-        this.HighchartsOptions.series[0].data.push({y:0,slips:0,sum:0,date:element,unique_containers:0,minutes:0});
-        this.HighchartsOptions.series[1].data.push({y:0,slips:0,sum:0,date:element,unique_containers:0,minutes:0});
-        
-      });
+      const dates = this.getDates(r.first, r.last);
+      this.HighchartsOptions.series[0].data = dates.map(date => ({y: 0, slips: 0, sum: 0, date, unique_containers: 0, minutes: 0}));
+      this.HighchartsOptions.series[1].data = [...this.HighchartsOptions.series[0].data];
+      this.HighchartsOptions.xAxis[0].categories = dates;
+    
+    
 
 
       this.HighchartsOptions.subtitle.text = 'Campaign '+this.campaignID+ '';

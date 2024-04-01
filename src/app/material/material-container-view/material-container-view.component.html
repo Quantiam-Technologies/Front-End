@@ -58,8 +58,22 @@
 
 
 			<mat-card appearance="outlined" id="material card" class="quantiam-mat-card" style="padding-bottom:10px !important;"   >
-						<mat-card-title style="margin:0px"  >
-							{{container.lot.material.id}} - Material Information 
+						<mat-card-title style="margin:0px"  fxLayout="row" fxLayoutAlign="space-between">
+							<div>
+
+								{{container.lot.material.id}} - Material Information 
+								<action-bar fxLayoutAlign="start center" >
+									<button mat-icon-button 		
+										
+									style="color:white;"
+									*ngIf="canEdit" 
+									(click)="openChangeMaterialDialog()" 
+									matTooltip="Change the material of this container."
+									>
+										<mat-icon >sync</mat-icon>
+									</button>
+								</action-bar > 
+							</div>
 
 								<action-bar >
 									<button mat-icon-button aria-label="Example icon-button with a heart icon"		
@@ -94,6 +108,15 @@
 								<mat-label>Supplier *</mat-label>
 								<input  type="text" matInput placeholder="Supplier *" [(ngModel)] ='container.lot.material.supplier.supplier_name' name="supplier" disabled>
 							</mat-form-field>  
+							<app-select-material-supplier 
+							style="min-width: 150px;"
+							placeholder="Supplier" 
+							[selectedValue]='container.lot.material.supplier.supplier_id' 
+							name="supplier_name"
+							[hidden]="!editMaterial"
+							(change)="changedSupplier($event)"
+							>
+					</app-select-material-supplier>
 							
 							<mat-form-field appearance="outline" fxFlex=10>
 								<mat-label>Purity</mat-label>
@@ -107,15 +130,7 @@
 							</mat-form-field>
 						
 
-							<app-select-material-supplier 
-									style="min-width: 150px;"
-									placeholder="Supplier" 
-									[selectedValue]='container.lot.material.supplier.supplier_id' 
-									name="supplier_name"
-									[hidden]="!editMaterial"
-									(change)="changedSupplier($event)"
-									>
-							</app-select-material-supplier>
+						
 							
 						
 							
@@ -140,11 +155,12 @@
 								<mat-hint> Product Number eg. "2332A-DDS2" </mat-hint>
 							</mat-form-field> --> 
 							<mat-form-field appearance="outline"  class="full-width" fxFlex fxFlex.gt-md="20" >
-								<mat-label>Formula Weight</mat-label>
+								<mat-label>Formula Weight (g/mol)</mat-label>
 								<input   #ForumlaWeight [disabled]="!editMaterial" (change)="updateMaterial(ForumlaWeight)" type="number" matInput placeholder="Formula Weight" [(ngModel)] ='container.lot.material.formula_weight' name="formula_weight" >
 							</mat-form-field>
 							<mat-form-field appearance="outline" class="full-width" fxFlex >
-								<mat-label>Density</mat-label>
+								<mat-label>Density (kg/m3)
+								</mat-label>
 								<input   #Density [disabled]="!editMaterial" (change)="updateMaterial(Density)" type="text" matInput placeholder="Density (g/ml)" [(ngModel)] ='container.lot.material.density' name="density" >
 							</mat-form-field>	
 							<!-- --> 
@@ -211,8 +227,23 @@
 			</div>
 			
 			<mat-card  appearance="outlined"  id="Container Section"  class="quantiam-mat-card" style="padding-bottom:10px !important;"   >
-			<mat-card-title style="margin:0px">
-				{{container.id}} - Container Information    
+			<mat-card-title style="margin:0px" fxLayout="row" fxLayoutAlign="space-between" >
+				<div>
+					{{container.id}} - Container Information   
+					<action-bar fxLayoutAlign="start center" >
+						<button mat-icon-button 		
+							
+						style="color:red;"
+						*ngIf="canEdit" 
+						(click)="deleteContainer()" 
+						matTooltip="Delete container"
+						>
+							<mat-icon >delete</mat-icon>
+						</button>
+					</action-bar > 
+				</div>
+				
+	
 
 				<action-bar >
 					<button mat-icon-button 		
@@ -234,15 +265,7 @@
 						<mat-icon >edit</mat-icon>
 					</button>
 					
-					<button mat-icon-button 		
-					
-					style="color:red;"
-					*ngIf="canEdit" 
-					(click)="deleteContainer()" 
-					matTooltip="Delete container"
-					>
-						<mat-icon >delete</mat-icon>
-					</button>
+				
 					
 				</action-bar>
 			</mat-card-title>		

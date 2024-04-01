@@ -105,10 +105,12 @@ export class AgGridTimesheetValueEditorComponent implements ICellEditorAngularCo
   }
 
   agInit(params: any): void {
- //   console.log(params);
+  
     this.params = params;
     this.value = params.value;
     this.oldValue = params.value;
+    //console.log(this.oldValue,this.value);
+    
 
     if (this.params.keyPress === 8) {
 
@@ -123,9 +125,9 @@ export class AgGridTimesheetValueEditorComponent implements ICellEditorAngularCo
   }
 
   getValue(): any {
-   // console.log('test');
-    if (this.value) { return '' + this.toNearest(this.value, 0.25) + ''; }
-    return '';
+   // console.log(this.value);
+    if (this.value) { return  this.toNearest(this.value, 0.25) ; }
+    return null;
   }
 
 

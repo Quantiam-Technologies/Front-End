@@ -105,8 +105,8 @@ export class MaterialContainerDatabaseComponent implements OnInit {
       },
       {
         field: 'lot.material.id',
-        width: 100,
-        hide: true,
+        width: 60,
+        hide: false,
         headerName: 'Material ID',
 
       },
@@ -172,13 +172,13 @@ export class MaterialContainerDatabaseComponent implements OnInit {
         width: 75,
         field: 'lot.material.purity',
         headerName: 'Purity (%)',
-        hide: false,
+        hide: true,
       }, 
       {
         width: 90,
         field: 'lot.material.particle_size',
         headerName: 'P. Size',
-        hide: true,
+        hide: false,
       },
       {
         width: 100,
@@ -202,6 +202,7 @@ export class MaterialContainerDatabaseComponent implements OnInit {
       {
         width: 80,
         field: 'lot.material.cas',
+        headerName: 'CAS',
         hide: true,
       },
       {
@@ -293,6 +294,96 @@ export class MaterialContainerDatabaseComponent implements OnInit {
         headerName: 'Est. Remaining',
         hide: true,
       },
+
+      {
+        width: 160,
+        //field: 'lot.material.whmis_hazard_symbols',
+        hide:true,
+        headerName: 'XRD Runs',
+        cellRenderer: (cell) => {
+
+
+          let string = '';
+
+          if(cell.data.xrd_runs.length > 0){
+
+            cell.data.xrd_runs.forEach((xrdRun,index) => {
+                if(index == 0){
+                  string = xrdRun.name;
+                }
+                else{
+
+                  string = string + ','+xrdRun.name;
+                }
+            })
+
+
+          
+          }
+
+          return string;
+          
+        }
+
+      },
+      {
+        width: 160,
+        //field: 'lot.material.whmis_hazard_symbols',
+        hide:true,
+        headerName: 'Particle Size Runs',
+        cellRenderer: (cell) => {
+          let string = '';
+
+          if(cell.data.particle_size.length > 0){
+
+            cell.data.particle_size.forEach((particlesizeRun,index) => {
+                if(index == 0){
+                  string = particlesizeRun.id;
+                }
+                else{
+
+                  string = string + ','+particlesizeRun.id;
+                }
+            })
+          
+          }
+
+          return string;
+          
+        }
+
+      },
+      {
+        width: 160,
+        hide:true,
+        field: 'sem_runs',
+        headerName: 'SEM Runs',
+ 
+        cellRenderer : (cell) => {
+
+        let string = '';
+
+        if(cell.data.sem_runs.length > 0){
+
+          cell.data.sem_runs.forEach((semRun,index) => {
+              if(index == 0){
+                string = semRun.semrun_id;
+              }
+              else{
+
+                string = string + ','+semRun.semrun_id;
+              }
+          })
+        
+        }
+
+        return string;
+
+      },
+       
+
+      },
+      
       {
         headerName: 'Documents',
         width: 200,

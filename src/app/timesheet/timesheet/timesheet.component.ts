@@ -885,14 +885,14 @@ export class TimesheetComponent implements OnInit {
     Object.keys(weekDayHours).forEach((key) => {
 
       if (weekDayHours[key] < 8 && weekDayHours[key] !== 0) {
-        console.log(test, weekendHours[key]);
+       console.log(test, weekendHours[key],weekDayHours);
         test = false;
       }
      });
-    if (!test) {
-      this.notification.error('Not Enough Hours',  'Salaried employees must have a minimum of 8 hours entered for weekdays you have worked.', {timeOut: 4000, showProgressBar: false, clickToClose: true}); /// Daily OT notificaton
-      return test;
-    }
+      if (!test) {
+        this.notification.error('Not Enough Hours',  'Salaried employees must have a minimum of 8 hours entered for weekdays you have worked.', {timeOut: 4000, showProgressBar: false, clickToClose: true}); /// Daily OT notificaton
+        return test;
+      }
 
 
       return test;

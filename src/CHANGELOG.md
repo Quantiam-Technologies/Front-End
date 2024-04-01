@@ -32,6 +32,18 @@ Change Log
   - Clear Steel Box After Selection + Adding
 
 
+- If points are over 6,000, half the data points will be dropped for the purposes of viewing a test graph.
+<br><img  style="margin:5px;" src="https://imgur.com/vrPIRVo.png" width="60%"><br>
+
+
+
+
+# 2024.03.25
+
+## Arbin Test Viewer
+
+- The dataset screen will now split exports into "Steps", saving processing time for Energy Materials
+<br><img  style="margin:5px;" src="https://imgur.com/ZaGNOdC.png" width="60%"><br>
 
 # 2024.02.27
 
@@ -45,6 +57,7 @@ Change Log
 
 ## Material Container
 
+- The delete button for a container has been moved next to "Container Information" title, this is away from the "edit" button.
 - The XRD, Particle Size and Slips now display near "Container Information", instead of near  "Material Information"
 <br><img  style="margin:5px;" src="https://imgur.com/cAsveIl.png" width="40%"><br>
 

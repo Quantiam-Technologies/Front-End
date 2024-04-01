@@ -61,12 +61,13 @@ export class MaterialHazardSymbolSelectorComponent implements OnInit {
   materialHasHazard(id) {
    // console.log(id, this.material.whmis_hazard_symbols);
       // return true;
-
+      if (typeof this.material.id !== 'undefined') 
+    {
         const check = this.material.whmis_hazard_symbols.filter((obj) => obj.id === id);
         if (check[0]) {
            return true;
         }
-
+      }
         return false;
 
   }

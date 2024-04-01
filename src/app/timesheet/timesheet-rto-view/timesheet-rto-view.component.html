@@ -36,11 +36,12 @@
                             <div  >{{rto?.user.name}} </div>
                             <div fxFlex fxLayoutAlign="center center" style="height:35px;"> <small>RTO {{rto.requestID}}</small> </div>
                             <div fxLayout="row" *ngIf="rto?.status !== 'approved'">
-                                <button  mat-icon-button style="color:green;" class="clickable" (click)="showTimeOffRequestForm = !showTimeOffRequestForm">
-                                    <mat-icon  matTooltip="Create a time off request.">add_circle</mat-icon>
+                                <button  mat-icon-button style="color:green;" class="clickable"  matTooltip="Add time off."
+                                (click)="showTimeOffRequestForm = !showTimeOffRequestForm">
+                                    <mat-icon >add_circle</mat-icon>
                                 </button>
-                                <button  mat-icon-button color="warn" class="clickable" (click)="deleteRTO()">
-                                    <mat-icon   matTooltip="Delete this entire RTO.">delete</mat-icon>
+                                <button  mat-icon-button color="warn" class="clickable" (click)="deleteRTO()" matTooltip="Delete this entire RTO request.">
+                                    <mat-icon   >delete</mat-icon>
                                 </button>
                             </div>
                         </div>
@@ -68,9 +69,8 @@
                               
                             >
                                 <td> 
-                                    <button  *ngIf="(timeRequest.date < timeRequest.created)" mat-icon-button color="info"  >
+                                    <button  *ngIf="(timeRequest.date < timeRequest.created)" mat-icon-button color="info"  matTooltip="Absence date preceeds or is on the request date.">
                                         <mat-icon aria-label="request info" style="color:orange" >history
-                                        <mat-hint>Absence date preceeds or is on request date</mat-hint>
                                         </mat-icon>
                                     </button>
 
@@ -336,6 +336,9 @@
                                             <mat-icon aria-label="Example icon-button with a heart icon" >delete</mat-icon>
                                         </button>
                                     </td>
+                                </tr>
+                                <tr *ngIf="rto?.approvals.length == 1 && rto?.status === 'pending' ">
+                                    <td colspan="4" style="text-align: center;"> <b> Requires Second Level Approval </b> </td>
                                 </tr>
                                
 
