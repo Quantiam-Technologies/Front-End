@@ -43,6 +43,7 @@ import { TimesheetLogComponent } from './timesheet-log/timesheet-log.component';
 import { CompanyInsightHoursComponent } from './timesheet-statistics/timesheet-statistics-company/company-insight-hours/company-insight-hours.component';
 import { CompanyInsightUnpaidComponent } from './timesheet-statistics/timesheet-statistics-company/company-insight-unpaid/company-insight-unpaid.component';
 import { CompanyInsightHeadcountComponent } from './timesheet-statistics/timesheet-statistics-company/company-insight-headcount/company-insight-headcount.component';
+import { AgGridTimesheetCampaignExpansionComponent } from './timesheet/ag-grid-timesheet-campaign-expansion/ag-grid-timesheet-campaign-expansion.component';
 
 @NgModule({
     imports: [
@@ -59,7 +60,7 @@ import { CompanyInsightHeadcountComponent } from './timesheet-statistics/timeshe
         NumericEditor, TimesheetIndexComponent, TimesheetComponent,
         TimesheetBankComponent, TimesheetSimpleComponent, TimesheetCalendarComponent, TimesheetRtoComponent, TimesheetRtoViewComponent,
         TimesheetProjectComponent, TimesheetHolidayComponent, TimesheetRtoAllocationComponent, TimesheetReportComponent, UserHoursComponent,
-        ProjectUserHoursComponent, UserRTOBankStatusComponent, UserAbsenceSummaryComponent, TimesheetSettingsComponent, CreateRtoDialogComponent, TimesheetStatisticsComponent, TimesheetStatisticsUserComponent, TimesheetStatisticsCompanyComponent, CreatePayoutComponent, TimesheetEquipmentComponent, TimesheetMachinesComponent, MachineUserDialogComponent, TimesheetLogComponent, CompanyInsightHoursComponent, CompanyInsightUnpaidComponent, CompanyInsightHeadcountComponent,
+        ProjectUserHoursComponent, UserRTOBankStatusComponent, UserAbsenceSummaryComponent, TimesheetSettingsComponent, CreateRtoDialogComponent, TimesheetStatisticsComponent, TimesheetStatisticsUserComponent, TimesheetStatisticsCompanyComponent, CreatePayoutComponent, TimesheetEquipmentComponent, TimesheetMachinesComponent, MachineUserDialogComponent, TimesheetLogComponent, CompanyInsightHoursComponent, CompanyInsightUnpaidComponent, CompanyInsightHeadcountComponent, AgGridTimesheetCampaignExpansionComponent,
     ]
 })
 export class TimesheetModule { }

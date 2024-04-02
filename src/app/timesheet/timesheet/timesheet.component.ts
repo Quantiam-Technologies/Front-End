@@ -5,7 +5,7 @@ import {  environment} from '../../../environments/environment';
 import {  HttpClient} from '@angular/common/http';
 import { UserService } from '../../services/user/user.service';
 import { TimesheetService } from '../timesheet.service';
-
+import { GridOptions  } from 'ag-grid-community';
  
 
 
@@ -27,6 +27,7 @@ import * as moment from 'moment';
 })
 export class TimesheetComponent implements OnInit {
 
+  
   faDownload = faDownload;
 
   updateInProgressArray = [];
@@ -58,7 +59,9 @@ export class TimesheetComponent implements OnInit {
   canChangeTimesheetUser = false;
   firstLoad = true;
   showOnlyProjectsUsed = false;
+  masterDetail = true;
 
+  
 
   rowStyle = {
 
@@ -76,6 +79,35 @@ export class TimesheetComponent implements OnInit {
     editable: true,
   };
 
+
+  gridOptions:GridOptions = {
+   // other grid options...
+    isRowMaster: (dataItem) => {
+     // console.log(dataItem.project);
+      if(dataItem.project.projectID === 7442) {     return true; };
+      return false;
+    },
+
+    detailCellRendererParams: {
+      detailGridOptions: {
+        columnDefs: [
+          {
+            field: 'bird',
+            cellRenderer: () => {
+              return '<img src="https://i.imgur.com/E9C4okf.jpeg" alt="Bird" />';
+            }
+          }
+          // other detail grid columns
+        ],
+        // other detail grid options
+      },
+      getDetailRowData: (params) => {
+        // return detail row data based on the master row
+      }
+    }
+
+ 
+  };
 
 
   autoGroupColumnDef:any = {
@@ -155,9 +187,8 @@ export class TimesheetComponent implements OnInit {
        suppressMenu: true,
        lockPosition: true,
        resizable: true,
-     //  columnGroupShow: false,
-      // rowGroup: true,
        hide: true,
+       //rowGroup:true
      }
   ];
 
@@ -306,9 +337,9 @@ export class TimesheetComponent implements OnInit {
 
 
 
-  constructTimesheet() {
+ constructTimesheet() {
 
-    // this.rowData = this.timeSheetObj.framework;
+
     this.timeSheetFramework = [];
     this.columnDefs.splice(2, 20);
 
@@ -507,6 +538,7 @@ export class TimesheetComponent implements OnInit {
 
       this.gridApi.setColumnDefs(this.columnDefs);
       this.gridApi.setRowData(this.timeSheetFramework);
+      console.log(this.timeSheetFramework);
      // setTimeout( (x)=>{ this.gridApi.sizeColumnsToFit(); },1000);
       
     }

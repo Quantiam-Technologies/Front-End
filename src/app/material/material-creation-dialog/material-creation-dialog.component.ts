@@ -49,6 +49,7 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
     materialCheckedOkay = false;
     checkIfDirectMatch = false;
     hideMaterialCheckBox = false;
+    previouslySelectedMaterialGrade;
 
     lookedForMaterial = true;
     form: UntypedFormGroup;
@@ -270,12 +271,32 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
     }
 
 
+    checkIfNewMaterial(){
+        //console.log(event);
+        if(this.previouslySelectedMaterialGrade !== this.material.grade){
+            console.log('this is different then the selected',this.previouslySelectedMaterialGrade,this.material.grade);
+            this.material.id = null;
+            this.material.slip_material_id = null;
+            this.newMaterial = false;
+           // event.returnValue
+         }else
+         {
+            console.log('this is the same',this.previouslySelectedMaterialGrade,this.material.grade);
+           this.material.grade =  this.previouslySelectedMaterialGrade;
+           this.newMaterial = true;
+
+         }
+
+    }
+
+
     selectMaterial(obj) {
 
       //  console.log(obj);
 
 
         this.selectedMaterial = obj;
+          this.previouslySelectedMaterialGrade = obj.grade;
         
         this.lot = {};
         this.selectedLot = {};
@@ -298,6 +319,9 @@ export class MaterialCreationDialogComponent implements OnInit, OnDestroy {
         this.materialFormGroup.setValue({
             firstCtrl: this.material.name,
          });
+
+
+
 
      //   console.log(this.material,this.lot,this.container);
 

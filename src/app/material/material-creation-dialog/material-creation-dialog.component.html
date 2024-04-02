@@ -117,6 +117,7 @@
 							<mat-label>Material Grade</mat-label>
 							  <input  #MaterialGrade  type="text" matInput placeholder="Grade or Product Code" 
 							  [readonly]="!supplierSelected"
+							  (blur)="checkIfNewMaterial()"
 							  [(ngModel)] ='material.grade' name="grade"   [ngModelOptions]="{standalone: true}" >
 							  	<mat-hint> Can be left blank, "MN-101", "VC-8729", "TOTAL Mn/SI" </mat-hint>
 						 </mat-form-field>

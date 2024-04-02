@@ -148,7 +148,8 @@
     [autoGroupColumnDef]="autoGroupColumnDef"
     [components]="frameworkComponents"
     [modules]="modules"
-   
+
+    [gridOptions]="gridOptions"
 
      
     (gridReady)="onGridReady($event)"
@@ -158,6 +159,8 @@
     (rowGroupOpened)="onRowGroupOpened($event)"
     (rowDataChanged)="rowDataChanged($event)"
     (rowClicked)="onRowClicked($event)"
+
+    [masterDetail]="masterDetail"
 
     [enableRangeSelection]="false"
     [suppressCellFocus]="false"
